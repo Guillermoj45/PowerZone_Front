@@ -1,0 +1,37 @@
+<ion-content class="Registrobody">
+  <ion-grid>
+    <ion-row>
+      <!--En esta columna es donde va la foto de los moviles-->
+      <ion-col size="6" class="Registrobody">
+        <div id="onichan">
+          <app-carrousel></app-carrousel>
+        </div>
+      </ion-col>
+      <!--En este es donde está el formulario de registro-->
+      <ion-col size="6" class="Registrobody">
+        <form class="subForm" [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+          <ion-img src="assets/logo.png" id="logo"></ion-img>
+          <ion-item>
+            <ion-input label="Nombre de usuario"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Correo"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Fecha de Nacimiento" type="date"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="password" label="Password" value="NeverGonnaGiveYouUp">
+              <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            </ion-input>
+          </ion-item>
+              <ion-button type="submit" expand="block">Registrarse</ion-button>
+          <div class="subForm2">
+            <ion-text>¿Ya tienes Cuenta?<span>   </span></ion-text>
+            <ion-text routerLink="/home"><b>Inicia Sesión</b></ion-text>
+          </div>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

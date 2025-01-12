@@ -1,0 +1,15 @@
+.carousel {
+  width: 80%; /* Ajusta el ancho según tus necesidades */
+  height: auto; /* Ajusta la altura automáticamente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  img {
+    width: 100%; /* Ajusta el ancho al 100% del contenedor */
+    height: 200px; /* Establece una altura fija */
+    object-fit: cover; /* Asegura que la imagen cubra el área del contenedor */
+    transition: opacity 1s ease-in-out;
+  }
+}
