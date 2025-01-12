@@ -26,6 +26,8 @@
     "@capacitor/haptics": "6.0.2",
     "@capacitor/keyboard": "6.0.3",
     "@capacitor/status-bar": "6.0.2",
+    "@cloudinary/ng": "^2.1.1",
+    "@cloudinary/url-gen": "^1.21.0",
     "@ionic/angular": "^8.0.0",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
