@@ -1,0 +1,110 @@
+.Registrobody {
+  background-color: #042f2e; /* Fondo principal */
+  color: white; /* Color del texto por defecto */
+  height: 100vh; /* Ocupa toda la altura de la pantalla */
+  justify-content: center;
+  align-items: center;
+}
+
+#onichan {
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos se apilen verticalmente */
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Habilita la manipulación de z-index */
+}
+
+#onichan2 {
+  width: 90%; /* Adjust the width as needed */
+  height: 150px; /* Adjust the height as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#onichan img {
+  position: absolute; /* Coloca la imagen encima del contenido */
+  z-index: 2; /* Asegura que esté por encima del carrusel */
+  width: 100%; /* Ajusta el ancho según sea necesario */
+  height: auto; /* Mantiene la proporción */
+}
+
+#onichan app-carrousel {
+  position: relative; /* Asegura que esté detrás de la imagen */
+  z-index: 1; /* Coloca el carrusel por debajo del marco */
+  width: 100%; /* Ajusta el ancho según tus necesidades */
+  height: auto; /* Mantiene la proporción del contenido */
+}
+
+
+.Registrobody ion-item {
+  --background: #042f2e; /* Fondo del ion-item */
+  color: white; /* Texto en blanco */
+}
+
+.Registrobody ion-input {
+  --background: #042f2e; /* Fondo del input */
+  color: white; /* Texto del input */
+}
+
+.Registrobody ion-label {
+  color: white; /* Texto del label */
+}
+
+.Registrobody ion-button {
+  --background: #68aecc; /* Fondo del botón */
+  --color: white; /* Texto del botón */
+}
+
+.subForm {
+  background-color: #042f2e; /* Fondo del formulario */
+  border: 1px solid white; /* Bordes */
+  border-radius: 5px; /* Bordes redondeados */
+  width: 60%; /* Ajusta el ancho según tus necesidades */
+  margin-top: 20px; /* Agrega margen superior */
+  padding: 10px; /* Agrega un poco de relleno interno */
+  text-align: center; /* Centra el texto */
+}
+
+.subForm2 {
+  background-color: #042f2e; /* Fondo del formulario */
+  border: 1px solid white; /* Bordes */
+  border-radius: 5px; /* Bordes redondeados */
+  width: 100%; /* Ajusta el ancho según tus necesidades */
+  margin-top: 20px; /* Agrega margen superior */
+  padding: 10px; /* Agrega un poco de relleno interno */
+  text-align: center; /* Centra el texto */
+}
+
+.subForm3 {
+  background-color: #042f2e; /* Fondo del formulario */
+  width: 100%; /* Ajusta el ancho según tus necesidades */
+  margin-top: 30px; /* Agrega margen superior */
+  padding: 10px; /* Agrega un poco de relleno interno */
+  text-align: center; /* Centra el texto */
+}
+
+.Registrobody ion-text:first-child {
+  margin-right: 10px; /* Ajusta el valor según tus necesidades */
+}
+
+#logo {
+  width: 50%; /* Ajusta el ancho según tus necesidades */
+  height: 50%; /* Ajusta la altura según tus necesidades */
+  margin: 0 auto; /* Centra el elemento */
+  display: block; /* Hace que el elemento sea un bloque */
+}
+
+ion-col:first-child {
+  display: flex;
+  justify-content: flex-end; /* Mueve el carrusel a la derecha */
+  align-items: center;
+  padding-right: 40px; /* Ajusta el valor según tus necesidades */
+}
+
+ion-col:last-child {
+  display: flex;
+  justify-content: flex-start; /* Mueve los formularios a la izquierda */
+  align-items: center;
+  padding-left: 20px; /* Ajusta el valor según tus necesidades */
+}

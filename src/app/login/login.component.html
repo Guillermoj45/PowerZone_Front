@@ -15,23 +15,21 @@
         <form class="subForm" [formGroup]="registroForm" (ngSubmit)="onSubmit()">
           <ion-img src="assets/logo.png" id="logo"></ion-img>
           <ion-item>
-            <ion-input label="Nombre de usuario"></ion-input>
-          </ion-item>
-          <ion-item>
             <ion-input label="Correo"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="Fecha de Nacimiento" type="date"></ion-input>
           </ion-item>
           <ion-item>
             <ion-input type="password" label="Password" value="NeverGonnaGiveYouUp">
               <ion-input-password-toggle slot="end"></ion-input-password-toggle>
             </ion-input>
           </ion-item>
-              <ion-button type="submit" expand="block">Registrarse</ion-button>
+          <ion-button type="submit" expand="block">Registrarse</ion-button>
           <div class="subForm2">
-            <ion-text>¿Ya tienes Cuenta?<span>   </span></ion-text>
-            <ion-text routerLink="/login"><b>Inicia Sesión</b></ion-text>
+            <ion-text>¿No tienes Cuenta?<span>   </span></ion-text>
+            <ion-text routerLink="/registro"><b>Registrate</b></ion-text>
+          </div>
+          <div class="subForm3">
+            <ion-text>¿Has olvidado tu contraseña?<span>   </span></ion-text>
+            <ion-text routerLink="/home"><b>Recuperar Cuenta</b></ion-text>
           </div>
         </form>
       </ion-col>
