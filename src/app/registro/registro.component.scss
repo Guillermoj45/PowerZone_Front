@@ -8,15 +8,34 @@
 
 #onichan {
   display: flex;
+  flex-direction: column; /* Asegura que los elementos se apilen verticalmente */
   justify-content: center;
   align-items: center;
-  max-height: 0.5rem; /* Ajusta el tamaño máximo según tus necesidades */
+  position: relative; /* Habilita la manipulación de z-index */
+}
+
+#onichan2 {
+  width: 90%; /* Adjust the width as needed */
+  height: 150px; /* Adjust the height as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#onichan img {
+  position: absolute; /* Coloca la imagen encima del contenido */
+  z-index: 2; /* Asegura que esté por encima del carrusel */
+  width: 100%; /* Ajusta el ancho según sea necesario */
+  height: auto; /* Mantiene la proporción */
 }
 
 #onichan app-carrousel {
+  position: relative; /* Asegura que esté detrás de la imagen */
+  z-index: 1; /* Coloca el carrusel por debajo del marco */
   width: 100%; /* Ajusta el ancho según tus necesidades */
   height: auto; /* Mantiene la proporción del contenido */
 }
+
 
 .Registrobody ion-item {
   --background: #042f2e; /* Fondo del ion-item */
@@ -80,11 +99,4 @@ ion-col:last-child {
   justify-content: flex-start; /* Mueve los formularios a la izquierda */
   align-items: center;
   padding-left: 20px; /* Ajusta el valor según tus necesidades */
-}
-
-@media (max-width: 768px) {
-  ion-col {
-    justify-content: center; /* Centra los elementos en pantallas pequeñas */
-    padding: 0; /* Elimina el padding en pantallas pequeñas */
-  }
 }
