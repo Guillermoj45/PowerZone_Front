@@ -1,6 +1,6 @@
 ion-grid{
-    width: 35%;
     background-color: #14B8A6;
+    height: 100%;
 }
 h1{
     color: black;
@@ -15,4 +15,8 @@ ion-item {
 }
 ion-col{
     margin: 2%;
+}
+
+ion-content {
+    height: 100%;
 }

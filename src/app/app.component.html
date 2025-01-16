@@ -1,3 +1,22 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+<ion-content fullscreen>
+    <ion-grid style="height: 100%; width: 100%;">
+        <ion-row style="height: 100%;">
+            <!-- Menú lateral -->
+            <ion-col size="3" class="ion-no-padding" style="height: 100%; display: flex; align-items: start; justify-content: start;">
+                <app-menu></app-menu>
+            </ion-col>
+
+            <!-- Contenido principal con router-outlet -->
+            <ion-col class="ion-no-padding" size="6" style="height: 100%;">
+                <ion-router-outlet></ion-router-outlet>
+            </ion-col>
+
+            <!-- Sugerencias -->
+            <ion-col class="ion-no-padding" size="3" style="height: 100%;">
+                <app-suggestions></app-suggestions>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
 </ion-app>
