@@ -7,13 +7,17 @@
                 <ion-icon aria-hidden="true" name="add" slot="start"></ion-icon><br>
                 <ion-icon aria-hidden="true" name="restaurant" slot="start"></ion-icon><br>
                 <ion-icon aria-hidden="true" name="notifications" slot="start"></ion-icon>
+
             </ion-list>
         </ion-col>
         <ion-col size="9" class="content-column">
             <ion-list>
                 <h2>Búsqueda</h2>
                 <div class="recent-list">
-                    <ion-searchbar class="custom-searchbar" show-clear-button="always" placeholder="Search"></ion-searchbar>
+                    <ion-input
+                        [clearInput]="true"
+                        placeholder="Search">
+                    </ion-input>
                     <h6>Recientes</h6>
                 </div>
                 <ion-item lines="none">
