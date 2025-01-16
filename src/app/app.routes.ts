@@ -21,5 +21,9 @@ export const routes: Routes = [
   {
     path: 'posts',
     loadComponent: () => import('./posts/posts.component').then((m) => m.PostsComponent),
+  },
+  {
+    path: 'new_post',
+    loadComponent: () => import('./new-post/new-post.component').then((m) => m.NewPostComponent),
   }
 ];
