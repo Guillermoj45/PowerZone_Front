@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CarrouselComponent} from "../carrousel/carrousel.component";
+import {CarrouselComponent} from "../../Component/carrousel/carrousel.component";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
     IonButton,
