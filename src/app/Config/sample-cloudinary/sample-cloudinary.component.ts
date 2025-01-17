@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CloudinaryModule} from "@cloudinary/ng";
 import {CloudinaryImage} from "@cloudinary/url-gen";
-import {CloudinaryService} from "../service/Cloudinary.service";
+import {CloudinaryService} from "../../Service/Cloudinary.service";
 import {IonicModule} from "@ionic/angular";
 
 
