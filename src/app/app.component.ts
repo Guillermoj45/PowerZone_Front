@@ -54,7 +54,6 @@ export class AppComponent implements OnInit {
                 this.menuSuggestionsService.setMenuVisible(true);
                 this.menuSuggestionsService.setSuggestionsVisible(true);
             }
-
         });
     }
 }

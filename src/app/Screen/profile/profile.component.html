@@ -1,22 +1,49 @@
 <ion-content>
-                <div class="hola">
-                    <ion-avatar>
-                        <img alt="Imagen perfil" src="https://picsum.photos/800/400?random=1" />
-                    </ion-avatar>
-                    <div id="contenido_perfil">
-                        <ion-item>
-                            <ion-input label="Nombre"></ion-input>
-                        </ion-item>
-                        <ion-item>
-                            <ion-input label="Email"></ion-input>
-                        </ion-item>
-                        <ion-item>
-                            <ion-input label="Fecha de nacimiento"></ion-input>
-                        </ion-item>
-                        <ion-item>
-                            <ion-input label="Default input"></ion-input>
-                        </ion-item>
-                        <ion-button expand="block" (click)="updateProfile()">Update</ion-button>
+    <div class="contenido_perfil ion-no-padding">
+        <ion-grid>
+            <ion-row style="justify-content: center">
+                <ion-avatar>
+                    <img alt="Imagen perfil" src="https://picsum.photos/800/400?random=1" />
+                </ion-avatar>
+            </ion-row>
+            <ion-row class="stats">
+                <ion-col>
+                    <div class="text-center">
+                        <ion-text>0</ion-text>
+                        <ion-text>Seguidores</ion-text>
                     </div>
+                </ion-col>
+                <ion-col>
+                    <div class="text-center">
+                        <ion-text>0</ion-text>
+                        <ion-text>Seguidos</ion-text>
+                    </div>
+                </ion-col>
+                <ion-col>
+                    <div class="text-center">
+                        <ion-text>0</ion-text>
+                        <ion-text>Publicaciones</ion-text>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-col id="contenido_perfil">
+                <ion-item>
+                    <ion-input label="Nombre"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input label="Email"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input label="Fecha de nacimiento"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input label="Default input"></ion-input>
+                </ion-item>
+                <div style="display: flex; justify-content: center">
+                    <ion-button expand="block" (click)="updateProfile()">Actualizar</ion-button>
                 </div>
+
+            </ion-col>
+        </ion-grid>
+    </div>
 </ion-content>

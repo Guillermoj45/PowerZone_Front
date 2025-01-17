@@ -1,78 +1,83 @@
-.hola {
+.contenido_perfil {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centers the avatar horizontally */
-    margin-top: 2em; /* Adds margin at the top */
-    background-color: #042f2e;
+    align-items: flex-start; /* Alinea todo el contenido a la izquierda */
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+    height: 100vh;
 }
 
 ion-avatar {
-    --size: 120px; /* Adjust the size as needed */
-    width: 120px; /* Adjust the size as needed */
-    height: 120px; /* Adjust the size as needed */
-    border-radius: 50%; /* Ensures the image is round */
-    object-fit: cover; /* Ensures the image fits well within the round container */
-}
-
-.Registrobody {
-    background-color: #042f2e; /* Fondo principal */
-    color: white; /* Color del texto por defecto */
-    height: 100vh; /* Ocupa toda la altura de la pantalla */
-    justify-content: center;
-    align-items: center;
-}
-
-ion-content,
-ion-grid,
-ion-row,
-ion-col,
-ion-card,
-ion-card-content,
-ion-item,
-ion-input,
-ion-button {
-    background-color: #042f2e; /* Sets the background color to green */
-    color: white; /* Sets the text color to white */
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px; /* Espacio debajo del avatar */
 }
 
 ion-avatar img {
-    border: 2px solid white; /* Optional: Adds a white border around the avatar image */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%; /* Hace que la imagen sea circular */
+    border: 2px solid white; /* Borde blanco */
+
 }
 
-ion-item {
-    --background: #042f2e; /* Ensures the background of ion-item is green */
-}
-
-ion-input {
-    --background: #042f2e; /* Ensures the background of ion-input is green */
-}
-
-#contenido_perfil {
-    margin-top: 30px;
-}
-
-ion-content,
-ion-grid,
-ion-row,
-ion-col,
-.hola {
-    height: 90vh; /* Ensures the content takes up the full viewport height */
+.text-center {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    background-color: #042f2e; /* Sets the background color */
-    color: white; /* Sets the text color */
+    font-size: 14px;
+    gap: 5px; /* Espacio entre el número y el texto */
+    color: white;
 }
 
-ion-avatar img {
-    border: 2px solid white; /* Optional: Adds a white border around the avatar image */
+.stats {
+    margin-top: 10px;
+    justify-content: start;
+    text-align: center;
+    gap: 10px; /* Espacio entre columnas */
+}
+
+ion-content,
+.contenido_perfil {
+    background-color: #042f2e;
+    color: white;
 }
 
 ion-item {
-    --background: #042f2e; /* Ensures the background of ion-item is green */
-    margin-bottom: 10px; /* Adds space between the inputs */
+    --background: transparent; /* Fondo transparente para ion-item */
+    --color: white; /* Color del texto */
+    margin: 5px 0; /* Espaciado entre inputs */
 }
 
 ion-input {
-    --background: #042f2e; /* Ensures the background of ion-input is green */
+    --background: transparent;
+    --placeholder-color: #b2d8d7; /* Placeholder más claro */
+    color: white;
+}
+
+ion-button {
+    --background: #279e9c; /* Color verde del botón */
+    --color: white;
+    margin-top: 20px; /* Espaciado superior */
+    width: 100%; /* Botón ancho */
+}
+
+ion-grid {
+    width: 100%; /* Asegura que el grid ocupe todo el ancho disponible */
+    margin-left: 0; /* Ajusta el margen izquierdo */
+}
+
+ion-row, ion-col {
+    justify-content: flex-start; /* Alinea el contenido de las filas y columnas a la izquierda */
+    text-align: left;
+}
+
+ion-button {
+    --background: #279e9c; /* Color verde del botón */
+    --color: white;
+    margin-top: 30px; /* Aumenta el espaciado superior */
+    width: 60%; /* Reduce el ancho del botón */
+    padding: 8px 16px; /* Ajusta el relleno interno */
 }
