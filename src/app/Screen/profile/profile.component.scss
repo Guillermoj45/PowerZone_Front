@@ -1,0 +1,78 @@
+.hola {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the avatar horizontally */
+    margin-top: 2em; /* Adds margin at the top */
+    background-color: #042f2e;
+}
+
+ion-avatar {
+    --size: 120px; /* Adjust the size as needed */
+    width: 120px; /* Adjust the size as needed */
+    height: 120px; /* Adjust the size as needed */
+    border-radius: 50%; /* Ensures the image is round */
+    object-fit: cover; /* Ensures the image fits well within the round container */
+}
+
+.Registrobody {
+    background-color: #042f2e; /* Fondo principal */
+    color: white; /* Color del texto por defecto */
+    height: 100vh; /* Ocupa toda la altura de la pantalla */
+    justify-content: center;
+    align-items: center;
+}
+
+ion-content,
+ion-grid,
+ion-row,
+ion-col,
+ion-card,
+ion-card-content,
+ion-item,
+ion-input,
+ion-button {
+    background-color: #042f2e; /* Sets the background color to green */
+    color: white; /* Sets the text color to white */
+}
+
+ion-avatar img {
+    border: 2px solid white; /* Optional: Adds a white border around the avatar image */
+}
+
+ion-item {
+    --background: #042f2e; /* Ensures the background of ion-item is green */
+}
+
+ion-input {
+    --background: #042f2e; /* Ensures the background of ion-input is green */
+}
+
+#contenido_perfil {
+    margin-top: 30px;
+}
+
+ion-content,
+ion-grid,
+ion-row,
+ion-col,
+.hola {
+    height: 90vh; /* Ensures the content takes up the full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #042f2e; /* Sets the background color */
+    color: white; /* Sets the text color */
+}
+
+ion-avatar img {
+    border: 2px solid white; /* Optional: Adds a white border around the avatar image */
+}
+
+ion-item {
+    --background: #042f2e; /* Ensures the background of ion-item is green */
+    margin-bottom: 10px; /* Adds space between the inputs */
+}
+
+ion-input {
+    --background: #042f2e; /* Ensures the background of ion-input is green */
+}
