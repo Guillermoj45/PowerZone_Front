@@ -15,7 +15,7 @@
                 <!-- Contenido principal con router-outlet -->
                 <ion-col
                     class="ion-no-padding"
-                    [attr.size]="menuVisible && suggestionsVisible ? '6' : '12'"
+                    [attr.size]="menuVisible && suggestionsVisible ? '6' : (menuVisible ? '9' : '12')"
                     style="height: 100%;"
                 >
                     <ion-router-outlet></ion-router-outlet>

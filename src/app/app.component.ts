@@ -43,9 +43,12 @@ export class AppComponent implements OnInit {
         this.router.events.subscribe(() => {
             const currentRoute = this.router.url;
 
-            // Establecer visibilidad según la ruta
+            /// Establecer visibilidad según la ruta
             if (['/login', '/registro'].includes(currentRoute)) {
                 this.menuSuggestionsService.setMenuVisible(false);
+                this.menuSuggestionsService.setSuggestionsVisible(false);
+            } else if (['/profile'].includes(currentRoute)) {
+                this.menuSuggestionsService.setMenuVisible(true);
                 this.menuSuggestionsService.setSuggestionsVisible(false);
             } else {
                 this.menuSuggestionsService.setMenuVisible(true);
