@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {MenuComponent} from "./menu/menu.component";
+import {MenuComponent} from "./Screen/menu/menu.component";
 import {IonicModule} from "@ionic/angular";
-import {SuggestionsComponent} from "./suggestions/suggestions.component";
+import {SuggestionsComponent} from "./Screen/suggestions/suggestions.component";
 
 
 @Component({

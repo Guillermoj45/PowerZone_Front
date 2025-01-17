@@ -28,6 +28,6 @@ export const routes: Routes = [
   },
     {
         path: 'notification',
-        loadComponent: () => import('./notification/notification.component').then( m => m.NotificationComponent)
+        loadComponent: () => import('./Screen/notification/notification.component').then(m => m.NotificationComponent)
     },
 ];
