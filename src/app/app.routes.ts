@@ -22,4 +22,8 @@ export const routes: Routes = [
     path: 'posts',
     loadComponent: () => import('./posts/posts.component').then((m) => m.PostsComponent),
   }
+    {
+        path: 'notification',
+        loadComponent: () => import('./notification/notification.component').then( m => m.NotificationComponent)
+    },
 ];

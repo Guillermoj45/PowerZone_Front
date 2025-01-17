@@ -1,0 +1,22 @@
+ion-grid{
+    background-color: #14B8A6;
+    height: 100%;
+}
+h1{
+    color: black;
+    font-weight: bold;
+}
+ion-item {
+    --inner-padding-top: 0;
+    --inner-padding-bottom: 0;
+    --border-width: 0;
+    --background: transparent;
+    --ion-item-background: transparent;
+}
+ion-col{
+    margin: 2%;
+}
+
+ion-content {
+    height: 100%;
+}

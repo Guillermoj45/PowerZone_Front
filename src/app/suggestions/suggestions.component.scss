@@ -1,0 +1,32 @@
+body{
+    width: 25%;
+}
+ion-grid{
+    background-color: #042F2E;
+    height: 100%;
+}
+ion-item {
+    --inner-padding-top: 0;
+    --inner-padding-bottom: 0;
+    --border-width: 0;
+    --background: transparent;
+    --ion-item-background: transparent;
+    margin-left: 5%;
+}
+ion-button{
+    color: white;
+}
+h6, h2{
+    margin-left: 8%;
+}
+ion-button{
+    color: black;
+    font-size: 70%;
+}
+ion-img{
+    width: 70%;
+    margin: auto;
+}
+
+
+

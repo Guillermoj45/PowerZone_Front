@@ -1,0 +1,18 @@
+ion-list{
+    background-color: #042F2E;
+    height: 100%;
+    padding: 30px;
+}
+ion-item {
+    --inner-padding-top: 0;
+    --inner-padding-bottom: 0;
+    --border-width: 0;
+    --background: transparent;
+    --ion-item-background: transparent;
+    margin: 10%;
+    width: 100%;
+}
+ion-grid{
+    height: 100%;
+    background-color: #042F2E;
+}
