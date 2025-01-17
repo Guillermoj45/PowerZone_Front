@@ -33,7 +33,6 @@ import {RouterModule} from "@angular/router";
     IonInputPasswordToggle,
     IonText,
     RouterModule,
-    IonHeader,
     IonImg
   ]
 })
