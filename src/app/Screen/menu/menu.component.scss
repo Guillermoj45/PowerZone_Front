@@ -26,14 +26,12 @@ ion-item {
 ion-button{
     color: white;
 }
-.custom-searchbar {
-    --background: #042F2E;
-    --color: white;
-    --placeholder-color: grey;
-    border-bottom: 2px solid white;
-    border-radius: 0;
+a{
+    color: white;
 }
-
+.menuizq a:hover ion-icon{
+    color: #00CED1; /* Cambiar a un color distinto al pasar el ratón */
+}
 
 
 

@@ -2,10 +2,10 @@ import {MenuComponent} from "./Screen/menu/menu.component";
 import {IonicModule} from "@ionic/angular";
 import {SuggestionsComponent} from "./Screen/suggestions/suggestions.component";
 import { Component, OnInit } from '@angular/core';
-import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { MenuSuggestionsService } from './Service/menusuggestionsService.service';
 import { NgIf } from '@angular/common';
+import {MenuoriginalComponent} from "./Screen/menuoriginal/menuoriginal.component";
 
 
 @Component({
@@ -15,7 +15,8 @@ import { NgIf } from '@angular/common';
         MenuComponent,
         IonicModule,
         SuggestionsComponent,
-        NgIf
+        NgIf,
+        MenuoriginalComponent
     ],
     standalone: true
 })
