@@ -12,7 +12,7 @@ import {
 } from "@ionic/angular/standalone";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgOptimizedImage} from "@angular/common";
-import {CarrouselComponent} from "../carrousel/carrousel.component";
+import {CarrouselComponent} from "../../Component/carrousel/carrousel.component";
 import {RouterModule} from "@angular/router";
 
 @Component({
@@ -25,7 +25,6 @@ import {RouterModule} from "@angular/router";
     IonGrid,
     IonCol,
     IonItem,
-    IonLabel,
     IonInput,
     IonButton,
     ReactiveFormsModule,
@@ -34,7 +33,6 @@ import {RouterModule} from "@angular/router";
     IonInputPasswordToggle,
     IonText,
     RouterModule,
-    IonHeader,
     IonImg
   ]
 })

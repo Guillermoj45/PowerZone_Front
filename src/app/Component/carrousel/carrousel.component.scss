@@ -1,6 +1,6 @@
 .carousel {
   width: 80%; /* Ajusta el ancho según tus necesidades */
-  height: auto; /* Ajusta la altura automáticamente */
+  height: 150px; /* Reduce la altura del carrusel */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,7 +8,7 @@
 
   img {
     width: 100%; /* Ajusta el ancho al 100% del contenedor */
-    height: 200px; /* Establece una altura fija */
+    height: 100%; /* Ajusta la altura al 100% del contenedor */
     object-fit: cover; /* Asegura que la imagen cubra el área del contenedor */
     transition: opacity 1s ease-in-out;
   }

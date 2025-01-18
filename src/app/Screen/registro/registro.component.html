@@ -4,7 +4,10 @@
       <!--En esta columna es donde va la foto de los moviles-->
       <ion-col size="6" class="Registrobody">
         <div id="onichan">
-          <app-carrousel></app-carrousel>
+          <img src="../../../assets/img/marco2.png" class="overlay-image">
+          <div id="onichan2">
+            <app-carrousel></app-carrousel>
+          </div>
         </div>
       </ion-col>
       <!--En este es donde está el formulario de registro-->
@@ -25,10 +28,10 @@
               <ion-input-password-toggle slot="end"></ion-input-password-toggle>
             </ion-input>
           </ion-item>
-              <ion-button type="submit" expand="block">Registrarse</ion-button>
+              <ion-button [routerLink]="['/posts']" type="submit" expand="block">Registrarse</ion-button>
           <div class="subForm2">
             <ion-text>¿Ya tienes Cuenta?<span>   </span></ion-text>
-            <ion-text routerLink="/home"><b>Inicia Sesión</b></ion-text>
+            <ion-text routerLink="/login"><b>Inicia Sesión</b></ion-text>
           </div>
         </form>
       </ion-col>

@@ -1,0 +1,13 @@
+ion-grid, ion-row {
+    height: 100vh; /* Asegura que ocupen toda la pantalla */
+}
+
+ion-col {
+    display: flex;
+    flex-direction: column; /* Para alinear los contenidos verticalmente */
+}
+
+ion-router-outlet {
+    flex: 1; /* Permite que el contenido dinámico ocupe el espacio restante */
+    display: flex;
+}

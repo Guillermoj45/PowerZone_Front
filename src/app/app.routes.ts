@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+    loadComponent: () => import('./Screen/home/home.page').then((m) => m.HomePage),
   },
   {
     path: '',
@@ -12,6 +12,22 @@ export const routes: Routes = [
   },
   {
     path: 'registro',
-    loadComponent: () => import('./registro/registro.component').then((m) => m.RegistroComponent),
-  }
+    loadComponent: () => import('./Screen/registro/registro.component').then((m) => m.RegistroComponent),
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./Screen/login/login.component').then((m) => m.LoginComponent),
+  },
+  {
+    path: 'posts',
+    loadComponent: () => import('./Screen/posts/posts.component').then((m) => m.PostsComponent),
+  },
+    {
+        path: 'notification',
+        loadComponent: () => import('./Screen/notification/notification.component').then(m => m.NotificationComponent)
+    },
+    {
+        path: 'profile',
+        loadComponent: () => import('./Screen/profile/profile.component').then(m => m.ProfileComponent)
+    }
 ];

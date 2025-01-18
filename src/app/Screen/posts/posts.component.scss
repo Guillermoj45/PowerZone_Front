@@ -1,0 +1,78 @@
+:host {
+  display: block;
+  background-color: #002b36; /* Fondo oscuro */
+  color: white;
+  padding: 10px;
+}
+
+.post-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.post {
+  background-color: #073642; /* Fondo del post */
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.username {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.post-image ion-img {
+  border-radius: 10px;
+  width: 100%;
+  height: auto;
+}
+
+.post-description {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #99f6e4;
+  font-size: 14px;
+}
+
+.highlighted-comment {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  background-color: #99f6e4; /* Fondo del comentario destacado */
+  color: #073642;
+  border-radius: 10px;
+  padding: 10px;
+  gap: 10px;
+}
+
+.comment {
+  font-size: 14px;
+}
+.scroll-container {
+  max-height: 100vh; /* Ajusta la altura máxima según tus necesidades */
+  overflow-y: auto; /* Habilita el desplazamiento vertical */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari y Opera */
+}
