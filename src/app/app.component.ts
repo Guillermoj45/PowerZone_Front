@@ -6,6 +6,7 @@ import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { MenuSuggestionsService } from "./Service/menusuggestionsService.service";
 import { NgIf } from "@angular/common";
 import { MenuoriginalComponent } from "./Screen/menuoriginal/menuoriginal.component";
+import {FooterComponent} from "./Screen/footer/footer.component";
 
 @Component({
     selector: "app-root",
@@ -16,6 +17,7 @@ import { MenuoriginalComponent } from "./Screen/menuoriginal/menuoriginal.compon
         SuggestionsComponent,
         NgIf,
         MenuoriginalComponent,
+        FooterComponent,
     ],
     standalone: true,
 })
@@ -24,6 +26,7 @@ export class AppComponent implements OnInit {
     suggestionsVisible = true;
     useAlternateMenu: boolean = false;
     headerVisible = true;
+    footerVisible = true;
 
     constructor(
         private menuSuggestionsService: MenuSuggestionsService,
@@ -39,6 +42,7 @@ export class AppComponent implements OnInit {
     updateViewBasedOnScreenSize() {
         this.menuVisible = window.innerWidth > 1000;
         this.headerVisible = window.innerWidth < 1000;
+        this.footerVisible = window.innerWidth < 1000;
     }
 
     closeHamburgerMenuIfNeeded() {

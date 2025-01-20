@@ -1,0 +1,16 @@
+.custom-footer {
+    --background: #007875; /* Usamos la variable CSS de Ionic para cambiar el fondo */
+}
+
+.footer-images {
+    display: flex;
+    justify-content: center; /* Las imágenes estarán centradas */
+    gap: 5%; /* Controlamos el espacio entre las imágenes */
+    align-items: center; /* Alinea las imágenes verticalmente al centro */
+}
+
+ion-icon {
+    color: black;
+}
+
+
