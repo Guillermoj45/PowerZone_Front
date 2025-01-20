@@ -1,3 +1,19 @@
-<p>
-  admin works!
-</p>
+<h1>Reportes de usuarios</h1>
+<ion-content>
+  <ion-list>
+    @for (report of reports; track report; let index = $index) {
+    <ion-item>
+      <ion-avatar slot="start">
+        <img [src]="'https://picsum.photos/80/80?random=' + index" alt="avatar" />
+      </ion-avatar>
+      <div style="display: block">
+        <ion-label>Reporte de {{ report.userReporter }} hacia {{ report.userReported }}</ion-label>
+        <ion-label>Motivo: {{ report.reportReason }}</ion-label>
+      </div>
+    </ion-item>
+    }
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
