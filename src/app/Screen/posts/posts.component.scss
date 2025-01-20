@@ -76,3 +76,9 @@
 .scroll-container::-webkit-scrollbar {
   display: none; /* Chrome, Safari y Opera */
 }
+/* Para pantallas pequeñas */
+@media (max-width: 1000px) {
+    .movil{
+        margin-top: 20%;
+    }
+}
