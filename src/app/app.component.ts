@@ -2,7 +2,7 @@ import {MenuComponent} from "./Screen/menu/menu.component";
 import {IonicModule} from "@ionic/angular";
 import {SuggestionsComponent} from "./Screen/suggestions/suggestions.component";
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuSuggestionsService } from './Service/menusuggestionsService.service';
 import { NgIf } from '@angular/common';
 import {MenuoriginalComponent} from "./Screen/menuoriginal/menuoriginal.component";
@@ -23,13 +23,21 @@ import {MenuoriginalComponent} from "./Screen/menuoriginal/menuoriginal.componen
 export class AppComponent implements OnInit {
     menuVisible = true;
     suggestionsVisible = true;
+    useAlternateMenu: boolean = false;
 
     constructor(
         private menuSuggestionsService: MenuSuggestionsService,
-        private router: Router
+        private router: Router,
+        private route: ActivatedRoute
     ) {}
 
     ngOnInit() {
+
+        this.router.events.subscribe(() => {
+            const currentUrl = this.router.url; // Obtener la URL actual
+            this.useAlternateMenu = currentUrl === '/notification'; // Cambiar menú si es '/notification'
+        });
+
         // Suscribirse a los cambios de visibilidad
         this.menuSuggestionsService.menuVisible$.subscribe((visible) => {
             this.menuVisible = visible;
