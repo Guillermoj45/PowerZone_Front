@@ -30,4 +30,8 @@ export const routes: Routes = [
         path: 'profile',
         loadComponent: () => import('./Screen/profile/profile.component').then(m => m.ProfileComponent)
     },
+    {
+        path: 'chat',
+        loadComponent: () => import('./Screen/chat/chat.component').then(m => m.ChatComponent)
+    },
 ];
