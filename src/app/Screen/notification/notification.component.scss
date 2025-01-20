@@ -20,3 +20,11 @@ ion-col{
 ion-content {
     height: 100%;
 }
+
+
+/* Para pantallas pequeñas */
+@media (max-width: 1000px) {
+    .movil{
+        margin-top: 20%;
+    }
+}

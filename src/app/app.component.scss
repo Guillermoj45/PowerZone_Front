@@ -12,3 +12,30 @@ ion-router-outlet {
     display: flex;
 }
 
+
+/* Menú lateral fijo (pantallas grandes) */
+ion-col.menuizq-column {
+    display: block;
+    background-color: #ffffff;
+    color: black;
+    overflow-y: auto;
+}
+
+/* Iconos y enlaces en el menú */
+ion-col.menuizq-column ion-icon {
+    font-size: 24px;
+    margin: 16px 0;
+}
+
+ion-col.menuizq-column a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Para pantallas pequeñas */
+@media (max-width: 1000px) {
+    ion-col.menuizq-column {
+        display: none;
+    }
+}
+

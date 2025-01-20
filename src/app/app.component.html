@@ -1,38 +1,95 @@
 <ion-app>
-    <ion-content fullscreen>
-        <ion-grid class="ion-no-padding" style="height: 100%; width: 100%;">
-            <ion-row style="height: 100%;">
-                <!-- Menú lateral -->
-                <ion-col
-                    *ngIf="menuVisible"
-                    size="3"
-                    class="ion-no-padding"
-                    style="height: 100%; display: flex; align-items: start; justify-content: start;"
-                >
-                    <!-- Mostrar el menú dinámicamente -->
-                    <app-menu *ngIf="useAlternateMenu"></app-menu>
-                    <app-menuoriginal *ngIf="!useAlternateMenu"></app-menuoriginal>
-                </ion-col>
+    <!-- Menú lateral fijo para pantallas grandes -->
+    <ion-grid class="ion-no-padding" style="height: 100%; width: 100%;">
+        <ion-row style="height: 100%;">
+            <ion-col
+                *ngIf="menuVisible"
+                size="3"
+                class="menuizq-column ion-no-padding"
+                style="height: 100%;"
+            >
+                <app-menu *ngIf="useAlternateMenu"></app-menu>
+                <app-menuoriginal *ngIf="!useAlternateMenu"></app-menuoriginal>
+            </ion-col>
 
-                <!-- Contenido principal con router-outlet -->
-                <ion-col
-                    class="ion-no-padding"
-                    [attr.size]="menuVisible && suggestionsVisible ? '6' : (menuVisible ? '9' : '12')"
-                    style="height: 100%;"
-                >
-                    <ion-router-outlet></ion-router-outlet>
-                </ion-col>
+            <!-- Contenido principal -->
+            <ion-col
+                class="ion-no-padding content-column"
+                [attr.size]="menuVisible && suggestionsVisible ? '6' : (menuVisible ? '9' : '12')"
+                style="height: 100%;"
+            >
+                <div class="ion-page" id="main-content">
+                    <ion-header *ngIf="headerVisible">
+                        <ion-toolbar>
+                            <ion-buttons slot="start">
+                                <!-- Botón de menú hamburguesa solo en pantallas pequeñas -->
+                                <ion-menu-button *ngIf="!menuVisible"></ion-menu-button>
+                            </ion-buttons>
+                            <ion-title>PowerZone</ion-title>
+                        </ion-toolbar>
+                    </ion-header>
+                    <ion-content fullscreen>
+                        <ion-router-outlet></ion-router-outlet>
+                    </ion-content>
+                </div>
+            </ion-col>
 
-                <!-- Sugerencias -->
-                <ion-col
-                    *ngIf="suggestionsVisible"
-                    size="3"
-                    class="ion-no-padding"
-                    style="height: 100%;"
-                >
-                    <app-suggestions></app-suggestions>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </ion-content>
+            <!-- Sugerencias -->
+            <ion-col
+                *ngIf="suggestionsVisible"
+                size="3"
+                class="ion-no-padding"
+                style="height: 100%;"
+            >
+                <app-suggestions></app-suggestions>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <!-- Menú hamburguesa para pantallas pequeñas -->
+    <ion-menu *ngIf="!menuVisible" contentId="main-content" side="start" type="overlay">
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>Menú</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ion-list>
+                <ion-item>
+                    <a style="color: white; text-decoration: none;" href="/home">
+                        <ion-icon name="home" slot="start"></ion-icon>
+                        Inicio
+                    </a>
+                </ion-item>
+
+                <ion-item>
+                    <a style="color: white; text-decoration: none;" href="/search">
+                        <ion-icon name="search" slot="start"></ion-icon>
+                        Búsqueda
+                    </a>
+                </ion-item>
+
+                <ion-item>
+                    <a style="color: white; text-decoration: none;" href="/add">
+                        <ion-icon name="add" slot="start"></ion-icon>
+                        Añadir
+                    </a>
+                </ion-item>
+
+                <ion-item>
+                    <a style="color: white; text-decoration: none;" href="/restaurant">
+                        <ion-icon name="restaurant" slot="start"></ion-icon>
+                        Restaurante
+                    </a>
+                </ion-item>
+
+                <ion-item>
+                    <a style="color: white; text-decoration: none;" href="/notification">
+                        <ion-icon name="notifications" slot="start"></ion-icon>
+                        Notificaciones
+                    </a>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-menu>
 </ion-app>
