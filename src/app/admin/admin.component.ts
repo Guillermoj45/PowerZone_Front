@@ -13,6 +13,9 @@ import { Report } from '../Models/Report';
 })
 export class AdminComponent  implements OnInit {
   reports: Report[] = [];
+  revisables: Report[] = [];
+  avisados: Report[] = [];
+  suspendidos: Report[] = [];
 
   ngOnInit() {
     this.generateItems();
