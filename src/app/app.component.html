@@ -12,12 +12,11 @@
                 <app-menuoriginal *ngIf="!useAlternateMenu"></app-menuoriginal>
             </ion-col>
 
+
             <!-- Contenido principal -->
             <ion-col
                 class="ion-no-padding content-column"
-                [attr.size]="menuVisible && suggestionsVisible ? '6' : (menuVisible ? '9' : '12')"
-                style="height: 100%;"
-            >
+                style="height: 100%;">
                 <div class="ion-page" id="main-content">
                     <ion-header *ngIf="headerVisible">
                         <ion-toolbar style="--background: transparent">
