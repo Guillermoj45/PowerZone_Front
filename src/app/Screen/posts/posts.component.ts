@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {IonicModule} from "@ionic/angular";
+import {IonicModule, ModalController} from "@ionic/angular";
 import {CommonModule, NgForOf, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {addIcons} from "ionicons";
 import {bookmark, chatbubble, heart, shareSocial} from "ionicons/icons";
-import {SearchComponent} from "../../search/search.component";
+import {SearchComponent} from "../../Component/search/search.component";
 import {FormsModule} from "@angular/forms";
 import {SearchVisibilityService} from "../../Service/search-visibility";
-
+import {NewPostComponent} from "../../new-post/new-post.component";
 
 
 @Component({
@@ -78,7 +78,7 @@ export class PostsComponent implements OnInit {
   ];
 
 
-    constructor(private searchVisibilityService: SearchVisibilityService) {
+    constructor(private modalController: ModalController, private searchVisibilityService: SearchVisibilityService) {
         addIcons({ bookmark, heart, chatbubble, shareSocial });
     }
 
