@@ -100,3 +100,16 @@ ion-col:last-child {
   align-items: center;
   padding-left: 20px; /* Ajusta el valor según tus necesidades */
 }
+
+@media (max-width: 1000px) {
+    .Registrobody ion-col:first-child {
+        display: none;
+    }
+    .subForm {
+        background-color: #042f2e; /* Fondo del formulario */
+        border: 0; /* Bordes */
+        width: 100%; /* Ajusta el ancho según tus necesidades */
+        margin-top: 20px; /* Agrega margen superior */
+        text-align: center; /* Centra el texto */
+    }
+}
