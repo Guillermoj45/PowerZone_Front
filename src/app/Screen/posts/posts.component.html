@@ -21,22 +21,22 @@
 
     <!-- Acciones del Post -->
     <ion-col size="12" class="post-actions">
-      <ion-button fill="clear" class="action-button" (click)="likePost(post)">
-        <ion-icon name="heart-outline"></ion-icon>
-        <span>{{ post.likes }}</span>
-      </ion-button>
+        <ion-button fill="clear" class="action-button" (click)="likePost(post)">
+            <ion-icon name="heart"></ion-icon>
+            <span>{{ post.likes }}</span>
+        </ion-button>
       <ion-button fill="clear" class="action-button">
-        <ion-icon name="chatbubble-outline"></ion-icon>
+        <ion-icon name="chatbubble" ></ion-icon>
         <span>{{ post.comments }}</span>
       </ion-button>
       <ion-button fill="clear" class="action-button">
-        <ion-icon name="bookmark-outline"></ion-icon>
+        <ion-icon name="bookmark" ></ion-icon>
       </ion-button>
     </ion-col>
 
     <!-- Comentario Destacado -->
     <ion-col size="12" class="highlighted-comment">
-      <ion-avatar slot="start">
+      <ion-avatar slot="start" >
         <img ngSrc="post.highlightedComment.avatar" alt="Avatar del comentario" fill/>
       </ion-avatar>
       <span class="comment">

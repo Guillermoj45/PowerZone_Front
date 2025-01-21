@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {CommonModule, NgForOf, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
+import {addIcons} from "ionicons";
+import {bookmark, chatbubble, heart, shareSocial} from "ionicons/icons";
+
 
 
 @Component({
@@ -15,6 +18,7 @@ import {RouterLink} from "@angular/router";
     CommonModule,
     NgOptimizedImage,
     RouterLink,
+
 
   ]
 })
@@ -64,7 +68,10 @@ export class PostsComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor() {
+
+      addIcons({ bookmark, heart, chatbubble, shareSocial });
+  }
 
   ngOnInit(): void {}
 
