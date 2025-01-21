@@ -4,6 +4,9 @@ import {CommonModule, NgForOf, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {addIcons} from "ionicons";
 import {bookmark, chatbubble, heart, shareSocial} from "ionicons/icons";
+import {SearchComponent} from "../../search/search.component";
+import {FormsModule} from "@angular/forms";
+import {SearchVisibilityService} from "../../Service/search-visibility";
 
 
 
@@ -12,18 +15,24 @@ import {bookmark, chatbubble, heart, shareSocial} from "ionicons/icons";
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss'],
   standalone: true,
-  imports: [
-    IonicModule,
-    NgForOf,
-    CommonModule,
-    NgOptimizedImage,
-    RouterLink,
+    imports: [
+        IonicModule,
+        NgForOf,
+        CommonModule,
+        NgOptimizedImage,
+        RouterLink,
+        SearchComponent,
+        FormsModule,
 
 
-  ]
+    ]
 })
 export class PostsComponent implements OnInit {
-  posts = [
+
+    searchText: string = '';
+    showSearch: boolean = false;
+
+    posts = [
     {
       id: 1,
       username: 'Sara',
@@ -68,13 +77,16 @@ export class PostsComponent implements OnInit {
     },
   ];
 
-  constructor() {
 
-      addIcons({ bookmark, heart, chatbubble, shareSocial });
-  }
+    constructor(private searchVisibilityService: SearchVisibilityService) {
+        addIcons({ bookmark, heart, chatbubble, shareSocial });
+    }
 
-  ngOnInit(): void {}
-
+    ngOnInit(): void {
+        this.searchVisibilityService.searchVisibility$.subscribe(visible => {
+            this.showSearch = visible;
+        });
+    }
   likePost(post: any) {
     console.log(`Liked post: ${post.username}`);
   }
