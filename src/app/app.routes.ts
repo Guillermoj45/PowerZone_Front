@@ -38,4 +38,8 @@ export const routes: Routes = [
         path: 'menuoriginal',
         loadComponent: () => import('./Screen/menuoriginal/menuoriginal.component').then(m => m.MenuoriginalComponent)
     },
+  {
+    path: 'post-details',
+    loadComponent: () => import('./Screen/post-details/post-details.component').then((m) => m.PostDetailsComponent),
+  },
 ];
