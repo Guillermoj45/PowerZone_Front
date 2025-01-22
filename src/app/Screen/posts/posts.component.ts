@@ -35,7 +35,7 @@ export class PostsComponent implements OnInit {
     {
       id: 1,
       username: 'Sara',
-      userAvatar: 'https://picsum.photos/100/100?random=1',
+      userAvatar: 'https://picsum.photos/800/400?random=1',
       image: 'https://picsum.photos/800/400?random=1',
       description: 'Aquí con mi gymster',
       likes: '10mil',
