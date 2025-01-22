@@ -7,6 +7,7 @@ import { MenuSuggestionsService } from "./Service/menusuggestionsService.service
 import {NgClass, NgIf} from "@angular/common";
 import { MenuoriginalComponent } from "./Screen/menuoriginal/menuoriginal.component";
 import {FooterComponent} from "./Screen/footer/footer.component";
+import {Menu} from "./Service/Menu.service";
 
 @Component({
     selector: "app-root",
@@ -32,7 +33,8 @@ export class AppComponent implements OnInit {
     constructor(
         private menuSuggestionsService: MenuSuggestionsService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private menuService: Menu
     ) {}
 
     @HostListener("window:resize", ["$event"])
@@ -57,7 +59,6 @@ export class AppComponent implements OnInit {
         this.footerVisible = screenWidth < 1000 && !isAuthRoute;
     }
 
-
     closeHamburgerMenuIfNeeded() {
         // Ocultar el menú hamburguesa en pantallas pequeñas al navegar
         if (window.innerWidth < 1000) {
@@ -68,6 +69,10 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         // Configuración inicial basada en el tamaño de pantalla
         this.updateViewBasedOnScreenSize();
+
+        this.menuService.useAlternateMenu$.subscribe((useAlternateMenu) => {
+            this.useAlternateMenu = useAlternateMenu;
+        });
 
         // Escuchar eventos de navegación
         this.router.events.subscribe((event) => {
@@ -95,6 +100,11 @@ export class AppComponent implements OnInit {
         this.menuSuggestionsService.suggestionsVisible$.subscribe((visible) => {
             this.suggestionsVisible = visible;
         });
+    }
+
+    // Método para alternar entre los menús
+    toggleMenu() {
+        this.useAlternateMenu = true; // Cambiar a <app-menu>
     }
 
 }

@@ -6,6 +6,8 @@ import {Router} from "@angular/router";
 import {SearchComponent} from "../../Component/search/search.component";
 import { SearchVisibilityService } from '../../Service/search-visibility';
 import {NewPostComponent} from "../../new-post/new-post.component";
+import {NgIf} from "@angular/common";
+import {Menu} from "../../Service/Menu.service";
 
 @Component({
     selector: 'app-menuoriginal',
@@ -14,26 +16,33 @@ import {NewPostComponent} from "../../new-post/new-post.component";
     standalone: true,
     imports: [
         IonicModule,
-        SearchComponent
+        SearchComponent,
+        NgIf
     ]
 })
 export class MenuoriginalComponent  implements OnInit {
-    showSearch: any;
 
-    constructor(private modalController: ModalController, private router: Router, private searchVisibilityService: SearchVisibilityService) {
+    constructor(private modalController: ModalController,
+                private router: Router,
+                private searchVisibilityService: SearchVisibilityService,
+                private menuService: Menu) {
         addIcons({ home, search, add, restaurant, notifications, closeCircle });
     }
+
+    toggleMenu() {
+        this.menuService.toggleMenu();
+    }
+
     async openAddPostModal() {
         const modal = await this.modalController.create({
             component: NewPostComponent
         } as ModalOptions);
         await modal.present();
     }
+
   ngOnInit() {}
 
-    toggleSearch() {
-        this.searchVisibilityService.toggleSearchVisibility();
-    }
+
     navigateTo(path: string) {
         this.router.navigate([path]);
     }

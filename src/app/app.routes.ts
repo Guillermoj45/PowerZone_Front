@@ -34,4 +34,8 @@ export const routes: Routes = [
         path: 'chat',
         loadComponent: () => import('./Screen/chat/chat.component').then(m => m.ChatComponent)
     },
+    {
+        path: 'menuoriginal',
+        loadComponent: () => import('./Screen/menuoriginal/menuoriginal.component').then(m => m.MenuoriginalComponent)
+    },
 ];

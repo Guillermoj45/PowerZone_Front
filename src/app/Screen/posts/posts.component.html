@@ -1,7 +1,6 @@
 <ion-grid class="ion-no-padding post-container movil">
   <div class="scroll-container">
       <!-- search.component.html -->
-      <ion-searchbar *ngIf="showSearch" [(ngModel)]="searchText" debounce="300" placeholder="Buscar..."></ion-searchbar>
       <ion-row *ngFor="let post of posts" class="post">
     <!-- Avatar y Nombre de Usuario -->
     <ion-col size="12" class="user-info">
