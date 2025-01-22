@@ -1,11 +1,17 @@
-<ion-content>
-    <div class="contenido_perfil ion-no-padding">
-        <ion-grid style="margin-top: 7%">
-            <ion-row class="movil" style="justify-content: center">
-                <ion-avatar>
-                    <img alt="Imagen perfil" src="https://picsum.photos/800/400?random=1" />
-                </ion-avatar>
+<ion-content (ionScroll)="onScroll($event)">
+    <div class="contenido_perfil ion-no-padding" [class.hidden]="isHeaderHidden">
+        <ion-grid style="margin-top: 5%">
+            <!-- Avatar row -->
+            <ion-row class="movil" style="justify-content: center; margin-bottom: 10px">
+                <ion-col style="display: flex; align-items: center">
+                    <ion-avatar>
+                        <img alt="Imagen perfil" src="https://picsum.photos/800/400?random=1" />
+                    </ion-avatar>
+                    <ion-text style="padding-left: 7%">Guillermo</ion-text>
+                </ion-col>
             </ion-row>
+
+            <!-- Stats row -->
             <ion-row class="stats">
                 <ion-col>
                     <div class="text-center">
@@ -26,25 +32,16 @@
                     </div>
                 </ion-col>
             </ion-row>
-            <ion-row style="justify-content: center;">
-                <ion-col id="contenido_perfil" size="8">
-                    <ion-item>
-                        <ion-input label="Nombre"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-input label="Email"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-input label="Fecha de nacimiento"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-input label="Default input"></ion-input>
-                    </ion-item>
-                    <div style="display: flex; justify-content: center">
-                        <ion-button expand="block" (click)="updateProfile()">Actualizar</ion-button>
-                    </div>
-                </ion-col>
-            </ion-row>
         </ion-grid>
     </div>
+
+    <!-- Image Grid -->
+    <div class="image-grid">
+        <img *ngFor="let item of items; let i = index" [src]="'https://picsum.photos/100/100?random=' + i" alt="Imagen {{ i }}" />
+    </div>
+
+    <!-- Infinite Scroll -->
+    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
