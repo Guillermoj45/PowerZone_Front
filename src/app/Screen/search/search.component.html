@@ -1,0 +1,24 @@
+<ion-content >
+  <div >
+    <div>
+      <ion-icon name="search" ></ion-icon>
+      <ion-input
+        type="text"
+        placeholder="Buscar..."
+      ></ion-input>
+    </div>
+  </div>
+
+  <ion-list>
+    <ion-list-header >Recientes</ion-list-header>
+    <ion-item *ngFor="let user of users" lines="none" style="--background: transparent;">
+      <ion-avatar slot="start">
+        <img [src]="user.avatar" />
+      </ion-avatar>
+      <ion-label style="color: white;">{{ user.name }}</ion-label>
+      <ion-button slot="end" fill="clear" (click)="removeUser(user)">
+        <ion-icon name="close-circle" style="color: white;"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

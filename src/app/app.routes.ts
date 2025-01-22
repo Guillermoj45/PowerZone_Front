@@ -42,4 +42,8 @@ export const routes: Routes = [
     path: 'post-details',
     loadComponent: () => import('./Screen/post-details/post-details.component').then((m) => m.PostDetailsComponent),
   },
+  {
+    path: 'search',
+    loadComponent: () => import('./Screen/search/search.component').then((m) => m.SearchComponent),
+  },
 ];

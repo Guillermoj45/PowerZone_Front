@@ -3,13 +3,19 @@
     background-color: #042F2E; /* Fondo oscuro */
     color: white;
     padding: 10px;
+    height: 100vh;
 }
 
 .post-container {
+  background-color: #042F2E;
     max-width: 100%;
     margin: 0 auto;
+  height: 100vh;
+  overflow-y: auto;
 }
-
+ion-grid {
+  padding: 0; /* Elimina paddings predeterminados */
+}
 .post {
     background-color: #6fb3a6; /* Fondo del post */
     border-radius: 10px;

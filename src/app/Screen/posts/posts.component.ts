@@ -4,7 +4,7 @@ import {CommonModule, NgForOf, NgOptimizedImage} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import {addIcons} from "ionicons";
 import {bookmark, chatbubble, heart, shareSocial} from "ionicons/icons";
-import {SearchComponent} from "../../Component/search/search.component";
+import {SearchComponent} from "../search/search.component";
 import {FormsModule} from "@angular/forms";
 import {SearchVisibilityService} from "../../Service/search-visibility";
 import {NewPostComponent} from "../new-post/new-post.component";
@@ -27,8 +27,7 @@ import {NewPostComponent} from "../new-post/new-post.component";
 })
 export class PostsComponent implements OnInit {
 
-    searchText: string = '';
-    showSearch: boolean = false;
+
     viewPostDetails(post: any) {
         this.router.navigate(['/post-details'], { state: { post } });
     }
@@ -83,9 +82,7 @@ export class PostsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.searchVisibilityService.searchVisibility$.subscribe(visible => {
-            this.showSearch = visible;
-        });
+
     }
   likePost(post: any) {
     console.log(`Liked post: ${post.username}`);
