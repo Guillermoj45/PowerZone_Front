@@ -18,13 +18,15 @@
                 style="height: 100%;">
                 <div class="ion-page" id="main-content">
                     <ion-header *ngIf="headerVisible">
-                        <ion-toolbar style="--background: transparent">
+                        <ion-toolbar [style.--background]="isChatRoute ? '#272727FF' : 'transparent'">
                             <ion-buttons slot="start">
                                 <!-- Botón de menú hamburguesa solo en pantallas pequeñas -->
                                 <ion-menu-button *ngIf="!menuVisible"></ion-menu-button>
                             </ion-buttons>
                             <ion-title>PowerZone</ion-title>
                         </ion-toolbar>
+
+
                     </ion-header>
                     <ion-content fullscreen>
                         <ion-router-outlet></ion-router-outlet>
@@ -54,28 +56,28 @@
         <ion-content>
             <ion-list>
                 <ion-item>
-                    <a style="color: white; text-decoration: none;" href="/home">
+                    <a style="color: white; text-decoration: none;" href="/posts">
                         <ion-icon name="home" slot="start"></ion-icon>
                         Inicio
                     </a>
                 </ion-item>
 
                 <ion-item>
-                    <a style="color: white; text-decoration: none;" href="/search">
+                    <a style="color: white; text-decoration: none;" href="/posts">
                         <ion-icon name="search" slot="start"></ion-icon>
                         Búsqueda
                     </a>
                 </ion-item>
 
                 <ion-item>
-                    <a style="color: white; text-decoration: none;" href="/add">
+                    <a style="color: white; text-decoration: none;" href="/posts">
                         <ion-icon name="add" slot="start"></ion-icon>
                         Añadir
                     </a>
                 </ion-item>
 
                 <ion-item>
-                    <a style="color: white; text-decoration: none;" href="/restaurant">
+                    <a style="color: white; text-decoration: none;" href="/posts">
                         <ion-icon name="restaurant" slot="start"></ion-icon>
                         Restaurante
                     </a>
