@@ -7,7 +7,7 @@ import {bookmark, chatbubble, heart, shareSocial} from "ionicons/icons";
 import {SearchComponent} from "../../Component/search/search.component";
 import {FormsModule} from "@angular/forms";
 import {SearchVisibilityService} from "../../Service/search-visibility";
-import {NewPostComponent} from "../../new-post/new-post.component";
+import {NewPostComponent} from "../new-post/new-post.component";
 
 
 @Component({
