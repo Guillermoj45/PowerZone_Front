@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
+import {Post} from "../../Models/Post";
 
 @Component({
     selector: 'app-post-details',
@@ -11,12 +12,15 @@ import { IonicModule } from '@ionic/angular';
     imports: [CommonModule, IonicModule]
 })
 export class PostDetailsComponent implements OnInit {
-  post: any;
+  post: Post = new Post();
 
-  constructor(private router: Router) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.post = history.state.post;
+    this.route.paramMap.subscribe(params => {
+      let idPost:number = parseInt(params.get('id') || '0', 10);
+    });
+    console.log(this.post);
   }
 
 
