@@ -3,7 +3,7 @@ import {IonicModule, ModalController, ModalOptions} from "@ionic/angular";
 import { addIcons } from "ionicons";
 import { home, search, add, restaurant, notifications, closeCircle } from "ionicons/icons";
 import {Router} from "@angular/router";
-import {SearchComponent} from "../../Component/search/search.component";
+import {SearchComponent} from "../search/search.component";
 import { SearchVisibilityService } from '../../Service/search-visibility';
 import {NewPostComponent} from "../../new-post/new-post.component";
 import {NgIf} from "@angular/common";

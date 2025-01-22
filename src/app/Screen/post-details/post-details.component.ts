@@ -11,11 +11,13 @@ import { IonicModule } from '@ionic/angular';
     imports: [CommonModule, IonicModule]
 })
 export class PostDetailsComponent implements OnInit {
-    post: any;
+  post: any;
 
-    constructor(private router: Router) { }
+  constructor(private router: Router) { }
 
-    ngOnInit(): void {
-        this.post = history.state.post;
-    }
+  ngOnInit(): void {
+    this.post = history.state.post;
+  }
+
+
 }
