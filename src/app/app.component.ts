@@ -4,10 +4,10 @@ import { SuggestionsComponent } from "./Screen/suggestions/suggestions.component
 import { AfterViewInit, Component, HostListener, OnInit } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { MenuSuggestionsService } from "./Service/menusuggestionsService.service";
-import {NgClass, NgIf} from "@angular/common";
+import { NgClass, NgIf } from "@angular/common";
 import { MenuoriginalComponent } from "./Screen/menuoriginal/menuoriginal.component";
-import {FooterComponent} from "./Screen/footer/footer.component";
-import {Menu} from "./Service/Menu.service";
+import { FooterComponent } from "./Screen/footer/footer.component";
+import { Menu } from "./Service/Menu.service";
 
 @Component({
     selector: "app-root",
@@ -19,7 +19,6 @@ import {Menu} from "./Service/Menu.service";
         NgIf,
         MenuoriginalComponent,
         FooterComponent,
-        NgClass,
     ],
     standalone: true,
 })
@@ -29,6 +28,7 @@ export class AppComponent implements OnInit {
     useAlternateMenu: boolean = false;
     headerVisible = true;
     footerVisible = true;
+    isChatRoute = false; // Propiedad para verificar si estás en /chat
 
     constructor(
         private menuSuggestionsService: MenuSuggestionsService,
@@ -40,23 +40,6 @@ export class AppComponent implements OnInit {
     @HostListener("window:resize", ["$event"])
     onResize(event: any) {
         this.updateViewBasedOnScreenSize();
-    }
-
-    updateViewBasedOnScreenSize() {
-        const screenWidth = window.innerWidth;
-        const isAuthRoute = ["/login", "/registro"].includes(this.router.url);
-
-        // Si es una ruta de autenticación, los menús no se muestran
-        if (isAuthRoute) {
-            this.menuVisible = false;
-            this.suggestionsVisible = false;
-        } else {
-            this.menuVisible = screenWidth > 1000;
-            this.suggestionsVisible = screenWidth > 1000;
-        }
-
-        this.headerVisible = screenWidth < 1000 && !isAuthRoute;
-        this.footerVisible = screenWidth < 1000 && !isAuthRoute;
     }
 
     closeHamburgerMenuIfNeeded() {
@@ -78,6 +61,13 @@ export class AppComponent implements OnInit {
         this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
                 const currentUrl = this.router.url;
+
+                // Verificar si la ruta actual es /chat
+                this.isChatRoute = currentUrl === "/chat";
+
+                // Configurar visibilidad del footer según la ruta
+                const hideFooter = ["/chat"].includes(currentUrl);
+                this.footerVisible = !hideFooter;
 
                 // Configurar visibilidad de menú y sugerencias según la ruta
                 const hideMenus = ["/login", "/registro"].includes(currentUrl);
@@ -102,9 +92,22 @@ export class AppComponent implements OnInit {
         });
     }
 
-    // Método para alternar entre los menús
-    toggleMenu() {
-        this.useAlternateMenu = true; // Cambiar a <app-menu>
-    }
+    updateViewBasedOnScreenSize() {
+        const screenWidth = window.innerWidth;
+        const isAuthRoute = ["/login", "/registro"].includes(this.router.url);
+        const isChatRoute = ["/chat"].includes(this.router.url);
 
+        // Si es una ruta de autenticación, los menús no se muestran
+        if (isAuthRoute) {
+            this.menuVisible = false;
+            this.suggestionsVisible = false;
+        } else {
+            this.menuVisible = screenWidth > 1000;
+            this.suggestionsVisible = screenWidth > 1000;
+        }
+
+        // Configurar visibilidad del header y footer
+        this.headerVisible = screenWidth < 1000 && !isAuthRoute;
+        this.footerVisible = screenWidth < 1000 && !isAuthRoute && !isChatRoute;
+    }
 }

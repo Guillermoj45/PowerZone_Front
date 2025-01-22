@@ -16,8 +16,6 @@ import {Menu} from "../../Service/Menu.service";
     standalone: true,
     imports: [
         IonicModule,
-        SearchComponent,
-        NgIf
     ]
 })
 export class MenuoriginalComponent  implements OnInit {

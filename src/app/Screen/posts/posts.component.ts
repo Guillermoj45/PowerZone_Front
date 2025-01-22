@@ -20,8 +20,6 @@ import {NewPostComponent} from "../../new-post/new-post.component";
         NgForOf,
         CommonModule,
         NgOptimizedImage,
-        RouterLink,
-        SearchComponent,
         FormsModule,
 
 
