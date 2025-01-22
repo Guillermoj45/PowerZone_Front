@@ -1,16 +1,11 @@
-<ion-content >
-  <div >
-    <div>
-      <ion-icon name="search" ></ion-icon>
-      <ion-input
-        type="text"
-        placeholder="Buscar..."
-      ></ion-input>
-    </div>
+<ion-content>
+  <div class="barra">
+    <ion-icon name="search"></ion-icon>
+    <ion-input type="text" placeholder="Buscar..."></ion-input>
   </div>
 
   <ion-list>
-    <ion-list-header >Recientes</ion-list-header>
+    <ion-list-header>Recientes</ion-list-header>
     <ion-item *ngFor="let user of users" lines="none" style="--background: transparent;">
       <ion-avatar slot="start">
         <img [src]="user.avatar" />

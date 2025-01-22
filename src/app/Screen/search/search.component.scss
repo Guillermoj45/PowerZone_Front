@@ -1,5 +1,6 @@
 ion-content {
   background-color: #042F2E;
+  --background: #042F2E;
   color: white;
 }
 
@@ -19,7 +20,9 @@ ion-list-header {
   color: white;
   padding-left: 10px;
 }
-
+ion-list {
+  background-color: #042F2E;
+}
 ion-item {
   --background: transparent;
 }
@@ -29,6 +32,23 @@ ion-label {
 }
 
 ion-button ion-icon {
+  color: white;
+}
+.barra {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #042F2E;
+  margin-top: 56px; /* Ajusta este valor según la altura de tu navbar */
+  margin-bottom: 20px;
+}
+
+.barra ion-icon {
+  margin-right: 10px;
+}
+
+.barra ion-input {
+  flex: 1;
   color: white;
 }
 

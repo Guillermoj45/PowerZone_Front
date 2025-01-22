@@ -13,21 +13,30 @@ import {FormsModule} from "@angular/forms";
     ]
 })
 export class NewPostComponent  implements OnInit {
-    postTitle: string = '';
-    postContent: string = '';
+
+  postContent: string = '';
+  selectedFile: File | null = null;
     constructor(private modalController: ModalController) {}
 
     dismiss() {
         this.modalController.dismiss();
     }
 
-    submitPost() {
-        // Aquí puedes manejar el envío de la publicación
-        console.log("Título:", this.postTitle);
-        console.log("Contenido:", this.postContent);
-        this.dismiss();  // Cerrar el modal al enviar
+  submitPost() {
+    // Aquí puedes manejar el envío de la publicación
+    console.log("Contenido:", this.postContent);
+    if (this.selectedFile) {
+      console.log("Archivo seleccionado:", this.selectedFile.name);
     }
+    this.dismiss();  // Cerrar el modal al enviar
+  }
 
   ngOnInit() {}
 
+  onFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
 }
