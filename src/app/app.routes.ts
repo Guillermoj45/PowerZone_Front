@@ -45,5 +45,9 @@ export const routes: Routes = [
   {
     path: 'dietas',
     loadComponent: () => import('./Screen/dietas/dietas.component').then((m) => m.DietasComponent),
+  },
+  {
+    path: 'ejercicio',
+    loadComponent: () => import('./Screen/ejercicio/ejercicio.component').then((m) => m.EjercicioComponent),
   }
 ];
