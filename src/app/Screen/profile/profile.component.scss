@@ -3,15 +3,15 @@
     flex-direction: column;
     align-items: flex-start; /* Alinea todo el contenido a la izquierda */
     justify-content: center;
-    padding: 20px;
-    gap: 20px;
+    padding: 2%;
+    gap: 2%;
     height: 100vh;
 }
 
 ion-avatar {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 20px; /* Espacio debajo del avatar */
+    width: 130px;
+    height: 130px;
+    margin-bottom: 2%; /* Espacio debajo del avatar */
 }
 
 ion-avatar img {
@@ -33,22 +33,25 @@ ion-avatar img {
 }
 
 .stats {
-    margin-top: 10px;
+    margin-top: 1%;
     justify-content: start;
     text-align: center;
-    gap: 10px; /* Espacio entre columnas */
+    gap: 1%; /* Espacio entre columnas */
 }
 
-ion-content,
+
 .contenido_perfil {
     background-color: #042f2e;
     color: white;
+    display: flex;
+    align-self: center;
+    justify-content: center; /* Center the content horizontally */
 }
 
 ion-item {
     --background: transparent; /* Fondo transparente para ion-item */
     --color: white; /* Color del texto */
-    margin: 5px 0; /* Espaciado entre inputs */
+    margin: 30px 0; /* Espaciado entre inputs */
 }
 
 ion-input {
@@ -77,9 +80,13 @@ ion-row, ion-col {
 ion-button {
     --background: #279e9c; /* Color verde del botón */
     --color: white;
-    margin-top: 30px; /* Aumenta el espaciado superior */
+    margin-top: 3%; /* Aumenta el espaciado superior */
     width: 60%; /* Reduce el ancho del botón */
     padding: 8px 16px; /* Ajusta el relleno interno */
+}
+
+.info_num {
+    font-size: 130%; /* Tamaño de la fuente */
 }
 
 /* Para pantallas pequeñas */
@@ -88,3 +95,4 @@ ion-button {
         margin-top: 20%;
     }
 }
+

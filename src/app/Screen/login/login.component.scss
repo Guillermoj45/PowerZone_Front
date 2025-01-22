@@ -16,7 +16,7 @@
 
 #onichan2 {
   width: 90%; /* Adjust the width as needed */
-  height: 150px; /* Adjust the height as needed */
+  height: 100%; /* Adjust the height as needed */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,8 +61,8 @@
   border: 1px solid white; /* Bordes */
   border-radius: 5px; /* Bordes redondeados */
   width: 60%; /* Ajusta el ancho según tus necesidades */
-  margin-top: 20px; /* Agrega margen superior */
-  padding: 10px; /* Agrega un poco de relleno interno */
+  margin-top: 2%; /* Agrega margen superior */
+  padding: 1%; /* Agrega un poco de relleno interno */
   text-align: center; /* Centra el texto */
 }
 
@@ -71,21 +71,21 @@
   border: 1px solid white; /* Bordes */
   border-radius: 5px; /* Bordes redondeados */
   width: 100%; /* Ajusta el ancho según tus necesidades */
-  margin-top: 20px; /* Agrega margen superior */
-  padding: 10px; /* Agrega un poco de relleno interno */
+  margin-top: 2%; /* Agrega margen superior */
+  padding: 1%; /* Agrega un poco de relleno interno */
   text-align: center; /* Centra el texto */
 }
 
 .subForm3 {
   background-color: #042f2e; /* Fondo del formulario */
   width: 100%; /* Ajusta el ancho según tus necesidades */
-  margin-top: 30px; /* Agrega margen superior */
-  padding: 10px; /* Agrega un poco de relleno interno */
+  margin-top: 3%; /* Agrega margen superior */
+  padding: 1%; /* Agrega un poco de relleno interno */
   text-align: center; /* Centra el texto */
 }
 
 .Registrobody ion-text:first-child {
-  margin-right: 10px; /* Ajusta el valor según tus necesidades */
+  margin-right: 1%; /* Ajusta el valor según tus necesidades */
 }
 
 #logo {
@@ -99,14 +99,14 @@ ion-col:first-child {
   display: flex;
   justify-content: flex-end; /* Mueve el carrusel a la derecha */
   align-items: center;
-  padding-right: 40px; /* Ajusta el valor según tus necesidades */
+  padding-right: 4%; /* Ajusta el valor según tus necesidades */
 }
 
 ion-col:last-child {
   display: flex;
   justify-content: flex-start; /* Mueve los formularios a la izquierda */
   align-items: center;
-  padding-left: 20px; /* Ajusta el valor según tus necesidades */
+  padding-left: 2%; /* Ajusta el valor según tus necesidades */
 }
 
 @media (max-width: 1000px) {
