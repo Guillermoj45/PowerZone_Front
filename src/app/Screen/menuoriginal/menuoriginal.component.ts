@@ -5,7 +5,7 @@ import { home, search, add, restaurant, notifications, closeCircle, personCircle
 import {Router} from "@angular/router";
 import {SearchComponent} from "../../Component/search/search.component";
 import { SearchVisibilityService } from '../../Service/search-visibility';
-import {NewPostComponent} from "../../new-post/new-post.component";
+import {NewPostComponent} from "../new-post/new-post.component";
 import {NgIf} from "@angular/common";
 import {Menu} from "../../Service/Menu.service";
 
