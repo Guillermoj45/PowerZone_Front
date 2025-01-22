@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import { addIcons } from "ionicons";
-import { home, search, add, restaurant, notifications, closeCircle, personCircleOutline } from "ionicons/icons";
+import { home, search, add, restaurant, notifications, closeCircle, personCircleOutline, settingsSharp } from "ionicons/icons";
 
 @Component({
   selector: 'app-menu',
@@ -15,7 +15,7 @@ import { home, search, add, restaurant, notifications, closeCircle, personCircle
 export class MenuComponent  implements OnInit {
 
   constructor() {
-      addIcons({ home, search, add, restaurant, notifications, closeCircle, personCircleOutline });
+      addIcons({ home, search, add, restaurant, notifications, closeCircle, personCircleOutline, settingsSharp });
   }
 
   ngOnInit() {}

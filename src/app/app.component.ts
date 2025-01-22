@@ -8,6 +8,8 @@ import { NgClass, NgIf } from "@angular/common";
 import { MenuoriginalComponent } from "./Screen/menuoriginal/menuoriginal.component";
 import { FooterComponent } from "./Screen/footer/footer.component";
 import { Menu } from "./Service/Menu.service";
+import { addIcons } from "ionicons";
+import { settingsSharp } from "ionicons/icons";
 
 @Component({
     selector: "app-root",
@@ -35,7 +37,9 @@ export class AppComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private menuService: Menu
-    ) {}
+    ) {
+      addIcons({settingsSharp})
+    }
 
     @HostListener("window:resize", ["$event"])
     onResize(event: any) {

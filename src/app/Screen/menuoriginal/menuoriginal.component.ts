@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {IonicModule, ModalController, ModalOptions} from "@ionic/angular";
 import { addIcons } from "ionicons";
-import { home, search, add, restaurant, notifications, closeCircle } from "ionicons/icons";
+import { home, search, add, restaurant, notifications, closeCircle, personCircleOutline, settingsSharp } from "ionicons/icons";
 import {Router} from "@angular/router";
 import {SearchComponent} from "../../Component/search/search.component";
 import { SearchVisibilityService } from '../../Service/search-visibility';
@@ -24,7 +24,7 @@ export class MenuoriginalComponent  implements OnInit {
                 private router: Router,
                 private searchVisibilityService: SearchVisibilityService,
                 private menuService: Menu) {
-        addIcons({ home, search, add, restaurant, notifications, closeCircle });
+        addIcons({ home, search, add, restaurant, notifications, closeCircle, personCircleOutline, settingsSharp });
     }
 
     toggleMenu() {
