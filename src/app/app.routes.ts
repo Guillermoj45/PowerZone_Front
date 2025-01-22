@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import {AdminComponent} from "./admin/admin.component";
 
 export const routes: Routes = [
   {
@@ -39,12 +38,4 @@ export const routes: Routes = [
         path: 'menuoriginal',
         loadComponent: () => import('./Screen/menuoriginal/menuoriginal.component').then(m => m.MenuoriginalComponent)
     },
-    {
-      path: 'admin',
-      component: AdminComponent
-    },
-    {
-        path: 'settings',
-        loadComponent: () => import('./Screen/settings/settings.component').then(m => m.SettingsComponent)
-    }
 ];

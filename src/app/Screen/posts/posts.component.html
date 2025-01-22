@@ -1,8 +1,8 @@
 <ion-grid class="ion-no-padding post-container movil">
   <div class="scroll-container">
-      <!-- search.component.html -->
-      <ion-row *ngFor="let post of posts" class="post">
-    <!-- Avatar y Nombre de Usuario -->
+
+      <ion-row *ngFor="let post of posts" class="post" (click)="viewPostDetails(post)">
+
     <ion-col size="12" class="user-info">
       <ion-avatar slot="start">
         <img ngSrc="post.userAvatar" alt="Avatar de usuario" fill/>
@@ -33,6 +33,10 @@
       <ion-button fill="clear" class="action-button">
         <ion-icon name="bookmark" ></ion-icon>
       </ion-button>
+        <ion-button fill="clear" class="action-button">
+            <ion-icon name="share-social"></ion-icon>
+        </ion-button>
+
     </ion-col>
 
     <!-- Comentario Destacado -->

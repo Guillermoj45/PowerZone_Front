@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {IonicModule, ModalController} from "@ionic/angular";
 import {CommonModule, NgForOf, NgOptimizedImage} from "@angular/common";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {addIcons} from "ionicons";
 import {bookmark, chatbubble, heart, shareSocial} from "ionicons/icons";
 import {SearchComponent} from "../../Component/search/search.component";
@@ -31,7 +31,9 @@ export class PostsComponent implements OnInit {
 
     searchText: string = '';
     showSearch: boolean = false;
-
+    viewPostDetails(post: any) {
+        this.router.navigate(['/post-details'], { state: { post } });
+    }
     posts = [
     {
       id: 1,
@@ -78,7 +80,7 @@ export class PostsComponent implements OnInit {
   ];
 
 
-    constructor(private modalController: ModalController, private searchVisibilityService: SearchVisibilityService) {
+    constructor(private router: Router, private searchVisibilityService: SearchVisibilityService) {
         addIcons({ bookmark, heart, chatbubble, shareSocial });
     }
 
