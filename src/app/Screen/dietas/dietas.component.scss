@@ -1,0 +1,60 @@
+.dieta_img {
+    width: 30%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.1);
+}
+
+.encabezado_dieta {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.lista_ingredientes {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  background-color: #007774;
+
+}
+
+.ingredientes {
+  background-color: #007774;
+  padding: 10px; /* Optional: Add some padding for better appearance */
+  border-radius: 5px; /* Optional: Add border radius for rounded corners */
+}
+
+#contenido {
+  --background: #042f2e;
+}
+
+ion-card, ion-list, ion-label {
+  --background: #007774;
+}
+
+.imagenes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1%;
+}
+
+.imagen_col {
+  display: flex;
+  justify-content: center;
+}
+
+.imagen_ingrediente {
+  margin-top: 2%;
+  width: 80%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+

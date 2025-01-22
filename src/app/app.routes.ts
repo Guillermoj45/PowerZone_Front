@@ -42,4 +42,8 @@ export const routes: Routes = [
     path: 'post-details',
     loadComponent: () => import('./Screen/post-details/post-details.component').then((m) => m.PostDetailsComponent),
   },
+  {
+    path: 'dietas',
+    loadComponent: () => import('./Screen/dietas/dietas.component').then((m) => m.DietasComponent),
+  }
 ];
