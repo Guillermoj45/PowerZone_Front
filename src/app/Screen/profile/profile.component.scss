@@ -1,26 +1,43 @@
+/* Ocultar el encabezado con animación */
+.hidden {
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
 .contenido_perfil {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Alinea todo el contenido a la izquierda */
-    justify-content: center;
-    padding: 2%;
-    gap: 2%;
-    height: 100vh;
+    position: sticky; /* Encabezado pegajoso en la parte superior */
+    top: 0;
+    z-index: 10; /* Asegura que el encabezado esté sobre el contenido */
+    background-color: #042f2e;
+    transition: transform 0.3s ease-in-out; /* Suaviza el cambio de visibilidad */
+}
+ion-content {
+    overflow-y: scroll; /* Mantén el desplazamiento vertical */
+    --background: #042f2e; /* Fondo del contenido */
+    scrollbar-width: none; /* Ocultar scrollbar en navegadores compatibles */
+}
+
+ion-content::-webkit-scrollbar {
+    display: none; /* Ocultar scrollbar en navegadores WebKit (Chrome, Safari) */
+}
+
+
+.contenido_perfil.ion-no-padding {
+    padding: 0;
 }
 
 ion-avatar {
-    width: 130px;
-    height: 130px;
-    margin-bottom: 2%; /* Espacio debajo del avatar */
+    width: 70px;
+    height: 70px;
+    margin-bottom: 2%;
 }
 
 ion-avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 50%; /* Hace que la imagen sea circular */
-    border: 2px solid white; /* Borde blanco */
-
+    border-radius: 50%;
+    border: 2px solid white;
 }
 
 .text-center {
@@ -28,7 +45,7 @@ ion-avatar img {
     flex-direction: column;
     align-items: center;
     font-size: 14px;
-    gap: 5px; /* Espacio entre el número y el texto */
+    gap: 5px;
     color: white;
 }
 
@@ -36,63 +53,53 @@ ion-avatar img {
     margin-top: 1%;
     justify-content: start;
     text-align: center;
-    gap: 1%; /* Espacio entre columnas */
-}
-
-
-.contenido_perfil {
-    background-color: #042f2e;
-    color: white;
-    display: flex;
-    align-self: center;
-    justify-content: center; /* Center the content horizontally */
-}
-
-ion-item {
-    --background: transparent; /* Fondo transparente para ion-item */
-    --color: white; /* Color del texto */
-    margin: 30px 0; /* Espaciado entre inputs */
-}
-
-ion-input {
-    --background: transparent;
-    --placeholder-color: #b2d8d7; /* Placeholder más claro */
-    color: white;
-}
-
-ion-button {
-    --background: #279e9c; /* Color verde del botón */
-    --color: white;
-    margin-top: 20px; /* Espaciado superior */
-    width: 100%; /* Botón ancho */
+    gap: 1%;
 }
 
 ion-grid {
-    width: 100%; /* Asegura que el grid ocupe todo el ancho disponible */
-    margin-left: 0; /* Ajusta el margen izquierdo */
+    width: 100%;
 }
 
-ion-row, ion-col {
-    justify-content: flex-start; /* Alinea el contenido de las filas y columnas a la izquierda */
+ion-row {
+    justify-content: flex-start;
     text-align: left;
 }
 
-ion-button {
-    --background: #279e9c; /* Color verde del botón */
+ion-item {
+    --background: transparent;
     --color: white;
-    margin-top: 3%; /* Aumenta el espaciado superior */
-    width: 60%; /* Reduce el ancho del botón */
-    padding: 8px 16px; /* Ajusta el relleno interno */
+    margin: 30px 0;
+}
+
+ion-button {
+    --background: #279e9c;
+    --color: white;
+    margin-top: 20px;
+    width: 100%;
 }
 
 .info_num {
-    font-size: 130%; /* Tamaño de la fuente */
+    font-size: 130%;
 }
 
-/* Para pantallas pequeñas */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    gap: 10px; /* Spacing between images */
+    padding: 10px;
+}
+
+.image-grid img {
+    width: 100%; /* Ensure the image takes up the full width of the grid cell */
+    height: auto; /* Maintain the aspect ratio of the image */
+    border-radius: 6px; /* Optional: rounded corners */
+    border: #ffffff 2px solid; /* Optional: border color */
+    object-fit: cover; /* Ensure the images look good */
+}
+
+
 @media (max-width: 1000px) {
-    .movil{
+    .movil {
         margin-top: 20%;
     }
 }
-

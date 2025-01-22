@@ -42,5 +42,9 @@ export const routes: Routes = [
     {
       path: 'admin',
       component: AdminComponent
+    },
+    {
+        path: 'settings',
+        loadComponent: () => import('./Screen/settings/settings.component').then(m => m.SettingsComponent)
     }
 ];
