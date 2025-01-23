@@ -56,5 +56,9 @@ ion-card, ion-list, ion-label {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-
+@media (max-width: 1000px) {
+    ion-content{
+        --padding-top: 15%;
+    }
+}
 

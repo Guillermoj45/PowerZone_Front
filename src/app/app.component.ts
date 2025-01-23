@@ -1,5 +1,5 @@
 import { MenuComponent } from "./Screen/menu/menu.component";
-import { IonicModule } from "@ionic/angular";
+import {IonicModule, ModalController, ModalOptions} from "@ionic/angular";
 import { SuggestionsComponent } from "./Screen/suggestions/suggestions.component";
 import { AfterViewInit, Component, HostListener, OnInit } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
@@ -10,6 +10,7 @@ import { FooterComponent } from "./Screen/footer/footer.component";
 import { Menu } from "./Service/Menu.service";
 import { addIcons } from "ionicons";
 import { settingsSharp } from "ionicons/icons";
+import {NewPostComponent} from "./Screen/new-post/new-post.component";
 
 @Component({
     selector: "app-root",
@@ -36,7 +37,8 @@ export class AppComponent implements OnInit {
         private menuSuggestionsService: MenuSuggestionsService,
         private router: Router,
         private route: ActivatedRoute,
-        private menuService: Menu
+        private menuService: Menu,
+        private modalController: ModalController
     ) {
       addIcons({settingsSharp})
     }
@@ -113,5 +115,12 @@ export class AppComponent implements OnInit {
         // Configurar visibilidad del header y footer
         this.headerVisible = screenWidth < 1000 && !isAuthRoute;
         this.footerVisible = screenWidth < 1000 && !isAuthRoute && !isChatRoute;
+    }
+
+    async openAddPostModal() {
+        const modal = await this.modalController.create({
+            component: NewPostComponent
+        } as ModalOptions);
+        await modal.present();
     }
 }

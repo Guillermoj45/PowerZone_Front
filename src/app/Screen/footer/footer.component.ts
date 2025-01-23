@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {IonicModule} from "@ionic/angular";
+import {IonicModule, ModalController, ModalOptions} from "@ionic/angular";
 import { home, search, add, restaurant, notifications, closeCircle, personCircleOutline } from "ionicons/icons";
 import {addIcons} from "ionicons";
 import {Router} from "@angular/router";
+import {NewPostComponent} from "../new-post/new-post.component";
 
 @Component({
     selector: 'app-footer',
@@ -15,7 +16,8 @@ import {Router} from "@angular/router";
 })
 export class FooterComponent  implements OnInit {
 
-    constructor(private router: Router) {
+    constructor(private router: Router,
+                private modalController: ModalController,) {
         addIcons({ home, search, add, restaurant, notifications, closeCircle, personCircleOutline });
     }
 
@@ -23,6 +25,13 @@ export class FooterComponent  implements OnInit {
 
     goToUrl(url:String) {
         this.router.navigate([url]);
+    }
+
+    async openAddPostModal() {
+        const modal = await this.modalController.create({
+            component: NewPostComponent
+        } as ModalOptions);
+        await modal.present();
     }
 
 }

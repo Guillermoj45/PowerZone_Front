@@ -10,6 +10,7 @@ import {
   IonList, IonRow, IonSelect, IonSelectOption, IonText
 } from "@ionic/angular/standalone";
 import {NgForOf} from "@angular/common";
+import {IonicModule} from "@ionic/angular";
 
 @Component({
   selector: 'app-dietas',
@@ -17,23 +18,8 @@ import {NgForOf} from "@angular/common";
   styleUrls: ['./dietas.component.scss'],
   standalone: true,
   imports: [
-    IonContent,
-    IonCard,
-    IonCardHeader,
-    IonCardContent,
-    IonCardTitle,
-    IonList,
-    IonItem,
-    IonLabel,
-    IonInput,
-    IonSelect,
-    IonSelectOption,
-    IonButton,
-    IonHeader,
-    IonText,
-    IonRow,
-    IonCol,
-    NgForOf
+      NgForOf,
+      IonicModule
   ]
 })
 export class DietasComponent  implements OnInit {
