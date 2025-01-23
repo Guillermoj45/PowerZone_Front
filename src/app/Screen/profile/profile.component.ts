@@ -63,4 +63,5 @@ export class ProfileComponent implements OnInit {
 
     this.lastScrollTop = scrollTop;
   }
+
 }

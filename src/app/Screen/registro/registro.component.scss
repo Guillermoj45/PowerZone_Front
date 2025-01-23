@@ -106,10 +106,26 @@ ion-col:last-child {
         display: none;
     }
     .subForm {
-        background-color: #042f2e; /* Fondo del formulario */
-        border: 0; /* Bordes */
-        width: 100%; /* Ajusta el ancho según tus necesidades */
-        margin-top: 20px; /* Agrega margen superior */
-        text-align: center; /* Centra el texto */
+        background-color: #042f2e;
+        border: 0;
+        width: 100%;
+        margin-top: 20px;
+        text-align: center;
+        padding: 30px; /* Increased padding for vertical spacing */
+        gap: 20px; /* Add gap between form elements */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .subForm ion-item {
+        margin-bottom: 5%; /* Add space between form items */
+    }
+
+    .subForm ion-button {
+        margin-top: 10%; /* Add more space above the button */
+    }
+
+    .subForm2 {
+        margin-top: 10%; /* More space for the "Already have an account" section */
     }
 }
