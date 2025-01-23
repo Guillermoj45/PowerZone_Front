@@ -3,7 +3,6 @@
     background-color: #042F2E;
     color: white;
     padding: 10px;
-    height: 100vh;
 }
 
 .comment_div {
@@ -17,17 +16,16 @@
   background-color: #042F2E;
     max-width: 100%;
     margin: 0 auto;
-  height: 100vh;
-  overflow-y: auto;
 }
 ion-grid {
   padding: 0;
 }
+
 .post {
     background-color: #6fb3a6;
     border-radius: 10px;
     padding: 10px;
-    margin-bottom: 20px;
+
 }
 
 .avatar {

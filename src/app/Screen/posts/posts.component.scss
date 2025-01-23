@@ -61,30 +61,12 @@
   font-size: 14px;
 }
 
-.highlighted-comment {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-  background-color: #042F2E; /* Fondo del comentario destacado */
-  color: white;
-  border-radius: 10px;
-  padding: 10px;
-  gap: 10px;
-}
-
 .comment {
   font-size: 14px;
-
-}
-.scroll-container {
-  max-height: 100vh; /* Ajusta la altura máxima según tus necesidades */
-  overflow-y: auto; /* Habilita el desplazamiento vertical */
-  scrollbar-width: none; /* Firefox */
 }
 
-.scroll-container::-webkit-scrollbar {
-  display: none; /* Chrome, Safari y Opera */
-}
+
+
 /* Para pantallas pequeñas */
 @media (max-width: 1000px) {
     .movil{
