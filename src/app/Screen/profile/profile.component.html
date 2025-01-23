@@ -1,47 +1,62 @@
 <ion-content (ionScroll)="onScroll($event)">
-    <div class="contenido_perfil ion-no-padding" [class.hidden]="isHeaderHidden">
-        <ion-grid style="margin-top: 5%">
-            <!-- Avatar row -->
-            <ion-row class="movil" style="justify-content: center; margin-bottom: 10px">
-                <ion-col style="display: flex; align-items: center">
-                    <ion-avatar>
-                        <img alt="Imagen perfil" src="https://picsum.photos/800/400?random=1" />
-                    </ion-avatar>
-                    <ion-text style="padding-left: 7%">Guillermo</ion-text>
-                </ion-col>
-            </ion-row>
+  <div class="contenido_perfil ion-no-padding" [class.hidden]="isHeaderHidden">
+    <ion-grid style="margin-top: 5%">
+      <!-- Avatar row -->
+      <ion-row class="movil" style="justify-content: center; margin-bottom: 10px">
+        <ion-col style="display: flex; align-items: center">
+          <ion-avatar>
+            <img alt="Imagen perfil" src="https://picsum.photos/800/400?random=1" />
+          </ion-avatar>
+          <ion-text style="padding-left: 7%">Guillermo</ion-text>
+        </ion-col>
+      </ion-row>
 
-            <!-- Stats row -->
-            <ion-row class="stats">
-                <ion-col>
-                    <div class="text-center">
-                        <ion-text class="info_num">0</ion-text>
-                        <ion-text>Seguidores</ion-text>
-                    </div>
-                </ion-col>
-                <ion-col>
-                    <div class="text-center">
-                        <ion-text class="info_num">0</ion-text>
-                        <ion-text>Seguidos</ion-text>
-                    </div>
-                </ion-col>
-                <ion-col>
-                    <div class="text-center">
-                        <ion-text class="info_num">0</ion-text>
-                        <ion-text>Publicaciones</ion-text>
-                    </div>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </div>
+      <!-- Stats row -->
+      <ion-row class="stats">
+        <ion-col>
+          <div class="text-center">
+            <ion-text class="info_num">0</ion-text>
+            <ion-text>Seguidores</ion-text>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="text-center">
+            <ion-text class="info_num">0</ion-text>
+            <ion-text>Seguidos</ion-text>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="text-center">
+            <ion-text class="info_num">0</ion-text>
+            <ion-text>Publicaciones</ion-text>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin: 2% 5%">
+        <ion-col size="5">
+          <ion-button>
+            <ion-icon style="margin-right: 5%" name="person-add-outline"></ion-icon>
+            Seguir
+          </ion-button>
+        </ion-col>
+        <ion-col size="2"></ion-col>
+        <ion-col size="5">
+          <ion-button (click)="navigateTo('/chat')">
+            Enviar un mensaje
+            <ion-icon style="margin-left: 5%" name="send-sharp"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
-    <!-- Image Grid -->
-    <div class="image-grid">
-        <img *ngFor="let item of items; let i = index" [src]="'https://picsum.photos/100/100?random=' + i" alt="Imagen {{ i }}" />
-    </div>
+  <!-- Image Grid -->
+  <div class="image-grid">
+    <img *ngFor="let item of items; let i = index" [src]="'https://picsum.photos/100/100?random=' + i" alt="Imagen {{ i }}" />
+  </div>
 
-    <!-- Infinite Scroll -->
-    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-        <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+  <!-- Infinite Scroll -->
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

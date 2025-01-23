@@ -19,7 +19,6 @@ import {NewPostComponent} from "../new-post/new-post.component";
         IonicModule,
         NgForOf,
         CommonModule,
-        NgOptimizedImage,
         FormsModule,
 
 

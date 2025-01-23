@@ -46,4 +46,12 @@ export const routes: Routes = [
     path: 'search',
     loadComponent: () => import('./Screen/search/search.component').then((m) => m.SearchComponent),
   },
+  {
+    path: 'settings',
+    loadComponent: () => import('./Screen/settings/settings.component').then((m) => m.SettingsComponent),
+  },
+  {
+    path: 'dietas',
+    loadComponent: () => import('./Screen/dietas/dietas.component').then((m) => m.DietasComponent),
+  },
 ];
