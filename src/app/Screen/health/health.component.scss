@@ -12,57 +12,24 @@
     flex-direction: row;
 }
 
-.lista_ingredientes {
-    display: flex;
-    flex-direction: column;
-    color: white;
-    background-color: #007774;
-
-}
-
-.ingredientes {
-    background-color: #007774;
-    padding: 10px; /* Optional: Add some padding for better appearance */
-    border-radius: 5px; /* Optional: Add border radius for rounded corners */
-}
-
 #contenido {
     --background: #042f2e;
+    display: flex; /* Habilita flexbox */
+    flex-direction: column; /* Asegura que las tarjetas estén en columna */
+    align-items: center; /* Centra las tarjetas horizontalmente */
+    padding: 20px; /* Añade un poco de espacio alrededor */
+    gap: 20px; /* Espaciado entre las tarjetas */
 }
 
-ion-card, ion-list, ion-label {
+ion-card {
+    width: 80%; /* Define un ancho consistente para las tarjetas */
+    max-width: 600px; /* Evita que sean demasiado anchas */
     --background: #007774;
-}
-
-.imagenes {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-top: 1%;
-}
-
-.imagen_col {
-    display: flex;
-    justify-content: center;
-}
-
-.imagen_ingrediente {
-    margin-top: 2%;
-    width: 80%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-ion-card{
-    margin: 10% 5%;
-    width: 80%;
+    margin: 0 auto; /* Asegura el centrado horizontal */
 }
 
 @media (max-width: 1000px) {
-    ion-content{
+    ion-content {
         --padding-top: 20%;
     }
 }
