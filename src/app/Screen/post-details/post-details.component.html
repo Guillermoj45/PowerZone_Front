@@ -1,32 +1,37 @@
 <ion-grid class="ion-no-padding post-container">
-    <ion-row class="post">
+  <div class="post">
+    <ion-row>
         <!-- Avatar y Nombre de Usuario -->
-        <ion-col size="12" class="user-info">
+        <ion-col class="user-info">
             <ion-avatar slot="start">
-                <img [src]="post.userAvatar" alt="Avatar de usuario" />
+                <img [src]="post.profile.avatar" alt="Avatar de usuario" />
             </ion-avatar>
-            <span class="username">{{ post.username }}</span>
+            <span class="username">{{ post.profile.name }}</span>
         </ion-col>
+    </ion-row>
+    <ion-row>
 
         <!-- Imagen Principal -->
-        <ion-col size="12" class="post-image">
+        <ion-col class="post-image">
             <ion-img [src]="post.image" alt="Imagen del post"></ion-img>
         </ion-col>
-
+    </ion-row>
+    <ion-row>
         <!-- Descripción -->
-        <ion-col size="12" class="post-description">
-            {{ post.description }}
+        <ion-col class="post-description">
+            {{ post.decription }}
         </ion-col>
-
+    </ion-row>
+    <ion-row>
         <!-- Acciones del Post -->
-        <ion-col size="12" class="post-actions">
+        <ion-col class="post-actions">
             <ion-button fill="clear" class="action-button">
                 <ion-icon name="heart"></ion-icon>
                 <span>{{ post.likes }}</span>
             </ion-button>
             <ion-button fill="clear" class="action-button">
                 <ion-icon name="chatbubble"></ion-icon>
-                <span>{{ post.comments }}</span>
+                <span>{{ post.numComments }}</span>
             </ion-button>
             <ion-button fill="clear" class="action-button">
                 <ion-icon name="bookmark"></ion-icon>
@@ -35,18 +40,20 @@
                 <ion-icon name="share-social"></ion-icon>
             </ion-button>
         </ion-col>
-
+    </ion-row>
+    <ion-row>
         <!-- Comentarios -->
-        <ion-col size="12" *ngFor="let comment of post.comments">
+        <ion-col style="border-radius: 10px;" size="12" *ngFor="let comment of post.comments">
             <ion-item>
                 <ion-avatar slot="start">
-                    <img [src]="comment.avatar" alt="Avatar del comentario" />
+                    <img [src]="comment.profile.avatar" alt="Avatar del comentario" />
                 </ion-avatar>
                 <ion-label>
-                    <h2>{{ comment.username }}</h2>
-                    <p>{{ comment.content }}</p>
+                    <h2>{{ comment.profile.name }}</h2>
+                    <p>{{ comment.comment }}</p>
                 </ion-label>
             </ion-item>
         </ion-col>
     </ion-row>
+    </div>
 </ion-grid>
