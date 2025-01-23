@@ -39,6 +39,10 @@ export const routes: Routes = [
         loadComponent: () => import('./Screen/menuoriginal/menuoriginal.component').then(m => m.MenuoriginalComponent)
     },
   {
+        path: 'admin',
+        loadComponent: () => import('./Screen/admin/admin.component').then(m => m.AdminComponent)
+  },
+  {
     path: 'post-details/:id',
     loadComponent: () => import('./Screen/post-details/post-details.component').then((m) => m.PostDetailsComponent),
   },
