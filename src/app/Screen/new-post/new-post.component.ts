@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {IonicModule, ModalController} from "@ionic/angular";
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {IonicModule, IonIcon, ModalController} from "@ionic/angular";
 import {FormsModule} from "@angular/forms";
-
+import {addIcons} from "ionicons";
+import {send, close,folderOutline} from "ionicons/icons";
 @Component({
     selector: 'app-new-post',
     templateUrl: './new-post.component.html',
@@ -9,14 +10,17 @@ import {FormsModule} from "@angular/forms";
     standalone: true,
     imports: [
         IonicModule,
-        FormsModule
+        FormsModule,
+
     ]
 })
 export class NewPostComponent  implements OnInit {
-
+    @ViewChild('fileInput') fileInput!: ElementRef;
   postContent: string = '';
   selectedFile: File | null = null;
-    constructor(private modalController: ModalController) {}
+    constructor(private modalController: ModalController) {
+        addIcons({ close, send, folderOutline});
+    }
 
     dismiss() {
         this.modalController.dismiss();
@@ -33,10 +37,15 @@ export class NewPostComponent  implements OnInit {
 
   ngOnInit() {}
 
-  onFileChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
+    triggerFileInput() {
+        this.fileInput.nativeElement.click();
     }
-  }
+
+
+    onFileChange(event: Event) {
+        const input = event.target as HTMLInputElement;
+        if (input.files && input.files.length > 0) {
+            this.selectedFile = input.files[0];
+        }
+    }
 }

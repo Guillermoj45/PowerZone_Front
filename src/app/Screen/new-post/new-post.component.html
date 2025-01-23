@@ -1,22 +1,31 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Agregar Publicación</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="dismiss()">Cerrar</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Agregar Publicación</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismiss()">
+                <ion-icon name="close"  class="send-icon"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form (ngSubmit)="submitPost()" class="centered-form">
-    <ion-item>
-      <ion-label position="floating">Comparte</ion-label>
-      <ion-textarea [(ngModel)]="postContent" name="content" required></ion-textarea>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating"></ion-label>
-      <input type="file" name="file" (change)="onFileChange($event)" />
-    </ion-item>
-    <ion-button expand="full" type="submit">Publicar</ion-button>
-  </form>
+    <form (ngSubmit)="submitPost()" class="centered-form">
+        <ion-item>
+            <ion-label position="floating">Comparte</ion-label>
+            <ion-textarea [(ngModel)]="postContent" name="content" required></ion-textarea>
+        </ion-item>
+        <ion-item class="centered-button">
+            <ion-label position="floating"></ion-label>
+            <span class="large-text">Opciones:</span>
+            <ion-button fill="clear" (click)="triggerFileInput()">
+                <ion-icon class="folder-icon" name="folder-outline"></ion-icon>
+            </ion-button>
+            <input type="file" name="file" (change)="onFileChange($event)" hidden #fileInput />
+        </ion-item>
+        <ion-button expand="full" type="submit">
+            <span class="large-text">Publicar</span>
+            <ion-icon name="send" ></ion-icon>
+        </ion-button>
+    </form>
 </ion-content>
