@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {InfiniteScrollCustomEvent, IonicModule} from "@ionic/angular";
-import { Report } from '../Models/Report';
+import { Report } from 'src/app/Models/Report';
 
 @Component({
   selector: 'app-admin',

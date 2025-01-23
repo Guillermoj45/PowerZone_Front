@@ -23,8 +23,11 @@ ion-grid {
     margin-bottom: 20px;
 }
 
+.avatar {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+}
 .user-info {
-    display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 12px;
