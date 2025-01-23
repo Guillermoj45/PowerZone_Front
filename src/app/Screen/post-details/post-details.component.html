@@ -2,10 +2,12 @@
   <div class="post">
     <ion-row>
         <!-- Avatar y Nombre de Usuario -->
-        <ion-col class="user-info">
-            <ion-avatar slot="start">
-                <img [src]="post.profile.avatar" alt="Avatar de usuario" />
+        <ion-col size="2" class="user-info">
+            <ion-avatar >
+                <img class="avatar" [src]="post.profile.avatar" alt="Avatar de usuario" />
             </ion-avatar>
+        </ion-col>
+        <ion-col size="3" class="user-info">
             <span class="username">{{ post.profile.name }}</span>
         </ion-col>
     </ion-row>
@@ -41,9 +43,9 @@
             </ion-button>
         </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngFor="let comment of post.comments">
         <!-- Comentarios -->
-        <ion-col style="border-radius: 10px;" size="12" *ngFor="let comment of post.comments">
+        <ion-col style="--border-radius: 10px;">
             <ion-item>
                 <ion-avatar slot="start">
                     <img [src]="comment.profile.avatar" alt="Avatar del comentario" />

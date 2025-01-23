@@ -29,6 +29,9 @@ export class PostDetailsComponent implements OnInit {
     this.post.image = 'https://picsum.photos/2000/2000?random=4';
     this.post.likes = 10;
     this.post.numComments = 1;
+    this.post.profile.name = 'John Doe';
+    this.post.profile.avatar = 'https://picsum.photos/1000/1000?random=1';
+
     this.post.comments.push({
       profile: {
         name: 'John Doe',
