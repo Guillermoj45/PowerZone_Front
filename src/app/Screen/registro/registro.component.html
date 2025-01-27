@@ -1,40 +1,47 @@
 <ion-content class="Registrobody" style="height: 100%">
-  <ion-grid class="ion-no-padding">
-    <ion-row>
-      <!--En esta columna es donde va la foto de los moviles-->
-      <ion-col class="Registrobody">
-        <div id="onichan">
-          <img src="../../../assets/img/marco2.png" class="overlay-image">
-          <div id="onichan2">
-            <app-carrousel></app-carrousel>
-          </div>
-        </div>
-      </ion-col>
-      <!--En este es donde está el formulario de registro-->
-      <ion-col size-lg="6" size-xs="12" class="Registrobody">
-        <form class="subForm" [formGroup]="registroForm" (ngSubmit)="onSubmit()">
-          <ion-img src="assets/logo.png" id="logo"></ion-img>
-          <ion-item>
-            <ion-input label="Nombre de usuario"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="Correo"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="Fecha de Nacimiento" type="date"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input type="password" label="Password" value="NeverGonnaGiveYouUp">
-              <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-            </ion-input>
-          </ion-item>
-              <ion-button [routerLink]="['/posts']" type="submit" expand="block">Registrarse</ion-button>
-          <div class="subForm2">
-            <ion-text>¿Ya tienes Cuenta?<span>   </span></ion-text>
-            <ion-text routerLink="/login"><b>Inicia Sesión</b></ion-text>
-          </div>
-        </form>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid class="ion-no-padding">
+        <ion-row>
+            <!--En esta columna es donde va la foto de los moviles-->
+            <ion-col class="Registrobody">
+                <div id="onichan">
+                    <img src="../../../assets/img/marco2.png" class="overlay-image">
+                    <div id="onichan2">
+                        <app-carrousel></app-carrousel>
+                    </div>
+                </div>
+            </ion-col>
+            <!--En este es donde está el formulario de registro-->
+            <ion-col size-lg="6" size-xs="12" class="Registrobody">
+                <div class="subForm">
+                    <ion-img src="assets/logo.png" id="logo"></ion-img>
+                    <ion-item>
+                        <ion-input [(ngModel)]="register.nickname" label="Nickname"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-input [(ngModel)]="register.name" label="Nombre"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-input [(ngModel)]="register.email" label="Correo"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-input [(ngModel)]="register.bornDate" label="Fecha de Nacimiento" type="date"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-input [(ngModel)]="register.password" type="password" label="Password" value="NeverGonnaGiveYouUp">
+                            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Subir Imagen</ion-label>
+                        <input type="file" (change)="onFileSelected($event)" />
+                    </ion-item>
+                    <ion-button (click)="onSubmit()" [routerLink]="['/login']" expand="block">Registrarse</ion-button>
+                    <div class="subForm2">
+                        <ion-text>¿Ya tienes Cuenta?<span>   </span></ion-text>
+                        <ion-text routerLink="/login"><b>Inicia Sesión</b></ion-text>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
