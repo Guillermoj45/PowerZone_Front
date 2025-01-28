@@ -5,7 +5,7 @@ import {IonicModule} from "@ionic/angular";
 import {CarrouselComponent} from "../../Component/carrousel/carrousel.component";
 import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
-import {RouterModule} from "@angular/router";
+import {Router, RouterModule} from "@angular/router";
 
 @Component({
     selector: 'app-registro',
@@ -29,7 +29,7 @@ export class RegistroComponent {
     };
     selectedFile: File | null = null;
 
-    constructor(private registroService: RegistroService) {}
+    constructor(private registroService: RegistroService, private router: Router,) {}
 
     isNicknameValid = true;
     isNameValid = true;
@@ -71,6 +71,7 @@ export class RegistroComponent {
             this.registroService.registerUser(this.register).subscribe(
                 () => {
                     console.log('User registered');
+                    this.router.navigate(['/login']);
                 },
                 (error) => {
                     console.error('Error registering user:', error);

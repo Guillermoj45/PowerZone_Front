@@ -123,4 +123,9 @@ export class AppComponent implements OnInit {
         } as ModalOptions);
         await modal.present();
     }
+
+    logOut() {
+        sessionStorage.clear();
+        this.router.navigate(['/login']);
+    }
 }
