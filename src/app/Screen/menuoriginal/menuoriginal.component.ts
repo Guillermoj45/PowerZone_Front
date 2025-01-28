@@ -4,7 +4,7 @@ import { addIcons } from "ionicons";
 import { home, search, add, restaurant, notifications, closeCircle, personCircleOutline, settingsSharp } from "ionicons/icons";
 import {Router} from "@angular/router";
 import {SearchComponent} from "../search/search.component";
-import { SearchVisibilityService } from '../../Service/search-visibility';
+
 import {NewPostComponent} from "../new-post/new-post.component";
 import {NgIf} from "@angular/common";
 import {Menu} from "../../Service/Menu.service";
@@ -22,7 +22,7 @@ export class MenuoriginalComponent  implements OnInit {
 
     constructor(private modalController: ModalController,
                 private router: Router,
-                private searchVisibilityService: SearchVisibilityService,
+
                 private menuService: Menu) {
         addIcons({ home, search, add, restaurant, notifications, closeCircle, personCircleOutline, settingsSharp });
     }
