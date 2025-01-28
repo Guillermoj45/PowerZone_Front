@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import {Post} from "../../Models/Post";
+import {PostDetails} from "../../Models/Post-details";
 import {addIcons} from "ionicons";
 import {bookmark, chatbubble, heart, shareSocial} from "ionicons/icons";
 
@@ -14,7 +14,7 @@ import {bookmark, chatbubble, heart, shareSocial} from "ionicons/icons";
     imports: [CommonModule, IonicModule]
 })
 export class PostDetailsComponent implements OnInit {
-  post: Post = new Post();
+  post: PostDetails = new PostDetails();
 
   constructor(private route: ActivatedRoute) {
     addIcons({heart, chatbubble, bookmark,shareSocial})
