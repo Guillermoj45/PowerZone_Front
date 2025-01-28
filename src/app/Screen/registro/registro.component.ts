@@ -1,86 +1,92 @@
-import { Component, OnInit } from '@angular/core';
-import {
-    IonButton,
-    IonCol,
-    IonContent,
-    IonGrid, IonHeader, IonImg,
-    IonInput,
-    IonInputPasswordToggle,
-    IonItem,
-    IonLabel, IonRouterLink,
-    IonRow, IonText
-} from "@ionic/angular/standalone";
-import { NgOptimizedImage } from "@angular/common";
-import { CarrouselComponent } from "../../Component/carrousel/carrousel.component";
-import { RouterModule } from "@angular/router";
-import { RegistroService } from "../../Service/profile.service";
-import { Register } from "../../Models/Register";
+import { Component } from '@angular/core';
+import { RegistroService } from '../../Service/profile.service';
+import { Register } from '../../Models/Register';
+import {IonicModule} from "@ionic/angular";
+import {CarrouselComponent} from "../../Component/carrousel/carrousel.component";
 import {FormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
+import {RouterModule} from "@angular/router";
 
 @Component({
     selector: 'app-registro',
     templateUrl: './registro.component.html',
-    styleUrls: ['./registro.component.scss'],
-    standalone: true,
     imports: [
-        IonContent,
-        IonGrid,
-        IonCol,
-        IonItem,
-        IonInput,
-        IonButton,
-        IonRow,
+        IonicModule,
         CarrouselComponent,
-        IonInputPasswordToggle,
-        IonText,
-        RouterModule,
-        IonImg,
-        IonLabel,
-        FormsModule
-    ]
+        FormsModule,
+        NgIf, RouterModule
+    ],
+    styleUrls: ['./registro.component.scss']
 })
-export class RegistroComponent implements OnInit {
+export class RegistroComponent {
     register: Register = {
         nickname: '',
         name: '',
         email: '',
         bornDate: '',
         password: '',
-        avatar: undefined,
-        activo: true
+        avatar: ''
     };
-    file: File | null = null;
+    selectedFile: File | null = null;
 
-    constructor(private registroService: RegistroService) { }
+    constructor(private registroService: RegistroService) {}
 
-    ngOnInit() { }
+    isNicknameValid = true;
+    isNameValid = true;
+    isEmailValid = true;
+    isBornDateValid = true;
+    isPasswordValid = true;
+
+    validateNickname() {
+        const nicknamePattern = /^[^\d]*$/;
+        this.isNicknameValid = nicknamePattern.test(this.register.nickname);
+    }
+
+    validateName() {
+        const namePattern = /^[^\d]*$/;
+        this.isNameValid = namePattern.test(this.register.name);
+    }
+
+    validateEmail() {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        this.isEmailValid = emailPattern.test(this.register.email);
+    }
+
+    validateBornDate() {
+        this.isBornDateValid = !!this.register.bornDate;
+    }
+
+    validatePassword() {
+        this.isPasswordValid = this.register.password.length >= 8;
+    }
 
     onSubmit() {
-        if (this.register.nickname && this.register.name &&
-            this.register.email && this.register.bornDate &&
-            this.register.password) {
+        this.validateNickname();
+        this.validateName();
+        this.validateEmail();
+        this.validateBornDate();
+        this.validatePassword();
 
-            if (this.file) {
-                this.register.avatar = this.file.name;
-            }
-
+        if (this.isFormValid()) {
             this.registroService.registerUser(this.register).subscribe(
-                response => {
-                    console.log('User registered successfully', response);
+                () => {
+                    console.log('User registered');
                 },
-                error => {
-                    console.error('Error registering user', error);
+                (error) => {
+                    console.error('Error registering user:', error);
                 }
             );
         } else {
-            console.error('All fields are required');
+            console.log('Form not valid');
         }
     }
 
-    onFileSelected(event: Event) {
-        const input = event.target as HTMLInputElement;
-        if (input.files && input.files.length > 0) {
-            this.file = input.files[0];
-        }
+    isFormValid() {
+        return this.isNicknameValid && this.isNameValid && this.isEmailValid && this.isBornDateValid && this.isPasswordValid;
+    }
+
+    onFileSelected(event: any) {
+        this.selectedFile = event.target.files[0];
+        console.log('File selected:', this.selectedFile);
     }
 }

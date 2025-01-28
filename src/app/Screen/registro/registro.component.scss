@@ -95,11 +95,23 @@ ion-col:first-child {
 }
 
 ion-col:last-child {
-  display: flex;
-  justify-content: flex-start; /* Mueve los formularios a la izquierda */
-  align-items: center;
-  padding-left: 2%; /* Ajusta el valor según tus necesidades */
+    display: flex;
+    justify-content: flex-start; /* Mueve los formularios a la izquierda */
+    align-items: center;
+    padding-left: 2%; /* Ajusta el valor según tus necesidades */
 }
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+ion-item.invalid ion-input {
+    border: 1px solid red;
+    border-radius: 4px;
+}
+
 
 @media (max-width: 1000px) {
     .Registrobody ion-col:first-child {

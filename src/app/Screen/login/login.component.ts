@@ -50,7 +50,8 @@ export class LoginComponent implements OnInit {
         if (this.login.email && this.login.password) {
             this.authService.login(this.login).subscribe(
                 (response: any) => {
-                    console.log('Login successful', response);
+                    const token = response.token;
+                    sessionStorage.setItem('token', token);
                     this.router.navigate(['/posts']);
                 },
                 (error: any) => {

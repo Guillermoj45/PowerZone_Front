@@ -17,31 +17,42 @@
                     <ion-item>
                         <ion-input [(ngModel)]="register.nickname" label="Nickname"></ion-input>
                     </ion-item>
-                    <ion-item>
-                        <ion-input [(ngModel)]="register.name" label="Nombre"></ion-input>
+
+                    <ion-item [class.invalid]="!isNameValid">
+                        <ion-input [(ngModel)]="register.name" (ngModelChange)="validateName()" label="Nombre"></ion-input>
                     </ion-item>
-                    <ion-item>
-                        <ion-input [(ngModel)]="register.email" label="Correo"></ion-input>
+                    <p class="error" *ngIf="!isNameValid">El nombre no puede contener números.</p>
+
+                    <ion-item [class.invalid]="!isEmailValid">
+                        <ion-input [(ngModel)]="register.email" (ngModelChange)="validateEmail()" label="Correo"></ion-input>
                     </ion-item>
+                    <p class="error" *ngIf="!isEmailValid">Introduce un correo válido.</p>
+
                     <ion-item>
-                        <ion-input [(ngModel)]="register.bornDate" label="Fecha de Nacimiento" type="date"></ion-input>
+                        <ion-input [(ngModel)]="register.bornDate" label="Nickname" type="date"></ion-input>
                     </ion-item>
-                    <ion-item>
-                        <ion-input [(ngModel)]="register.password" type="password" label="Password" value="NeverGonnaGiveYouUp">
-                            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-                        </ion-input>
+
+
+                    <ion-item [class.invalid]="!isPasswordValid">
+                        <ion-input [(ngModel)]="register.password" (ngModelChange)="validatePassword()" type="password" label="Password"></ion-input>
+                        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
                     </ion-item>
+                    <p class="error" *ngIf="!isPasswordValid">La contraseña debe tener al menos 8 caracteres.</p>
+
                     <ion-item>
                         <ion-label>Subir Imagen</ion-label>
                         <input type="file" (change)="onFileSelected($event)" />
                     </ion-item>
-                    <ion-button (click)="onSubmit()" [routerLink]="['/login']" expand="block">Registrarse</ion-button>
+
+                    <ion-button (click)="onSubmit()" expand="block">Registrarse</ion-button>
+
                     <div class="subForm2">
                         <ion-text>¿Ya tienes Cuenta?<span>   </span></ion-text>
                         <ion-text routerLink="/login"><b>Inicia Sesión</b></ion-text>
                     </div>
                 </div>
             </ion-col>
+
         </ion-row>
     </ion-grid>
 </ion-content>
