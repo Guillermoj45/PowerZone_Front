@@ -19,15 +19,15 @@ import { Router, RouterModule } from '@angular/router';
     styleUrls: ['./registro.component.scss']
 })
 export class RegistroComponent {
+    selectedFile: File | null = null;
     register: Register = {
         nickname: '',
         name: '',
         email: '',
         bornDate: '',
         password: '',
-        avatar: ''
+        avatar: ' ',
     };
-    selectedFile: File | null = null;
 
     constructor(
         private registroService: RegistroService,
@@ -90,11 +90,20 @@ export class RegistroComponent {
 
     isFormValid() {
         return this.isNicknameValid && this.isNameValid && this.isEmailValid
-             && this.isPasswordValid;
+            && this.isPasswordValid;
     }
 
     onFileSelected(event: any) {
-        this.selectedFile = event.target.files[0];
-        console.log('File selected:', this.selectedFile);
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                this.register.avatar = reader.result as string; // Guardar la imagen en base64 en el objeto register
+                console.log('File converted to Base64:', this.register.avatar);
+            };
+            reader.readAsDataURL(file); // Convierte el archivo a Base64
+        }
     }
+
 }
+
