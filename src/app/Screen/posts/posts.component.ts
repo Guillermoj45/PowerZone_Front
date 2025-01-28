@@ -6,7 +6,7 @@ import {addIcons} from "ionicons";
 import {bookmark, chatbubble, heart, shareSocial} from "ionicons/icons";
 import {PostService} from '../../Service/Post.service';
 import {Post} from '../../Models/Post';
-
+import { PostDto } from '../../Models/PostDto';
 @Component({
     selector: 'app-posts',
     templateUrl: './posts.component.html',
@@ -19,7 +19,7 @@ import {Post} from '../../Models/Post';
     ]
 })
 export class PostsComponent implements OnInit {
-    posts: Post[] = [];
+    posts: PostDto[] = [];
 
     constructor(private router: Router, private postService: PostService) {
         addIcons({ bookmark, heart, chatbubble, shareSocial });
@@ -40,11 +40,11 @@ export class PostsComponent implements OnInit {
         );
     }
 
-    viewPostDetails(post: Post) {
+    viewPostDetails(post: PostDto) {
         this.router.navigate(['/post-details'], { state: { post } });
     }
 
-    likePost(post: Post) {
-        console.log(`Liked post: ${post.content}`);
+    likePost(post: PostDto) {
+        console.log(`Liked post: ${post.post?.id}`);
     }
 }
