@@ -13,6 +13,7 @@ import {
 import { Router, RouterLink } from "@angular/router";
 import { Login } from '../../Models/Login';
 import { RegistroService } from '../../Service/profile.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
     selector: 'app-login',
@@ -42,24 +43,43 @@ export class LoginComponent implements OnInit {
         password: ''
     };
 
-    constructor(private authService: RegistroService, private router: Router) { }
+    constructor(
+        private authService: RegistroService,
+        private router: Router,
+        private alertController: AlertController
+    ) { }
 
     ngOnInit() {}
 
+    async showAlert(message: string) {
+        const alert = await this.alertController.create({
+            header: 'Error',
+            message: message,
+            buttons: ['OK']
+        });
+        await alert.present();
+    }
+
     onSubmit() {
-        if (this.login.email && this.login.password) {
-            this.authService.login(this.login).subscribe(
-                (response: any) => {
-                    const token = response.token;
+        if (this.login.email?.trim() == "" || this.login.password?.trim() == "") {
+            this.showAlert('Para acceder se necesitan rellenar los campos');
+            return;
+        }
+
+        this.authService.login(this.login).subscribe(
+            (response: any) => {
+                const token = response.token;
+                if (token) {
                     sessionStorage.setItem('token', token);
                     this.router.navigate(['/posts']);
-                },
-                (error: any) => {
-                    console.error('Login failed', error);
+                } else {
+                    this.showAlert('Login fallido: Dato invalidos');
                 }
-            );
-        } else {
-            console.error('Email and password are required');
-        }
+            },
+            (error: any) => {
+                console.error('Login fallido', error);
+                this.showAlert('Login fallido: Dato invalidos');
+            }
+        );
     }
 }

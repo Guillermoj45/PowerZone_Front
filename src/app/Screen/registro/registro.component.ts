@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RegistroService } from '../../Service/profile.service';
 import { Register } from '../../Models/Register';
-import {IonicModule} from "@ionic/angular";
-import {CarrouselComponent} from "../../Component/carrousel/carrousel.component";
-import {FormsModule} from "@angular/forms";
-import {NgIf} from "@angular/common";
-import {Router, RouterModule} from "@angular/router";
+import { IonicModule, AlertController } from '@ionic/angular';
+import { CarrouselComponent } from '../../Component/carrousel/carrousel.component';
+import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-registro',
@@ -29,42 +29,48 @@ export class RegistroComponent {
     };
     selectedFile: File | null = null;
 
-    constructor(private registroService: RegistroService, private router: Router,) {}
+    constructor(
+        private registroService: RegistroService,
+        private router: Router,
+        private alertController: AlertController
+    ) {}
 
     isNicknameValid = true;
     isNameValid = true;
     isEmailValid = true;
-    isBornDateValid = true;
     isPasswordValid = true;
 
     validateNickname() {
-        const nicknamePattern = /^[^\d]*$/;
-        this.isNicknameValid = nicknamePattern.test(this.register.nickname);
+        this.isNicknameValid = this.register.nickname.trim() !== '';
     }
 
     validateName() {
         const namePattern = /^[^\d]*$/;
-        this.isNameValid = namePattern.test(this.register.name);
+        this.isNameValid = namePattern.test(this.register.name) && this.register.name.trim() !== '';
     }
 
     validateEmail() {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        this.isEmailValid = emailPattern.test(this.register.email);
-    }
-
-    validateBornDate() {
-        this.isBornDateValid = !!this.register.bornDate;
+        this.isEmailValid = emailPattern.test(this.register.email) && this.register.email.trim() !== '';
     }
 
     validatePassword() {
-        this.isPasswordValid = this.register.password.length >= 8;
+        this.isPasswordValid = this.register.password.length >= 8 && this.register.password.trim() !== '';
+    }
+
+    async showAlert() {
+        const alert = await this.alertController.create({
+            header: 'Error',
+            message: 'Hay campos vacíos o con información errónea.',
+            buttons: ['OK']
+        });
+        await alert.present();
     }
 
     onSubmit() {
         this.validateNickname();
         this.validateName();
         this.validateEmail();
-        this.validateBornDate();
         this.validatePassword();
 
         if (this.isFormValid()) {
@@ -78,12 +84,13 @@ export class RegistroComponent {
                 }
             );
         } else {
-            console.log('Form not valid');
+            this.showAlert();
         }
     }
 
     isFormValid() {
-        return this.isNicknameValid && this.isNameValid && this.isEmailValid && this.isBornDateValid && this.isPasswordValid;
+        return this.isNicknameValid && this.isNameValid && this.isEmailValid
+             && this.isPasswordValid;
     }
 
     onFileSelected(event: any) {

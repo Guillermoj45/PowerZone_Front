@@ -29,19 +29,19 @@
                     <p class="error" *ngIf="!isEmailValid">Introduce un correo válido.</p>
 
                     <ion-item>
-                        <ion-input [(ngModel)]="register.bornDate" label="Nickname" type="date"></ion-input>
+                        <ion-input [(ngModel)]="register.bornDate" label="Fecha nacimiento" type="date"></ion-input>
                     </ion-item>
 
 
                     <ion-item [class.invalid]="!isPasswordValid">
-                        <ion-input [(ngModel)]="register.password" (ngModelChange)="validatePassword()" type="password" label="Password"></ion-input>
+                        <ion-input [(ngModel)]="register.password" (ngModelChange)="validatePassword()" type="password" label="Contraseña"></ion-input>
                         <ion-input-password-toggle slot="end"></ion-input-password-toggle>
                     </ion-item>
                     <p class="error" *ngIf="!isPasswordValid">La contraseña debe tener al menos 8 caracteres.</p>
 
                     <ion-item>
                         <ion-label>Subir Imagen</ion-label>
-                        <input type="file" (change)="onFileSelected($event)" />
+                        <input type="file" [(ngModel)]="register.avatar" (change)="onFileSelected($event)" />
                     </ion-item>
 
                     <ion-button (click)="onSubmit()" expand="block">Registrarse</ion-button>

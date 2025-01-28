@@ -18,11 +18,11 @@
                     <ion-input [(ngModel)]="login.email" label="Correo"></ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-input [(ngModel)]="login.password" type="password" label="Password" value="NeverGonnaGiveYouUp">
+                    <ion-input [(ngModel)]="login.password" type="password" label="Contraseña" value="NeverGonnaGiveYouUp">
                         <ion-input-password-toggle slot="end"></ion-input-password-toggle>
                     </ion-input>
                 </ion-item>
-                <ion-button (click)="onSubmit()" [routerLink]="['/posts']" expand="block">Iniciar Sesion</ion-button>
+                <ion-button (click)="onSubmit()" expand="block">Iniciar Sesion</ion-button>
                 <div class="subForm2">
                     <ion-text>¿No tienes Cuenta?<span>   </span></ion-text>
                     <ion-text routerLink="/registro"><b>Registrate</b></ion-text>
