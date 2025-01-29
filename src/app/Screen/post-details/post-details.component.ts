@@ -86,6 +86,4 @@ export class PostDetailsComponent implements OnInit {
     this.posts.push(post2);
     console.log(this.posts);
   }
-
-
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {InfiniteScrollCustomEvent, IonicModule} from "@ionic/angular";
 import { Report } from 'src/app/Models/Report';
+import { AdminService } from 'src/app/Service/Admin.service';
 
 @Component({
   selector: 'app-admin',
@@ -17,8 +18,14 @@ export class AdminComponent  implements OnInit {
   avisados: Report[] = [];
   suspendidos: Report[] = [];
 
+  constructor(private adminService: AdminService) { }
+
   ngOnInit() {
     this.generateItems();
+    console.log('Reports', this.reports);
+    this.adminService.getReports(0).subscribe((data: any) => {
+        console.log(data);
+    })
   }
 
   private generateItems() {
