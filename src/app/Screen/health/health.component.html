@@ -1,33 +1,40 @@
-<ion-content id="contenido">
-    <ion-card (click)="navigateTo('/dietas')" style="margin-bottom: 10%; margin-top: 10%">
-        <ion-card-header class="encabezado_dieta">
-            <img alt="Imagen perfil" src="https://picsum.photos/800/400?random=1" class="dieta_img"/>
-            <ion-card-title style="padding-left: 4%; color: white">
-                Comidas para una salud óptima
-            </ion-card-title>
-        </ion-card-header>
-        <ion-card-content style="margin-top: 3%">
-            <ion-text style="font-size: 100%; color: white">
-                Aquí encontrarás diferentes alimentos, platos y entretiempos para que tu cuerpo pueda responderte
-                a la hora de realizar ejercicio, para poder ganar masa muscular o para realizar un déficit
-                calórico a la par que saludable.
-            </ion-text><br><br>
-        </ion-card-content>
-    </ion-card>
+<ion-content fullscreen>
+    <ion-grid class="chat-container ion-no-padding">
+        <!-- Encabezado del chat -->
+        <ion-row class="chat-header movil">
+            <ion-col size="1" class="icon-back">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-col>
+            <ion-col size="1" class="chat-avatar">
+                <ion-avatar>
+                    <img src="https://picsum.photos/200/300?random=1" />
+                </ion-avatar>
+            </ion-col>
+            <ion-col size="10" class="chat-user-info">
+                <h4 style="margin-left: 12%">Nombre del usuario</h4>
+                <p style="margin-left: 12%">En línea</p>
+            </ion-col>
+        </ion-row>
 
-    <ion-card (click)="navigateTo('/dietas')">
-        <ion-card-header class="encabezado_dieta">
-            <img alt="Imagen perfil" src="https://picsum.photos/800/400?random=2" class="dieta_img"/>
-            <ion-card-title style="padding-left: 4%; color: white">
-                Ejercicios para una salud óptima
-            </ion-card-title>
-        </ion-card-header>
-        <ion-card-content style="margin-top: 3%">
-            <ion-text style="font-size: 100%; color: white">
-                Aquí encontrarás diferentes ejercicios y hábitos para que tu cuerpo pueda responderte
-                en los momentos más difíciles de la vida cotidiana, para poder ganar masa muscular o incluso
-                perder esa grasa que llevamos encima.
-            </ion-text><br><br>
-        </ion-card-content>
-    </ion-card>
+        <!-- Mensajes -->
+        <ion-row class="chat-messages">
+            <ion-col>
+                <ion-list class="message-list">
+
+
+                </ion-list>
+            </ion-col>
+        </ion-row>
+
+        <!-- Input de texto -->
+        <ion-row class="chat-input-row">
+            <ion-col size="10">
+                <ion-input style="color: black" placeholder="Escriba un mensaje..." [(ngModel)]="messageText"></ion-input>
+            </ion-col>
+            <ion-col size="2" class="send-icon">
+                <ion-icon name="send"></ion-icon>
+                <ion-button (click)="sendMessage()"></ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

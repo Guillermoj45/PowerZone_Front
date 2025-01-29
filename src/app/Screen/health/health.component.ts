@@ -1,25 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import {IonContent} from "@ionic/angular/standalone";
-import {IonicModule} from "@ionic/angular";
-import {Router} from "@angular/router";
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ChatBotService } from '../../Service/chat-bot.service';
 
 @Component({
     selector: 'app-health',
     templateUrl: './health.component.html',
     styleUrls: ['./health.component.scss'],
     standalone: true,
-    imports: [
-        IonicModule
-    ]
+    imports: [FormsModule, IonicModule],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class HealthComponent  implements OnInit {
+export class HealthComponent {
+    messageText: string = '';
 
-  constructor(private router: Router) { }
+    constructor(private chabot: ChatBotService) {}
 
-  ngOnInit() {}
-
-    navigateTo(path: string) {
-        this.router.navigate([path]);
+    sendMessage() {
+        if (this.messageText.trim()) {
+            const token = sessionStorage.getItem('token');
+            this.chabot.sendMessage(this.messageText, token).subscribe(
+                (data: any) => {
+                    console.log('Message sent:', data);
+                },
+                (error: any) => {
+                    console.error('Error sending message:', error);
+                }
+            );
+        } else {
+            console.error('Message text is empty');
+        }
     }
-
 }
