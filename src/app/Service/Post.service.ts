@@ -26,13 +26,17 @@ export class PostService {
         return this.http.get<Post>(`${this.apiUrl}/${id}`);
     }
 
-    createPost(token: string, post: Post, file: File): Observable<PostDto> {
+    createPost(token: string, post: Post, file?: File): Observable<PostDto> {
         const formData: FormData = new FormData();
-        formData.append('post', JSON.stringify(post));
-        formData.append('file', file);
+        formData.append('post', new Blob([JSON.stringify(post)], { type: 'application/json' }));
+        if (file) {
+            formData.append('file', file);
+        }
 
         return this.http.post<PostDto>(`${this.apiUrl}/create`, formData, { headers: this.getHeaders(token) });
     }
+
+
 
     deletePost(token: string, post: Post): Observable<void> {
         return this.http.request<void>('delete', `${this.apiUrl}/delete`, { body: post, headers: this.getHeaders(token) });

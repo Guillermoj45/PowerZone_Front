@@ -31,6 +31,7 @@ export class NewPostComponent implements OnInit {
 
     submitPost() {
         const token = sessionStorage.getItem('token');
+
         if (!token) {
             console.error('No token found in cookies');
             return;
@@ -39,11 +40,12 @@ export class NewPostComponent implements OnInit {
         const newPost: Post = {
             content: this.postContent,
             delete: false,
-            images: new Set()
+
         };
 
-
-        this.postService.createPost(token, newPost, this.selectedFile || new File([], '')).subscribe(
+        console.log('Creating post:', newPost);
+        console.log('Token:', token);
+        this.postService.createPost(token, newPost).subscribe(
             (response) => {
                 console.log('Post created successfully:', response);
                 this.dismiss();
