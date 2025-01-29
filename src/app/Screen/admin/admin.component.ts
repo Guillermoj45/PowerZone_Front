@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {InfiniteScrollCustomEvent, IonicModule} from "@ionic/angular";
 import { Report } from 'src/app/Models/Report';
 import { AdminService } from 'src/app/Service/Admin.service';
+import {ProfileWarningBan} from "../../Models/ProfileWarningBan";
 
 @Component({
   selector: 'app-admin',
@@ -14,8 +15,8 @@ import { AdminService } from 'src/app/Service/Admin.service';
 })
 export class AdminComponent  implements OnInit {
   reports: Report[] = [];
-  avisados: Report[] = [];
-  suspendidos: Report[] = [];
+  avisados: ProfileWarningBan[] = [];
+  suspendidos: ProfileWarningBan[] = [];
 
   constructor(private adminService: AdminService) { }
 
@@ -27,7 +28,21 @@ export class AdminComponent  implements OnInit {
   }
 
 
-  onIonInfinite(event: InfiniteScrollCustomEvent) {
+  onIonInfiniteReportes(event: InfiniteScrollCustomEvent) {
+    setTimeout(() => {
+        this.recuperarReportes();
+        event.target.complete();
+    }, 500);
+  }
+
+  onIonInfiniteAvisado(event: InfiniteScrollCustomEvent) {
+    setTimeout(() => {
+        this.recuperarReportes();
+        event.target.complete();
+    }, 500);
+  }
+
+  onIonInfiniteSuspendidos(event: InfiniteScrollCustomEvent) {
     setTimeout(() => {
         this.recuperarReportes();
         event.target.complete();
@@ -42,14 +57,14 @@ export class AdminComponent  implements OnInit {
   }
 
     recuperarAvisados() {
-        this.adminService.getUserWarnings(this.avisados.length).subscribe((data:Report[]) => {
+        this.adminService.getUserWarnings(this.avisados.length).subscribe((data:ProfileWarningBan[]) => {
             console.log('Avisados', data);
             this.avisados.push(...data);
         })
     }
 
     recuperarSuspendidos() {
-        this.adminService.getUserBanned(this.suspendidos.length).subscribe((data:Report[]) => {
+        this.adminService.getUserBanned(this.suspendidos.length).subscribe((data:ProfileWarningBan[]) => {
             console.log('Suspendidos', data);
             this.suspendidos.push(...data);
         })

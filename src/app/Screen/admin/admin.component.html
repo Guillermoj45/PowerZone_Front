@@ -25,7 +25,7 @@
             }
           </ion-list>
 
-          <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+          <ion-infinite-scroll (ionInfinite)="onIonInfiniteReportes($event)">
             <ion-infinite-scroll-content></ion-infinite-scroll-content>
           </ion-infinite-scroll>
 
@@ -42,15 +42,14 @@
       </ion-header>
       <ion-content>
         <div class="example-content">
-                    <ion-list style="color: #002b36;" class="ion-no-padding">
-            @for (report of reports; track report; let index = $index) {
+            <ion-list style="color: #002b36;" class="ion-no-padding">
+            @for (avisado of avisados; track avisado; let index = $index) {
               <ion-item style="--background: #002b36" class="item_list">
                 <ion-avatar slot="start">
-                  <img [src]="report.avatarReported" alt="avatar" />
+                  <img [src]="avisado.avatar" alt="avatar" />
                 </ion-avatar>
                 <div style="display: block">
-                  <ion-label>Reporte de {{ report.reporter }} hacia {{ report.reported }}</ion-label>
-                  <ion-label>Motivo: {{ report.reason }}</ion-label>
+                    <ion-label>El usuario <b>{{ avisado.name }}</b> se le a avisado <b>{{ avisado.reportsCount }}</b></ion-label>
                 </div>
                 <div style="max-height: 10%">
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m0 0h24v24h-24z" fill="#fff" opacity="0"/><g fill="#231f20"><path d="m9.71 11.29a1 1 0 0 0 -1.42 1.42l3 3a1 1 0 0 0 .71.29 1 1 0 0 0 .72-.34l7-8a1 1 0 0 0 -1.5-1.32l-6.22 7.2z"/><path d="m21 11a1 1 0 0 0 -1 1 8 8 0 0 1 -8 8 8 8 0 0 1 -5.67-13.64 7.93 7.93 0 0 1 5.67-2.36 8.79 8.79 0 0 1 1.9.22 1 1 0 1 0 .47-1.94 10.54 10.54 0 0 0 -2.37-.28 10 10 0 0 0 -7 17.09 9.93 9.93 0 0 0 7 2.91 10 10 0 0 0 10-10 1 1 0 0 0 -1-1z"/></g></svg>
@@ -58,6 +57,11 @@
               </ion-item>
             }
           </ion-list>
+
+          <ion-infinite-scroll (ionInfinite)="onIonInfiniteAvisado($event)">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+
         </div>
       </ion-content>
     </div>
@@ -72,14 +76,13 @@
       <ion-content>
         <div class="example-content">
           <ion-list style="color: #002b36;" class="ion-no-padding">
-            @for (report of reports; track report; let index = $index) {
+            @for (suspendido of suspendidos; track suspendido; let index = $index) {
               <ion-item style="--background: #002b36" class="item_list">
                 <ion-avatar slot="start">
-                  <img [src]="report.avatarReported" alt="avatar" />
+                  <img [src]="suspendido.avatar" alt="avatar" />
                 </ion-avatar>
                 <div style="display: block">
-                  <ion-label>Reporte de {{ report.reporter }} hacia {{ report.reported }}</ion-label>
-                  <ion-label>Motivo: {{ report.reason }}</ion-label>
+                  <ion-label>El usuario <b>{{ suspendido.name }}</b> a sido baneado después de recibir {{ suspendido.reportsCount }} advertencias</ion-label>
                 </div>
                 <div style="max-height: 10%">
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m0 0h24v24h-24z" fill="#fff" opacity="0"/><g fill="#231f20"><path d="m9.71 11.29a1 1 0 0 0 -1.42 1.42l3 3a1 1 0 0 0 .71.29 1 1 0 0 0 .72-.34l7-8a1 1 0 0 0 -1.5-1.32l-6.22 7.2z"/><path d="m21 11a1 1 0 0 0 -1 1 8 8 0 0 1 -8 8 8 8 0 0 1 -5.67-13.64 7.93 7.93 0 0 1 5.67-2.36 8.79 8.79 0 0 1 1.9.22 1 1 0 1 0 .47-1.94 10.54 10.54 0 0 0 -2.37-.28 10 10 0 0 0 -7 17.09 9.93 9.93 0 0 0 7 2.91 10 10 0 0 0 10-10 1 1 0 0 0 -1-1z"/></g></svg>
@@ -87,6 +90,11 @@
               </ion-item>
             }
           </ion-list>
+
+          <ion-infinite-scroll (ionInfinite)="onIonInfiniteSuspendidos($event)">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+
         </div>
       </ion-content>
     </div>
