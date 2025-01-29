@@ -1,6 +1,9 @@
 export class Report {
     id!: number;
-    userReporter!: string;
-    userReported!: string;
-    reportReason!: string;
+    idPost!: number;
+    avatarReported!: string;
+    reporter!: string;
+    reported!: string;
+    reason!: string;
+    state!: string;
 }

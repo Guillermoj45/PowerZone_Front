@@ -1,43 +1,74 @@
 import { Component, OnInit } from '@angular/core';
 import {InfiniteScrollCustomEvent, IonicModule} from "@ionic/angular";
 import { Report } from 'src/app/Models/Report';
+import { AdminService } from 'src/app/Service/Admin.service';
+import {ProfileWarningBan} from "../../Models/ProfileWarningBan";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
   standalone: true,
-  imports: [
-    IonicModule
-  ]
+    imports: [
+        IonicModule,
+        RouterLink
+    ]
 })
 export class AdminComponent  implements OnInit {
   reports: Report[] = [];
-  revisables: Report[] = [];
-  avisados: Report[] = [];
-  suspendidos: Report[] = [];
+  avisados: ProfileWarningBan[] = [];
+  suspendidos: ProfileWarningBan[] = [];
+
+  constructor(private adminService: AdminService) { }
 
   ngOnInit() {
-    this.generateItems();
+    console.log('Reports', this.reports);
+    this.recuperarSuspendidos();
+    this.recuperarAvisados();
+    this.recuperarReportes();
   }
 
-  private generateItems() {
-    const count = this.reports.length + 1;
-    for (let i = 0; i < 50; i++) {
-      let report = new Report();
-      report.id = count + i;
-      report.userReporter = 'UserReporter ' + report.id;
-      report.userReported = 'UserReported ' + report.id;
-      report.reportReason = 'ReportReason ' + report.id;
 
-      this.reports.push(report);
-    }
-  }
-
-  onIonInfinite(event: InfiniteScrollCustomEvent) {
-    this.generateItems();
+  onIonInfiniteReportes(event: InfiniteScrollCustomEvent) {
     setTimeout(() => {
-      event.target.complete();
+        this.recuperarReportes();
+        event.target.complete();
     }, 500);
   }
+
+  onIonInfiniteAvisado(event: InfiniteScrollCustomEvent) {
+    setTimeout(() => {
+        this.recuperarReportes();
+        event.target.complete();
+    }, 500);
+  }
+
+  onIonInfiniteSuspendidos(event: InfiniteScrollCustomEvent) {
+    setTimeout(() => {
+        this.recuperarReportes();
+        event.target.complete();
+    }, 500);
+  }
+
+  recuperarReportes() {
+    this.adminService.getReports(this.reports.length).subscribe((data:Report[]) => {
+        console.log('Report', data);
+        this.reports.push(...data);
+    })
+  }
+
+    recuperarAvisados() {
+        this.adminService.getUserWarnings(this.avisados.length).subscribe((data:ProfileWarningBan[]) => {
+            console.log('Avisados', data);
+            this.avisados.push(...data);
+        })
+    }
+
+    recuperarSuspendidos() {
+        this.adminService.getUserBanned(this.suspendidos.length).subscribe((data:ProfileWarningBan[]) => {
+            console.log('Suspendidos', data);
+            this.suspendidos.push(...data);
+        })
+    }
 }
