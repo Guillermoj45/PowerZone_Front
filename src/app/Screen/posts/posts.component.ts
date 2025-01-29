@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {IonicModule} from "@ionic/angular";
-import {CommonModule, NgForOf} from "@angular/common";
-import {Router} from "@angular/router";
-import {addIcons} from "ionicons";
-import {bookmark, chatbubble, heart, shareSocial} from "ionicons/icons";
-import {PostService} from '../../Service/Post.service';
-import {Post} from '../../Models/Post';
+import {IonicModule, ModalController, ModalOptions} from '@ionic/angular';
+import { CommonModule, NgForOf } from '@angular/common';
+import { Router } from '@angular/router';
+import { addIcons } from 'ionicons';
+import { bookmark, chatbubble, heart, shareSocial } from 'ionicons/icons';
+import { PostService } from '../../Service/Post.service';
+import { Post } from '../../Models/Post';
 import { PostDto } from '../../Models/PostDto';
+import { NewCommentComponent } from '../new-comment/new-comment.component';
 @Component({
     selector: 'app-posts',
     templateUrl: './posts.component.html',
@@ -21,7 +22,7 @@ import { PostDto } from '../../Models/PostDto';
 export class PostsComponent implements OnInit {
     posts: PostDto[] = [];
 
-    constructor(private router: Router, private postService: PostService) {
+    constructor(private router: Router, private postService: PostService, private modalController: ModalController) {
         addIcons({ bookmark, heart, chatbubble, shareSocial });
     }
 
@@ -70,7 +71,6 @@ export class PostsComponent implements OnInit {
                 console.error('Error liking the post:', error);
             }
         );
-
     }
 
     savePost(post: PostDto) {
@@ -97,4 +97,13 @@ export class PostsComponent implements OnInit {
             }
         );
     }
+
+    async openNewCommentModal() {
+        const modal = await this.modalController.create({
+            component: NewCommentComponent
+        } as ModalOptions);
+        await modal.present();
+    }
+
+
 }

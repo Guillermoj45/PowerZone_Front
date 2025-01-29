@@ -26,10 +26,10 @@
             <ion-icon name="heart"></ion-icon>
             <!--<span>{{ post.likes }}</span>-->
         </ion-button>
-      <ion-button fill="clear" class="action-button">
+        <ion-button fill="clear" class="action-button" (click)="openNewCommentModal()">
         <ion-icon name="chatbubble" ></ion-icon>
           <!--<span>{{ post.comments }}</span>-->
-        </ion-button>
+      </ion-button>
         <ion-button fill="clear" class="action-button" (click)="savePost(post)">
           <ion-icon name="bookmark" ></ion-icon>
         </ion-button>
