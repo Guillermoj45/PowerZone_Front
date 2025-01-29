@@ -10,11 +10,13 @@ import { Router, RouterModule } from '@angular/router';
 @Component({
     selector: 'app-registro',
     templateUrl: './registro.component.html',
+    standalone: true,
     imports: [
         IonicModule,
         CarrouselComponent,
         FormsModule,
-        NgIf, RouterModule
+        NgIf,
+        RouterModule
     ],
     styleUrls: ['./registro.component.scss']
 })
@@ -26,7 +28,7 @@ export class RegistroComponent {
         email: '',
         bornDate: '',
         password: '',
-        avatar: ' ',
+        avatar: '',
     };
 
     constructor(
@@ -41,27 +43,27 @@ export class RegistroComponent {
     isPasswordValid = true;
 
     validateNickname() {
-        this.isNicknameValid = this.register.nickname.trim() !== '';
+        this.isNicknameValid = !!this.register.nickname?.trim();
     }
 
     validateName() {
-        const namePattern = /^[^\d]*$/;
-        this.isNameValid = namePattern.test(this.register.name) && this.register.name.trim() !== '';
+        const namePattern = /^[^\d]+$/;
+        this.isNameValid = namePattern.test(this.register.name?.trim() || '');
     }
 
     validateEmail() {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        this.isEmailValid = emailPattern.test(this.register.email) && this.register.email.trim() !== '';
+        this.isEmailValid = emailPattern.test(this.register.email?.trim() || '');
     }
 
     validatePassword() {
-        this.isPasswordValid = this.register.password.length >= 8 && this.register.password.trim() !== '';
+        this.isPasswordValid = (this.register.password?.trim()?.length ?? 0) >= 8;
     }
 
-    async showAlert() {
+    async showAlert(message: string) {
         const alert = await this.alertController.create({
             header: 'Error',
-            message: 'Hay campos vacíos o con información errónea.',
+            message,
             buttons: ['OK']
         });
         await alert.present();
@@ -76,21 +78,27 @@ export class RegistroComponent {
         if (this.isFormValid()) {
             this.registroService.registerUser(this.register).subscribe(
                 () => {
-                    console.log('User registered');
+                    console.log('User registered successfully');
                     this.router.navigate(['/login']);
                 },
                 (error) => {
                     console.error('Error registering user:', error);
+                    this.showAlert('Error al registrar el usuario.');
                 }
             );
         } else {
-            this.showAlert();
+            this.showAlert('Hay campos vacíos o con información errónea.');
         }
     }
 
     isFormValid() {
-        return this.isNicknameValid && this.isNameValid && this.isEmailValid
-            && this.isPasswordValid;
+        return (
+            this.isNicknameValid &&
+            this.isNameValid &&
+            this.isEmailValid &&
+            this.isPasswordValid &&
+            (this.register.avatar?.trim()?.length ?? 0) > 0
+        );
     }
 
     onFileSelected(event: any) {
@@ -98,12 +106,10 @@ export class RegistroComponent {
         if (file) {
             const reader = new FileReader();
             reader.onload = () => {
-                this.register.avatar = reader.result as string; // Guardar la imagen en base64 en el objeto register
+                this.register.avatar = reader.result as string;
                 console.log('File converted to Base64:', this.register.avatar);
             };
-            reader.readAsDataURL(file); // Convierte el archivo a Base64
+            reader.readAsDataURL(file);
         }
     }
-
 }
-
