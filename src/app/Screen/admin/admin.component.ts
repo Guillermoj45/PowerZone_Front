@@ -14,7 +14,6 @@ import { AdminService } from 'src/app/Service/Admin.service';
 })
 export class AdminComponent  implements OnInit {
   reports: Report[] = [];
-  revisables: Report[] = [];
   avisados: Report[] = [];
   suspendidos: Report[] = [];
 
@@ -22,7 +21,9 @@ export class AdminComponent  implements OnInit {
 
   ngOnInit() {
     console.log('Reports', this.reports);
-     this.recuperarReportes();
+    this.recuperarSuspendidos();
+    this.recuperarAvisados();
+    this.recuperarReportes();
   }
 
 
@@ -34,9 +35,23 @@ export class AdminComponent  implements OnInit {
   }
 
   recuperarReportes() {
-    this.adminService.getReports(this.reports.length).subscribe((data: any) => {
-        console.log('Data', data);
-      this.reports = data;
+    this.adminService.getReports(this.reports.length).subscribe((data:Report[]) => {
+        console.log('Report', data);
+        this.reports.push(...data);
     })
   }
+
+    recuperarAvisados() {
+        this.adminService.getUserWarnings(this.avisados.length).subscribe((data:Report[]) => {
+            console.log('Avisados', data);
+            this.avisados.push(...data);
+        })
+    }
+
+    recuperarSuspendidos() {
+        this.adminService.getUserBanned(this.suspendidos.length).subscribe((data:Report[]) => {
+            console.log('Suspendidos', data);
+            this.suspendidos.push(...data);
+        })
+    }
 }
