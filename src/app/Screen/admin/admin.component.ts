@@ -3,15 +3,17 @@ import {InfiniteScrollCustomEvent, IonicModule} from "@ionic/angular";
 import { Report } from 'src/app/Models/Report';
 import { AdminService } from 'src/app/Service/Admin.service';
 import {ProfileWarningBan} from "../../Models/ProfileWarningBan";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
   standalone: true,
-  imports: [
-    IonicModule
-  ]
+    imports: [
+        IonicModule,
+        RouterLink
+    ]
 })
 export class AdminComponent  implements OnInit {
   reports: Report[] = [];

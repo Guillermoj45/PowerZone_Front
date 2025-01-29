@@ -10,7 +10,8 @@
         <div class="example-content">
           <ion-list style="color: #002b36;" class="ion-no-padding">
             @for (report of reports; track report; let index = $index) {
-              <ion-item style="--background: #002b36" class="item_list">
+
+              <ion-item style="--background: #002b36" class="item_list" routerLink="/post-details/{{ report.idPost }}">
                   <ion-avatar slot="start">
                     <img [src]="report.avatarReported" alt="Avatar del reportado" />
                   </ion-avatar>
@@ -18,7 +19,7 @@
                   <ion-label class="report-info">
                     <div class="report-header">
                       <span><strong>Reporte de {{ report.reporter }} hacia {{ report.reported }}</strong></span>
-                      <ion-checkbox disabled></ion-checkbox>
+                        <ion-checkbox [checked]="report.state !== 'PENDING'" disabled></ion-checkbox>
                     </div>
                     <span class="report-reason"><strong>Motivo:</strong> {{ report.reason }}</span>
                   </ion-label>
