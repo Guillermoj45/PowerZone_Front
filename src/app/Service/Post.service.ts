@@ -60,7 +60,7 @@ export class PostService {
         return this.http.post<string>(`${this.apiUrl}/unsave`, post, { headers: this.getHeaders(token) });
     }
 
-    likePost(token: string, post: Post): Observable<string> {
+    likePost(token: string, post: number | undefined): Observable<string> {
         return this.http.post<string>(`${this.apiUrl}/like`, post, { headers: this.getHeaders(token) });
     }
 

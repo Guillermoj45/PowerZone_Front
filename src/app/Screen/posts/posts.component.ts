@@ -51,6 +51,24 @@ export class PostsComponent implements OnInit {
     }
 
     likePost(post: PostDto) {
-        console.log(`Liked post: ${post.post?.id}`);
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+            console.error('No token found in session storage');
+            return;
+        }
+
+        if (!post.post) {
+            console.error('Post data not found');
+            return;
+        }
+
+        this.postService.likePost(token, post.post.id).subscribe(
+            (response) => {
+                console.log(`Liked post: ${post.post?.id}`);
+            },
+            (error) => {
+                console.error('Error liking the post:', error);
+            }
+        );
     }
 }
