@@ -41,9 +41,11 @@ export class PostService {
     deletePost(token: string, post: Post): Observable<void> {
         return this.http.request<void>('delete', `${this.apiUrl}/delete`, { body: post, headers: this.getHeaders(token) });
     }
-
-    getBestPost(): Observable<PostDto[]> {
-        return this.http.get<PostDto[]>(`${this.apiUrl}/getbest`);
+    getAllPosts(token: string): Observable<PostDto[]> {
+        return this.http.get<PostDto[]>(`${this.apiUrl}/all`, { headers: this.getHeaders(token) });
+    }
+    getBestPosts(token: string): Observable<PostDto[]> {
+        return this.http.get<PostDto[]>(`${this.apiUrl}/best`, { headers: this.getHeaders(token) });
     }
 
     getUserPosts(token: string): Observable<Post[]> {

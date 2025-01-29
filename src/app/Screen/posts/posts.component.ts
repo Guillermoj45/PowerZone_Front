@@ -26,16 +26,22 @@ export class PostsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.loadBestPosts();
+        this.loadAllPosts();
     }
 
-    loadBestPosts() {
-        this.postService.getBestPost().subscribe(
+    loadAllPosts() {
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+            console.error('No token found in session storage');
+            return;
+        }
+
+        this.postService.getAllPosts(token).subscribe(
             (posts) => {
                 this.posts = posts;
             },
             (error) => {
-                console.error('Error fetching best posts:', error);
+                console.error('Error fetching all posts:', error);
             }
         );
     }
