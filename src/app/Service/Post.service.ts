@@ -52,8 +52,8 @@ export class PostService {
         return this.http.get<Post[]>(`${this.apiUrl}/userposts`, { headers: this.getHeaders(token) });
     }
 
-    savePost(token: string, post: Post): Observable<string> {
-        return this.http.post<string>(`${this.apiUrl}/save`, post, { headers: this.getHeaders(token) });
+    savePost(token: string, postId: number| undefined): Observable<string> {
+        return this.http.post<string>(`${this.apiUrl}/save`, { postId }, { headers: this.getHeaders(token) });
     }
 
     unsavePost(token: string, post: Post): Observable<string> {

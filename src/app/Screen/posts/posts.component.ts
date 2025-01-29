@@ -70,5 +70,31 @@ export class PostsComponent implements OnInit {
                 console.error('Error liking the post:', error);
             }
         );
+
+    }
+
+    savePost(post: PostDto) {
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+            console.error('No token found in session storage');
+            return;
+        }
+        console.log(post);
+        const postId = post.post?.id;
+        if (postId === undefined) {
+            console.error('Post ID not found');
+            return;
+        }
+
+        console.log(`Saving post: ${postId} with token: ${token}`);
+
+        this.postService.savePost(token, postId).subscribe(
+            (response) => {
+                console.log(`Saved post: ${postId}`);
+            },
+            (error) => {
+                console.error('Error saving the post:', error);
+            }
+        );
     }
 }
