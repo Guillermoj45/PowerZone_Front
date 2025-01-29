@@ -21,30 +21,22 @@ export class AdminComponent  implements OnInit {
   constructor(private adminService: AdminService) { }
 
   ngOnInit() {
-    this.generateItems();
     console.log('Reports', this.reports);
-    this.adminService.getReports(0).subscribe((data: any) => {
-        console.log(data);
-    })
+     this.recuperarReportes();
   }
 
-  private generateItems() {
-    const count = this.reports.length + 1;
-    for (let i = 0; i < 50; i++) {
-      let report = new Report();
-      report.id = count + i;
-      report.userReporter = 'UserReporter ' + report.id;
-      report.userReported = 'UserReported ' + report.id;
-      report.reportReason = 'ReportReason ' + report.id;
-
-      this.reports.push(report);
-    }
-  }
 
   onIonInfinite(event: InfiniteScrollCustomEvent) {
-    this.generateItems();
     setTimeout(() => {
-      event.target.complete();
+        this.recuperarReportes();
+        event.target.complete();
     }, 500);
+  }
+
+  recuperarReportes() {
+    this.adminService.getReports(this.reports.length).subscribe((data: any) => {
+        console.log('Data', data);
+      this.reports = data;
+    })
   }
 }
