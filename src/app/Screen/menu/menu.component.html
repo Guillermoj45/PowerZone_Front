@@ -6,7 +6,7 @@
                 <a href="/posts">
                     <ion-icon aria-hidden="true" name="home" slot="start"></ion-icon>
                 </a><br>
-                    <ion-icon aria-hidden="true" name="search" slot="start"></ion-icon>
+                <ion-icon aria-hidden="true" name="search" slot="start"></ion-icon>
                 <br>
                 <a href="/add">
                     <ion-icon aria-hidden="true" name="add" slot="start"></ion-icon>
@@ -27,42 +27,25 @@
                 <h2>Búsqueda</h2>
                 <div class="recent-list">
                     <ion-input
+                        [(ngModel)]="query"
+                        (ionInput)="onSearchChange()"
                         [clearInput]="true"
-                        placeholder="Search">
+                        placeholder="Buscar">
                     </ion-input>
-                    <h6>Recientes</h6>
+                    <h6>Resultados</h6>
                 </div>
-                <ion-item lines="none">
-                    <ion-avatar aria-hidden="true" slot="start">
-                        <img alt="" src="https://picsum.photos/200/300?random=1" />
+                <!-- Mostrar los resultados de búsqueda -->
+                <ion-item *ngFor="let profile of profiles" (click)="navigateToProfile(profile.id)" lines="none">
+                    <ion-avatar slot="start">
+                        <img [src]="profile.avatar || 'https://picsum.photos/200/300?random=1'" />
                     </ion-avatar>
-                    <ion-label>Sara</ion-label>
+                    <ion-label>{{ profile.name }}</ion-label>
                     <ion-button slot="end" fill="clear">
                         <ion-icon name="close-circle"></ion-icon>
                     </ion-button>
                 </ion-item>
-                <ion-item lines="none">
-                    <ion-avatar aria-hidden="true" slot="start">
-                        <img alt="" src="https://picsum.photos/200/300?random=2" />
-                    </ion-avatar>
-                    <ion-label>Rufaé</ion-label>
-                    <ion-button slot="end" fill="clear">
-                        <ion-icon name="close-circle"></ion-icon>
-                    </ion-button>
-                </ion-item>
-                <ion-item lines="none">
-                    <ion-avatar aria-hidden="true" slot="start">
-                        <img alt="" src="https://picsum.photos/200/300?random=3" />
-                    </ion-avatar>
-                    <ion-label>Guillermo</ion-label>
-                    <ion-button slot="end" fill="clear">
-                        <ion-icon name="close-circle"></ion-icon>
-                    </ion-button>
-                </ion-item>
-
             </ion-list>
         </ion-col>
     </ion-row>
 </ion-grid>
-
 </body>

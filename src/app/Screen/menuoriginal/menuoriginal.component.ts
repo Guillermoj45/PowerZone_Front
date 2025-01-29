@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IonicModule, ModalController, ModalOptions} from "@ionic/angular";
-import { addIcons } from "ionicons";
+import {addIcons} from "ionicons";
 import {
     home,
     search,
@@ -14,10 +14,12 @@ import {
 } from "ionicons/icons";
 import {Router} from "@angular/router";
 import {SearchComponent} from "../search/search.component";
-import { SearchVisibilityService } from '../../Service/search-visibility';
+import {SearchVisibilityService} from '../../Service/search-visibility';
 import {NewPostComponent} from "../new-post/new-post.component";
 import {NgIf} from "@angular/common";
 import {Menu} from "../../Service/Menu.service";
+import {ProfileSetting} from "../../Models/ProfileSetting";
+import {ProfileSettingsService} from "../../Service/profile-settings.service";
 
 @Component({
     selector: 'app-menuoriginal',
@@ -28,13 +30,33 @@ import {Menu} from "../../Service/Menu.service";
         IonicModule,
     ]
 })
-export class MenuoriginalComponent  implements OnInit {
+export class MenuoriginalComponent implements OnInit {
+
+    profile: ProfileSetting = {
+        nickName: '',
+        name: '',
+        email: '',
+        bornDate: '',
+        avatar: '',
+        id: 0
+    };
 
     constructor(private modalController: ModalController,
                 private router: Router,
                 private searchVisibilityService: SearchVisibilityService,
-                private menuService: Menu) {
-        addIcons({ home, search, add, restaurant, notifications, closeCircle, personCircleOutline, settingsSharp, logInOutline });
+                private menuService: Menu,
+                private profileSettings: ProfileSettingsService) {
+        addIcons({
+            home,
+            search,
+            add,
+            restaurant,
+            notifications,
+            closeCircle,
+            personCircleOutline,
+            settingsSharp,
+            logInOutline
+        });
     }
 
     toggleMenu() {
@@ -48,7 +70,16 @@ export class MenuoriginalComponent  implements OnInit {
         await modal.present();
     }
 
-  ngOnInit() {}
+    ngOnInit() {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+            this.profileSettings.getData(token).subscribe((data: ProfileSetting) => {
+                this.profile = data;
+            });
+        } else {
+            console.error('Token is null');
+        }
+    }
 
 
     navigateTo(path: string) {

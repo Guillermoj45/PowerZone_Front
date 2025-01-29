@@ -19,4 +19,9 @@ export class ProfileSettingsService {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         return this.httpClient.post('/api/profile/updateData', profile, { headers });
     }
+
+    getProfileById(id: string) {
+        return this.httpClient.get<ProfileSetting>(`/api/profile/${id}`);
+    }
+
 }

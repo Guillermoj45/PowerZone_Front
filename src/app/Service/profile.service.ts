@@ -36,4 +36,13 @@ export class ProfileService {
         const headers = new HttpHeaders({ Authorization: token });
         return this.http.put<any>(`${this.baseUrl}/updateData`, profile, { headers });
     }
+
+    searchProfiles(query: string): Observable<any[]> {
+        return this.http.get<any[]>(`${this.baseUrl}/search?query=${query}`);
+    }
+
+    searchProfilesById(id: string): Observable<any[]> {
+        return this.http.get<any[]>(`${this.baseUrl}/${id}`);
+    }
 }
+

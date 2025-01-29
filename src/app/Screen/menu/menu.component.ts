@@ -1,24 +1,52 @@
+// menu.component.ts
 import { Component, OnInit } from '@angular/core';
-import {IonicModule} from "@ionic/angular";
-import { addIcons } from "ionicons";
-import { home, search, add, restaurant, notifications, closeCircle, personCircleOutline, settingsSharp } from "ionicons/icons";
+import { IonicModule } from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import { home, search, add, restaurant, notifications, closeCircle, personCircleOutline, settingsSharp } from 'ionicons/icons';
+import { ProfileService } from '../../Service/profile.service';
+import { Router } from '@angular/router';
+import {NgForOf} from "@angular/common";
+import {FormsModule} from "@angular/forms"; // Para redirigir
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss'],
-  standalone: true,
+    selector: 'app-menu',
+    templateUrl: './menu.component.html',
+    styleUrls: ['./menu.component.scss'],
+    standalone: true,
     imports: [
-        IonicModule
+        IonicModule,
+        NgForOf,
+        FormsModule
     ]
 })
-export class MenuComponent  implements OnInit {
+export class MenuComponent implements OnInit {
+    query: string = '';
+    profiles: any[] = [];  // Lista para almacenar los perfiles encontrados
 
-  constructor() {
-      addIcons({ home, search, add, restaurant, notifications, closeCircle, personCircleOutline, settingsSharp });
-  }
+    constructor(
+        private profileService: ProfileService,
+        private router: Router
+    ) {
+        addIcons({
+            home, search, add, restaurant, notifications, closeCircle, personCircleOutline, settingsSharp
+        });
+    }
 
-  ngOnInit() {}
+    ngOnInit() {}
 
+    // Método para manejar el cambio de búsqueda
+    onSearchChange() {
+        if (this.query.trim().length > 0) {
+            this.profileService.searchProfiles(this.query).subscribe((data) => {
+                this.profiles = data;
+            });
+        } else {
+            this.profiles = []; // Si la consulta está vacía, limpiamos los resultados
+        }
+    }
 
+    // Método para redirigir al perfil de un usuario
+    navigateToProfile(id: number) {
+        this.router.navigate([`/profile/${id}`]); // Cambia la ruta si es necesario
+    }
 }
