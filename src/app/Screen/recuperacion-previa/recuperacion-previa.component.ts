@@ -49,7 +49,6 @@ export class RecuperacionPreviaComponent  implements OnInit {
         this.recu.sendNewPassword(this.code, this.password).subscribe({
             next: () => {
                 console.log("Hola")
-                this.router.navigate(['/login']);
             },
             error: (err) => {
                 console.error('Error al enviar el email', err);
