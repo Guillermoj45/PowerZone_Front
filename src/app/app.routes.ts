@@ -66,4 +66,8 @@ export const routes: Routes = [
         path: 'health',
         loadComponent: () => import('./Screen/health/health.component').then((m) => m.HealthComponent),
     },
+    {
+        path:'recu',
+        loadComponent: ()=> import('./Screen/recuperacion-previa/recuperacion-previa.component').then((m) => m.RecuperacionPreviaComponent)
+    }
 ];

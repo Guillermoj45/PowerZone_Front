@@ -1,0 +1,47 @@
+<ion-content class="Registrobody" style="height: 100%">
+    <ion-grid class="ion-no-padding">
+        <ion-row>
+            <!--En esta columna es donde va la foto de los moviles-->
+            <ion-col class="Registrobody">
+                <div id="onichan">
+                    <img src="../../../assets/img/marco2.png" class="overlay-image">
+                    <div id="onichan2">
+                        <app-carrousel></app-carrousel>
+                    </div>
+                </div>
+            </ion-col>
+            <!--En este es donde está el formulario de registro-->
+            <ion-col size-lg="6" size-xs="12" class="Registrobody">
+                <div class="subForm">
+                    <ion-img src="assets/logo.png" id="logo"></ion-img>
+                    <ion-item *ngIf="!hecho">
+                        <ion-input [(ngModel)]="email" label="Introduce tu email"></ion-input>
+                    </ion-item>
+
+                    <ion-item *ngIf="hecho">
+                        <ion-input [(ngModel)]="code" label="Codigo enviado a email"></ion-input>
+                    </ion-item>
+
+                    <ion-item *ngIf="hecho">
+                        <ion-input [(ngModel)]="password" type="password" label="Nueva contraseña"></ion-input>
+                    </ion-item>
+
+                    <ion-item *ngIf="hecho">
+                        <ion-input [(ngModel)]="passwordConfident" type="password" label="Repite contraseña"></ion-input>
+                    </ion-item>
+
+
+                    <ion-button *ngIf="!hecho" (click)="sendEmail()" expand="block">Registrarse</ion-button>
+                    <ion-button *ngIf="hecho" (click)="sendNewPassword()" expand="block">Recuperar cuenta</ion-button>
+
+
+                    <div class="subForm2">
+                        <ion-text>¿Ya tienes Cuenta?<span>   </span></ion-text>
+                        <ion-text routerLink="/login"><b>Inicia Sesión</b></ion-text>
+                    </div>
+                </div>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+</ion-content>

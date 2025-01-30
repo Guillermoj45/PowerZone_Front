@@ -1,0 +1,143 @@
+.Registrobody {
+    background-color: #042f2e; /* Fondo principal */
+    color: white; /* Color del texto por defecto */
+    height: 100vh; /* Ocupa toda la altura de la pantalla */
+    justify-content: center;
+    align-items: center;
+}
+
+#onichan {
+    display: flex;
+    flex-direction: column; /* Asegura que los elementos se apilen verticalmente */
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Habilita la manipulación de z-index */
+}
+
+#onichan2 {
+    width: 90%; /* Adjust the width as needed */
+    height: 100%; /* Adjust the height as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#onichan img {
+    position: absolute; /* Coloca la imagen encima del contenido */
+    z-index: 2; /* Asegura que esté por encima del carrusel */
+    width: 100%; /* Ajusta el ancho según sea necesario */
+    height: auto; /* Mantiene la proporción */
+}
+
+#onichan app-carrousel {
+    position: relative; /* Asegura que esté detrás de la imagen */
+    z-index: 1; /* Coloca el carrusel por debajo del marco */
+    width: 100%; /* Ajusta el ancho según tus necesidades */
+    height: auto; /* Mantiene la proporción del contenido */
+}
+
+
+.Registrobody ion-item {
+    --background: #042f2e; /* Fondo del ion-item */
+    color: white; /* Texto en blanco */
+}
+
+.Registrobody ion-input {
+    --background: #042f2e; /* Fondo del input */
+    color: white; /* Texto del input */
+}
+
+.Registrobody ion-label {
+    color: white; /* Texto del label */
+}
+
+.Registrobody ion-button {
+    --background: #68aecc; /* Fondo del botón */
+    --color: white; /* Texto del botón */
+}
+
+.subForm {
+    background-color: #042f2e; /* Fondo del formulario */
+    border: 1px solid white; /* Bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    width: 60%; /* Ajusta el ancho según tus necesidades */
+    margin-top: 2%; /* Agrega margen superior */
+    padding: 1%; /* Agrega un poco de relleno interno */
+    text-align: center; /* Centra el texto */
+}
+
+.subForm2 {
+    background-color: #042f2e; /* Fondo del formulario */
+    border: 1px solid white; /* Bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    width: 100%; /* Ajusta el ancho según tus necesidades */
+    margin-top: 2%; /* Agrega margen superior */
+    padding: 1%; /* Agrega un poco de relleno interno */
+    text-align: center; /* Centra el texto */
+}
+
+.Registrobody ion-text:first-child {
+    margin-right: 1%; /* Ajusta el valor según tus necesidades */
+}
+
+#logo {
+    width: 50%; /* Ajusta el ancho según tus necesidades */
+    height: 50%; /* Ajusta la altura según tus necesidades */
+    margin: 0 auto; /* Centra el elemento */
+    display: block; /* Hace que el elemento sea un bloque */
+}
+
+ion-col:first-child {
+    display: flex;
+    justify-content: flex-end; /* Mueve el carrusel a la derecha */
+    align-items: center;
+    padding-right: 4%; /* Ajusta el valor según tus necesidades */
+}
+
+ion-col:last-child {
+    display: flex;
+    justify-content: flex-start; /* Mueve los formularios a la izquierda */
+    align-items: center;
+    padding-left: 2%; /* Ajusta el valor según tus necesidades */
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+ion-item.invalid ion-input {
+    border: 1px solid red;
+    border-radius: 4px;
+}
+
+
+@media (max-width: 1000px) {
+    .Registrobody ion-col:first-child {
+        display: none;
+    }
+    .subForm {
+        background-color: #042f2e;
+        border: 0;
+        width: 100%;
+        margin-top: 20px;
+        text-align: center;
+        padding: 30px; /* Increased padding for vertical spacing */
+        gap: 20px; /* Add gap between form elements */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .subForm ion-item {
+        margin-bottom: 5%; /* Add space between form items */
+    }
+
+    .subForm ion-button {
+        margin-top: 10%; /* Add more space above the button */
+    }
+
+    .subForm2 {
+        margin-top: 10%; /* More space for the "Already have an account" section */
+    }
+}

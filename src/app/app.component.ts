@@ -76,7 +76,7 @@ export class AppComponent implements OnInit {
                 this.footerVisible = !hideFooter;
 
                 // Configurar visibilidad de menú y sugerencias según la ruta
-                const hideMenus = ["/login", "/registro"].includes(currentUrl);
+                const hideMenus = ["/login", "/registro", "/recu"].includes(currentUrl);
                 this.menuSuggestionsService.setMenuVisible(!hideMenus);
                 this.menuSuggestionsService.setSuggestionsVisible(!hideMenus);
 
@@ -100,7 +100,7 @@ export class AppComponent implements OnInit {
 
     updateViewBasedOnScreenSize() {
         const screenWidth = window.innerWidth;
-        const isAuthRoute = ["/login", "/registro"].includes(this.router.url);
+        const isAuthRoute = ["/login", "/registro", "/recu"].includes(this.router.url);
         const isChatRoute = ["/chat"].includes(this.router.url);
 
         // Si es una ruta de autenticación, los menús no se muestran
