@@ -7,7 +7,7 @@
                     <ion-avatar>
                         <img alt="Imagen perfil" [src]="profile.avatar || 'https://picsum.photos/800/400?random=1'" />
                     </ion-avatar>
-                    <ion-text style="padding-left: 7%">{{ profile.nickName }}</ion-text>
+                    <ion-text style="padding-left: 7%">{{ profile.nickName || profile.name }}</ion-text>
                 </ion-col>
             </ion-row>
 

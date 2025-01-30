@@ -46,10 +46,7 @@ export const routes: Routes = [
         path: 'admin',
         loadComponent: () => import('./Screen/admin/admin.component').then(m => m.AdminComponent)
     },
-    {
-        path: 'post-details/:id',
-        loadComponent: () => import('./Screen/post-details/post-details.component').then((m) => m.PostDetailsComponent),
-    },
+
     {
         path: 'search',
         loadComponent: () => import('./Screen/search/search.component').then((m) => m.SearchComponent),

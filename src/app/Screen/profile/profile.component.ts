@@ -48,6 +48,7 @@ export class ProfileComponent implements OnInit {
 
         if (this.profileId) {
             // Cargar el perfil del usuario especificado
+
             this.profileSettings.getProfileById(this.profileId).subscribe(
                 (data: ProfileSetting) => {
                     this.profile = data;

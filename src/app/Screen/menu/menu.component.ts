@@ -1,12 +1,13 @@
 // menu.component.ts
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import {IonicModule, ModalController, ModalOptions} from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { home, search, add, restaurant, notifications, closeCircle, personCircleOutline, settingsSharp } from 'ionicons/icons';
 import { ProfileService } from '../../Service/profile.service';
 import { Router } from '@angular/router';
 import {NgForOf} from "@angular/common";
-import {FormsModule} from "@angular/forms"; // Para redirigir
+import {FormsModule} from "@angular/forms";
+import {NewPostComponent} from "../new-post/new-post.component"; // Para redirigir
 
 @Component({
     selector: 'app-menu',
@@ -25,7 +26,8 @@ export class MenuComponent implements OnInit {
 
     constructor(
         private profileService: ProfileService,
-        private router: Router
+        private router: Router,
+        private modalController: ModalController
     ) {
         addIcons({
             home, search, add, restaurant, notifications, closeCircle, personCircleOutline, settingsSharp
@@ -33,6 +35,13 @@ export class MenuComponent implements OnInit {
     }
 
     ngOnInit() {}
+
+    async openAddPostModal() {
+        const modal = await this.modalController.create({
+            component: NewPostComponent
+        } as ModalOptions);
+        await modal.present();
+    }
 
     // Método para manejar el cambio de búsqueda
     onSearchChange() {
