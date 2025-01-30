@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Nuevo comentario</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismiss()">
+                <ion-icon name="close" class="send-icon"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form (ngSubmit)="submitComment()" class="centered-form">
+        <ion-item>
+            <ion-label position="floating">Escribe aquí tu comentario</ion-label>
+            <ion-textarea [(ngModel)]="commentContent" name="content" required></ion-textarea>
+        </ion-item>
+        <ion-button expand="full" type="submit">
+            <span class="large-text">Submit</span>
+            <ion-icon name="send"></ion-icon>
+        </ion-button>
+    </form>
+</ion-content>

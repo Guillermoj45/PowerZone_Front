@@ -5,52 +5,52 @@
 
     <ion-col size="12" class="user-info">
       <ion-avatar>
-        <img alt="Imagen perfil" [src]="post.userAvatar" />
+        <img alt="Imagen perfil" src="https://picsum.photos/800/400?random=1" />
       </ion-avatar>
-      <span class="username">{{ post.username }}</span>
+      <span class="username">{{ post.nickname }}</span>
     </ion-col>
 
     <!-- Imagen Principal -->
     <ion-col size="12" class="post-image">
-      <ion-img [src]="post.image" alt="Imagen del post"></ion-img>
+      <ion-img [src]="post.post?.images" alt="Imagen del post"></ion-img>
     </ion-col>
 
     <!-- Descripción -->
     <ion-col size="12" class="post-description">
-      {{ post.description }}
+      {{ post.post?.content }}
     </ion-col>
 
-    <!-- Acciones del Post -->
+    <!-- Acciones del PostDetails -->
     <ion-col size="12" class="post-actions">
         <ion-button fill="clear" class="action-button" (click)="likePost(post)">
             <ion-icon name="heart"></ion-icon>
-            <span>{{ post.likes }}</span>
+            <!--<span>{{ post.likes }}</span>-->
         </ion-button>
-      <ion-button fill="clear" class="action-button">
+        <ion-button fill="clear" class="action-button" (click)="openNewCommentModal()">
         <ion-icon name="chatbubble" ></ion-icon>
-        <span>{{ post.comments }}</span>
+          <!--<span>{{ post.comments }}</span>-->
       </ion-button>
-      <ion-button fill="clear" class="action-button">
-        <ion-icon name="bookmark" ></ion-icon>
-      </ion-button>
+        <ion-button fill="clear" class="action-button" (click)="savePost(post)">
+          <ion-icon name="bookmark" ></ion-icon>
+        </ion-button>
         <ion-button fill="clear" class="action-button">
-            <ion-icon name="share-social"></ion-icon>
+              <ion-icon name="share-social"></ion-icon>
         </ion-button>
 
-    </ion-col>
+      </ion-col>
 
-    <!-- Comentario Destacado -->
+      <!-- Comentario Destacado -->
     <ion-col size="12" class="highlighted-comment">
       <ion-avatar >
-        <img [src]="post.highlightedComment.avatar" alt="Avatar del comentario" fill/>
-      </ion-avatar>
-      <span class="comment">
-        <b>{{ post.highlightedComment.username }}</b> {{ post.highlightedComment.content }}
-      </span>
-    </ion-col>
-  </ion-row>
-  </div>
-</ion-grid>
-<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+          <!--<img [src]="post.highlightedComment.avatar" alt="Avatar del comentario" fill/>-->
+        </ion-avatar>
+        <span class="comment">
+          <!--<b>{{ post.highlightedComment.username }}</b> {{ post.highlightedComment.content }}-->
+        </span>
+      </ion-col>
+    </ion-row>
+    </div>
+  </ion-grid>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
 
-</ion-fab>
+  </ion-fab>

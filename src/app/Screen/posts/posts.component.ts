@@ -1,89 +1,109 @@
 import { Component, OnInit } from '@angular/core';
-import {IonicModule, ModalController} from "@ionic/angular";
-import {CommonModule, NgForOf, NgOptimizedImage} from "@angular/common";
-import {Router, RouterLink} from "@angular/router";
-import {addIcons} from "ionicons";
-import {bookmark, chatbubble, heart, shareSocial} from "ionicons/icons";
-import {SearchComponent} from "../search/search.component";
-import {FormsModule} from "@angular/forms";
-import {SearchVisibilityService} from "../../Service/search-visibility";
-import {NewPostComponent} from "../new-post/new-post.component";
-
-
+import {IonicModule, ModalController, ModalOptions} from '@ionic/angular';
+import { CommonModule, NgForOf } from '@angular/common';
+import { Router } from '@angular/router';
+import { addIcons } from 'ionicons';
+import { bookmark, chatbubble, heart, shareSocial } from 'ionicons/icons';
+import { PostService } from '../../Service/Post.service';
+import { Post } from '../../Models/Post';
+import { PostDto } from '../../Models/PostDto';
+import { NewCommentComponent } from '../new-comment/new-comment.component';
 @Component({
-  selector: 'app-posts',
-  templateUrl: './posts.component.html',
-  styleUrls: ['./posts.component.scss'],
-  standalone: true,
+    selector: 'app-posts',
+    templateUrl: './posts.component.html',
+    styleUrls: ['./posts.component.scss'],
+    standalone: true,
     imports: [
         IonicModule,
         NgForOf,
         CommonModule,
-        FormsModule,
-
-
     ]
 })
 export class PostsComponent implements OnInit {
+    posts: PostDto[] = [];
 
-
-    viewPostDetails(post: any) {
-        this.router.navigate(['/post-details'], { state: { post } });
-    }
-    posts = [
-    {
-      id: 1,
-      username: 'Sara',
-      userAvatar: 'https://picsum.photos/800/400?random=1',
-      image: 'https://picsum.photos/800/400?random=1',
-      description: 'Aquí con mi gymster',
-      likes: '10mil',
-      comments: '10mil',
-      highlightedComment: {
-        username: 'Susanita',
-        avatar: 'https://picsum.photos/100/100?random=2',
-        content: 'Que wupas salimos amiga',
-      },
-    },
-    {
-      id: 2,
-      username: 'Carlos',
-      userAvatar: 'https://picsum.photos/100/100?random=3',
-      image: 'https://picsum.photos/800/400?random=2',
-      description: 'Día de entrenamiento intensivo 💪',
-      likes: '8mil',
-      comments: '5mil',
-      highlightedComment: {
-        username: 'Pedro',
-        avatar: 'https://picsum.photos/100/100?random=4',
-        content: '¡Increíble esfuerzo, bro!',
-      },
-    },
-    {
-      id: 3,
-      username: 'Ana',
-      userAvatar: 'https://picsum.photos/100/100?random=5',
-      image: 'https://picsum.photos/800/400?random=3',
-      description: 'Relax después de un gran día',
-      likes: '7mil',
-      comments: '3mil',
-      highlightedComment: {
-        username: 'Lucía',
-        avatar: 'https://picsum.photos/100/100?random=6',
-        content: '¡Qué hermosa vista! ❤️',
-      },
-    },
-  ];
-
-
-    constructor(private router: Router, private searchVisibilityService: SearchVisibilityService) {
+    constructor(private router: Router, private postService: PostService, private modalController: ModalController) {
         addIcons({ bookmark, heart, chatbubble, shareSocial });
     }
 
     ngOnInit(): void {
-
+        this.loadAllPosts();
     }
-  likePost(post: any) {
-    console.log(`Liked post: ${post.username}`);
-  }
+
+    loadAllPosts() {
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+            console.error('No token found in session storage');
+            return;
+        }
+
+        this.postService.getAllPosts(token).subscribe(
+            (posts) => {
+                this.posts = posts;
+            },
+            (error) => {
+                console.error('Error fetching all posts:', error);
+            }
+        );
+    }
+
+    viewPostDetails(post: PostDto) {
+        this.router.navigate(['/post-details'], { state: { post } });
+    }
+
+    likePost(post: PostDto) {
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+            console.error('No token found in session storage');
+            return;
+        }
+
+        if (!post.post) {
+            console.error('Post data not found');
+            return;
+        }
+
+        this.postService.likePost(token, post.post.id).subscribe(
+            (response) => {
+                console.log(`Liked post: ${post.post?.id}`);
+            },
+            (error) => {
+                console.error('Error liking the post:', error);
+            }
+        );
+    }
+
+    savePost(post: PostDto) {
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+            console.error('No token found in session storage');
+            return;
+        }
+        console.log(post);
+        const postId = post.post?.id;
+        if (postId === undefined) {
+            console.error('Post ID not found');
+            return;
+        }
+
+        console.log(`Saving post: ${postId} with token: ${token}`);
+
+        this.postService.savePost(token, postId).subscribe(
+            (response) => {
+                console.log(`Saved post: ${postId}`);
+            },
+            (error) => {
+                console.error('Error saving the post:', error);
+            }
+        );
+    }
+
+    async openNewCommentModal() {
+        const modal = await this.modalController.create({
+            component: NewCommentComponent
+        } as ModalOptions);
+        await modal.present();
+    }
+
+
 }

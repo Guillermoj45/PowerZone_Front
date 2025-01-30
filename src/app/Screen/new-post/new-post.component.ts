@@ -1,8 +1,11 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {IonicModule, IonIcon, ModalController} from "@ionic/angular";
-import {FormsModule} from "@angular/forms";
-import {addIcons} from "ionicons";
-import {send, close,folderOutline} from "ionicons/icons";
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { IonicModule, ModalController } from "@ionic/angular";
+import { FormsModule } from "@angular/forms";
+import { addIcons } from "ionicons";
+import { send, close, folderOutline } from "ionicons/icons";
+import { PostService } from '../../Service/Post.service';
+import { Post } from '../../Models/Post';
+
 @Component({
     selector: 'app-new-post',
     templateUrl: './new-post.component.html',
@@ -11,36 +14,53 @@ import {send, close,folderOutline} from "ionicons/icons";
     imports: [
         IonicModule,
         FormsModule,
-
     ]
 })
-export class NewPostComponent  implements OnInit {
+export class NewPostComponent implements OnInit {
     @ViewChild('fileInput') fileInput!: ElementRef;
-  postContent: string = '';
-  selectedFile: File | null = null;
-    constructor(private modalController: ModalController) {
-        addIcons({ close, send, folderOutline});
+    postContent: string = '';
+    selectedFile: File | null = null;
+
+    constructor(private modalController: ModalController, private postService: PostService) {
+        addIcons({ close, send, folderOutline });
     }
 
     dismiss() {
         this.modalController.dismiss();
     }
 
-  submitPost() {
-    // Aquí puedes manejar el envío de la publicación
-    console.log("Contenido:", this.postContent);
-    if (this.selectedFile) {
-      console.log("Archivo seleccionado:", this.selectedFile.name);
-    }
-    this.dismiss();  // Cerrar el modal al enviar
-  }
+    submitPost() {
+        const token = sessionStorage.getItem('token');
 
-  ngOnInit() {}
+        if (!token) {
+            console.error('No token found in cookies');
+            return;
+        }
+
+        const newPost: Post = {
+            content: this.postContent,
+            delete: false,
+
+        };
+
+        console.log('Creating post:', newPost);
+        console.log('Token:', token);
+        this.postService.createPost(token, newPost).subscribe(
+            (response) => {
+                console.log('Post created successfully:', response);
+                this.dismiss();
+            },
+            (error) => {
+                console.error('Error creating post:', error);
+            }
+        );
+    }
+
+    ngOnInit() {}
 
     triggerFileInput() {
         this.fileInput.nativeElement.click();
     }
-
 
     onFileChange(event: Event) {
         const input = event.target as HTMLInputElement;
@@ -49,3 +69,5 @@ export class NewPostComponent  implements OnInit {
         }
     }
 }
+
+
