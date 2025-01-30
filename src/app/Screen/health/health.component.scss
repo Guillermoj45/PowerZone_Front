@@ -97,6 +97,24 @@
     cursor: pointer;
 }
 
+.typing-animation {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+
+    span {
+        margin-right: 8px;
+        font-style: italic;
+        color: #888;
+    }
+
+    ion-spinner {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+
 /* Ajustes para pantallas pequeñas */
 @media (max-width: 1000px) {
     .movil {

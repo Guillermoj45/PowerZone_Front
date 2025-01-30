@@ -27,7 +27,7 @@
                 </ion-col>
                 <ion-col>
                     <div class="text-center">
-                        <ion-text class="info_num">0</ion-text>
+                        <ion-text class="info_num">{{ posts.length }}</ion-text>
                         <ion-text>Publicaciones</ion-text>
                     </div>
                 </ion-col>
@@ -37,8 +37,7 @@
             <ion-row style="margin: 2% 5%">
                 <ion-col size="5">
                     <ion-button>
-                        <ion-icon style="margin-right: 5%" name="person-add-outline"></ion-icon>
-                        Seguir
+                        <ion-icon style="margin-right: 5%" name="person-add-outline"></ion-icon>Seguir
                     </ion-button>
                 </ion-col>
                 <ion-col size="2"></ion-col>
@@ -52,10 +51,18 @@
         </ion-grid>
     </div>
 
-    <!-- Image Grid -->
-    <div class="image-grid">
-        <img (click)="navigateTo('post-details/1')" *ngFor="let item of items; let i = index" [src]="'https://picsum.photos/100/100?random=' + i" alt="Imagen {{ i }}" />
+    <div *ngIf="posts.length === 0" class="no-posts">
+        <p>Este usuario no tiene publicaciones.</p>
     </div>
+
+    <!-- Imagenes del grid -->
+    <div class="image-grid" *ngIf="posts.length > 0">
+        <img *ngFor="let post of posts; let i = index"
+             (click)="navigateTo('post-details/{{post.id}}')"
+             [src]="'https://picsum.photos/100/100?random=' + i"
+             alt="Imagen {{ i }}" />
+    </div>
+
 
     <!-- Infinite Scroll -->
     <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">

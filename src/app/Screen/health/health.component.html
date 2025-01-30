@@ -22,6 +22,12 @@
                     <div *ngFor="let msg of messages" [class.user]="msg.isUser" [class.bot]="!msg.isUser" class="message">
                         <span>{{ msg.text }}</span>
                     </div>
+
+                    <!-- Animación de "escribiendo" -->
+                    <div *ngIf="isTyping" class="message bot typing-animation">
+                        <span>Escribiendo...</span>
+                        <ion-spinner name="dots" color="primary"></ion-spinner>
+                    </div>
                 </div>
             </ion-col>
         </ion-row>

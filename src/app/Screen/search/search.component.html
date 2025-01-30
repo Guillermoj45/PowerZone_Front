@@ -1,19 +1,25 @@
 <ion-content>
-  <div class="barra">
-    <ion-icon name="search"></ion-icon>
-    <ion-input type="text" placeholder="Buscar..."></ion-input>
-  </div>
+    <div class="barra">
+        <ion-icon name="search"></ion-icon>
+        <ion-input
+            [(ngModel)]="searchText"
+            (ionInput)="onSearchChange()"
+            type="text"
+            placeholder="Buscar...">
+        </ion-input>
+    </div>
 
-  <ion-list>
-    <ion-list-header>Recientes</ion-list-header>
-    <ion-item *ngFor="let user of users" lines="none" style="--background: transparent;">
-      <ion-avatar slot="start">
-        <img [src]="user.avatar" />
-      </ion-avatar>
-      <ion-label style="color: white;">{{ user.name }}</ion-label>
-      <ion-button slot="end" fill="clear" (click)="removeUser(user)">
-        <ion-icon name="close-circle" style="color: white;"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-list>
+    <ion-list>
+        <ion-list-header>Resultados</ion-list-header>
+        <!-- Mostrar los resultados de búsqueda dinámicamente -->
+        <ion-item *ngFor="let user of users" lines="none" style="--background: transparent;" (click)="navigateToProfile(user.id)">
+            <ion-avatar slot="start">
+                <img [src]="user.avatar || 'https://picsum.photos/200/300?random=1'" />
+            </ion-avatar>
+            <ion-label style="color: white;">{{ user.name }}</ion-label>
+            <ion-button slot="end" fill="clear" (click)="removeUser(user)">
+                <ion-icon name="close-circle" style="color: white;"></ion-icon>
+            </ion-button>
+        </ion-item>
+    </ion-list>
 </ion-content>

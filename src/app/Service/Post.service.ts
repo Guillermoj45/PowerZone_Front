@@ -36,8 +36,6 @@ export class PostService {
         return this.http.post<PostDto>(`${this.apiUrl}/create`, formData, { headers: this.getHeaders(token) });
     }
 
-
-
     deletePost(token: string, post: Post): Observable<void> {
         return this.http.request<void>('delete', `${this.apiUrl}/delete`, { body: post, headers: this.getHeaders(token) });
     }
@@ -71,4 +69,10 @@ export class PostService {
     sharePost(token: string, postId: number): Observable<string> {
         return this.http.post<string>(`${this.apiUrl}/share`, { postId }, { headers: this.getHeaders(token) });
     }
+
+    getUserPostsById(token: string, userId: string): Observable<Post[]> {
+        const headers = this.getHeaders(token);
+        return this.http.get<Post[]>(`${this.apiUrl}/userposts/${userId}`, { headers });
+    }
+
 }

@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import {SearchComponent} from "./Screen/search/search.component";
+import {ScreenSizeGuard} from "./Guards/screen-size.guard";
 
 export const routes: Routes = [
     {
@@ -46,18 +48,15 @@ export const routes: Routes = [
         path: 'admin',
         loadComponent: () => import('./Screen/admin/admin.component').then(m => m.AdminComponent)
     },
-
     {
         path: 'search',
-        loadComponent: () => import('./Screen/search/search.component').then((m) => m.SearchComponent),
+        component: SearchComponent,
+        canActivate: [ScreenSizeGuard],
+
     },
     {
         path: 'settings',
         loadComponent: () => import('./Screen/settings/settings.component').then((m) => m.SettingsComponent),
-    },
-    {
-        path: 'dietas',
-        loadComponent: () => import('./Screen/dietas/dietas.component').then((m) => m.DietasComponent),
     },
     {
         path: 'health',
