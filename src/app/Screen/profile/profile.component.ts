@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {InfiniteScrollCustomEvent, IonicModule} from "@ionic/angular";
-import { Router, ActivatedRoute } from "@angular/router";
+import {Router, ActivatedRoute, RouterModule} from "@angular/router";
 import { ProfileSettingsService } from '../../Service/profile-settings.service';
 import { ProfileSetting } from '../../Models/ProfileSetting';
-import { PostService } from '../../Service/Post.service';  // Importa el servicio de posts
+import { PostService } from '../../Service/Post.service';
 import { Post } from '../../Models/Post';
-import {CommonModule} from "@angular/common";  // Importa el modelo de post
+import {NgIf} from "@angular/common";
 
 @Component({
     selector: 'app-profile',
@@ -13,17 +13,18 @@ import {CommonModule} from "@angular/common";  // Importa el modelo de post
     styleUrls: ['./profile.component.scss'],
     imports: [
         IonicModule,
-        CommonModule
+        NgIf, RouterModule
     ],
     standalone: true
 })
 export class ProfileComponent implements OnInit {
 
+    showButton: boolean = false;
     items: string[] = [];
     isHeaderHidden = false;
     private lastScrollTop = 0;
     profileId: string | null = null;
-    posts: Post[] = [];  // Para almacenar los posts
+    posts: Post[] = [];
     profile: ProfileSetting = {
         nickName: '',
         name: '',
@@ -36,14 +37,14 @@ export class ProfileComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private profileSettings: ProfileSettingsService,
-        private postService: PostService // Inyecta el servicio de posts
+        private postService: PostService
     ) {}
 
     ngOnInit() {
-        this.profileId = this.route.snapshot.paramMap.get('id'); // Obtener el ID de la URL
+        this.checkRoute();
+        this.profileId = this.route.snapshot.paramMap.get('id');
 
         if (this.profileId) {
-            // Cargar perfil por ID
             this.profileSettings.getProfileById(this.profileId).subscribe(
                 (data: ProfileSetting) => {
                     this.profile = data;
@@ -53,9 +54,8 @@ export class ProfileComponent implements OnInit {
                     console.error('Error retrieving profile by ID:', error);
                 }
             );
-            this.loadPostsByUserId(this.profileId); // Cargar posts del usuario por ID
+            this.loadPostsByUserId(this.profileId);
         } else {
-            // Cargar perfil del usuario autenticado
             const token = sessionStorage.getItem('token');
             if (token) {
                 this.profileSettings.getData(token).subscribe(
@@ -67,14 +67,18 @@ export class ProfileComponent implements OnInit {
                         console.error('Error retrieving profile data:', error);
                     }
                 );
-                this.loadPostsByCurrentUser(token); // Cargar posts del usuario autenticado
+                this.loadPostsByCurrentUser(token);
             } else {
                 console.error('Token is null');
             }
         }
     }
 
-    // Método para manejar la carga de posts
+    checkRoute() {
+        const urlSegments = this.router.url.split('/');
+        this.showButton = !(urlSegments.length === 2 && urlSegments[1] === 'profile');
+    }
+
     loadPostsByUserId(userId: string) {
         const token = sessionStorage.getItem('token');
         if (token) {
@@ -85,14 +89,13 @@ export class ProfileComponent implements OnInit {
                 },
                 (error) => {
                     console.error('Error retrieving posts for user ID:', error);
-                    this.posts = []; // Evitar errores si la llamada falla
+                    this.posts = [];
                 }
             );
         } else {
             console.error('Token is null');
         }
     }
-
 
     loadPostsByCurrentUser(token: string) {
         this.postService.getUserPosts(token).subscribe(
@@ -102,18 +105,15 @@ export class ProfileComponent implements OnInit {
             },
             (error) => {
                 console.error('Error retrieving posts for current user:', error);
-                this.posts = []; // Evitar errores si la llamada falla
+                this.posts = [];
             }
         );
     }
 
-
-    // Método para manejar la navegación
     navigateTo(path: string) {
         this.router.navigate([path]);
     }
 
-    // Función para manejar el scroll infinito
     onIonInfinite(event: InfiniteScrollCustomEvent) {
         this.generateItems();
         setTimeout(() => {
@@ -121,7 +121,6 @@ export class ProfileComponent implements OnInit {
         }, 500);
     }
 
-    // Método privado para generar los items para el scroll infinito
     private generateItems() {
         const count = this.items.length + 1;
         for (let i = 0; i < 50; i++) {
@@ -129,16 +128,9 @@ export class ProfileComponent implements OnInit {
         }
     }
 
-    // Método para manejar el scroll en el perfil
     onScroll(event: any) {
         const scrollTop = event.detail.scrollTop;
-
-        if (scrollTop > this.lastScrollTop && scrollTop > 100) {
-            this.isHeaderHidden = true;
-        } else if (scrollTop < this.lastScrollTop) {
-            this.isHeaderHidden = false;
-        }
-
+        this.isHeaderHidden = scrollTop > this.lastScrollTop && scrollTop > 100;
         this.lastScrollTop = scrollTop;
     }
 }
