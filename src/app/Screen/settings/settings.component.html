@@ -2,9 +2,16 @@
     <div class="contenido_perfil ion-no-padding">
         <ion-grid style="margin-top: 7%">
             <ion-row class="movil" style="justify-content: center">
-                <ion-avatar>
-                    <img alt="Imagen perfil" [src]="profile.avatar || 'https://picsum.photos/800/400?random=1'" />
-                </ion-avatar>
+                <div style="position: relative; display: inline-block; cursor: pointer;" (click)="triggerFileInput()">
+                    <ion-avatar>
+                        <img alt="Imagen perfil" [src]="profile.avatar || 'https://picsum.photos/800/400?random=1'" />
+                    </ion-avatar>
+                    <ion-icon name="color-wand-outline"
+                              style="position: absolute; top: 0; right: 0; background: black; border-radius: 50%; padding: 4px; font-size: 18px;">
+                    </ion-icon>
+                </div>
+
+                <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" hidden>
             </ion-row>
             <ion-row style="justify-content: center;">
                 <ion-col id="contenido_perfil" size="8">
