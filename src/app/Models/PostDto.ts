@@ -7,7 +7,7 @@ export class PostDto {
     nickname?: string;
     numlikes?: number;
     numcomments?: number;
-    avatarComment?: string;
+    avatarcomment?: string;
     nicknameComment?: string;
     firstcomment?: string;
 }
