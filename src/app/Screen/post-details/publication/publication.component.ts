@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Post} from "../../../Models/Post";
 import {IonAvatar, IonButton, IonCol, IonGrid, IonIcon, IonImg, IonLabel, IonRow} from "@ionic/angular/standalone";
 import {NgForOf} from "@angular/common";
+import {PostDetails} from "../../../Models/PostDetails";
 
 @Component({
   selector: 'app-publication',
@@ -22,7 +23,7 @@ import {NgForOf} from "@angular/common";
 })
 export class PublicationComponent implements OnInit {
 
-  @Input() post!: Post;
+  @Input() post!: PostDetails;
 
   constructor() {
   }
