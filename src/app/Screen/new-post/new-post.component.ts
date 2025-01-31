@@ -37,15 +37,22 @@ export class NewPostComponent implements OnInit {
             return;
         }
 
-        const newPost: Post = {
+        const newPost = {
             content: this.postContent,
             delete: false,
-
         };
 
-        console.log('Creating post:', newPost);
+        const formData = new FormData();
+        formData.append('post', JSON.stringify(newPost));
+
+        if (this.selectedFile) {
+            formData.append('file', this.selectedFile);
+        }
+
+        console.log('Creating post with file:', newPost);
         console.log('Token:', token);
-        this.postService.createPost(token, newPost).subscribe(
+
+        this.postService.createPost(token, formData).subscribe(
             (response) => {
                 console.log('Post created successfully:', response);
                 this.dismiss();

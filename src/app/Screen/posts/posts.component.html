@@ -12,7 +12,8 @@
 
     <!-- Imagen Principal -->
     <ion-col size="12" class="post-image">
-      <ion-img [src]="post.post?.images" alt="Imagen del post"></ion-img>
+        <p>{{ post.imagePost }}</p>
+        <ion-img [src]="post.imagePost"></ion-img>
     </ion-col>
 
     <!-- Descripción -->
@@ -24,11 +25,11 @@
     <ion-col size="12" class="post-actions">
         <ion-button fill="clear" class="action-button" (click)="likePost(post)">
             <ion-icon name="heart"></ion-icon>
-            <!--<span>{{ post.likes }}</span>-->
+            <span>{{ post.numlikes }}</span>
         </ion-button>
         <ion-button fill="clear" class="action-button" (click)="openNewCommentModal()">
         <ion-icon name="chatbubble" ></ion-icon>
-          <!--<span>{{ post.comments }}</span>-->
+          <span>{{ post.numcomments }}</span>
       </ion-button>
         <ion-button fill="clear" class="action-button" (click)="savePost(post)">
           <ion-icon name="bookmark" ></ion-icon>
@@ -40,14 +41,16 @@
       </ion-col>
 
       <!-- Comentario Destacado -->
-    <ion-col size="12" class="highlighted-comment">
-      <ion-avatar >
-          <!--<img [src]="post.highlightedComment.avatar" alt="Avatar del comentario" fill/>-->
-        </ion-avatar>
-        <span class="comment">
-          <!--<b>{{ post.highlightedComment.username }}</b> {{ post.highlightedComment.content }}-->
-        </span>
-      </ion-col>
+          <ion-col size="12" class="highlighted-comment">
+              <div class="comment-container">
+                  <ion-avatar>
+                      <img [src]="post.avatarComment" alt="Avatar del comentario" fill/>
+                  </ion-avatar>
+                  <span class="comment">
+      <b>{{ post.nicknameComment }}</b> {{ post.firstcomment }}
+    </span>
+              </div>
+          </ion-col>
     </ion-row>
     </div>
   </ion-grid>

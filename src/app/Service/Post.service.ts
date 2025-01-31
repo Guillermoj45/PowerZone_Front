@@ -26,13 +26,7 @@ export class PostService {
         return this.http.get<Post>(`${this.apiUrl}/${id}`);
     }
 
-    createPost(token: string, post: Post, file?: File): Observable<PostDto> {
-        const formData: FormData = new FormData();
-        formData.append('post', new Blob([JSON.stringify(post)], { type: 'application/json' }));
-        if (file) {
-            formData.append('file', file);
-        }
-
+    createPost(token: string, formData: FormData): Observable<PostDto> {
         return this.http.post<PostDto>(`${this.apiUrl}/create`, formData, { headers: this.getHeaders(token) });
     }
 

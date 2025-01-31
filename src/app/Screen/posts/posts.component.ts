@@ -28,6 +28,7 @@ export class PostsComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadAllPosts();
+
     }
 
     loadAllPosts() {
@@ -36,6 +37,14 @@ export class PostsComponent implements OnInit {
             console.error('No token found in session storage');
             return;
         }
+        this.postService.getAllPosts(token).subscribe(
+            (posts) => {
+                console.log(posts); // Verifica que post.imagePost tenga la URL completa
+            },
+            (error) => {
+                console.error('Error fetching all posts:', error);
+            }
+        );
 
         this.postService.getAllPosts(token).subscribe(
             (posts) => {
