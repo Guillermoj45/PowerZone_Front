@@ -2,7 +2,7 @@ import { Post } from './Post';
 
 export class PostDto {
     post?: Post;
-    imagePost?: string;
+    image_post?: string;
     avatar?: string;
     nickname?: string;
     numlikes?: number;

@@ -6,5 +6,5 @@ export class Post{
     created_at?: Date;
     user_id?: number;
     delete?: boolean;
-    images?: Set<Image>;
+    imagePost?: string;
 }
