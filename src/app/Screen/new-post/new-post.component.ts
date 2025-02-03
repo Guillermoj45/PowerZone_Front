@@ -27,6 +27,7 @@ export class NewPostComponent implements OnInit {
 
     dismiss() {
         this.modalController.dismiss();
+        window.location.reload();
     }
 
     submitPost() {

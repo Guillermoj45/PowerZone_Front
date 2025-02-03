@@ -10,4 +10,5 @@ export class PostDto {
     avatarcomment?: string;
     nicknamecomment?: string;
     firstcomment?: string;
+    liked?: boolean;
 }

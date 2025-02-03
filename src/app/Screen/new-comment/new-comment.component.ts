@@ -24,6 +24,7 @@ export class NewCommentComponent {
 
     dismiss() {
         this.modalController.dismiss();
+        window.location.reload();
     }
 
     submitComment() {

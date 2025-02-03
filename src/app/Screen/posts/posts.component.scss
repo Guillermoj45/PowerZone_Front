@@ -12,6 +12,11 @@
   margin: 0 auto;
 
 }
+.custom-toast {
+    --color: white; /* Cambia el color del texto a blanco */
+    --background: #042F2E; /* Cambia el fondo a #042F2E */
+}
+
 
 
 .post {
@@ -72,6 +77,8 @@
 .highlighted-comment .comment-container {
     display: flex;
     align-items: center;
+    background-color: #042F2E;
+    border-radius: 10px;
 }
 
 .highlighted-comment ion-avatar {
@@ -91,4 +98,12 @@
         margin-top: 20%;
     }
 }
+.scroll-container {
+    overflow: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
 
+.scroll-container::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, and Opera */
+}

@@ -24,7 +24,7 @@
     <!-- Acciones del PostDetails -->
     <ion-col size="12" class="post-actions">
         <ion-button fill="clear" class="action-button" (click)="likePost(post)">
-            <ion-icon name="heart"></ion-icon>
+            <ion-icon [name]="post.liked ? 'heart-outline' : 'heart'"></ion-icon>
             <span>{{ post.numlikes }}</span>
         </ion-button>
         <ion-button fill="clear" class="action-button" (click)="openNewCommentModal(post.post?.id)">
@@ -34,8 +34,8 @@
         <ion-button fill="clear" class="action-button" (click)="savePost(post)">
           <ion-icon name="bookmark" ></ion-icon>
         </ion-button>
-        <ion-button fill="clear" class="action-button">
-              <ion-icon name="share-social"></ion-icon>
+        <ion-button fill="clear" class="action-button" (click)="sharePost(post)">
+            <ion-icon name="share-social"></ion-icon>
         </ion-button>
 
       </ion-col>

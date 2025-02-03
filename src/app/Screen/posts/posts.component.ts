@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {IonicModule, ModalController, ModalOptions} from '@ionic/angular';
+import {IonicModule, ModalController, ModalOptions, ToastController} from '@ionic/angular';
 import { CommonModule, NgForOf } from '@angular/common';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
-import { bookmark, chatbubble, heart, shareSocial } from 'ionicons/icons';
+import { bookmark, chatbubble, heart, shareSocial, heartOutline } from 'ionicons/icons';
 import { PostService } from '../../Service/Post.service';
 import { Post } from '../../Models/Post';
 import { PostDto } from '../../Models/PostDto';
@@ -22,8 +22,8 @@ import { NewCommentComponent } from '../new-comment/new-comment.component';
 export class PostsComponent implements OnInit {
     posts: PostDto[] = [];
 
-    constructor(private router: Router, private postService: PostService, private modalController: ModalController) {
-        addIcons({ bookmark, heart, chatbubble, shareSocial });
+    constructor(private router: Router, private postService: PostService, private modalController: ModalController, private toastController: ToastController) {
+        addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline });
     }
 
     ngOnInit(): void {
@@ -39,7 +39,7 @@ export class PostsComponent implements OnInit {
         }
         this.postService.getAllPosts(token).subscribe(
             (posts) => {
-                console.log(posts); // Verifica que post.imagePost tenga la URL completa
+                console.log(posts);
             },
             (error) => {
                 console.error('Error fetching all posts:', error);
@@ -66,6 +66,7 @@ export class PostsComponent implements OnInit {
             console.error('No token found in session storage');
             return;
         }
+        window.location.reload();
 
         if (!post.post) {
             console.error('Post data not found');
@@ -75,7 +76,8 @@ export class PostsComponent implements OnInit {
         this.postService.likePost(token, post.post.id).subscribe(
             (response) => {
                 console.log(`Liked post: ${post.post?.id}`);
-                this.ngOnInit()
+                post.liked = !post.liked;
+
             },
             (error) => {
                 console.error('Error liking the post:', error);
@@ -83,7 +85,7 @@ export class PostsComponent implements OnInit {
         );
     }
 
-    savePost(post: PostDto) {
+    async savePost(post: PostDto) {
         const token = sessionStorage.getItem('token');
         if (!token) {
             console.error('No token found in session storage');
@@ -97,9 +99,17 @@ export class PostsComponent implements OnInit {
         }
 
         console.log(`Saving post: ${postId} with token: ${token}`);
-
+        const toast = await this.toastController.create({
+            message: 'Publicación guardada correctamente',
+            color: 'success',
+            duration: 2000,
+            position: 'top',
+            cssClass: 'custom-toast'
+        });
+        await toast.present();
         this.postService.savePost(token, postId).subscribe(
             (response) => {
+
                 console.log(`Saved post: ${postId}`);
             },
             (error) => {
@@ -114,7 +124,26 @@ export class PostsComponent implements OnInit {
             componentProps: { postId: idpost }
         } as ModalOptions);
         await modal.present();
-    }
 
+    }
+    async sharePost(post: PostDto) {
+        const postId = post.post?.id;
+        if (postId === undefined) {
+            console.error('Post ID not found');
+            return;
+        }
+
+        const link = `${window.location.origin}/post-details/${postId}`;
+        await navigator.clipboard.writeText(link);
+
+        const toast = await this.toastController.create({
+            message: 'Enlace en el portapapeles',
+            color: 'success',
+            duration: 2000,
+            position: 'top',
+            cssClass: 'custom-toast'
+        });
+        await toast.present();
+    }
 
 }
