@@ -75,6 +75,7 @@ export class PostsComponent implements OnInit {
         this.postService.likePost(token, post.post.id).subscribe(
             (response) => {
                 console.log(`Liked post: ${post.post?.id}`);
+                this.ngOnInit()
             },
             (error) => {
                 console.error('Error liking the post:', error);

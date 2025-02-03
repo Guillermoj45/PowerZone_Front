@@ -5,7 +5,7 @@ import { ProfileSettingsService } from '../../Service/profile-settings.service';
 import { ProfileSetting } from '../../Models/ProfileSetting';
 import { PostService } from '../../Service/Post.service';
 import { Post } from '../../Models/Post';
-import {NgIf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
     selector: 'app-profile',
@@ -13,7 +13,7 @@ import {NgIf} from "@angular/common";
     styleUrls: ['./profile.component.scss'],
     imports: [
         IonicModule,
-        NgIf, RouterModule
+        NgIf, RouterModule, NgForOf
     ],
     standalone: true
 })
