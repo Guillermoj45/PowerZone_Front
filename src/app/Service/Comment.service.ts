@@ -23,6 +23,7 @@ export class CommentService {
         return this.http.post<Comment>(`${this.apiUrl}/create`, comment, { headers: this.getHeaders(token) });
     }
 
+
     deleteComment(token: string, comment: Comment): Observable<void> {
         return this.http.request<void>('delete', `${this.apiUrl}/delete`, { body: comment, headers: this.getHeaders(token) });
     }

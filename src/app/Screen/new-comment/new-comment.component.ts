@@ -32,7 +32,12 @@ export class NewCommentComponent {
             console.error('No token found in session storage');
             return;
         }
-
+        if (!this.postId) {
+            console.error('Post ID is not defined');
+            return;
+        }
+        console.log('Creating comment:', this.commentContent);
+        console.log('Post ID:', this.postId);
         this.commentSerive.createComment(token, this.postId, this.commentContent).subscribe(
             (response) => {
                 console.log('Comment added:', response);

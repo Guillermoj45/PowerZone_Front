@@ -107,9 +107,10 @@ export class PostsComponent implements OnInit {
         );
     }
 
-    async openNewCommentModal() {
+    async openNewCommentModal(idpost: number | undefined) {
         const modal = await this.modalController.create({
-            component: NewCommentComponent
+            component: NewCommentComponent,
+            componentProps: { postId: idpost }
         } as ModalOptions);
         await modal.present();
     }

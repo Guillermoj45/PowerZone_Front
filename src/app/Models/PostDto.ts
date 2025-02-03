@@ -8,6 +8,6 @@ export class PostDto {
     numlikes?: number;
     numcomments?: number;
     avatarcomment?: string;
-    nicknameComment?: string;
+    nicknamecomment?: string;
     firstcomment?: string;
 }
