@@ -107,3 +107,10 @@
 .scroll-container::-webkit-scrollbar {
     display: none;  /* Chrome, Safari, and Opera */
 }
+.responsive-image {
+    max-width: 100%;
+    max-height: 1000px; /* Ajusta la altura máxima según sea necesario */
+    width: auto;
+    height: auto;
+    object-fit: contain; /* Asegura que la imagen se ajuste al área manteniendo la proporción */
+}
