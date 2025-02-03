@@ -66,24 +66,41 @@ export class PostsComponent implements OnInit {
             console.error('No token found in session storage');
             return;
         }
-        window.location.reload();
 
-        if (!post.post) {
-            console.error('Post data not found');
+        const postId = post.post?.id;
+        if (postId === undefined) {
+            console.error('Post ID not found');
             return;
         }
 
-        this.postService.likePost(token, post.post.id).subscribe(
-            (response) => {
-                console.log(`Liked post: ${post.post?.id}`);
-                post.liked = !post.liked;
+        this.postService.hasLikedPost(token, postId).subscribe(
+            (hasLiked) => {
+                if (hasLiked) {
 
+                    this.postService.unlikePost(token, postId).subscribe(
+                        () => {
+                            console.log(`Unliked post: ${postId}`);
+                            post.liked = false;
+                            this.ngOnInit();
+                        },
+                        (error) => console.error('Error unliking the post:', error)
+                    );
+                } else {
+                    this.postService.likePost(token, postId).subscribe(
+                        () => {
+                            console.log(`Liked post: ${postId}`);
+                            post.liked = true;
+                            this.ngOnInit();
+                        },
+                        (error) => console.error('Error liking the post:', error)
+                    );
+                }
             },
-            (error) => {
-                console.error('Error liking the post:', error);
-            }
+            (error) => console.error('Error checking like status:', error)
         );
     }
+
+
 
     async savePost(post: PostDto) {
         const token = sessionStorage.getItem('token');

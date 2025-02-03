@@ -56,10 +56,14 @@ export class PostService {
         return this.http.post<string>(`${this.apiUrl}/like`, post, { headers: this.getHeaders(token) });
     }
 
-    unlikePost(token: string, post: Post): Observable<string> {
-        return this.http.post<string>(`${this.apiUrl}/unlike`, post, { headers: this.getHeaders(token) });
+    unlikePost(token: string, postId: number) {
+        return this.http.post(`${this.apiUrl}/unlike`, postId, {headers:   this.getHeaders(token) });
     }
-
+    hasLikedPost(token: string, postId: number): Observable<boolean> {
+        return this.http.post<boolean>(`${this.apiUrl}/hasLiked`, postId, {
+            headers: this.getHeaders(token)
+        });
+    }
     sharePost(token: string, postId: number): Observable<string> {
         return this.http.post<string>(`${this.apiUrl}/share`, { postId }, { headers: this.getHeaders(token) });
     }
