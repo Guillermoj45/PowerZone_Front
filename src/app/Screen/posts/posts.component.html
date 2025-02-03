@@ -27,10 +27,10 @@
             <ion-icon name="heart"></ion-icon>
             <span>{{ post.numlikes }}</span>
         </ion-button>
-        <ion-button fill="clear" class="action-button" (click)="openNewCommentModal()">
-        <ion-icon name="chatbubble" ></ion-icon>
-          <span>{{ post.numcomments }}</span>
-      </ion-button>
+        <ion-button fill="clear" class="action-button" (click)="openNewCommentModal(post.post?.id)">
+            <ion-icon name="chatbubble"></ion-icon>
+            <span>{{ post.numcomments }}</span>
+        </ion-button>
         <ion-button fill="clear" class="action-button" (click)="savePost(post)">
           <ion-icon name="bookmark" ></ion-icon>
         </ion-button>
@@ -47,7 +47,7 @@
                       <img [src]="post.avatarcomment" alt="Avatar del comentario" fill/>
                   </ion-avatar>
                   <span class="comment">
-      <b>{{ post.nicknameComment }}</b> {{ post.firstcomment }}
+      <b>{{ post.nicknamecomment }}</b> {{ post.firstcomment }}
     </span>
               </div>
           </ion-col>
