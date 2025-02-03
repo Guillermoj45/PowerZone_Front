@@ -3,19 +3,19 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ChatBotService } from '../../Service/chat-bot.service';
-import {CommonModule} from "@angular/common";
+import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { sendSharp } from 'ionicons/icons';
+import { BoldPipe } from '../../Service/bold.pipe';
 
 @Component({
     selector: 'app-health',
     templateUrl: './health.component.html',
     styleUrls: ['./health.component.scss'],
     standalone: true,
-    imports: [FormsModule, IonicModule, CommonModule],
+    imports: [FormsModule, IonicModule, CommonModule, BoldPipe],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-
 export class HealthComponent {
     messageText: string = '';
     messages: { text: string; isUser: boolean }[] = [];

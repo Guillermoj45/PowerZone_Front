@@ -20,7 +20,7 @@
             <ion-col>
                 <div class="message-list">
                     <div *ngFor="let msg of messages" [class.user]="msg.isUser" [class.bot]="!msg.isUser" class="message">
-                        <span>{{ msg.text }}</span>
+                        <span [innerHTML]="msg.text | bold"></span>
                     </div>
 
                     <!-- Animación de "escribiendo" -->
