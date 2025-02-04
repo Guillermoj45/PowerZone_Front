@@ -6,6 +6,8 @@ import { ProfileSetting } from '../../Models/ProfileSetting';
 import { PostService } from '../../Service/Post.service';
 import { Post } from '../../Models/Post';
 import {NgForOf, NgIf} from "@angular/common";
+import {bookmark, bookmarkOutline, chatbubble, heart, heartOutline, sendSharp, shareSocial} from 'ionicons/icons';
+import {addIcons} from "ionicons";
 
 @Component({
     selector: 'app-profile',
@@ -38,7 +40,9 @@ export class ProfileComponent implements OnInit {
         private route: ActivatedRoute,
         private profileSettings: ProfileSettingsService,
         private postService: PostService
-    ) {}
+    ) {
+        addIcons({  bookmark, sendSharp });
+    }
 
     ngOnInit() {
         this.checkRoute();

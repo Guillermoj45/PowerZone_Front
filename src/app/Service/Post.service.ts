@@ -76,5 +76,8 @@ export class PostService {
         const headers = this.getHeaders(token);
         return this.http.get<Post[]>(`${this.apiUrl}/userposts/${userId}`, { headers });
     }
+    getAllSavedPosts(token: string): Observable<PostDto[]> {
+        return this.http.get<PostDto[]>(`${this.apiUrl}/user/saved`, { headers: this.getHeaders(token) });
+    }
 
 }
