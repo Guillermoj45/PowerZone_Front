@@ -71,6 +71,6 @@ export const routes: Routes = [
     },
     {
         path: 'prueba',
-        loadComponent: () => import('./pruebas/pruebaWebSocket').then((m) => m.ChatComponent),
+        loadComponent: () => import('./Screen/rafaparaelchat/rafaparaelchat.component').then((m) => m.RafaparaelchatComponent),
     }
 ];
