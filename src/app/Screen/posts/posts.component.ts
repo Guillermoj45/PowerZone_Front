@@ -3,7 +3,7 @@ import {IonicModule, ModalController, ModalOptions, ToastController} from '@ioni
 import { CommonModule, NgForOf } from '@angular/common';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
-import { bookmark, chatbubble, heart, shareSocial, heartOutline } from 'ionicons/icons';
+import { bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline } from 'ionicons/icons';
 import { PostService } from '../../Service/Post.service';
 import { Post } from '../../Models/Post';
 import { PostDto } from '../../Models/PostDto';
@@ -23,7 +23,7 @@ export class PostsComponent implements OnInit {
     posts: PostDto[] = [];
 
     constructor(private router: Router, private postService: PostService, private modalController: ModalController, private toastController: ToastController) {
-        addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline });
+        addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline });
     }
 
     ngOnInit(): void {
@@ -37,18 +37,34 @@ export class PostsComponent implements OnInit {
             console.error('No token found in session storage');
             return;
         }
-        this.postService.getAllPosts(token).subscribe(
-            (posts) => {
-                console.log(posts);
-            },
-            (error) => {
-                console.error('Error fetching all posts:', error);
-            }
-        );
 
         this.postService.getAllPosts(token).subscribe(
             (posts) => {
                 this.posts = posts;
+                this.posts.forEach(post => {
+                    const postId = post.post?.id;
+                    if (postId !== undefined) {
+                        // Check if the user has liked the post
+                        this.postService.hasLikedPost(token, postId).subscribe(
+                            (hasLiked) => {
+                                post.liked = hasLiked;
+                            },
+                            (error) => {
+                                console.error(`Error checking like status for post ${postId}:`, error);
+                            }
+                        );
+
+                        // Check if the user has saved the post
+                        this.postService.hasSavedPost(token, postId).subscribe(
+                            (hasSaved) => {
+                                post.saved = hasSaved;
+                            },
+                            (error) => {
+                                console.error(`Error checking save status for post ${postId}:`, error);
+                            }
+                        );
+                    }
+                });
             },
             (error) => {
                 console.error('Error fetching all posts:', error);
@@ -108,31 +124,52 @@ export class PostsComponent implements OnInit {
             console.error('No token found in session storage');
             return;
         }
-        console.log(post);
+
         const postId = post.post?.id;
         if (postId === undefined) {
             console.error('Post ID not found');
             return;
         }
 
-        console.log(`Saving post: ${postId} with token: ${token}`);
-        const toast = await this.toastController.create({
-            message: 'Publicación guardada correctamente',
-            color: 'success',
-            duration: 2000,
-            position: 'top',
-            cssClass: 'custom-toast'
-        });
-        await toast.present();
-        this.postService.savePost(token, postId).subscribe(
-            (response) => {
+        if (post.saved) {
+            // Unsave the post
+            this.postService.unsavePost(token, postId).subscribe(
+                async () => {
+                    console.log(`Unsaved post: ${postId}`);
+                    post.saved = false;
+                    const toast = await this.toastController.create({
+                        message: 'Eliminado de los Post guardados',
+                        color: 'success',
+                        duration: 2000,
+                        position: 'top',
 
-                console.log(`Saved post: ${postId}`);
-            },
-            (error) => {
-                console.error('Error saving the post:', error);
-            }
-        );
+                    });
+                    await toast.present();
+                },
+                (error) => {
+                    console.error('Error unsaving the post:', error);
+                }
+            );
+        } else {
+            // Save the post
+            this.postService.savePost(token, postId).subscribe(
+                async () => {
+                    console.log(`Saved post: ${postId}`);
+                    post.saved = true;
+                    const toast = await this.toastController.create({
+                        message: 'Post guardado correctament',
+                        color: 'success',
+                        duration: 2000,
+                        position: 'top',
+                        cssClass: 'custom-toast'
+                    });
+                    await toast.present();
+                },
+                (error) => {
+                    console.error('Error saving the post:', error);
+                }
+            );
+        }
     }
 
     async openNewCommentModal(idpost: number | undefined) {

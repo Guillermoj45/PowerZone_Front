@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content class="custom-scroll">
 <ion-grid class="ion-no-padding post-container movil">
   <div class="scroll-container">
 
@@ -32,7 +32,7 @@
             <span>{{ post.numcomments }}</span>
         </ion-button>
         <ion-button fill="clear" class="action-button" (click)="savePost(post)">
-          <ion-icon name="bookmark" ></ion-icon>
+            <ion-icon [name]="post.saved ? 'bookmark' : 'bookmark-outline'"></ion-icon>
         </ion-button>
         <ion-button fill="clear" class="action-button" (click)="sharePost(post)">
             <ion-icon name="share-social"></ion-icon>
