@@ -42,9 +42,9 @@
                         </ion-button>
                     </div>
                     <div *ngIf="!showButton">
-                        <ion-button routerLink="/settings">
-                            <ion-icon style="margin-right: 5%" name="person-add-outline"></ion-icon>
-                            Ajustes de perfil
+                        <ion-button (click)="navigateTo('/post-save')">
+                            <ion-icon style="margin-right: 5%" name="bookmark"></ion-icon>
+                            Post guardados
                         </ion-button>
                     </div>
 
