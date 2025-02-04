@@ -3,7 +3,7 @@ import {InfiniteScrollCustomEvent, IonicModule} from "@ionic/angular";
 import { Report } from 'src/app/Models/Report';
 import { AdminService } from 'src/app/Service/Admin.service';
 import {ProfileWarningBan} from "../../Models/ProfileWarningBan";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-admin',
@@ -20,7 +20,7 @@ export class AdminComponent  implements OnInit {
   avisados: ProfileWarningBan[] = [];
   suspendidos: ProfileWarningBan[] = [];
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private router:Router) { }
 
   ngOnInit() {
     console.log('Reports', this.reports);
@@ -52,23 +52,38 @@ export class AdminComponent  implements OnInit {
   }
 
   recuperarReportes() {
-    this.adminService.getReports(this.reports.length).subscribe((data:Report[]) => {
+    this.adminService.getReports(this.reports.length).subscribe({
+        next: (data:Report[]) => {
         console.log('Report', data);
         this.reports.push(...data);
+        },
+        error: (err) => {
+            this.router.navigate(['/login']);
+        }
     })
   }
 
     recuperarAvisados() {
-        this.adminService.getUserWarnings(this.avisados.length).subscribe((data:ProfileWarningBan[]) => {
+    this.adminService.getUserWarnings(this.avisados.length).subscribe({
+        next: (data: ProfileWarningBan[]) => {
             console.log('Avisados', data);
             this.avisados.push(...data);
-        })
+        },
+        error: (err) => {
+            this.router.navigate(['/login']);
+        }
+    });
     }
 
     recuperarSuspendidos() {
-        this.adminService.getUserBanned(this.suspendidos.length).subscribe((data:ProfileWarningBan[]) => {
+        this.adminService.getUserBanned(this.suspendidos.length).subscribe({
+            next: (data:ProfileWarningBan[]) => {
             console.log('Suspendidos', data);
             this.suspendidos.push(...data);
+            },
+            error: (err) => {
+                this.router.navigate(['/login']);
+            }
         })
     }
 }
