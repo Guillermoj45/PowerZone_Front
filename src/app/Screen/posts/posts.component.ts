@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import {IonicModule, ModalController, ModalOptions, ToastController} from '@ionic/angular';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { IonicModule, ModalController, ModalOptions, ToastController } from '@ionic/angular';
 import { CommonModule, NgForOf } from '@angular/common';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline } from 'ionicons/icons';
 import { PostService } from '../../Service/Post.service';
-import { Post } from '../../Models/Post';
 import { PostDto } from '../../Models/PostDto';
 import { NewCommentComponent } from '../new-comment/new-comment.component';
+import { ShepherdComponent } from '../../Component/shepherd/shepherd.component';
+
 @Component({
     selector: 'app-posts',
     templateUrl: './posts.component.html',
@@ -17,18 +18,49 @@ import { NewCommentComponent } from '../new-comment/new-comment.component';
         IonicModule,
         NgForOf,
         CommonModule,
+        ShepherdComponent,
     ]
 })
-export class PostsComponent implements OnInit {
+export class PostsComponent implements OnInit, AfterViewInit {
+    @ViewChild(ShepherdComponent) shepherdComponent!: ShepherdComponent;
+
     posts: PostDto[] = [];
 
-    constructor(private router: Router, private postService: PostService, private modalController: ModalController, private toastController: ToastController) {
+    constructor(private router: Router, private postService: PostService, private modalController: ModalController,
+                private toastController: ToastController) {
+
         addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline });
     }
 
     ngOnInit(): void {
         this.loadAllPosts();
+    }
 
+    ngAfterViewInit(): void {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+            this.postService.isNewUser(token).subscribe(
+                (isNewUser) => {
+                    console.log("Me cago los muertos de los negros!!!!")
+                    if (isNewUser) {
+                        this.shepherdComponent.startTour();
+                        this.postService.changeUserStatus(token).subscribe(
+                            () => {
+                                console.log('User status changed');
+                            },
+                            (error) => {
+                                console.error('Error changing user status:', error);
+                            }
+                        );
+                    }
+                },
+                (error) => {
+                    console.error('Error checking if new user:', error);
+                }
+            );
+        } else {
+            console.error('No token found in session storage');
+        }
     }
 
     loadAllPosts() {
@@ -92,7 +124,6 @@ export class PostsComponent implements OnInit {
         this.postService.hasLikedPost(token, postId).subscribe(
             (hasLiked) => {
                 if (hasLiked) {
-
                     this.postService.unlikePost(token, postId).subscribe(
                         () => {
                             console.log(`Unliked post: ${postId}`);
@@ -115,8 +146,6 @@ export class PostsComponent implements OnInit {
             (error) => console.error('Error checking like status:', error)
         );
     }
-
-
 
     async savePost(post: PostDto) {
         const token = sessionStorage.getItem('token');
@@ -142,7 +171,6 @@ export class PostsComponent implements OnInit {
                         color: 'success',
                         duration: 2000,
                         position: 'top',
-
                     });
                     await toast.present();
                 },
@@ -178,8 +206,8 @@ export class PostsComponent implements OnInit {
             componentProps: { postId: idpost }
         } as ModalOptions);
         await modal.present();
-
     }
+
     async sharePost(post: PostDto) {
         const postId = post.post?.id;
         if (postId === undefined) {
@@ -199,5 +227,4 @@ export class PostsComponent implements OnInit {
         });
         await toast.present();
     }
-
 }

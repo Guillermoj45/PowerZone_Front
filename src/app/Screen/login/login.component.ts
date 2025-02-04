@@ -71,7 +71,10 @@ export class LoginComponent implements OnInit {
                 const token = response.token;
                 if (token) {
                     sessionStorage.setItem('token', token);
+
+                    console.log('Navigating to /posts');
                     this.router.navigate(['/posts']);
+
                 } else {
                     this.showAlert('Login fallido: Dato invalidos');
                 }

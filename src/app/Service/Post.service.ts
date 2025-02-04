@@ -80,4 +80,16 @@ export class PostService {
         return this.http.get<PostDto[]>(`${this.apiUrl}/user/saved`, { headers: this.getHeaders(token) });
     }
 
+    isNewUser(token: string): Observable<boolean> {
+        return this.http.post<boolean>(`/api/auth/is_tutorial_complete`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+    }
+
+    changeUserStatus(token: string): Observable<void> {
+        return this.http.post<void>(`/api/auth/tutorial_complete`, {}, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+    }
+
 }
