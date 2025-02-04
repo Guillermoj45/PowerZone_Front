@@ -68,5 +68,9 @@ export const routes: Routes = [
     {
         path:'post-details/:id',
         loadComponent: ()=> import('./Screen/post-details/post-details.component').then((m) => m.PostDetailsComponent)
+    },
+    {
+        path: 'prueba',
+        loadComponent: () => import('./pruebas/pruebaWebSocket').then((m) => m.ChatComponent),
     }
 ];
