@@ -1,5 +1,62 @@
-<ion-content>
-  <div *ngFor="let post of posts" class="post-container" [id]="post.id">
-    <app-publication [post]="post"></app-publication>
-  </div>
+<ion-content class="custom-scroll" *ngIf="post">
+    <ion-grid class="ion-no-padding post-container movil">
+        <div class="scroll-container">
+            <ion-row class="post">
+                <!-- Información del usuario -->
+                <ion-col size="12" class="user-info">
+                    <ion-avatar *ngIf="post.avatar">
+                        <img alt="Imagen perfil" [src]="post.avatar" />
+                    </ion-avatar>
+                    <span class="username">{{ post.nickname || 'Usuario Anónimo' }}</span>
+                </ion-col>
+
+                <!-- Imagen Principal -->
+                <ion-col size="12" class="post-image" *ngIf="post.image_post">
+                    <ion-img [src]="post.image_post" class="responsive-image"></ion-img>
+                </ion-col>
+
+                <!-- Descripción -->
+                <ion-col size="12" class="post-description">
+                    {{ post.post?.content || 'Sin descripción disponible.' }}
+                </ion-col>
+
+                <!-- Acciones del Post -->
+                <ion-col size="12" class="post-actions">
+                    <ion-button (click)="likePost(post)" fill="clear" class="action-button">
+                        <ion-icon [name]="post.liked ? 'heart' : 'heart-outline'"></ion-icon>
+                        <span>{{ post.numlikes || 0 }}</span>
+                    </ion-button>
+                    <ion-button fill="clear" class="action-button" (click)="openNewCommentModal(post.post?.id)">
+                        <ion-icon name="chatbubble"></ion-icon>
+                        <span>{{ post.numcomments || 0 }}</span>
+                    </ion-button>
+                    <ion-button fill="clear" class="action-button" (click)="savePost(post)">
+                        <ion-icon [name]="post.saved ? 'bookmark' : 'bookmark-outline'"></ion-icon>
+                    </ion-button>
+                    <ion-button fill="clear" class="action-button" (click)="sharePost(post)">
+                        <ion-icon name="share-social"></ion-icon>
+                    </ion-button>
+                </ion-col>
+
+                <!-- Comentarios -->
+                <ion-col size="12" class="comments-section">
+                    <ion-list *ngIf="comments.length > 0; else noComments">
+                        <ion-item *ngFor="let comment of comments" class="comment-item">
+                            <ion-avatar slot="start">
+                                <img [src]="comment.avatar" alt="Avatar del comentario" />
+                            </ion-avatar>
+                            <ion-label>
+                                <h3>{{ comment.nickname }}</h3>
+                                <p>{{ comment.content }}</p>
+                            </ion-label>
+                        </ion-item>
+                    </ion-list>
+                    <ng-template #noComments>
+                        <p>No hay comentarios aún.</p>
+                    </ng-template>
+                </ion-col>
+
+            </ion-row>
+        </div>
+    </ion-grid>
 </ion-content>

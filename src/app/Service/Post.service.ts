@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Post } from '../Models/Post';
 import { PostDto } from '../Models/PostDto';
+import {PostDetails} from "../Models/PostDetails";
 @Injectable({
     providedIn: 'root'
 })
@@ -18,13 +19,14 @@ export class PostService {
         });
     }
 
-    getPosts(): Observable<Post[]> {
-        return this.http.get<Post[]>(this.apiUrl);
+
+    getPostById(token: string, postId: number): Observable<PostDto> {
+        return this.http.get<PostDto>(`/api/post/${postId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
     }
 
-    getPostById(id: number): Observable<Post> {
-        return this.http.get<Post>(`${this.apiUrl}/${id}`);
-    }
+
 
     createPost(token: string, formData: FormData): Observable<PostDto> {
         return this.http.post<PostDto>(`${this.apiUrl}/create`, formData, { headers: this.getHeaders(token) });

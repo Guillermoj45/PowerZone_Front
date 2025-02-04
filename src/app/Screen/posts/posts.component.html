@@ -2,7 +2,7 @@
 <ion-grid class="ion-no-padding post-container movil">
   <div class="scroll-container">
 
-      <ion-row *ngFor="let post of posts" class="post" (click)="viewPostDetails(post)">
+      <ion-row *ngFor="let post of posts" class="post">
 
     <ion-col size="12" class="user-info">
       <ion-avatar>
@@ -41,7 +41,7 @@
       </ion-col>
 
       <!-- Comentario Destacado -->
-          <ion-col size="12" class="highlighted-comment">
+          <ion-col size="12" class="highlighted-comment" (click)="viewPostDetails(post)">
               <div class="comment-container">
                   <ion-avatar>
                       <img [src]="post.avatarcomment" alt="Avatar del comentario" fill/>

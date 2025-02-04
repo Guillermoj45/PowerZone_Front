@@ -30,7 +30,14 @@ export class PostsComponent implements OnInit {
         this.loadAllPosts();
 
     }
-
+    viewPostDetails(post: PostDto) {
+        const postId = post.post?.id;
+        if (postId !== undefined) {
+            this.router.navigate([`/post-details`, postId]);
+        } else {
+            console.error('Post ID not found');
+        }
+    }
     loadAllPosts() {
         const token = sessionStorage.getItem('token');
         if (!token) {
@@ -72,9 +79,7 @@ export class PostsComponent implements OnInit {
         );
     }
 
-    viewPostDetails(post: PostDto) {
-        this.router.navigate(['/post-details'], { state: { post } });
-    }
+
 
     likePost(post: PostDto) {
         const token = sessionStorage.getItem('token');

@@ -1,14 +1,16 @@
 import {Profile} from "./Profile";
+import {Post} from "./Post";
 
 export class PostDetails {
-  profile: Profile = new Profile();
-  id: number = 0;
-  decription: string = '';
-  image: string = '';
-  likes: number = 0;
-  numComments: number = 0;
-  comments: {
-    profile: Profile,
-    comment: string
-  }[] = [];
+    post?: Post;
+    image_post?: string;
+    avatar?: string;
+    nickname?: string;
+    numlikes?: number;
+    numcomments?: number;
+    avatarcomment?: string;
+    nicknamecomment?: string;
+    firstcomment?: string;
+    liked?: boolean;
+    saved?: boolean;
 }
