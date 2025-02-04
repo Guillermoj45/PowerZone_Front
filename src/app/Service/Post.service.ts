@@ -48,10 +48,9 @@ export class PostService {
         return this.http.post<string>(`${this.apiUrl}/save`, { postId }, { headers: this.getHeaders(token) });
     }
 
-    unsavePost(token: string, post: Post): Observable<string> {
-        return this.http.post<string>(`${this.apiUrl}/unsave`, post, { headers: this.getHeaders(token) });
+    unsavePost(token: string, postId: number): Observable<string> {
+        return this.http.post<string>(`${this.apiUrl}/unsave`, { postId }, { headers: this.getHeaders(token) });
     }
-
     likePost(token: string, post: number | undefined): Observable<string> {
         return this.http.post<string>(`${this.apiUrl}/like`, post, { headers: this.getHeaders(token) });
     }
@@ -61,6 +60,11 @@ export class PostService {
     }
     hasLikedPost(token: string, postId: number): Observable<boolean> {
         return this.http.post<boolean>(`${this.apiUrl}/hasLiked`, postId, {
+            headers: this.getHeaders(token)
+        });
+    }
+    hasSavedPost(token: string, postId: number): Observable<boolean> {
+        return this.http.post<boolean>(`${this.apiUrl}/hasSaved`, postId, {
             headers: this.getHeaders(token)
         });
     }
