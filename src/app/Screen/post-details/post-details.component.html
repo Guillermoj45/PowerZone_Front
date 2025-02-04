@@ -1,0 +1,5 @@
+<ion-content>
+  <div *ngFor="let post of posts" class="post-container" [id]="post.id">
+    <app-publication [post]="post"></app-publication>
+  </div>
+</ion-content>

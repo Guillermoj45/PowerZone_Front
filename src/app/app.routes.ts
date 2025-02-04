@@ -52,7 +52,6 @@ export const routes: Routes = [
         path: 'search',
         component: SearchComponent,
         canActivate: [ScreenSizeGuard],
-
     },
     {
         path: 'settings',
@@ -65,5 +64,9 @@ export const routes: Routes = [
     {
         path:'recu',
         loadComponent: ()=> import('./Screen/recuperacion-previa/recuperacion-previa.component').then((m) => m.RecuperacionPreviaComponent)
+    },
+    {
+        path:'post-details/:id',
+        loadComponent: ()=> import('./Screen/post-details/post-details.component').then((m) => m.PostDetailsComponent)
     }
 ];
