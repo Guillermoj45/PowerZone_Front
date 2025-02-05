@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import {Component, AfterViewInit, ViewEncapsulation} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShepherdService } from 'angular-shepherd';
 import { steps as defaultSteps, defaultStepOptions } from '../../data';
@@ -8,6 +8,7 @@ import { steps as defaultSteps, defaultStepOptions } from '../../data';
     templateUrl: './shepherd.component.html',
     styleUrls: ['./shepherd.component.scss'],
     standalone: true,
+    encapsulation: ViewEncapsulation.None,
     imports: [CommonModule]
 })
 export class ShepherdComponent implements AfterViewInit {
