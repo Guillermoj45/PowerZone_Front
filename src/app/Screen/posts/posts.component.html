@@ -1,4 +1,4 @@
-<ion-content class="custom-scroll">
+<ion-content class="custom-scroll component-container">
 <ion-grid class="ion-no-padding post-container movil">
   <div class="scroll-container">
 
@@ -23,7 +23,7 @@
 
     <!-- Acciones del PostDetails -->
     <ion-col size="12" class="post-actions">
-        <ion-button (click)="likePost(post)" fill="clear" class="action-button">
+        <ion-button (click)="likePost(post)" fill="clear" class="action-button like-button">
             <ion-icon [name]="post.liked ? 'heart' : 'heart-outline'"></ion-icon>
             <span>{{ post.numlikes }}</span>
         </ion-button>
@@ -31,7 +31,7 @@
             <ion-icon name="chatbubble"></ion-icon>
             <span>{{ post.numcomments }}</span>
         </ion-button>
-        <ion-button fill="clear" class="action-button" (click)="savePost(post)">
+        <ion-button fill="clear" class="action-button save-button" (click)="savePost(post)">
             <ion-icon [name]="post.saved ? 'bookmark' : 'bookmark-outline'"></ion-icon>
         </ion-button>
         <ion-button fill="clear" class="action-button" (click)="sharePost(post)">
@@ -58,3 +58,5 @@
 
   </ion-fab>
 </ion-content>
+<app-shepherd></app-shepherd>
+

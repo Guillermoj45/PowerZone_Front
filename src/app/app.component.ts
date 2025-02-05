@@ -1,5 +1,5 @@
 import { MenuComponent } from "./Screen/menu/menu.component";
-import {IonicModule, ModalController, ModalOptions} from "@ionic/angular";
+import { IonicModule, ModalController, ModalOptions } from "@ionic/angular";
 import { SuggestionsComponent } from "./Screen/suggestions/suggestions.component";
 import { AfterViewInit, Component, HostListener, OnInit } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
@@ -10,7 +10,8 @@ import { FooterComponent } from "./Screen/footer/footer.component";
 import { Menu } from "./Service/Menu.service";
 import { addIcons } from "ionicons";
 import { settingsSharp } from "ionicons/icons";
-import {NewPostComponent} from "./Screen/new-post/new-post.component";
+import { NewPostComponent } from "./Screen/new-post/new-post.component";
+import { ShepherdComponent } from "./Component/shepherd/shepherd.component";
 
 @Component({
     selector: "app-root",
@@ -22,6 +23,7 @@ import {NewPostComponent} from "./Screen/new-post/new-post.component";
         NgIf,
         MenuoriginalComponent,
         FooterComponent,
+        ShepherdComponent,
     ],
     standalone: true,
 })
@@ -32,6 +34,7 @@ export class AppComponent implements OnInit {
     headerVisible = true;
     footerVisible = true;
     isChatRoute = false; // Propiedad para verificar si estás en /chat
+    currentTexts: string[] = [];
 
     constructor(
         private menuSuggestionsService: MenuSuggestionsService,
@@ -40,7 +43,7 @@ export class AppComponent implements OnInit {
         private menuService: Menu,
         private modalController: ModalController
     ) {
-      addIcons({settingsSharp})
+        addIcons({ settingsSharp });
     }
 
     @HostListener("window:resize", ["$event"])
@@ -119,14 +122,13 @@ export class AppComponent implements OnInit {
 
     async openAddPostModal() {
         const modal = await this.modalController.create({
-            component: NewPostComponent
+            component: NewPostComponent,
         } as ModalOptions);
         await modal.present();
     }
 
     logOut() {
         sessionStorage.clear();
-        this.router.navigate(['/login']);
+        this.router.navigate(["/login"]);
     }
-
 }

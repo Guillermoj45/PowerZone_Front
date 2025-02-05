@@ -1,0 +1,52 @@
+/* shepherd.component.scss */
+
+.shepherd-element {
+    .shepherd-content {
+        background-color: #6eb2a5 !important; /* Fondo verde claro */
+        border: 1px solid #49bcba !important; /* Borde en tono verde */
+        color: #ffffff !important;            /* Texto en verde oscuro */
+        border-radius: 8px !important;        /* Bordes redondeados */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+        padding: 16px !important;
+        max-width: 300px;
+    }
+
+    /* Estilo para el título del tooltip */
+    .shepherd-title {
+        font-size: 1.2em !important;
+        font-weight: bold !important;
+        margin-bottom: 8px !important;
+    }
+
+    /* Estilo para el texto del tooltip */
+    .shepherd-text {
+        font-size: 1em !important;
+        line-height: 1.5 !important;
+    }
+
+    /* Ajuste para la flecha (arrow) */
+    .shepherd-arrow::before {
+        border-top-color: #d4edda !important; /* Asegura que la flecha combine con el fondo */
+    }
+
+    /* Estilos para los botones del tooltip */
+    .shepherd-button {
+        background-color: #042f2e !important; /* Botón verde */
+        color: #fff !important;
+        border: none !important;
+        padding: 8px 16px !important;
+        border-radius: 4px !important;
+        cursor: pointer !important;
+        margin-top: 12px !important;
+        transition: background-color 0.3s ease !important;
+    }
+
+    .shepherd-button:hover {
+        background-color: #007774 !important;
+    }
+}
+
+/* Opcional: estilo global para el modal (oscurece el fondo) */
+.shepherd-modal {
+    background-color: rgb(4, 47, 46) !important;
+}

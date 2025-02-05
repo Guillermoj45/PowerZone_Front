@@ -82,4 +82,14 @@ export class PostService {
         return this.http.get<PostDto[]>(`${this.apiUrl}/user/saved`, { headers: this.getHeaders(token) });
     }
 
+    isNewUser(token: string): Observable<boolean> {
+        const headers = new HttpHeaders({ Authorization: token });
+        return this.http.post<boolean>('/api/auth/isTutorialComplete', {},{ headers });
+    }
+
+    changeUserStatus(token: string): Observable<void> {
+        const headers = new HttpHeaders({ Authorization: token });
+        return this.http.post<void>('/api/auth/tutorialComplete', {}, { headers });
+    }
+
 }
