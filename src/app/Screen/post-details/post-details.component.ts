@@ -1,6 +1,6 @@
 // src/app/Screen/post-details/post-details.component.ts
 
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../../Service/Post.service';
 import { CommentService } from '../../Service/Comment.service';
@@ -10,32 +10,51 @@ import {IonicModule, ModalController, ModalOptions, ToastController} from '@ioni
 import {NewCommentComponent} from "../new-comment/new-comment.component";
 import {NgForOf, NgIf} from "@angular/common";
 import {addIcons} from "ionicons";
-import {bookmark, bookmarkOutline, chatbubble, heart, heartOutline, shareSocial} from "ionicons/icons";
+import {
+  bookmark,
+  bookmarkOutline,
+  chatbubble,
+  ellipsisHorizontal,
+  heart,
+  heartOutline,
+  shareSocial
+} from "ionicons/icons";
+import {AdminService} from "../../Service/Admin.service";
+import {ProfileService} from "../../Service/profile.service";
+import {FormsModule} from "@angular/forms";
 
 
 @Component({
     selector: 'app-post-details',
     templateUrl: './post-details.component.html',
     styleUrls: ['./post-details.component.scss'],
-    imports: [
-        IonicModule,
-        NgForOf,
-        NgIf
-    ],
+  imports: [
+    IonicModule,
+    NgForOf,
+    NgIf,
+    FormsModule
+  ],
     standalone: true
 })
 export class PostDetailsComponent implements OnInit {
     postId!: number;
     post!: PostDto;
     comments: CommentDetails[] = [];
+    @ViewChild('popover') popover!: HTMLIonPopoverElement;
+
+    isOpen = false;
+    reportReason:string= "";
+    isAdmin1: boolean = false;
 
     constructor(
         private route: ActivatedRoute,
         private postService: PostService,
         private commentService: CommentService,
         private toastController: ToastController,
-        private modalController: ModalController
-    ) {addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline });}
+        private modalController: ModalController,
+        private adminService: AdminService,
+        private profile: ProfileService
+    ) {addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline, ellipsisHorizontal });}
 
     ngOnInit(): void {
         this.postId = Number(this.route.snapshot.paramMap.get('id'));
@@ -43,6 +62,65 @@ export class PostDetailsComponent implements OnInit {
         this.loadComments();
 
     }
+
+        presentPopover(e: Event, post?: PostDto) {
+      this.popover.event = e;
+      this.isOpen = true;
+    }
+
+    deletePost(post: PostDto, state: string) {
+      this.adminService.putWarning(post.post!.id!, state).subscribe({
+        next: () => {
+          console.log(`Deleted post: ${post.post!.id}`);
+          this.isOpen = false;
+          this.ngOnInit();
+        },
+        error: (error) => {
+          console.error('Error deleting the post:', error);
+        }
+      });
+    }
+
+
+    isAdmin() {
+      this.profile.isAdmin().subscribe({
+        next: (isAdmin) => {
+          this.isAdmin1 = isAdmin;
+        },
+        error: (error) => {
+          this.isAdmin1 = false;
+          console.error('Error checking if user is admin:', error);
+        }
+      })
+    }
+
+    reportPost(post: PostDto) {
+      const token = sessionStorage.getItem('token');
+      if (!token) {
+        console.error('No token found in session storage');
+        return;
+      }
+
+      const postId = post.post?.id;
+      if (postId === undefined) {
+        console.error('Post ID not found');
+        return;
+      }
+
+      this.postService.reportPost(postId, this.reportReason).subscribe({
+        next: () => {
+          console.log(`Reported post: ${postId}`);
+          this.isOpen = false;
+          this.reportReason = "";
+          this.ngOnInit();
+        },
+        error: (error) => {
+          console.error('Error reporting the post:', error);
+        }
+      });
+    }
+
+
 
     loadPostDetails() {
         const token = sessionStorage.getItem('token');
