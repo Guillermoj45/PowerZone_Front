@@ -38,7 +38,7 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
                 sender: this.sender,
                 content: this.newMessage,
                 timestamp: Date.now(),
-                groupId: 'room1', // ID de la sala (puedes cambiarlo dinámicamente)
+                groupId: 1, // ID de la sala (puedes cambiarlo dinámicamente)
             };
 
             this.websocketService.sendMessage(chatMessage); // Enviar el mensaje al servidor
