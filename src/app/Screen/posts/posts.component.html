@@ -16,18 +16,25 @@
           <ion-icon name="ellipsis-horizontal" class="more-button" (click)="presentPopover($event, post)"></ion-icon>
             <ion-popover #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
               <ng-template>
-                <ion-content class="ion-padding">
-                  <ion-list>
-                    <ion-item color="danger" (click)="deletePost(post)">
+                  <ion-list *ngIf="!isAdmin1">
+                    <ion-item color="danger">
+                      <ion-input type="text" placeholder="Razón de reporte" [(ngModel)]="reportReason"></ion-input>
+                    </ion-item>
+                    <ion-item color="danger" (click)="reportPost(post)">
                       <ion-icon name="trash" slot="start"></ion-icon>
                       <ion-label>Reportar</ion-label>
                     </ion-item>
-                    <ion-item (click)="editPost(post)">
-                      <ion-icon name="create" slot="start"></ion-icon>
-                      <ion-label>Editar</ion-label>
+                  </ion-list>
+                  <ion-list *ngIf="isAdmin1">
+                    <ion-item color="danger" (click)="deletePost(post, 'SANCTIONED')">
+                      <ion-icon name="trash" slot="start"></ion-icon>
+                      <ion-label>Eliminar y advertir</ion-label>
+                    </ion-item>
+                    <ion-item color="danger" (click)="deletePost(post, 'SOLVED')">
+                      <ion-icon name="trash" slot="start"></ion-icon>
+                      <ion-label>Dejar pasar</ion-label>
                     </ion-item>
                   </ion-list>
-                </ion-content>
               </ng-template>
             </ion-popover>
         </ion-col>

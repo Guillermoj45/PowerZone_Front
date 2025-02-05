@@ -26,7 +26,14 @@ export class PostService {
         });
     }
 
-
+    reportPost(postId: number, reason: string): Observable<void> {
+      const token = sessionStorage.getItem('token') || '';
+      let mesage =  {
+        postId: postId,
+        contend: reason
+      }
+        return this.http.post<void>(`${this.apiUrl}/report`, mesage, { headers: this.getHeaders(token) });
+    }
 
     createPost(token: string, formData: FormData): Observable<PostDto> {
         return this.http.post<PostDto>(`${this.apiUrl}/create`, formData, { headers: this.getHeaders(token) });
@@ -77,7 +84,7 @@ export class PostService {
         return this.http.post<string>(`${this.apiUrl}/share`, { postId }, { headers: this.getHeaders(token) });
     }
 
-    
+
     getAllSavedPosts(token: string): Observable<PostDto[]> {
         return this.http.get<PostDto[]>(`${this.apiUrl}/user/saved`, { headers: this.getHeaders(token) });
     }

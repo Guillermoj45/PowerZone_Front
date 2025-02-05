@@ -44,5 +44,10 @@ export class ProfileService {
     searchProfilesById(id: string): Observable<any[]> {
         return this.http.get<any[]>(`${this.baseUrl}/${id}`);
     }
+
+    isAdmin() {
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
+      return this.http.get<boolean>('/api/auth/ImAdmin', {headers})
+    }
 }
 
