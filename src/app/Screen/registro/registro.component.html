@@ -16,16 +16,16 @@
                     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                         <ion-img src="assets/logo.png" id="logo"></ion-img>
                         <ion-item>
-                            <ion-input formControlName="nickname" label="Nickname"></ion-input>
+                            <ion-input formControlName="nickname" label="Nickname" placeholder="Ingrese su nickname"></ion-input>
                         </ion-item>
 
                         <ion-item [class.invalid]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
-                            <ion-input formControlName="name" label="Nombre"></ion-input>
+                            <ion-input formControlName="name" label="Nombre" placeholder="Ingrese su nombre"></ion-input>
                         </ion-item>
                         <p class="error" *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">El nombre no puede contener números.</p>
 
                         <ion-item [class.invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
-                            <ion-input formControlName="email" label="Correo"></ion-input>
+                            <ion-input formControlName="email" label="Correo" placeholder="Ingrese su email"></ion-input>
                         </ion-item>
                         <p class="error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">Introduce un correo válido.</p>
 
@@ -34,7 +34,7 @@
                         </ion-item>
 
                         <ion-item [class.invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-                            <ion-input formControlName="password" type="password" label="Contraseña"></ion-input>
+                            <ion-input formControlName="password" type="password" label="Contraseña" placeholder="Ingrese su contraseña"></ion-input>
                             <ion-input-password-toggle slot="end"></ion-input-password-toggle>
                         </ion-item>
                         <p class="error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">La contraseña debe tener al menos 8 caracteres.</p>
