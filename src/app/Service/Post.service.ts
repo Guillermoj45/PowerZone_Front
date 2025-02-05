@@ -81,15 +81,13 @@ export class PostService {
     }
 
     isNewUser(token: string): Observable<boolean> {
-        return this.http.post<boolean>(`/api/auth/is_tutorial_complete`, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
+        const headers = new HttpHeaders({ Authorization: token });
+        return this.http.post<boolean>('/api/auth/isTutorialComplete', {},{ headers });
     }
 
     changeUserStatus(token: string): Observable<void> {
-        return this.http.post<void>(`/api/auth/tutorial_complete`, {}, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
+        const headers = new HttpHeaders({ Authorization: token });
+        return this.http.post<void>('/api/auth/tutorialComplete', {}, { headers });
     }
 
 }

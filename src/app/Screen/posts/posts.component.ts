@@ -39,25 +39,25 @@ export class PostsComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(): void {
         const token = sessionStorage.getItem('token');
         if (token) {
-            this.postService.isNewUser(token).subscribe(
-                (isNewUser) => {
-                    console.log("Me cago los muertos de los negros!!!!")
+            this.postService.isNewUser(token).subscribe({
+                next: (isNewUser) => {
+                    console.log("Hola")
                     if (isNewUser) {
                         this.shepherdComponent.startTour();
-                        this.postService.changeUserStatus(token).subscribe(
-                            () => {
+                        this.postService.changeUserStatus(token).subscribe({
+                            next: () => {
                                 console.log('User status changed');
                             },
-                            (error) => {
+                            error: (error) => {
                                 console.error('Error changing user status:', error);
                             }
-                        );
+                        });
                     }
                 },
-                (error) => {
+                error: (error) => {
                     console.error('Error checking if new user:', error);
                 }
-            );
+            });
         } else {
             console.error('No token found in session storage');
         }

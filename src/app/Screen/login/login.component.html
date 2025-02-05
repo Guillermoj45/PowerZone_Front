@@ -14,18 +14,21 @@
         <ion-col size-lg="6" size-xs="12" class="Registrobody">
             <div class="subForm">
                 <ion-img src="assets/logo.png" id="logo"></ion-img>
-                <ion-item>
-                    <ion-input [(ngModel)]="login.email" label="Correo"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-input [(ngModel)]="login.password" type="password" label="Contraseña" value="NeverGonnaGiveYouUp">
-                        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-                    </ion-input>
-                </ion-item>
-                <ion-button (click)="onSubmit()" expand="block">Iniciar Sesion</ion-button>
+                <!-- Se utiliza Reactive Forms en lugar de ngModel -->
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <ion-item>
+                        <ion-input formControlName="email" label="Correo" placeholder="Ingrese su correo"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-input formControlName="password" type="password" label="Contraseña" placeholder="Ingrese su contraseña">
+                            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+                        </ion-input>
+                    </ion-item>
+                    <ion-button type="submit" expand="block">Iniciar Sesión</ion-button>
+                </form>
                 <div class="subForm2">
                     <ion-text>¿No tienes Cuenta?<span>   </span></ion-text>
-                    <ion-text routerLink="/registro"><b>Registrate</b></ion-text>
+                    <ion-text routerLink="/registro"><b>Regístrate</b></ion-text>
                 </div>
                 <div class="subForm3">
                     <ion-text>¿Has olvidado tu contraseña?<span>   </span></ion-text>
