@@ -3,11 +3,20 @@ import { IonicModule, ModalController, ModalOptions, ToastController } from '@io
 import { CommonModule, NgForOf } from '@angular/common';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
-import { bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline } from 'ionicons/icons';
+import {
+  bookmark,
+  heart,
+  chatbubble,
+  shareSocial,
+  heartOutline,
+  bookmarkOutline,
+  ellipsisHorizontal
+} from 'ionicons/icons';
 import { PostService } from '../../Service/Post.service';
 import { PostDto } from '../../Models/PostDto';
 import { NewCommentComponent } from '../new-comment/new-comment.component';
 import { ShepherdComponent } from '../../Component/shepherd/shepherd.component';
+import {start} from "@popperjs/core";
 
 @Component({
     selector: 'app-posts',
@@ -25,15 +34,31 @@ export class PostsComponent implements OnInit, AfterViewInit {
     @ViewChild(ShepherdComponent) shepherdComponent!: ShepherdComponent;
 
     posts: PostDto[] = [];
+    @ViewChild('popover') popover!: HTMLIonPopoverElement;
+
+    isOpen = false;
 
     constructor(private router: Router, private postService: PostService, private modalController: ModalController,
                 private toastController: ToastController) {
 
-        addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline });
+        addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline, ellipsisHorizontal, start });
     }
 
     ngOnInit(): void {
         this.loadAllPosts();
+    }
+
+    presentPopover(e: Event, post?: PostDto) {
+      this.popover.event = e;
+      this.isOpen = true;
+    }
+
+    deletePost(post: PostDto) {
+
+    }
+
+    editPost(post: PostDto) {
+
     }
 
     ngAfterViewInit(): void {
