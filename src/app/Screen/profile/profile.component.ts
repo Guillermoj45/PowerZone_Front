@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {InfiniteScrollCustomEvent, IonicModule} from "@ionic/angular";
-import {Router, ActivatedRoute, RouterModule} from "@angular/router";
+import { InfiniteScrollCustomEvent, IonicModule } from "@ionic/angular";
+import { Router, ActivatedRoute, RouterModule } from "@angular/router";
 import { ProfileSettingsService } from '../../Service/profile-settings.service';
 import { ProfileSetting } from '../../Models/ProfileSetting';
 import { PostService } from '../../Service/Post.service';
-import { Post } from '../../Models/Post';
-import {NgForOf, NgIf} from "@angular/common";
-import {bookmark, bookmarkOutline, chatbubble, heart, heartOutline, sendSharp, shareSocial} from 'ionicons/icons';
-import {addIcons} from "ionicons";
+import { PostDto } from '../../Models/PostDto';
+import { NgForOf, NgIf } from "@angular/common";
+import { bookmark, bookmarkOutline, chatbubble, heart, heartOutline, sendSharp, shareSocial } from 'ionicons/icons';
+import { addIcons } from "ionicons";
 
 @Component({
     selector: 'app-profile',
@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
     isHeaderHidden = false;
     private lastScrollTop = 0;
     profileId: string | null = null;
-    posts: Post[] = [];
+    posts: PostDto[] = [];
     profile: ProfileSetting = {
         nickName: '',
         name: '',
@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit {
         bornDate: '',
         avatar: ''
     };
+    postImages: string[] = []; // Add this property
 
     constructor(
         private router: Router,
@@ -41,7 +42,7 @@ export class ProfileComponent implements OnInit {
         private profileSettings: ProfileSettingsService,
         private postService: PostService
     ) {
-        addIcons({  bookmark, sendSharp });
+        addIcons({ bookmark, sendSharp });
     }
 
     ngOnInit() {
@@ -87,8 +88,9 @@ export class ProfileComponent implements OnInit {
         const token = sessionStorage.getItem('token');
         if (token) {
             this.postService.getUserPostsById(token, userId).subscribe(
-                (data: Post[]) => {
+                (data: PostDto[]) => {
                     this.posts = data;
+                    this.extractPostImages();
                     console.log('Loaded posts for user ID:', userId, this.posts);
                 },
                 (error) => {
@@ -103,8 +105,9 @@ export class ProfileComponent implements OnInit {
 
     loadPostsByCurrentUser(token: string) {
         this.postService.getUserPosts(token).subscribe(
-            (data: Post[]) => {
+            (data: PostDto[]) => {
                 this.posts = data;
+                this.extractPostImages();
                 console.log('Loaded posts for current user:', this.posts);
             },
             (error) => {
@@ -112,6 +115,10 @@ export class ProfileComponent implements OnInit {
                 this.posts = [];
             }
         );
+    }
+
+    extractPostImages() {
+        this.postImages = this.posts.map(post => post.image_post).filter((image): image is string => image !== undefined);
     }
 
     navigateTo(path: string) {

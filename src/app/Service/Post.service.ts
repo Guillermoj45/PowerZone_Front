@@ -41,9 +41,12 @@ export class PostService {
     getBestPosts(token: string): Observable<PostDto[]> {
         return this.http.get<PostDto[]>(`${this.apiUrl}/best`, { headers: this.getHeaders(token) });
     }
-
-    getUserPosts(token: string): Observable<Post[]> {
-        return this.http.get<Post[]>(`${this.apiUrl}/userposts`, { headers: this.getHeaders(token) });
+    getUserPostsById(token: string, userId: string): Observable<PostDto[]> {
+        const headers = this.getHeaders(token);
+        return this.http.get<PostDto[]>(`${this.apiUrl}/userposts/${userId}`, { headers });
+    }
+    getUserPosts(token: string): Observable<PostDto[]> {
+        return this.http.get<PostDto[]>(`${this.apiUrl}/userposts`, { headers: this.getHeaders(token) });
     }
 
     savePost(token: string, postId: number| undefined): Observable<string> {
@@ -74,10 +77,7 @@ export class PostService {
         return this.http.post<string>(`${this.apiUrl}/share`, { postId }, { headers: this.getHeaders(token) });
     }
 
-    getUserPostsById(token: string, userId: string): Observable<Post[]> {
-        const headers = this.getHeaders(token);
-        return this.http.get<Post[]>(`${this.apiUrl}/userposts/${userId}`, { headers });
-    }
+    
     getAllSavedPosts(token: string): Observable<PostDto[]> {
         return this.http.get<PostDto[]>(`${this.apiUrl}/user/saved`, { headers: this.getHeaders(token) });
     }

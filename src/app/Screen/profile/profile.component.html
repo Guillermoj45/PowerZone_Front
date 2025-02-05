@@ -5,7 +5,7 @@
             <ion-row class="movil" style="justify-content: center; margin-bottom: 10px">
                 <ion-col style="display: flex; align-items: center">
                     <ion-avatar>
-                        <img alt="Imagen perfil" [src]="profile.avatar || 'https://picsum.photos/800/400?random=1'" />
+                        <img alt="Imagen perfil" [src]="profile.avatar " />
                     </ion-avatar>
                     <ion-text style="padding-left: 7%">{{ profile.nickName || profile.name }}</ion-text>
                 </ion-col>
@@ -65,10 +65,10 @@
     </div>
 
     <!-- Imagenes del grid -->
-    <div class="image-grid" *ngIf="posts.length > 0">
-        <img *ngFor="let post of posts; let i = index"
-             (click)="navigateTo('post-details/{{post.id}}')"
-             [src]="'https://picsum.photos/100/100?random=' + i"
+    <div class="image-grid" *ngIf="postImages.length > 0">
+        <img *ngFor="let image of postImages; let i = index"
+             (click)="navigateTo('post-details/{{posts[i].id}}')"
+             [src]="image"
              alt="Imagen {{ i }}" />
     </div>
 
