@@ -13,7 +13,10 @@ ion-content {
 .post-image {
     overflow: hidden;
 }
-
+.comment-item p {
+    font-weight: bold;
+    color: white;
+}
 .post-container {
     max-width: 100%;
     margin: 0 auto;
@@ -98,6 +101,8 @@ ion-content {
     --background: #042F2E !important;
     background-color: #042F2E !important;
     color: white;
+    --border-color: white;
+
 }
 ion-item {
     --background: #042F2E !important;

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-
 import { ToastController, ModalController, IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NewCommentComponent } from '../new-comment/new-comment.component';
 import { CommonModule } from '@angular/common';
-import {PostDto} from "../../Models/PostDto";
-import {PostService} from "../../Service/Post.service";
+import { PostDto } from '../../Models/PostDto';
+import { PostService } from '../../Service/Post.service';
+import { addIcons } from 'ionicons';
+import { bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline } from 'ionicons/icons';
 
 @Component({
     selector: 'app-post-save',
@@ -22,11 +23,16 @@ export class PostSaveComponent implements OnInit {
         private toastController: ToastController,
         private router: Router,
         private modalController: ModalController
-    ) {}
+    ) {
+        addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline });
+    }
 
     ngOnInit(): void {
         this.loadSavedPosts();
+        window.addEventListener('postUpdated', this.loadSavedPosts.bind(this));
     }
+
+
 
     loadSavedPosts() {
         const token = sessionStorage.getItem('token');
@@ -38,6 +44,30 @@ export class PostSaveComponent implements OnInit {
         this.postService.getAllSavedPosts(token).subscribe(
             (posts) => {
                 this.savedPosts = posts;
+                this.savedPosts.forEach(post => {
+                    const postId = post.post?.id;
+                    if (postId !== undefined) {
+                        // Check if the user has liked the post
+                        this.postService.hasLikedPost(token, postId).subscribe(
+                            (hasLiked) => {
+                                post.liked = hasLiked;
+                            },
+                            (error) => {
+                                console.error(`Error checking like status for post ${postId}:`, error);
+                            }
+                        );
+
+                        // Check if the user has saved the post
+                        this.postService.hasSavedPost(token, postId).subscribe(
+                            (hasSaved) => {
+                                post.saved = hasSaved;
+                            },
+                            (error) => {
+                                console.error(`Error checking save status for post ${postId}:`, error);
+                            }
+                        );
+                    }
+                });
             },
             (error) => {
                 console.error('Error fetching saved posts:', error);
@@ -46,7 +76,12 @@ export class PostSaveComponent implements OnInit {
     }
 
     viewPostDetails(post: PostDto) {
-        this.router.navigate(['/post-details'], { state: { post } });
+        const postId = post.post?.id;
+        if (postId !== undefined) {
+            this.router.navigate([`/post-details`, postId]);
+        } else {
+            console.error('Post ID not found');
+        }
     }
 
     likePost(post: PostDto) {
@@ -113,6 +148,7 @@ export class PostSaveComponent implements OnInit {
                         position: 'top',
                     });
                     await toast.present();
+                    this.ngOnInit(); // Reload the component
                 },
                 (error) => {
                     console.error('Error unsaving the post:', error);
@@ -131,6 +167,7 @@ export class PostSaveComponent implements OnInit {
                         cssClass: 'custom-toast'
                     });
                     await toast.present();
+                    this.ngOnInit(); // Reload the component
                 },
                 (error) => {
                     console.error('Error saving the post:', error);

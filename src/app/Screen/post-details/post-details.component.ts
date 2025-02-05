@@ -51,6 +51,18 @@ export class PostDetailsComponent implements OnInit {
                 (post) => {
                     console.log('Datos del post:', post);
                     this.post = post;
+
+                    // Verificar si el post ha sido gustado
+                    const postId = post.post?.id;
+                    if (postId !== undefined) {
+                        this.postService.hasLikedPost(token, postId).subscribe(
+                            (hasLiked) => {
+                                this.post.liked = hasLiked;
+                            },
+                            (error) => console.error('Error checking like status:', error)
+                        );
+                    }
+
                 },
                 (error) => console.error('Error loading post details:', error)
             );
