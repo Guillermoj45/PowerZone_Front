@@ -37,8 +37,9 @@
             <ion-row style="margin: 2% 5%">
                 <ion-col size="5">
                     <div *ngIf="showButton">
-                        <ion-button>
-                            <ion-icon style="margin-right: 5%" name="person-add-outline"></ion-icon>Seguir
+                        <ion-button (click)="toggleFollow()">
+                            <ion-icon style="margin-right: 5%" [name]="isFollowing ? 'person-remove-outline' : 'person-add-outline'"></ion-icon>
+                            {{ isFollowing ? 'Dejar de seguir' : 'Seguir' }}
                         </ion-button>
                     </div>
                     <div *ngIf="!showButton">

@@ -34,7 +34,8 @@ export class ProfileComponent implements OnInit {
         bornDate: '',
         avatar: ''
     };
-    postImages: string[] = []; // Add this property
+    postImages: string[] = [];
+    isFollowing: boolean = false;
 
     constructor(
         private router: Router,
@@ -60,6 +61,7 @@ export class ProfileComponent implements OnInit {
                 }
             );
             this.loadPostsByUserId(this.profileId);
+            this.checkIfFollowing();
         } else {
             const token = sessionStorage.getItem('token');
             if (token) {
@@ -131,6 +133,49 @@ export class ProfileComponent implements OnInit {
     }
 
 
+    checkIfFollowing() {
+        const token = sessionStorage.getItem('token');
+        if (token && this.profileId) {
+            this.profileSettings.isFollowing(token, parseInt(this.profileId), parseInt(this.profileId)).subscribe(
+                (isFollowing: boolean) => {
+                    this.isFollowing = isFollowing;
+                },
+                (error) => {
+                    console.error('Error checking follow status:', error);
+                }
+            );
+        }
+    }
+
+    toggleFollow() {
+        const token = sessionStorage.getItem('token');
+        if (token && this.profileId) {
+            if (this.isFollowing) {
+                this.profileSettings.unfollowUser(token, parseInt(this.profileId), parseInt(this.profileId)).subscribe(
+                    () => {
+                        this.isFollowing = false;
+                        console.log('Unfollowed successfully');
+                        window.location.reload();
+                        },
+                    (error) => {
+                        console.error('Error unfollowing user:', error);
+                    }
+                );
+            } else {
+                this.profileSettings.followUser(token, parseInt(this.profileId), parseInt(this.profileId)).subscribe(
+                    () => {
+                        this.isFollowing = true;
+                        console.log('Followed successfully');
+                        window.location.reload();
+
+                    },
+                    (error) => {
+                        console.error('Error following user:', error);
+                    }
+                );
+            }
+        }
+    }
     onIonInfinite(event: InfiniteScrollCustomEvent) {
         this.generateItems();
         setTimeout(() => {
