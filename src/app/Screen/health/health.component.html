@@ -35,7 +35,7 @@
         <!-- Input de texto -->
         <ion-row class="chat-input-row">
             <ion-col size="10">
-                <ion-input style="color: black" placeholder="   Escriba un mensaje..." [(ngModel)]="messageText"></ion-input>
+                <ion-input style="color: black" placeholder=" Escriba un mensaje..." [(ngModel)]="messageText" (keyup.enter)="sendMessage()"></ion-input>
             </ion-col>
             <ion-col size="2" class="send-icon">
                 <ion-icon name="send"></ion-icon>

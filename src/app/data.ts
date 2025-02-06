@@ -14,8 +14,15 @@ export const steps = [
         attachTo: { element: '.component-container', on: 'bottom' as PopperPlacement },
         buttons: [
             {
+                text: 'X',
+                action: function(this: any) {
+                    this.complete(); // Finaliza el tutorial
+                },
+                classes: 'shepherd-button-cancel',
+            },
+            {
                 text: 'Siguiente',
-                action: function(this: any, ...args: any[]): void {
+                action: function(this: any): void {
                     this.next();
                 },
             },
@@ -28,8 +35,15 @@ export const steps = [
         attachTo: { element: '.post-description', on: 'top' as PopperPlacement },
         buttons: [
             {
+                text: 'X',
+                action: function(this: any) {
+                    this.complete(); // Finaliza el tutorial
+                },
+                classes: 'shepherd-button-cancel',
+            },
+            {
                 text: 'Siguiente',
-                action: function(this: any, ...args: any[]): void {
+                action: function(this: any): void {
                     this.next();
                 },
             },
@@ -42,8 +56,15 @@ export const steps = [
         attachTo: { element: '.like-button', on: 'left-start' as PopperPlacement },
         buttons: [
             {
+                text: 'X',
+                action: function(this: any) {
+                    this.complete(); // Finaliza el tutorial
+                },
+                classes: 'shepherd-button-cancel',
+            },
+            {
                 text: 'Siguiente',
-                action: function(this: any, ...args: any[]): void {
+                action: function(this: any): void {
                     this.next();
                 },
             },
@@ -56,8 +77,15 @@ export const steps = [
         attachTo: { element: '.save-button', on: 'left-start' as PopperPlacement },
         buttons: [
             {
+                text: 'X',
+                action: function(this: any) {
+                    this.complete(); // Finaliza el tutorial
+                },
+                classes: 'shepherd-button-cancel',
+            },
+            {
                 text: 'Siguiente',
-                action: function(this: any, ...args: any[]): void {
+                action: function(this: any): void {
                     this.next();
                 },
             },
@@ -70,8 +98,15 @@ export const steps = [
         attachTo: { element: '.component-container', on: 'left-start' as PopperPlacement },
         buttons: [
             {
+                text: 'X',
+                action: function(this: any) {
+                    this.complete(); // Finaliza el tutorial
+                },
+                classes: 'shepherd-button-cancel',
+            },
+            {
                 text: 'Siguiente',
-                action: function(this: any, ...args: any[]): void {
+                action: function(this: any): void {
                     this.next();
                 },
             },
@@ -84,8 +119,15 @@ export const steps = [
         attachTo: { element: '.component-container', on: 'left-start' as PopperPlacement },
         buttons: [
             {
+                text: 'X',
+                action: function(this: any) {
+                    this.complete(); // Finaliza el tutorial
+                },
+                classes: 'shepherd-button-cancel',
+            },
+            {
                 text: 'Siguiente',
-                action: function(this: any, ...args: any[]): void {
+                action: function(this: any): void {
                     this.next();
                 },
             },
@@ -98,8 +140,15 @@ export const steps = [
         attachTo: { element: '.component-container', on: 'left-start' as PopperPlacement },
         buttons: [
             {
+                text: 'X',
+                action: function(this: any) {
+                    this.complete(); // Finaliza el tutorial
+                },
+                classes: 'shepherd-button-cancel',
+            },
+            {
                 text: 'Siguiente',
-                action: function(this: any, ...args: any[]): void {
+                action: function(this: any): void {
                     this.next();
                 },
             },
@@ -112,8 +161,15 @@ export const steps = [
         attachTo: { element: '.component-container', on: 'left-start' as PopperPlacement },
         buttons: [
             {
+                text: 'X',
+                action: function(this: any) {
+                    this.complete(); // Finaliza el tutorial
+                },
+                classes: 'shepherd-button-cancel',
+            },
+            {
                 text: 'Siguiente',
-                action: function(this: any, ...args: any[]): void {
+                action: function(this: any): void {
                     this.next();
                 },
             },
@@ -126,8 +182,15 @@ export const steps = [
         attachTo: { element: '.component-container', on: 'left-start' as PopperPlacement },
         buttons: [
             {
+                text: 'X',
+                action: function(this: any) {
+                    this.complete(); // Finaliza el tutorial
+                },
+                classes: 'shepherd-button-cancel',
+            },
+            {
                 text: 'Siguiente',
-                action: function(this: any, ...args: any[]): void {
+                action: function(this: any): void {
                     this.next();
                 },
             },
@@ -140,8 +203,15 @@ export const steps = [
         attachTo: { element: '.component-container', on: 'left-start' as PopperPlacement },
         buttons: [
             {
+                text: 'X',
+                action: function(this: any) {
+                    this.complete(); // Finaliza el tutorial
+                },
+                classes: 'shepherd-button-cancel',
+            },
+            {
                 text: 'Siguiente',
-                action: function(this: any, ...args: any[]): void {
+                action: function(this: any): void {
                     this.next();
                 },
             },
@@ -154,8 +224,15 @@ export const steps = [
         attachTo: { element: '.component-container', on: 'left-start' as PopperPlacement },
         buttons: [
             {
+                text: 'X',
+                action: function(this: any) {
+                    this.complete(); // Finaliza el tutorial
+                },
+                classes: 'shepherd-button-cancel',
+            },
+            {
                 text: 'Siguiente',
-                action: function(this: any, ...args: any[]): void {
+                action: function(this: any): void {
                     this.next();
                 },
             },
@@ -168,8 +245,15 @@ export const steps = [
         attachTo: { element: '.component-container', on: 'right-start' as PopperPlacement },
         buttons: [
             {
+                text: 'X',
+                action: function(this: any) {
+                    this.complete(); // Finaliza el tutorial
+                },
+                classes: 'shepherd-button-cancel',
+            },
+            {
                 text: 'Finalizar',
-                action: function(this: any, ...args: any[]): void {
+                action: function(this: any): void {
                     this.complete();
                 },
             },
