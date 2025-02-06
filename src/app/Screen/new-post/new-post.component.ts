@@ -62,6 +62,7 @@ export class NewPostComponent implements OnInit {
             (response) => {
                 console.log('Post created successfully:', response);
                 this.dismiss();
+                window.location.reload();
             },
             (error) => {
                 console.error('Error creating post:', error);
