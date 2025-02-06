@@ -67,10 +67,13 @@
     <!-- Imagenes del grid -->
     <div class="image-grid" *ngIf="postImages.length > 0">
         <img *ngFor="let image of postImages; let i = index"
-             (click)="navigateTo('post-details/{{posts[i].id}}')"
-             [src]="image"
+             (click)="navigateToPost(profile.id)"
+             [src]="image || 'https://picsum.photos/200/300?random=2'"
              alt="Imagen {{ i }}" />
     </div>
+
+
+
 
 
     <!-- Infinite Scroll -->

@@ -124,6 +124,12 @@ export class ProfileComponent implements OnInit {
     navigateTo(path: string) {
         this.router.navigate([path]);
     }
+    navigateToPost(userId?: number) {
+        if (userId !== undefined && userId !== null) {
+            this.router.navigate(['/posts-user', userId]);
+        }
+    }
+
 
     onIonInfinite(event: InfiniteScrollCustomEvent) {
         this.generateItems();
