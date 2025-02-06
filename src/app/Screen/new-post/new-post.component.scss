@@ -1,139 +1,186 @@
 :host {
     display: block;
-    background-color: #042F2E;
+    background-color: #1e3a3a;
     color: white;
-    padding: 10px;
-}
-
-.centered-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-}
-
-.ion-padding {
-    max-width: 100%;
-    margin: 0 auto;
-}
-
-ion-item {
-    background-color: transparent;
+    padding: 15px;
     border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 20px;
-    --border-color: white;
-}
-ion-icon {
-    color: #042F2E;
-    font-size: 24px;
 }
 
-ion-icon.send-icon {
-    color: #6fb3a6;
-    font-size: 24px;
-}
-ion-icon.folder-icon {
-
-    color: #6fb3a6;
-    font-size: 24px;
-
-}
-
-
-ion-label {
-    font-size: 16px;
+.header-title {
+    font-size: 20px;
     font-weight: bold;
-    color: #042F2E;
-}
-
-ion-textarea {
-    border-radius: 5px;
-    width: 100%;
-    height: auto;
-}
-
-
-
-
-.scroll-container {
-    max-height: 100vh;
-    overflow-y: auto;
-    scrollbar-width: none;
-}
-
-ion-content {
-    --background: transparent;
-}
-ion-toolbar {
-    --background: transparent;
-}
-ion-item {
-    --inner-padding-top: 0;
-    --inner-padding-bottom: 0;
-    --border-width: 0;
-    --background: transparent;
-    --ion-item-background: transparent;
-    margin-left: 5%;
-}
-.large-text {
-    font-size: 18px;
-}
-
-ion-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    color: white;
-    font-size: 14px;
-    position: relative;
-    --background: transparent;
-    --background-activated: transparent;
-    --background-focused: transparent;
-    --background-hover: transparent;
-    --border-width: 0;
-}
-
-ion-button[type="submit"] {
-    color: white;
-    font-size: 70%;
-    --background: #6fb3a6;
-    border-radius: 25px;
-}
-
-ion-button[type="submit"] .large-text {
-    flex-grow: 1;
     text-align: center;
 }
 
-ion-button[type="submit"] ion-icon {
-    position: absolute;
-    right: 10px;
+.stylish-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    max-width: 90%;
+    margin: auto;
+    background: #0d2b2a;
+    border-radius: 15px;
+    padding: 20px;
 }
+
+.form-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.options-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(236, 75, 234);
+}
+
+.options-text {
+    font-size: 16px;
+    color: white;
+}
+
+.icon-style {
+    font-size: 28px;
+    color: #6fb3a6;
+}
+
+.textArea {
+    width: 100%;
+    height: 200px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.publish-button {
+    background: linear-gradient(135deg, #6fb3a6, #42a5a3);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 25px;
+    padding: 12px;
+}
+
+.publish-button:hover {
+    filter: brightness(1.2);
+}
+
+.separated-item {
+    margin-top: 10px; /* Adjust the value as needed */
+}
+
+.separated-item2 {
+    margin-top: 40px; /* Adjust the value as needed */
+}
+
+button {
+    font-family: inherit;
+    font-size: 20px;
+    background: #6fb3a6;
+    color: white;
+    padding: 0.7em 1em;
+    padding-left: 0.9em;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+}
+
+button span {
+    display: block;
+    margin-left: 0.3em;
+    transition: all 0.3s ease-in-out;
+}
+
+button svg {
+    display: block;
+    transform-origin: center center;
+    transition: transform 0.3s ease-in-out;
+}
+
+button:hover .svg-wrapper {
+    animation: fly-1 0.6s ease-in-out infinite alternate;
+}
+
+button:hover svg {
+    transform: translateX(1.2em) rotate(45deg) scale(1.1);
+}
+
+button:hover span {
+    transform: translateX(5em);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+@keyframes fly-1 {
+    from {
+        transform: translateY(0.1em);
+    }
+
+    to {
+        transform: translateY(-0.1em);
+    }
+}
+
 .centered-button {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    --background: transparent;
-    --ion-item-background: transparent;
-    --border-color: transparent;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
 }
 
-.button-container {
-    margin-top: 10px;
-
+.folder-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.15);
 }
 
-.large-text {
-    margin-bottom: 5px;
+.folder-icon {
+    font-size: 32px;
+    color: #6fb3a6;
 }
-.centered-button .large-text {
-    margin-right: 10px;
+
+.add-file-button {
+    font-size: 16px;
+    color: white;
+    background: #6fb3a6;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
 }
-/* Para pantallas pequeñas */
-@media (max-width: 1000px) {
-    .movil {
-        margin-top: 20%;
-    }
+
+.add-file-button:hover {
+    background: #5a9c8c;
 }
+

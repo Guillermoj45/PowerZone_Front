@@ -6,6 +6,7 @@ import { CarrouselComponent } from '../../Component/carrousel/carrousel.componen
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import {LoadingController} from "@ionic/angular/standalone";
 
 @Component({
     selector: 'app-registro',
@@ -31,7 +32,8 @@ export class RegistroComponent implements OnInit {
         private fb: FormBuilder,
         private registroService: RegistroService,
         private router: Router,
-        private alertController: AlertController
+        private alertController: AlertController,
+        private loadingController: LoadingController
     ) {
         // Se crea el FormGroup con los validadores correspondientes
         this.registerForm = this.fb.group({
@@ -55,25 +57,29 @@ export class RegistroComponent implements OnInit {
         await alert.present();
     }
 
-    onSubmit() {
+    async onSubmit() {
         if (this.registerForm.valid) {
-            // Combina los valores actuales de 'register' con los del formulario
+            const loading = await this.loadingController.create({
+                message: 'Registrando...',
+            });
+            await loading.present();
+
             this.register = { ...this.register, ...this.registerForm.value };
-            // Asigna el valor de avatar obtenido en onFileSelected
             this.register.avatar = this.avatarBase64;
 
             this.registroService.registerUser(this.register).subscribe({
-                next: () => {
+                next: async () => {
                     console.info("Registro exitoso");
+                    await loading.dismiss();
                     this.router.navigate(['/login']);
                 },
-                error: (error) => {
+                error: async (error) => {
                     console.error(error);
+                    await loading.dismiss();
                     this.showAlert('Ha ocurrido un error al registrar el usuario.');
                 }
             });
         } else {
-            // Marca todos los controles como "touched" para que se muestren los mensajes de error en la vista
             this.markFormTouched();
             this.showAlert('Hay campos vacíos o con información errónea.');
         }
