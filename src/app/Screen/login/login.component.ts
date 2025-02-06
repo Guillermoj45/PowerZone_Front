@@ -8,7 +8,10 @@ import {
     IonGrid,
     IonImg,
     IonInput,
-    IonInputPasswordToggle, IonItem, IonRow, IonText
+    IonInputPasswordToggle,
+    IonItem,
+    IonRow,
+    IonText
 } from "@ionic/angular/standalone";
 import { Router, RouterLink } from "@angular/router";
 import { Login } from '../../Models/Login';
@@ -61,24 +64,34 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-        if (this.login.email?.trim() == "" || this.login.password?.trim() == "") {
-            this.showAlert('Para acceder se necesitan rellenar los campos');
+        if (this.login.email?.trim() === "" || this.login.password?.trim() === "") {
+            this.showAlert('Para acceder se necesitan rellenar los campos.');
             return;
         }
 
         this.authService.login(this.login).subscribe(
             (response: any) => {
                 const token = response.token;
+                const username = response.username;
+                const nickname = response.nickname;
+
                 if (token) {
+                    // Guardar token en sessionStorage
                     sessionStorage.setItem('token', token);
+
+                    // Guardar username y nickname en localStorage
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('nickname', nickname);
+
+                    // Navegar a la página de posts
                     this.router.navigate(['/posts']);
                 } else {
-                    this.showAlert('Login fallido: Dato invalidos');
+                    this.showAlert('Login fallido: Datos inválidos.');
                 }
             },
             (error: any) => {
                 console.error('Login fallido', error);
-                this.showAlert('Login fallido: Dato invalidos');
+                this.showAlert('Login fallido: Verifique sus credenciales.');
             }
         );
     }

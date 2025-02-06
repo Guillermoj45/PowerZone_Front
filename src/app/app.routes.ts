@@ -70,7 +70,7 @@ export const routes: Routes = [
         loadComponent: ()=> import('./Screen/post-details/post-details.component').then((m) => m.PostDetailsComponent)
     },
     {
-        path: 'prueba',
+        path: 'prueba/:groupId',
         loadComponent: () => import('./Screen/rafaparaelchat/rafaparaelchat.component').then((m) => m.RafaparaelchatComponent),
     }
 ];

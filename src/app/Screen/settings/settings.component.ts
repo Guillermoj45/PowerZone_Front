@@ -48,7 +48,6 @@ export class SettingsComponent implements OnInit {
         this.fileInput.nativeElement.click();
     }
 
-
     async updateProfile() {
         const isModified =
             this.profile.nickName !== this.originalProfile.nickName ||

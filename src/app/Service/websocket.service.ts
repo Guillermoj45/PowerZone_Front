@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Client } from '@stomp/stompjs';
-import { BehaviorSubject, Observable, filter } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ChatMessage } from '../Models/ChatMessage';
 
 @Injectable({
@@ -8,24 +8,23 @@ import { ChatMessage } from '../Models/ChatMessage';
 })
 export class WebsocketService {
     private stompClient!: Client;
-    private messageSubject: BehaviorSubject<ChatMessage | null> = new BehaviorSubject<ChatMessage | null>(null);
+    private messageSubject: BehaviorSubject<ChatMessage[]> = new BehaviorSubject<ChatMessage[]>([]); // Lista de mensajes
 
-    constructor() {
-        this.connect();
-    }
+    constructor() {}
 
-    connect() {
-        const webSocketUrl = 'ws://localhost:8080/ws-native'; // URL del servidor WebSocket nativo
+    connect(roomId: string) {
+        const webSocketUrl = `ws://localhost:8080/ws-native`; // URL del servidor WebSocket nativo
         this.stompClient = new Client({
-            webSocketFactory: () => new WebSocket(webSocketUrl), // Usa WebSocket nativo
-            reconnectDelay: 5000, // Reintentar cada 5 segundos
+            webSocketFactory: () => new WebSocket(webSocketUrl),
+            reconnectDelay: 5000,
             debug: (str) => console.log(str),
             onConnect: () => {
                 console.log('Conectado al servidor WebSocket nativo');
-                this.stompClient.subscribe('/topic/messages/room1', (message) => {
+                this.stompClient.subscribe(`/topic/messages/${roomId}`, (message) => {
                     try {
                         const chatMessage: ChatMessage = JSON.parse(message.body);
-                        this.messageSubject.next(chatMessage); // Emitir mensaje
+                        const currentMessages = this.messageSubject.getValue(); // Obtener los mensajes actuales
+                        this.messageSubject.next([...currentMessages, chatMessage]); // Emitir nuevos mensajes
                     } catch (error) {
                         console.error('Error al procesar el mensaje recibido:', error);
                     }
@@ -42,9 +41,8 @@ export class WebsocketService {
     sendMessage(chatMessage: ChatMessage) {
         if (this.stompClient && this.stompClient.connected) {
             const message = JSON.stringify(chatMessage);
-            console.log('Enviando mensaje:', message);
             this.stompClient.publish({
-                destination: '/app/chat/room1',
+                destination: `/app/chat/${chatMessage.groupId}`,
                 body: message,
             });
         } else {
@@ -52,10 +50,8 @@ export class WebsocketService {
         }
     }
 
-    getMessageObservable(): Observable<ChatMessage> {
-        return this.messageSubject.asObservable().pipe(
-            filter((message): message is ChatMessage => message !== null)
-        );
+    getMessageObservable(): Observable<ChatMessage[]> {
+        return this.messageSubject.asObservable();
     }
 
     disconnect() {
@@ -64,5 +60,4 @@ export class WebsocketService {
             console.log('Conexión WebSocket cerrada.');
         }
     }
-
 }
