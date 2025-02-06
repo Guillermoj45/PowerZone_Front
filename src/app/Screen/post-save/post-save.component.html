@@ -10,9 +10,10 @@
                 </ion-col>
 
                 <!-- Imagen Principal -->
-                <ion-col size="12" class="post-image">
+                <ion-col *ngIf="post.image_post" size="12" class="post-image">
                     <ion-img [src]="post.image_post" class="responsive-image"></ion-img>
                 </ion-col>
+
 
                 <!-- Descripción -->
                 <ion-col size="12" class="post-description">

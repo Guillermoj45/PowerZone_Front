@@ -73,5 +73,9 @@ export const routes: Routes = [
     {
         path:'post-details/:id',
         loadComponent: ()=> import('./Screen/post-details/post-details.component').then((m) => m.PostDetailsComponent)
+    },
+    {
+        path:'posts-user/:id',
+        loadComponent: ()=> import('./Screen/posts-user/posts-user.component').then((m) => m.PostsUserComponent)
     }
 ];

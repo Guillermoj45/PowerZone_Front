@@ -16,7 +16,6 @@
                     <ion-img [src]="post.image_post" class="responsive-image"></ion-img>
                 </ion-col>
 
-
                 <!-- Descripción -->
                 <ion-col size="12" class="post-description">
                     {{ post.post?.content }}
@@ -28,7 +27,7 @@
                         <ion-icon [name]="post.liked ? 'heart' : 'heart-outline'"></ion-icon>
                         <span>{{ post.numlikes }}</span>
                     </ion-button>
-                    <ion-button fill="clear" class="action-button" (click)="openNewCommentModal(post.post?.id)">
+                    <ion-button fill="clear" class="action-button" >
                         <ion-icon name="chatbubble"></ion-icon>
                         <span>{{ post.numcomments }}</span>
                     </ion-button>
@@ -38,26 +37,21 @@
                     <ion-button fill="clear" class="action-button" (click)="sharePost(post)">
                         <ion-icon name="share-social"></ion-icon>
                     </ion-button>
-
                 </ion-col>
 
                 <!-- Comentario Destacado -->
-                <ion-col size="12" class="highlighted-comment" (click)="viewPostDetails(post)">
+                <ion-col size="12" class="highlighted-comment" >
                     <div class="comment-container">
                         <ion-avatar>
                             <img [src]="post.avatarcomment" alt="Avatar del comentario" fill/>
                         </ion-avatar>
                         <span class="comment">
-      <b>{{ post.nicknamecomment }}</b> {{ post.firstcomment }}
-    </span>
+                            <b>{{ post.nicknamecomment }}</b> {{ post.firstcomment }}
+                        </span>
                     </div>
                 </ion-col>
             </ion-row>
         </div>
     </ion-grid>
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-
-    </ion-fab>
 </ion-content>
-<app-shepherd></app-shepherd>
 
