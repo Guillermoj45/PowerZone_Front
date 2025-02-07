@@ -203,6 +203,8 @@ export class PostsComponent implements OnInit, AfterViewInit {
             componentProps: { postId: idpost }
         } as ModalOptions);
         await modal.present();
+        const { data } = await modal.onDidDismiss();
+        this.loadAllPosts();
     }
 
     async sharePost(post: PostDto) {

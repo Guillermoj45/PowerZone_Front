@@ -6,4 +6,6 @@ export class ProfileSetting {
     email?: string;
     bornDate?: string;
     avatar?: string;
+    followers?: number;
+    following?: number;
 }

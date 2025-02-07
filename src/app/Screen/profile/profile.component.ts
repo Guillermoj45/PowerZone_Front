@@ -159,10 +159,12 @@ export class ProfileComponent implements OnInit {
                     await this.profileSettings.unfollowUser(token, parseInt(this.profileId), parseInt(this.profileId)).toPromise();
                     this.isFollowing = false;
                     console.log('Unfollowed successfully');
+                    this.ngOnInit();
                 } else {
                     await this.profileSettings.followUser(token, parseInt(this.profileId), parseInt(this.profileId)).toPromise();
                     this.isFollowing = true;
                     console.log('Followed successfully');
+                    this.ngOnInit();
                 }
 
             } catch (error) {
