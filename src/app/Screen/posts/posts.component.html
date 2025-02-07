@@ -2,7 +2,7 @@
   <ion-grid class="ion-no-padding post-container movil">
     <div class="scroll-container">
 
-      <ion-row *ngFor="let post of posts" class="post">
+           <ion-row *ngFor="let post of posts; let i = index" class="post">
 
         <ion-col class="user-info" size="12" style="display: flex; justify-content: space-between; align-items: center;">
           <!-- Contenedor izquierdo: Avatar y Nombre de usuario -->
@@ -13,34 +13,36 @@
             <span class="username">{{ post.nickname }}</span>
           </div>
           <!-- Icono alineado a la derecha con evento de click -->
-          <ion-icon name="ellipsis-horizontal" class="more-button" (click)="presentPopover($event, post)"></ion-icon>
-            <ion-popover #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
-              <ng-template>
-                <div *ngIf="!isAdmin1" style="margin: auto; padding-top: 10px;">
-                   <ion-input placeholder="Razón de reporte" [(ngModel)]="reportReason"></ion-input>
-                   <ion-col class="post-actions" size="12" style="display: flex; justify-content: center;">
-                      <ion-button color="danger" (click)="reportPost(post)">
-                        <ion-icon name="trash" slot="start"></ion-icon>
-                        <ion-label>Reportar</ion-label>
-                      </ion-button>
-                  </ion-col>
-                </div>
-                <div *ngIf="isAdmin1" style="margin: auto">
-                  <ion-col class="post-actions" size="12" style="display: flex; justify-content: center;">
-                    <ion-button color="danger" (click)="deletePost(post, 'SANCTIONED')">
-                      <ion-icon name="trash" slot="start"></ion-icon>
-                      <ion-label>Eliminar y advertir</ion-label>
-                    </ion-button>
-                  </ion-col>
-                  <ion-col class="post-actions" size="12" style="display: flex; justify-content: center;">
-                    <ion-button color="success" (click)="deletePost(post, 'SOLVED')">
-                      <ion-icon name="exit-outline" slot="start"></ion-icon>
-                      <ion-label>Dejar pasar</ion-label>
-                    </ion-button>
-                  </ion-col>
-                </div>
-              </ng-template>
-            </ion-popover>
+          <ion-icon name="ellipsis-horizontal" class="more-button" (click)="presentPopover(i, $event, post)"></ion-icon>
+
+          <!-- Popover específico para cada post -->
+          <ion-popover [isOpen]="openPopoverIndex === i" (didDismiss)="openPopoverIndex = -1">
+            <ng-template>
+              <div *ngIf="!isAdmin1" style="margin: auto; padding-top: 10px;">
+                <ion-input placeholder="Razón de reporte" [(ngModel)]="reportReason"></ion-input>
+                <ion-col class="post-actions" size="12" style="display: flex; justify-content: center;">
+                  <ion-button color="danger" (click)="reportPost(post)">
+                    <ion-icon name="trash" slot="start"></ion-icon>
+                    <ion-label>Reportar</ion-label>
+                  </ion-button>
+                </ion-col>
+              </div>
+              <div *ngIf="isAdmin1" style="margin: auto">
+                <ion-col class="post-actions" size="12" style="display: flex; justify-content: center;">
+                  <ion-button color="danger" (click)="deletePost(post, 'SANCTIONED')">
+                    <ion-icon name="trash" slot="start"></ion-icon>
+                    <ion-label>Eliminar y advertir</ion-label>
+                  </ion-button>
+                </ion-col>
+                <ion-col class="post-actions" size="12" style="display: flex; justify-content: center;">
+                  <ion-button color="success" (click)="deletePost(post, 'SOLVED')">
+                    <ion-icon name="exit-outline" slot="start"></ion-icon>
+                    <ion-label>Dejar pasar</ion-label>
+                  </ion-button>
+                </ion-col>
+              </div>
+            </ng-template>
+          </ion-popover>
         </ion-col>
 
                 <!-- Imagen Principal -->
