@@ -63,7 +63,7 @@ export class PostDetailsComponent implements OnInit {
 
     }
 
-        presentPopover(e: Event, post?: PostDto) {
+    presentPopover(e: Event, post?: PostDto) {
       this.popover.event = e;
       this.isOpen = true;
     }

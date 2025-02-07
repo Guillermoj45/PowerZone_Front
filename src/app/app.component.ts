@@ -23,8 +23,7 @@ import { ShepherdComponent } from "./Component/shepherd/shepherd.component";
         NgIf,
         MenuoriginalComponent,
         FooterComponent,
-        ShepherdComponent,
-    ],
+        ],
     standalone: true,
 })
 export class AppComponent implements OnInit {

@@ -10,7 +10,7 @@ import {
   shareSocial,
   heartOutline,
   bookmarkOutline,
-  ellipsisHorizontal
+  ellipsisHorizontal, trash, exitOutline
 } from 'ionicons/icons';
 import { PostService } from '../../Service/Post.service';
 import { PostDto } from '../../Models/PostDto';
@@ -52,7 +52,7 @@ export class PostsComponent implements OnInit, AfterViewInit {
                 private profile : ProfileService,
                 private adminService: AdminService
                 ) {
-        addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline, ellipsisHorizontal, start });
+        addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline, ellipsisHorizontal, start, trash, exitOutline });
     }
 
 
@@ -63,7 +63,7 @@ export class PostsComponent implements OnInit, AfterViewInit {
     }
 
     presentPopover(e: Event, post?: PostDto) {
-      this.popover.event = e;
+      // this.popover.event = e;
       this.isOpen = true;
     }
 

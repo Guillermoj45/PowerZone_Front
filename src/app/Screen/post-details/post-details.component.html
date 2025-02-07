@@ -19,7 +19,7 @@
                     ></ion-icon>
 
                     <ion-popover #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
-                      <ng-template>
+                      <ng-template class="">
                         <!-- Opciones para usuarios no administradores -->
                         <ion-list *ngIf="!isAdmin1">
                           <ion-item color="danger">
