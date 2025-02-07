@@ -42,6 +42,7 @@ export class PostsComponent implements OnInit, AfterViewInit {
 
     isOpen = false;
     reportReason:string= "";
+    openPopoverIndex: number = -1;
     isAdmin1: boolean = false;
 
     constructor(
@@ -57,17 +58,20 @@ export class PostsComponent implements OnInit, AfterViewInit {
 
 
 
+
     ngOnInit(): void {
         this.loadAllPosts();
         this.isAdmin();
     }
 
-    presentPopover(e: Event, post?: PostDto) {
-      // this.popover.event = e;
-      this.isOpen = true;
+    // Esta función se llama al hacer click en el ícono y abre el popover correspondiente
+    presentPopover(index: number, ev: Event, post: any) {
+      this.openPopoverIndex = index;
+      // Si necesitas usar el evento (ev) o el post para otra lógica, agrégala aquí.
     }
 
     deletePost(post: PostDto, state: string) {
+
       this.adminService.putWarning(post.post!.id!, state).subscribe({
         next: () => {
           console.log(`Deleted post: ${post.post!.id}`);
@@ -78,6 +82,7 @@ export class PostsComponent implements OnInit, AfterViewInit {
           console.error('Error deleting the post:', error);
         }
       });
+      this.openPopoverIndex = -1;
     }
 
 
@@ -106,6 +111,7 @@ export class PostsComponent implements OnInit, AfterViewInit {
         return;
       }
 
+
       this.postService.reportPost(postId, this.reportReason).subscribe({
         next: () => {
           console.log(`Reported post: ${postId}`);
@@ -117,6 +123,7 @@ export class PostsComponent implements OnInit, AfterViewInit {
           console.error('Error reporting the post:', error);
         }
       });
+      this.openPopoverIndex = -1;
     }
 
     ngAfterViewInit(): void {
