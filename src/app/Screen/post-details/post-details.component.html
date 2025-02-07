@@ -4,10 +4,51 @@
             <ion-row class="post">
                 <!-- Información del usuario -->
                 <ion-col size="12" class="user-info">
-                    <ion-avatar *ngIf="post.avatar">
-                        <img alt="Imagen perfil" [src]="post.avatar" />
-                    </ion-avatar>
-                    <span class="username">{{ post.nickname || 'Usuario Anónimo' }}</span>
+
+                    <div style="display: flex; align-items: center;">
+                      <ion-avatar>
+                        <img [src]="post.avatar" alt="Imagen de perfil"/>
+                      </ion-avatar>
+                      <span class="username">{{ post.nickname }}</span>
+                    </div>
+                    <!-- Icono alineado a la derecha con evento de click -->
+                    <ion-icon
+                      name="ellipsis-horizontal"
+                      class="more-button"
+                      (click)="presentPopover($event, post)"
+                    ></ion-icon>
+
+                    <ion-popover #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
+                      <ng-template class="">
+                        <!-- Opciones para usuarios no administradores -->
+                        <ion-list *ngIf="!isAdmin1">
+                          <ion-item color="danger">
+                            <ion-input
+                              type="text"
+                              placeholder="Razón de reporte"
+                              [(ngModel)]="reportReason"
+                            ></ion-input>
+                          </ion-item>
+                          <ion-item color="danger" (click)="reportPost(post)">
+                            <ion-icon name="trash" slot="start"></ion-icon>
+                            <ion-label>Reportar</ion-label>
+                          </ion-item>
+                        </ion-list>
+
+                        <!-- Opciones para administradores -->
+                        <ion-list *ngIf="isAdmin1">
+                          <ion-item color="danger" (click)="deletePost(post, 'SANCTIONED')">
+                            <ion-icon name="trash" slot="start"></ion-icon>
+                            <ion-label>Eliminar y advertir</ion-label>
+                          </ion-item>
+                          <ion-item color="danger" (click)="deletePost(post, 'SOLVED')">
+                            <ion-icon name="trash" slot="start"></ion-icon>
+                            <ion-label>Dejar pasar</ion-label>
+                          </ion-item>
+                        </ion-list>
+                      </ng-template>
+</ion-popover>
+
                 </ion-col>
 
                 <!-- Imagen Principal -->
