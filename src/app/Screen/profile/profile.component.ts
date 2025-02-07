@@ -8,6 +8,7 @@ import { PostDto } from '../../Models/PostDto';
 import { NgForOf, NgIf } from "@angular/common";
 import { bookmark, bookmarkOutline, chatbubble, heart, heartOutline, sendSharp, shareSocial } from 'ionicons/icons';
 import { addIcons } from "ionicons";
+import { User } from '../../Models/User';
 
 @Component({
     selector: 'app-profile',
@@ -36,6 +37,8 @@ export class ProfileComponent implements OnInit {
     };
     postImages: string[] = [];
     isFollowing: boolean = false;
+    followersCount: number = 0;
+    followingCount: number = 0;
 
     constructor(
         private router: Router,
@@ -54,6 +57,7 @@ export class ProfileComponent implements OnInit {
             this.profileSettings.getProfileById(this.profileId).subscribe(
                 (data: ProfileSetting) => {
                     this.profile = data;
+
                     console.log('Loaded profile by ID:', this.profile);
                 },
                 (error) => {
@@ -147,32 +151,22 @@ export class ProfileComponent implements OnInit {
         }
     }
 
-    toggleFollow() {
+    async toggleFollow() {
         const token = sessionStorage.getItem('token');
         if (token && this.profileId) {
-            if (this.isFollowing) {
-                this.profileSettings.unfollowUser(token, parseInt(this.profileId), parseInt(this.profileId)).subscribe(
-                    () => {
-                        this.isFollowing = false;
-                        console.log('Unfollowed successfully');
-                        window.location.reload();
-                        },
-                    (error) => {
-                        console.error('Error unfollowing user:', error);
-                    }
-                );
-            } else {
-                this.profileSettings.followUser(token, parseInt(this.profileId), parseInt(this.profileId)).subscribe(
-                    () => {
-                        this.isFollowing = true;
-                        console.log('Followed successfully');
-                        window.location.reload();
+            try {
+                if (this.isFollowing) {
+                    await this.profileSettings.unfollowUser(token, parseInt(this.profileId), parseInt(this.profileId)).toPromise();
+                    this.isFollowing = false;
+                    console.log('Unfollowed successfully');
+                } else {
+                    await this.profileSettings.followUser(token, parseInt(this.profileId), parseInt(this.profileId)).toPromise();
+                    this.isFollowing = true;
+                    console.log('Followed successfully');
+                }
 
-                    },
-                    (error) => {
-                        console.error('Error following user:', error);
-                    }
-                );
+            } catch (error) {
+                console.error('Error toggling follow status:', error);
             }
         }
     }

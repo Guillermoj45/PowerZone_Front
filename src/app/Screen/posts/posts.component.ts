@@ -113,7 +113,7 @@ export class PostsComponent implements OnInit, AfterViewInit {
 
 
 
-    likePost(post: PostDto) {
+    async likePost(post: PostDto) {
         const token = sessionStorage.getItem('token');
         if (!token) {
             console.error('No token found in session storage');
@@ -126,30 +126,22 @@ export class PostsComponent implements OnInit, AfterViewInit {
             return;
         }
 
-        this.postService.hasLikedPost(token, postId).subscribe(
-            (hasLiked) => {
-                if (hasLiked) {
-                    this.postService.unlikePost(token, postId).subscribe(
-                        () => {
-                            console.log(`Unliked post: ${postId}`);
-                            post.liked = false;
-                            this.ngOnInit();
-                        },
-                        (error) => console.error('Error unliking the post:', error)
-                    );
-                } else {
-                    this.postService.likePost(token, postId).subscribe(
-                        () => {
-                            console.log(`Liked post: ${postId}`);
-                            post.liked = true;
-                            this.ngOnInit();
-                        },
-                        (error) => console.error('Error liking the post:', error)
-                    );
-                }
-            },
-            (error) => console.error('Error checking like status:', error)
-        );
+        try {
+            const hasLiked = await this.postService.hasLikedPost(token, postId).toPromise();
+            if (hasLiked) {
+                await this.postService.unlikePost(token, postId).toPromise();
+                console.log(`Unliked post: ${postId}`);
+                post.liked = false;
+                post.numlikes = (post.numlikes ?? 0) - 1;
+            } else {
+                await this.postService.likePost(token, postId).toPromise();
+                console.log(`Liked post: ${postId}`);
+                post.liked = true;
+                post.numlikes = (post.numlikes ?? 0) + 1;
+            }
+        } catch (error) {
+            console.error('Error handling like status:', error);
+        }
     }
 
     async savePost(post: PostDto) {

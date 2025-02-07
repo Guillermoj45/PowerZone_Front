@@ -1,6 +1,6 @@
 :host {
     display: block;
-    background-color: #1e3a3a;
+
     color: white;
     padding: 15px;
     border-radius: 10px;
@@ -90,7 +90,7 @@
 button {
     font-family: inherit;
     font-size: 20px;
-    background: #6fb3a6;
+    background: #042F2E;
     color: white;
     padding: 0.7em 1em;
     padding-left: 0.9em;
@@ -166,13 +166,16 @@ button:active {
 
 .folder-icon {
     font-size: 32px;
-    color: #6fb3a6;
+    color: white;
 }
 
 .add-file-button {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Adjust the gap between the icon and text as needed */
     font-size: 16px;
     color: white;
-    background: #6fb3a6;
+    background: #042F2E;
     padding: 8px 12px;
     border-radius: 8px;
     border: none;
@@ -181,6 +184,6 @@ button:active {
 }
 
 .add-file-button:hover {
-    background: #5a9c8c;
+    background: #042F2E;
 }
 

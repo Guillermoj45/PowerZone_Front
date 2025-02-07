@@ -16,16 +16,13 @@
             <ion-textarea class="textArea" [(ngModel)]="postContent" name="content" required></ion-textarea>
         </ion-item>
         <ion-item class="centered-button separated-item">
-            <ion-button fill="clear" (click)="triggerFileInput()" type="button">
-                <ion-icon class="folder-icon" name="folder-outline"></ion-icon>
-            </ion-button>
             <button class="add-file-button" (click)="triggerFileInput()" type="button">
+                <ion-icon class="folder-icon" name="folder-outline"></ion-icon>
                 Añadir archivo
             </button>
             <!-- Input de archivo oculto -->
             <input type="file" name="file" (change)="onFileChange($event)" hidden #fileInput />
         </ion-item>
-
         <!-- Mostrar el nombre del archivo seleccionado -->
         <p *ngIf="fileName" class="file-name">
             Archivo seleccionado: {{ fileName }}
