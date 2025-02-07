@@ -4,13 +4,15 @@ import { addIcons } from 'ionicons';
 import { close, send } from 'ionicons/icons';
 import { FormsModule } from '@angular/forms';
 import { CommentService } from '../../Service/Comment.service';
+import {NgIf} from "@angular/common";
 @Component({
     selector: 'app-new-comment',
     templateUrl: './new-comment.component.html',
     styleUrls: ['./new-comment.component.scss'],
     imports: [
         IonicModule,
-        FormsModule
+        FormsModule,
+        NgIf
     ],
     standalone: true
 })
@@ -24,7 +26,6 @@ export class NewCommentComponent {
 
     dismiss() {
         this.modalController.dismiss();
-        window.location.reload();
     }
 
     submitComment() {

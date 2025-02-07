@@ -1,132 +1,186 @@
 :host {
     display: block;
-    background-color: #042F2E;
     color: white;
-    padding: 10px;
-}
-
-.centered-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-}
-
-.ion-padding {
-    max-width: 100%;
-    margin: 0 auto;
-}
-
-ion-item {
-    background-color: transparent;
+    padding: 15px;
     border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 20px;
-    --border-color: white;
-}
-ion-icon {
-    color: #042F2E;
-    font-size: 24px;
+    height: 50%; /* Ajusta la altura del componente al 50% */
 }
 
-ion-icon.send-icon {
-    color: #6fb3a6;
-    font-size: 24px;
-}
-ion-icon.folder-icon {
-    color: #6fb3a6;
-    font-size: 24px;
-}
-
-ion-label {
-    font-size: 16px;
+.header-title {
+    font-size: 20px;
     font-weight: bold;
-    color: #042F2E;
-}
-
-ion-textarea {
-    border-radius: 5px;
-    width: 100%;
-    height: auto;
-}
-
-.scroll-container {
-    max-height: 100vh;
-    overflow-y: auto;
-    scrollbar-width: none;
-}
-
-ion-content {
-    --background: transparent;
-}
-ion-toolbar {
-    --background: transparent;
-}
-ion-item {
-    --inner-padding-top: 0;
-    --inner-padding-bottom: 0;
-    --border-width: 0;
-    --background: transparent;
-    --ion-item-background: transparent;
-    margin-left: 5%;
-}
-.large-text {
-    font-size: 18px;
-}
-
-ion-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    color: white;
-    font-size: 14px;
-    position: relative;
-    --background: transparent;
-    --background-activated: transparent;
-    --background-focused: transparent;
-    --background-hover: transparent;
-    --border-width: 0;
-}
-
-ion-button[type="submit"] {
-    color: white;
-    font-size: 70%;
-    --background: #6fb3a6;
-    border-radius: 25px;
-}
-
-ion-button[type="submit"] .large-text {
-    flex-grow: 1;
     text-align: center;
 }
 
-ion-button[type="submit"] ion-icon {
-    position: absolute;
-    right: 10px;
-}
-.centered-button {
+.stylish-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    --background: transparent;
-    --ion-item-background: transparent;
-    --border-color: transparent;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    max-width: 90%;
+    margin: auto;
+    background: #0d2b2a;
+    border-radius: 15px;
+    padding: 20px;
 }
 
-.button-container {
-    margin-top: 10px;
+.form-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.large-text {
-    margin-bottom: 5px;
+.input-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
 }
-.centered-button .large-text {
-    margin-right: 10px;
+
+.options-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(236, 75, 234);
 }
-/* Para pantallas pequeñas */
-@media (max-width: 1000px) {
-    .movil {
-        margin-top: 20%;
-    }
+
+.options-text {
+    font-size: 16px;
+    color: white;
+}
+
+.icon-style {
+    font-size: 28px;
+    color: #6fb3a6;
+}
+
+.textArea {
+    width: 100%;
+    height: 100px; /* Reduced height */
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.publish-button {
+    background: linear-gradient(135deg, #6fb3a6, #42a5a3);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 25px;
+    padding: 12px;
+}
+
+.publish-button:hover {
+    filter: brightness(1.2);
+}
+
+.separated-item {
+    margin-top: 10px; /* Adjust the value as needed */
+}
+
+.separated-item2 {
+    margin-top: 20px; /* Adjust the value as needed */
+}
+
+.bookmarkBtn {
+    width: 80%; /* Full width */
+    height: 50px; /* Increased height */
+    border-radius: 40px;
+    border: none;
+    background-color: rgb(4, 47, 46);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition-duration: .3s;
+    overflow: hidden;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.062);
+}
+
+.IconContainer {
+    width: 40px; /* Increased width */
+    height: 40px; /* Increased height */
+    background-color: rgb(7, 85, 83);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 2;
+    transition-duration: .3s;
+}
+
+.icon {
+    width: 24px; /* Increased icon size */
+    height: 24px; /* Increased icon size */
+    border-radius: 1px;
+}
+
+.text {
+    height: 100%;
+    width: 120px; /* Increased width */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255, 255, 255);
+    z-index: 1;
+    transition-duration: .3s;
+    font-size: 1.2em; /* Increased font size */
+    font-weight: 600;
+}
+
+.bookmarkBtn:hover .IconContainer {
+    width: 300px;
+    border-radius: 40px;
+    transition-duration: .3s;
+}
+
+.bookmarkBtn:hover .text {
+    transform: translate(10px);
+    width: 0;
+    font-size: 0;
+    transition-duration: .3s;
+}
+
+.bookmarkBtn:active {
+    transform: scale(0.95);
+    transition-duration: .3s;
+}
+
+.folder-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.folder-icon {
+    font-size: 32px;
+    color: white;
+}
+
+.add-file-button {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Adjust the gap between the icon and text as needed */
+    font-size: 16px;
+    color: white;
+    background: #042F2E;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.add-file-button:hover {
+    background: #042F2E;
 }
