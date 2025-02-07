@@ -84,7 +84,7 @@ export class PostsComponent implements OnInit, AfterViewInit {
     isAdmin() {
       this.profile.isAdmin().subscribe({
         next: (isAdmin) => {
-          // this.isAdmin1 = isAdmin;
+          this.isAdmin1 = isAdmin;
         },
         error: (error) => {
           this.isAdmin1 = false;
