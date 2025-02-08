@@ -18,7 +18,7 @@ export class AdminService {
 
   getUserWarnings(offset: number) {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-      return this.http.get<ProfileWarningBan[]>(`/api/admin/userWarning?offset=${offset}`, {headers});
+      return this.http.get<ProfileWarningBan[]>(`/api/admin/userWarning?offser=${offset}`, {headers});
   }
 
   getUserBanned(offset: number) {

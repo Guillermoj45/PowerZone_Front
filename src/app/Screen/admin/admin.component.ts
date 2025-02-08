@@ -39,14 +39,14 @@ export class AdminComponent  implements OnInit {
 
   onIonInfiniteAvisado(event: InfiniteScrollCustomEvent) {
     setTimeout(() => {
-        this.recuperarReportes();
+        this.recuperarAvisados();
         event.target.complete();
     }, 500);
   }
 
   onIonInfiniteSuspendidos(event: InfiniteScrollCustomEvent) {
     setTimeout(() => {
-        this.recuperarReportes();
+        this.recuperarSuspendidos();
         event.target.complete();
     }, 500);
   }
