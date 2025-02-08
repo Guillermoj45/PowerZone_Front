@@ -28,8 +28,8 @@ export class ProfileComponent implements OnInit {
     private lastScrollTop = 0;
     profileId: string | null = null;
     posts: PostDto[] = [];
-    profile: ProfileSetting = {
-        nickName: '',
+    profile: any = {
+        nickname: '',
         name: '',
         email: '',
         bornDate: '',
@@ -130,12 +130,12 @@ export class ProfileComponent implements OnInit {
     navigateTo(path: string) {
         this.router.navigate([path]);
     }
+
     navigateToPost(userId?: number) {
         if (userId !== undefined && userId !== null) {
             this.router.navigate(['/posts-user', userId]);
         }
     }
-
 
     checkIfFollowing() {
         const token = sessionStorage.getItem('token');
@@ -172,6 +172,7 @@ export class ProfileComponent implements OnInit {
             }
         }
     }
+
     onIonInfinite(event: InfiniteScrollCustomEvent) {
         this.generateItems();
         setTimeout(() => {

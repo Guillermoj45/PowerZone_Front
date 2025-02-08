@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Register } from '../Models/Register';
 import { Login } from '../Models/Login';
+import {ProfileTotal} from "../Models/ProfileTotal";
 
 @Injectable({
     providedIn: 'root'
@@ -48,6 +49,11 @@ export class ProfileService {
     isAdmin() {
       const headers = new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
       return this.http.get<boolean>('/api/auth/ImAdmin', {headers})
+    }
+
+    getRecomendations() {
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
+      return this.http.get<ProfileTotal[]>('/api/profile/recommended', {headers})
     }
 }
 

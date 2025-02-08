@@ -4,7 +4,7 @@ import { addIcons } from 'ionicons';
 import { close, send } from 'ionicons/icons';
 import { FormsModule } from '@angular/forms';
 import { CommentService } from '../../Service/Comment.service';
-import {NgIf} from "@angular/common";
+
 @Component({
     selector: 'app-new-comment',
     templateUrl: './new-comment.component.html',
@@ -12,7 +12,6 @@ import {NgIf} from "@angular/common";
     imports: [
         IonicModule,
         FormsModule,
-        NgIf
     ],
     standalone: true
 })

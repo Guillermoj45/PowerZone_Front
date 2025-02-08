@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import { addIcons } from "ionicons";
-import { closeCircle, personAddOutline } from "ionicons/icons";
+import {closeCircle, personAddOutline, personRemoveOutline} from "ionicons/icons";
+import {PostDto} from "../../Models/PostDto";
+import {Profile} from "../../Models/Profile";
+import {ProfileService} from "../../Service/profile.service";
+import {ProfileTotal} from "../../Models/ProfileTotal";
+import {NgForOf, NgIf} from "@angular/common";
+import {ProfileSettingsService} from "../../Service/profile-settings.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -9,16 +16,66 @@ import { closeCircle, personAddOutline } from "ionicons/icons";
     templateUrl: './suggestions.component.html',
     styleUrls: ['./suggestions.component.scss'],
     standalone: true,
-    imports: [
-        IonicModule
-    ]
+  imports: [
+    IonicModule,
+    NgForOf,
+    NgIf
+  ]
 })
 export class SuggestionsComponent  implements OnInit {
-
-    constructor() {
-        addIcons({closeCircle, personAddOutline });
+    profiles:ProfileTotal[] = []
+    constructor(
+      private profileService: ProfileService,
+      private profileSettings: ProfileSettingsService,
+      private router: Router
+    ) {
+        addIcons({closeCircle, personAddOutline, personRemoveOutline});
     }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getRecomendations();
 
+  }
+
+  getRecomendations() {
+    this.profileService.getRecomendations().subscribe({
+      next: (data: ProfileTotal[]) => {
+        this.profiles = data;
+        console.log(this.profiles);
+      },
+      error: (err: any) => {
+        console.error(err);
+      }
+    });
+  }
+
+  followUser(profile: ProfileTotal) {
+      let token = sessionStorage.getItem('token') || '';
+      this.profileSettings.followUser(token, 1, profile.id).subscribe({
+        next: (data: string) => {
+          console.log(data);
+          profile.seguido = true;
+        },
+        error: (err: any) => {
+          console.error(err);
+        }
+      });
+  }
+  navigateToProfile(profileId: number) {
+    this.router.navigate(['/profile/', profileId]);
+}
+
+  unfollowUser(profile: ProfileTotal) {
+    let token = sessionStorage.getItem('token') || '';
+    console.log("token", token);
+    this.profileSettings.unfollowUser(token, 1, profile.id).subscribe({
+      next: (data: string) => {
+        console.log(data);
+        profile.seguido = false;
+      },
+      error: (err: any) => {
+        console.error(err);
+      }
+    });
+  }
 }
