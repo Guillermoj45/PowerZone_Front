@@ -14,14 +14,15 @@ import {
   bookmark,
   bookmarkOutline,
   chatbubble,
-  ellipsisHorizontal,
+  ellipsisHorizontal, exitOutline,
   heart,
   heartOutline,
-  shareSocial
+  shareSocial, trash
 } from "ionicons/icons";
 import {AdminService} from "../../Service/Admin.service";
 import {ProfileService} from "../../Service/profile.service";
 import {FormsModule} from "@angular/forms";
+import {start} from "@popperjs/core";
 
 
 @Component({
@@ -44,7 +45,9 @@ export class PostDetailsComponent implements OnInit {
 
     isOpen = false;
     reportReason:string= "";
+    openPopoverIndex: number = -1;
     isAdmin1: boolean = false;
+    reportReason1: string = "";
 
     constructor(
         private route: ActivatedRoute,
@@ -54,21 +57,24 @@ export class PostDetailsComponent implements OnInit {
         private modalController: ModalController,
         private adminService: AdminService,
         private profile: ProfileService
-    ) {addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline, ellipsisHorizontal });}
+    ) {addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline, ellipsisHorizontal, start, trash, exitOutline });}
 
     ngOnInit(): void {
         this.postId = Number(this.route.snapshot.paramMap.get('id'));
         this.loadPostDetails();
         this.loadComments();
-
+        this.isAdmin();
     }
 
-    presentPopover(e: Event, post?: PostDto) {
-      this.popover.event = e;
-      this.isOpen = true;
+
+    // Esta función se llama al hacer click en el ícono y abre el popover correspondiente
+    presentPopover(ev: Event, post: any) {
+      this.openPopoverIndex = 1;
+      // Si necesitas usar el evento (ev) o el post para otra lógica, agrégala aquí.
     }
 
     deletePost(post: PostDto, state: string) {
+
       this.adminService.putWarning(post.post!.id!, state).subscribe({
         next: () => {
           console.log(`Deleted post: ${post.post!.id}`);
@@ -79,6 +85,7 @@ export class PostDetailsComponent implements OnInit {
           console.error('Error deleting the post:', error);
         }
       });
+      this.openPopoverIndex = -1;
     }
 
 
@@ -107,20 +114,27 @@ export class PostDetailsComponent implements OnInit {
         return;
       }
 
+      if (this.reportReason1 !== "otro"){
+        this.reportReason = this.reportReason1;
+      }
+
       this.postService.reportPost(postId, this.reportReason).subscribe({
         next: () => {
           console.log(`Reported post: ${postId}`);
           this.isOpen = false;
           this.reportReason = "";
+          this.reportReason1 = "";
           this.ngOnInit();
         },
         error: (error) => {
           console.error('Error reporting the post:', error);
+          this.isOpen = false;
+          this.reportReason = "";
+          this.reportReason1 = "";
         }
       });
+      this.openPopoverIndex = -1;
     }
-
-
 
     loadPostDetails() {
         const token = sessionStorage.getItem('token');
