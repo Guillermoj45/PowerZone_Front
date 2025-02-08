@@ -12,11 +12,12 @@
                       <span class="username">{{ post.nickname }}</span>
                     </div>
                     <!-- Icono alineado a la derecha con evento de click -->
-                    <ion-icon
-                      name="ellipsis-horizontal"
-                      class="more-button"
-                      (click)="presentPopover($event, post)"
-                    ></ion-icon>
+                   <ion-icon
+                    name="ellipsis-horizontal"
+                    class="more-button"
+                    style="margin-left: auto;"
+                    (click)="presentPopover($event, post)"
+                  ></ion-icon>
 
                     <ion-popover [isOpen]="openPopoverIndex === 1" (didDismiss)="openPopoverIndex = -1">
               <ng-template>

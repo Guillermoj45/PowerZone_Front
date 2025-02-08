@@ -1,7 +1,7 @@
 // src/app/Screen/post-details/post-details.component.ts
 
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { PostService } from '../../Service/Post.service';
 import { CommentService } from '../../Service/Comment.service';
 import { PostDto } from '../../Models/PostDto';
@@ -50,6 +50,7 @@ export class PostDetailsComponent implements OnInit {
     reportReason1: string = "";
 
     constructor(
+        private router:Router,
         private route: ActivatedRoute,
         private postService: PostService,
         private commentService: CommentService,
@@ -74,12 +75,11 @@ export class PostDetailsComponent implements OnInit {
     }
 
     deletePost(post: PostDto, state: string) {
-
       this.adminService.putWarning(post.post!.id!, state).subscribe({
         next: () => {
           console.log(`Deleted post: ${post.post!.id}`);
           this.isOpen = false;
-          this.ngOnInit();
+          this.router.navigate(['/admin']);
         },
         error: (error) => {
           console.error('Error deleting the post:', error);
