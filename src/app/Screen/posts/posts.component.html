@@ -19,7 +19,15 @@
           <ion-popover [isOpen]="openPopoverIndex === i" (didDismiss)="openPopoverIndex = -1">
             <ng-template>
               <div *ngIf="!isAdmin1" style="margin: auto; padding-top: 10px;">
-                <ion-input placeholder="Razón de reporte" [(ngModel)]="reportReason"></ion-input>
+                <ion-select [(ngModel)]="reportReason1" placeholder="Razón de reporte">
+                  <ion-select-option value="spam">Spam</ion-select-option>
+                  <ion-select-option value="abuso">Abuso</ion-select-option>
+                  <ion-select-option value="contenido_inapropiado">Contenido inapropiado</ion-select-option>
+                  <ion-select-option value="informacion_falsa">Información falsa</ion-select-option>
+                  <ion-select-option value="otro">Otro</ion-select-option>
+                </ion-select>
+
+                <ion-input *ngIf="reportReason1 === 'otro'" placeholder="Razón de reporte" [(ngModel)]="reportReason"></ion-input>
                 <ion-col class="post-actions" size="12" style="display: flex; justify-content: center;">
                   <ion-button color="danger" (click)="reportPost(post)">
                     <ion-icon name="trash" slot="start"></ion-icon>

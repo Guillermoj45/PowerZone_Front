@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonicModule, ModalController, ModalOptions, ToastController } from '@ionic/angular';
 import { CommonModule, NgForOf } from '@angular/common';
 import { Router } from '@angular/router';
@@ -42,16 +42,17 @@ export class PostsComponent implements OnInit {
     reportReason:string= "";
     openPopoverIndex: number = -1;
     isAdmin1: boolean = false;
+    reportReason1: string = "";
 
     constructor(
-      private router: Router,
-                private postService: PostService,
-                private modalController: ModalController,
-                private toastController: ToastController,
-                private profile : ProfileService,
-                private adminService: AdminService,
-                private tutorialService: TutorialService
-                ) {
+        private router: Router,
+        private postService: PostService,
+        private modalController: ModalController,
+        private toastController: ToastController,
+        private profile : ProfileService,
+        private adminService: AdminService,
+        private tutorialService: TutorialService
+      ) {
         addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline, ellipsisHorizontal, start, trash, exitOutline });
     }
 
@@ -89,7 +90,7 @@ export class PostsComponent implements OnInit {
     isAdmin() {
       this.profile.isAdmin().subscribe({
         next: (isAdmin) => {
-          this.isAdmin1 = isAdmin;
+          //this.isAdmin1 = isAdmin;
         },
         error: (error) => {
           this.isAdmin1 = false;
@@ -111,16 +112,23 @@ export class PostsComponent implements OnInit {
         return;
       }
 
+      if (this.reportReason1 !== "otro"){
+        this.reportReason = this.reportReason1;
+      }
 
       this.postService.reportPost(postId, this.reportReason).subscribe({
         next: () => {
           console.log(`Reported post: ${postId}`);
           this.isOpen = false;
           this.reportReason = "";
+          this.reportReason1 = "";
           this.ngOnInit();
         },
         error: (error) => {
           console.error('Error reporting the post:', error);
+          this.isOpen = false;
+          this.reportReason = "";
+          this.reportReason1 = "";
         }
       });
       this.openPopoverIndex = -1;
