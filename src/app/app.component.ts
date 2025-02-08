@@ -42,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private modalController: ModalController,
     private tutorialService: TutorialService
   ) {
-    addIcons({ settingsSharp });
+    addIcons({settingsSharp});
   }
 
   @HostListener("window:resize", ["$event"])
@@ -50,32 +50,51 @@ export class AppComponent implements OnInit, OnDestroy {
     this.updateViewBasedOnScreenSize();
   }
 
-  ngOnInit() {
-    // Suscripción a los cambios de ruta
-    this.routerSubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Verificar si la ruta es /chat
-        this.isChatRoute = event.urlAfterRedirects === "/chat";
-
-        // Actualizar visibilidad del footer y menús
-        this.updateViewBasedOnScreenSize();
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    // Cancelar la suscripción cuando el componente se destruye
-    if (this.routerSubscription) {
-      this.routerSubscription.unsubscribe();
+  closeHamburgerMenuIfNeeded() {
+    // Ocultar el menú hamburguesa en pantallas pequeñas al navegar
+    if (window.innerWidth < 1000) {
+      this.menuVisible = false;
     }
   }
 
-  // Método para manejar la visibilidad según el tamaño de pantalla
+  ngOnInit() {
+    // Configuración inicial basada en el tamaño de pantalla
+    this.updateViewBasedOnScreenSize();
+    this.menuService.useAlternateMenu$.subscribe((useAlternateMenu) => {
+      this.useAlternateMenu = useAlternateMenu;
+    });
+    // Escuchar eventos de navegación
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const currentUrl = this.router.url;
+        // Verificar si la ruta actual es /chat
+        this.isChatRoute = currentUrl === "/chat";
+        // Configurar visibilidad del footer según la ruta
+        const hideFooter = ["/chat"].includes(currentUrl);
+        this.footerVisible = !hideFooter;
+        // Configurar visibilidad de menú y sugerencias según la ruta
+        const hideMenus = ["/login", "/registro", "/recu"].includes(currentUrl);
+        this.menuSuggestionsService.setMenuVisible(!hideMenus);
+        this.menuSuggestionsService.setSuggestionsVisible(!hideMenus);
+        // Ocultar menú hamburguesa si es necesario
+        this.closeHamburgerMenuIfNeeded();
+        // Actualizar estado basado en tamaño de pantalla
+        this.updateViewBasedOnScreenSize();
+      }
+    });
+    // Suscribirse a los cambios de visibilidad
+    this.menuSuggestionsService.menuVisible$.subscribe((visible) => {
+      this.menuVisible = visible;
+    });
+    this.menuSuggestionsService.suggestionsVisible$.subscribe((visible) => {
+      this.suggestionsVisible = visible;
+    });
+  }
+
   updateViewBasedOnScreenSize() {
     const screenWidth = window.innerWidth;
     const isAuthRoute = ["/login", "/registro", "/recu"].includes(this.router.url);
     const isChatRoute = ["/chat"].includes(this.router.url);
-
     // Si es una ruta de autenticación, los menús no se muestran
     if (isAuthRoute) {
       this.menuVisible = false;
@@ -84,13 +103,11 @@ export class AppComponent implements OnInit, OnDestroy {
       this.menuVisible = screenWidth > 1000;
       this.suggestionsVisible = screenWidth > 1000;
     }
-
     // Configurar visibilidad del header y footer
     this.headerVisible = screenWidth < 1000 && !isAuthRoute;
     this.footerVisible = screenWidth < 1000 && !isAuthRoute && !isChatRoute;
   }
 
-  // Método para abrir el modal para agregar un nuevo post
   async openAddPostModal() {
     const modal = await this.modalController.create({
       component: NewPostComponent,
@@ -98,9 +115,14 @@ export class AppComponent implements OnInit, OnDestroy {
     await modal.present();
   }
 
-  // Método para cerrar sesión
   logOut() {
     sessionStorage.clear();
     this.router.navigate(["/login"]);
+  }
+
+  ngOnDestroy() {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
   }
 }
