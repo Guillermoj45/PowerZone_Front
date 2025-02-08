@@ -33,7 +33,7 @@ import {TutorialService} from "../../Service/tutorial.service";
     FormsModule,
   ]
 })
-export class PostsComponent implements OnInit, AfterViewInit {
+export class PostsComponent implements OnInit {
 
     posts: PostDto[] = [];
     @ViewChild('popover') popover!: HTMLIonPopoverElement;
@@ -61,6 +61,7 @@ export class PostsComponent implements OnInit, AfterViewInit {
     ngOnInit(): void {
         this.loadAllPosts();
         this.isAdmin();
+        this.startTutorialIfNeeded();
     }
 
     // Esta función se llama al hacer click en el ícono y abre el popover correspondiente
@@ -125,32 +126,35 @@ export class PostsComponent implements OnInit, AfterViewInit {
       this.openPopoverIndex = -1;
     }
 
-    ngAfterViewInit(): void {
-        const token = sessionStorage.getItem('token');
-        if (token) {
-            this.postService.isNewUser(token).subscribe({
-                next: (isNewUser) => {
-                    console.log("Hola")
-                    if (isNewUser) {
-                        this.tutorialService.startTour();
-                        this.postService.changeUserStatus(token).subscribe({
-                            next: () => {
-                                console.log('User status changed');
-                            },
-                            error: (error) => {
-                                console.error('Error changing user status:', error);
-                            }
-                        });
-                    }
-                },
-                error: (error) => {
-                    console.error('Error checking if new user:', error);
-                }
+  startTutorialIfNeeded(): void {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      this.postService.isNewUser(token).subscribe({
+        next: (isNewUser) => {
+          if (isNewUser) {
+            console.log("Iniciando tutorial...");
+            setTimeout(() => {
+              this.tutorialService.startTour();
+            }, 1000);
+
+            this.postService.changeUserStatus(token).subscribe({
+              next: () => {
+                console.log('Estado del usuario actualizado.');
+              },
+              error: (error) => {
+                console.error('Error actualizando estado del usuario:', error);
+              }
             });
-        } else {
-            console.error('No token found in session storage');
+          }
+        },
+        error: (error) => {
+          console.error('Error verificando si es nuevo usuario:', error);
         }
+      });
+    } else {
+      console.error('No se encontró token en session storage');
     }
+  }
     viewPostDetails(post: PostDto) {
         const postId = post.post?.id;
         if (postId !== undefined) {
