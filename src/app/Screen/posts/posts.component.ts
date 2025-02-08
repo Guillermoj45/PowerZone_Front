@@ -15,11 +15,11 @@ import {
 import { PostService } from '../../Service/Post.service';
 import { PostDto } from '../../Models/PostDto';
 import { NewCommentComponent } from '../new-comment/new-comment.component';
-import { ShepherdComponent } from '../../Component/shepherd/shepherd.component';
 import {start} from "@popperjs/core";
 import {ProfileService} from "../../Service/profile.service";
 import {FormsModule} from "@angular/forms";
 import {AdminService} from "../../Service/Admin.service";
+import {TutorialService} from "../../Service/tutorial.service";
 
 @Component({
     selector: 'app-posts',
@@ -30,12 +30,10 @@ import {AdminService} from "../../Service/Admin.service";
     IonicModule,
     NgForOf,
     CommonModule,
-    ShepherdComponent,
     FormsModule,
   ]
 })
 export class PostsComponent implements OnInit, AfterViewInit {
-    @ViewChild(ShepherdComponent) shepherdComponent!: ShepherdComponent;
 
     posts: PostDto[] = [];
     @ViewChild('popover') popover!: HTMLIonPopoverElement;
@@ -51,7 +49,8 @@ export class PostsComponent implements OnInit, AfterViewInit {
                 private modalController: ModalController,
                 private toastController: ToastController,
                 private profile : ProfileService,
-                private adminService: AdminService
+                private adminService: AdminService,
+                private tutorialService: TutorialService
                 ) {
         addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline, ellipsisHorizontal, start, trash, exitOutline });
     }
@@ -133,7 +132,7 @@ export class PostsComponent implements OnInit, AfterViewInit {
                 next: (isNewUser) => {
                     console.log("Hola")
                     if (isNewUser) {
-                        this.shepherdComponent.startTour();
+                        this.tutorialService.startTour();
                         this.postService.changeUserStatus(token).subscribe({
                             next: () => {
                                 console.log('User status changed');

@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 import {NgForOf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {NewPostComponent} from "../new-post/new-post.component";
-import {ShepherdComponent} from "../../Component/shepherd/shepherd.component"; // Para redirigir
 
 @Component({
     selector: 'app-menu',
@@ -19,7 +18,6 @@ import {ShepherdComponent} from "../../Component/shepherd/shepherd.component"; /
         IonicModule,
         NgForOf,
         FormsModule,
-        ShepherdComponent
     ]
 })
 export class MenuComponent implements OnInit {

@@ -41,3 +41,20 @@ ion-content {
     height: 100%;
 }
 
+.introjs-tooltip {
+  color: black !important; /* Asegura que el texto es visible */
+  font-size: 16px !important; /* Ajusta el tamaño */
+  background: white !important; /* Asegura que el fondo sea visible */
+  padding: 10px !important;
+}
+
+.introjs-tooltiptext {
+  display: block !important;
+  visibility: visible !important;
+}
+
+.smaller-width {
+  width: 75% !important;
+}
+
+

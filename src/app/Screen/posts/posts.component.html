@@ -1,6 +1,6 @@
-<ion-content class="custom-scroll component-container">
+<ion-content class="custom-scroll" id="pantallaPosts">
   <ion-grid class="ion-no-padding post-container movil">
-    <div class="scroll-container">
+    <div class="scroll-container" id="posts">
 
            <ion-row *ngFor="let post of posts; let i = index" class="post">
 
@@ -58,25 +58,25 @@
 
                 <!-- Acciones del PostDetails -->
                 <ion-col size="12" class="post-actions">
-                    <ion-button (click)="likePost(post)" fill="clear" class="action-button like-button">
+                    <ion-button (click)="likePost(post)" fill="clear" class="action-button" id="like-button">
                         <ion-icon [name]="post.liked ? 'heart' : 'heart-outline'"></ion-icon>
                         <span>{{ post.numlikes }}</span>
                     </ion-button>
-                    <ion-button fill="clear" class="action-button" (click)="openNewCommentModal(post.post?.id)">
+                    <ion-button fill="clear" class="action-button" (click)="openNewCommentModal(post.post?.id)" id="chat">
                         <ion-icon name="chatbubble"></ion-icon>
                         <span>{{ post.numcomments }}</span>
                     </ion-button>
-                    <ion-button fill="clear" class="action-button save-button" (click)="savePost(post)">
+                    <ion-button fill="clear" class="action-button save-button" (click)="savePost(post)" id="guardar">
                         <ion-icon [name]="post.saved ? 'bookmark' : 'bookmark-outline'"></ion-icon>
                     </ion-button>
-                    <ion-button fill="clear" class="action-button" (click)="sharePost(post)">
+                    <ion-button fill="clear" class="action-button" (click)="sharePost(post)" id="compartir">
                         <ion-icon name="share-social"></ion-icon>
                     </ion-button>
 
                 </ion-col>
 
                 <!-- Comentario Destacado -->
-                <ion-col size="12" class="highlighted-comment" (click)="viewPostDetails(post)">
+                <ion-col size="12" class="highlighted-comment" (click)="viewPostDetails(post)" id="comentarios">
                     <div class="comment-container">
                         <ion-avatar *ngIf="post.avatarcomment">
                             <img [src]="post.avatarcomment" fill/>
@@ -93,5 +93,5 @@
 
     </ion-fab>
 </ion-content>
-<app-shepherd></app-shepherd>
+
 

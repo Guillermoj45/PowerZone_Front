@@ -4,7 +4,6 @@ import { PostService } from '../../Service/Post.service';
 import { PostDto } from '../../Models/PostDto';
 import {IonicModule, ModalController, ModalOptions, ToastController} from '@ionic/angular';
 import { NewCommentComponent } from '../new-comment/new-comment.component';
-import { ShepherdComponent } from '../../Component/shepherd/shepherd.component';
 import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
@@ -19,7 +18,6 @@ import {NgForOf, NgIf} from "@angular/common";
     ]
 })
 export class PostsUserComponent implements OnInit, AfterViewInit {
-    @ViewChild(ShepherdComponent) shepherdComponent!: ShepherdComponent;
 
     posts: PostDto[] = [];
     userId: string | null = null;
@@ -45,7 +43,6 @@ export class PostsUserComponent implements OnInit, AfterViewInit {
             this.postService.isNewUser(token).subscribe({
                 next: (isNewUser) => {
                     if (isNewUser) {
-                        this.shepherdComponent.startTour();
                         this.postService.changeUserStatus(token).subscribe({
                             next: () => {
                                 console.log('User status changed');
