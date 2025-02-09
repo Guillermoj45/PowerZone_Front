@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { Observable, tap } from "rxjs";
+import {Observable, Subscription, tap} from "rxjs";
+import {ProfileService} from "./profile.service";
+import {ProfileMessenger} from "../Models/Profile";
 
 @Injectable({
     providedIn: 'root'
@@ -8,7 +10,10 @@ import { Observable, tap } from "rxjs";
 export class AuthService {
     private currentUser: { username: string, nickname: string } | null = null;
 
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private profileService: ProfileService
+    ) {}
 
     // Iniciar sesión y manejar el almacenamiento
     login(loginData: { email: string, password: string }): Observable<any> {
@@ -36,15 +41,6 @@ export class AuthService {
         );
     }
 
-    // Obtener los detalles del usuario desde localStorage
-    getCurrentUser(): { username: string; nickname: string } | null {
-        if (!this.currentUser) {
-            const username = localStorage.getItem('username');
-            const nickname = localStorage.getItem('nickname');
-            this.currentUser = username && nickname ? { username, nickname } : null;
-        }
-        return this.currentUser;
-    }
 
     // Obtener el token desde sessionStorage
     getToken(): string | null {

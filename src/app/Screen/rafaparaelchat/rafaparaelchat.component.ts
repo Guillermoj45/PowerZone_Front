@@ -5,6 +5,8 @@ import { DatePipe, NgForOf } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../Service/auth.service';
+import {ProfileMessenger} from "../../Models/Profile";
+import {ProfileService} from "../../Service/profile.service";
 
 @Component({
     selector: 'app-chat',
@@ -22,11 +24,13 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
     newMessage: string = '';       // Mensaje nuevo
     senderNickname: string = '';   // Nickname del usuario
     groupId!: number;              // ID del grupo
+    user?: ProfileMessenger;
 
     constructor(
         private websocketService: WebsocketService,
         private route: ActivatedRoute,
-        private authService: AuthService
+        private authService: AuthService,
+        private profileService:ProfileService
     ) {}
 
     ngOnInit(): void {
@@ -37,9 +41,21 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
         });
 
         // Obtener el nickname del usuario
-        const currentUser = this.authService.getCurrentUser();
-        if (currentUser && currentUser.nickname) {
-            this.senderNickname = currentUser.nickname;
+        const token = sessionStorage.getItem('token');
+        console.log("token",token)
+        this.profileService.getProfile(token!).subscribe({
+           next: (profile:ProfileMessenger) => {
+                console.log("profile",profile)
+               this.user = profile
+               console.log("usuario",this.user);
+           },
+            error: (error) => {
+                 console.error('Error fetching profile:', error);
+            }
+        });
+        console.log("usuario",this.user);
+        if (this.user && this.user.nickName) {
+            this.senderNickname = this.user.nickName;
         } else {
             console.error('No se ha encontrado el nickname del usuario.');
         }
@@ -54,15 +70,16 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
 
     sendMessage() {
         if (this.newMessage.trim()) {
-            const currentUser = this.authService.getCurrentUser();
-            if (!currentUser) {
+
+            console.log("usuario",this.user);
+            if (!this.user) {
                 console.error('No se ha encontrado el usuario.');
                 return;
             }
 
             const chatMessage: ChatMessage = {
-                sender: this.senderNickname,
-                userId: currentUser.username,
+                sender: this.user.nickName,
+                userId: this.user.id,
                 content: this.newMessage,
                 timestamp: Date.now(),
                 groupId: this.groupId,
