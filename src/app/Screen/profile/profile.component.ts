@@ -21,7 +21,7 @@ import { User } from '../../Models/User';
     standalone: true
 })
 export class ProfileComponent implements OnInit {
-
+    isOwnProfile: boolean = false;
     showButton: boolean = false;
     items: string[] = [];
     isHeaderHidden = false;
@@ -53,11 +53,13 @@ export class ProfileComponent implements OnInit {
         this.checkRoute();
         this.profileId = this.route.snapshot.paramMap.get('id');
 
+        const currentUrl = this.router.url;
+        this.isOwnProfile = !this.profileId && currentUrl === '/profile'; // Verifica si es el perfil propio
+
         if (this.profileId) {
             this.profileSettings.getProfileById(this.profileId).subscribe(
                 (data: ProfileSetting) => {
                     this.profile = data;
-
                     console.log('Loaded profile by ID:', this.profile);
                 },
                 (error) => {

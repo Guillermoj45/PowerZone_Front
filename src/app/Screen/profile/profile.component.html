@@ -5,7 +5,7 @@
             <ion-row class="movil" style="justify-content: center; margin-bottom: 10px">
                 <ion-col style="display: flex; align-items: center">
                     <ion-avatar>
-                        <img alt="Imagen perfil" [src]="profile.avatar " />
+                        <img alt="Imagen perfil" [src]="profile.avatar "/>
                     </ion-avatar>
                     <ion-text style="padding-left: 7%">{{ profile.nickname || profile.name }}</ion-text>
                 </ion-col>
@@ -38,7 +38,8 @@
                 <ion-col size="5">
                     <div *ngIf="showButton">
                         <ion-button (click)="toggleFollow()">
-                            <ion-icon style="margin-right: 5%" [name]="isFollowing ? 'person-remove-outline' : 'person-add-outline'"></ion-icon>
+                            <ion-icon style="margin-right: 5%"
+                                      [name]="isFollowing ? 'person-remove-outline' : 'person-add-outline'"></ion-icon>
                             {{ isFollowing ? 'Dejar de seguir' : 'Seguir' }}
                         </ion-button>
                     </div>
@@ -52,11 +53,18 @@
                 </ion-col>
                 <ion-col size="2"></ion-col>
                 <ion-col size="5">
-                    <ion-button (click)="navigateTo('/chat')">
-                        Enviar un mensaje
-                        <ion-icon style="margin-left: 5%" name="send-sharp"></ion-icon>
+                    <ion-button *ngIf="isOwnProfile; else sendMessage" (click)="navigateTo('/settings')">
+                        Ajustes del perfil
+                        <ion-icon style="margin-left: 5%" name="settings-outline"></ion-icon>
                     </ion-button>
+                    <ng-template #sendMessage>
+                        <ion-button (click)="navigateTo('/chat')">
+                            Enviar un mensaje
+                            <ion-icon style="margin-left: 5%" name="send-sharp"></ion-icon>
+                        </ion-button>
+                    </ng-template>
                 </ion-col>
+
             </ion-row>
         </ion-grid>
     </div>
@@ -70,11 +78,8 @@
         <img *ngFor="let image of postImages; let i = index"
              (click)="navigateToPost(profile.id)"
              [src]="image || 'https://picsum.photos/200/300?random=2'"
-             alt="Imagen {{ i }}" />
+             alt="Imagen {{ i }}"/>
     </div>
-
-
-
 
 
     <!-- Infinite Scroll -->
