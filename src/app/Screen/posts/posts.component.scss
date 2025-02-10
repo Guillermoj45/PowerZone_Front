@@ -49,12 +49,15 @@ ion-content {
 }
 
 .post-image ion-img {
-  border-radius: 5px;
-  width: 100%;
-  height: auto;
+    border-radius: 5px;
+    width: 100%;
+    height: 300px; /* Ajusta la altura según lo que necesites */
+    object-fit: contain; /* Mantiene toda la imagen visible sin recortes */
     border: 4px solid #042F2E;
-
+    background-color: #042F2E; /* Fondo para las imágenes que no llenan el espacio */
 }
+
+
 
 
 
