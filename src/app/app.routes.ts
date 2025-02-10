@@ -81,5 +81,9 @@ export const routes: Routes = [
     {
         path: 'prueba/:groupId',
         loadComponent: () => import('./Screen/rafaparaelchat/rafaparaelchat.component').then((m) => m.RafaparaelchatComponent),
+    },
+    {
+        path: 'mensajes'
+        ,loadComponent: () => import('./Screen/mensajes/mensajes.component').then((m) => m.MensajesComponent),
     }
 ];
