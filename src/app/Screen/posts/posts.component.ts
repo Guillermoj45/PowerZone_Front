@@ -60,7 +60,7 @@ export class PostsComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.loadAllPosts();
+        this.loadFollowedPosts();
         this.isAdmin();
         this.startTutorialIfNeeded();
     }
@@ -326,5 +326,33 @@ export class PostsComponent implements OnInit {
             cssClass: 'custom-toast'
         });
         await toast.present();
+    }
+    loadFollowedPosts(): void {
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+            console.error('No token found in session storage');
+            return;
+        }
+
+        this.postService.getFollowedPosts(token).subscribe(
+            (followedPosts) => {
+                this.posts = followedPosts;
+
+                this.postService.getAllPosts(token).subscribe(
+                    (allPosts) => {
+                        // Filtro para obtener los posts para que no se repitan
+                        const otherPosts = allPosts.filter(post => !followedPosts.some(followedPost => followedPost.post?.id === post.post?.id));
+                        this.posts = [...this.posts, ...otherPosts];
+
+                    },
+                    (error) => {
+                        console.error('Error loading all posts:', error);
+                    }
+                );
+            },
+            (error) => {
+                console.error('Error loading followed posts:', error);
+            }
+        );
     }
 }

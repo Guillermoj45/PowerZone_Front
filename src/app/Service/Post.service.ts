@@ -25,6 +25,9 @@ export class PostService {
             headers: { Authorization: `Bearer ${token}` }
         });
     }
+    getFollowedPosts(token: string): Observable<PostDto[]> {
+        return this.http.get<PostDto[]>(`${this.apiUrl}/followed`, { headers: this.getHeaders(token) });
+    }
 
     reportPost(postId: number, reason: string): Observable<void> {
       const token = sessionStorage.getItem('token') || '';

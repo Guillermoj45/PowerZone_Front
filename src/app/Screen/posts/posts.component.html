@@ -3,15 +3,14 @@
     <div class="scroll-container" id="posts">
 
            <ion-row *ngFor="let post of posts; let i = index" class="post">
-
         <ion-col class="user-info" size="12" style="display: flex; justify-content: space-between; align-items: center;">
           <!-- Contenedor izquierdo: Avatar y Nombre de usuario -->
-          <div style="display: flex; align-items: center;">
-            <ion-avatar>
-              <img [src]="post.avatar" alt="Imagen de perfil"/>
-            </ion-avatar>
-            <span class="username">{{ post.nickname }}</span>
-          </div>
+            <div style="display: flex; align-items: center;">
+                <ion-avatar style="margin-right: 20px;">
+                    <img [src]="post.avatar" alt="Imagen de perfil"/>
+                </ion-avatar>
+                <span class="username">{{ post.nickname }}</span>
+            </div>
           <!-- Icono alineado a la derecha con evento de click -->
           <ion-icon name="ellipsis-horizontal" class="more-button" (click)="presentPopover(i, $event, post)"></ion-icon>
 
