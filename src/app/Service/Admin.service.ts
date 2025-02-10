@@ -11,18 +11,28 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-    getReports(offset: number) {
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-        return this.http.get<Report[]>(`/api/admin?offset=${offset}`, {headers});
-    }
+  getReports(offset: number) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+      return this.http.get<Report[]>(`/api/admin?offset=${offset}`, {headers});
+  }
 
-    getUserWarnings(offset: number) {
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-        return this.http.get<ProfileWarningBan[]>(`/api/admin/userWarning?offset=${offset}`, {headers});
-    }
+  getUserWarnings(offset: number) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+      return this.http.get<ProfileWarningBan[]>(`/api/admin/userWarning?offser=${offset}`, {headers});
+  }
 
-    getUserBanned(offset: number) {
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-        return this.http.get<ProfileWarningBan[]>(`/api/admin/userBanned?offset=${offset}`, {headers});
+  getUserBanned(offset: number) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+      return this.http.get<ProfileWarningBan[]>(`/api/admin/userBanned?offset=${offset}`, {headers});
+  }
+
+  putWarning(id: number, state: string) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    let message =  {
+      id: id,
+      state: state
     }
+    console.log(message);
+    return this.http.put(`/api/admin/report`, message, {headers});
+  }
 }

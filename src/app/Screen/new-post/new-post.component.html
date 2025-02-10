@@ -1,9 +1,9 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>Agregar Publicación</ion-title>
+        <ion-title>¿Qué estás pensando hoy?🤔🤔</ion-title>
         <ion-buttons slot="end">
             <ion-button (click)="dismiss()">
-                <ion-icon name="close"  class="send-icon"></ion-icon>
+                <ion-icon name="close" class="send-icon"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
@@ -13,19 +13,33 @@
     <form (ngSubmit)="submitPost()" class="centered-form">
         <ion-item>
             <ion-label position="floating">Comparte</ion-label>
-            <ion-textarea [(ngModel)]="postContent" name="content" required></ion-textarea>
+            <ion-textarea class="textArea" [(ngModel)]="postContent" name="content" required></ion-textarea>
         </ion-item>
-        <ion-item class="centered-button">
-            <ion-label position="floating"></ion-label>
-            <span class="large-text">Opciones:</span>
-            <ion-button fill="clear" (click)="triggerFileInput()">
+        <ion-item class="centered-button separated-item">
+            <button class="add-file-button" (click)="triggerFileInput()" type="button">
                 <ion-icon class="folder-icon" name="folder-outline"></ion-icon>
-            </ion-button>
+                Añadir archivo
+            </button>
+            <!-- Input de archivo oculto -->
             <input type="file" name="file" (change)="onFileChange($event)" hidden #fileInput />
         </ion-item>
-        <ion-button expand="full" type="submit">
-            <span class="large-text">Publicar</span>
-            <ion-icon name="send" ></ion-icon>
-        </ion-button>
+        <!-- Mostrar el nombre del archivo seleccionado -->
+        <p *ngIf="fileName" class="file-name">
+            Archivo seleccionado: {{ fileName }}
+        </p>
+
+        <button class="separated-item2" type="submit">
+            <div class="svg-wrapper-1">
+                <div class="svg-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path fill="currentColor"
+                              d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+            <span>Publicar</span>
+        </button>
     </form>
 </ion-content>

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Post } from '../Models/Post';
 import { PostDto } from '../Models/PostDto';
+import {PostDetails} from "../Models/PostDetails";
 @Injectable({
     providedIn: 'root'
 })
@@ -18,12 +19,20 @@ export class PostService {
         });
     }
 
-    getPosts(): Observable<Post[]> {
-        return this.http.get<Post[]>(this.apiUrl);
+
+    getPostById(token: string, postId: number): Observable<PostDto> {
+        return this.http.get<PostDto>(`/api/post/${postId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
     }
 
-    getPostById(id: number): Observable<Post> {
-        return this.http.get<Post>(`${this.apiUrl}/${id}`);
+    reportPost(postId: number, reason: string): Observable<void> {
+      const token = sessionStorage.getItem('token') || '';
+      let mesage =  {
+        postId: postId,
+        contend: reason
+      }
+        return this.http.post<void>(`${this.apiUrl}/report`, mesage, { headers: this.getHeaders(token) });
     }
 
     createPost(token: string, formData: FormData): Observable<PostDto> {
@@ -39,19 +48,21 @@ export class PostService {
     getBestPosts(token: string): Observable<PostDto[]> {
         return this.http.get<PostDto[]>(`${this.apiUrl}/best`, { headers: this.getHeaders(token) });
     }
-
-    getUserPosts(token: string): Observable<Post[]> {
-        return this.http.get<Post[]>(`${this.apiUrl}/userposts`, { headers: this.getHeaders(token) });
+    getUserPostsById(token: string, userId: string): Observable<PostDto[]> {
+        const headers = this.getHeaders(token);
+        return this.http.get<PostDto[]>(`${this.apiUrl}/userposts/${userId}`, { headers });
+    }
+    getUserPosts(token: string): Observable<PostDto[]> {
+        return this.http.get<PostDto[]>(`${this.apiUrl}/userposts`, { headers: this.getHeaders(token) });
     }
 
     savePost(token: string, postId: number| undefined): Observable<string> {
         return this.http.post<string>(`${this.apiUrl}/save`, { postId }, { headers: this.getHeaders(token) });
     }
 
-    unsavePost(token: string, post: Post): Observable<string> {
-        return this.http.post<string>(`${this.apiUrl}/unsave`, post, { headers: this.getHeaders(token) });
+    unsavePost(token: string, postId: number): Observable<string> {
+        return this.http.post<string>(`${this.apiUrl}/unsave`, { postId }, { headers: this.getHeaders(token) });
     }
-
     likePost(token: string, post: number | undefined): Observable<string> {
         return this.http.post<string>(`${this.apiUrl}/like`, post, { headers: this.getHeaders(token) });
     }
@@ -64,13 +75,28 @@ export class PostService {
             headers: this.getHeaders(token)
         });
     }
+    hasSavedPost(token: string, postId: number): Observable<boolean> {
+        return this.http.post<boolean>(`${this.apiUrl}/hasSaved`, postId, {
+            headers: this.getHeaders(token)
+        });
+    }
     sharePost(token: string, postId: number): Observable<string> {
         return this.http.post<string>(`${this.apiUrl}/share`, { postId }, { headers: this.getHeaders(token) });
     }
 
-    getUserPostsById(token: string, userId: string): Observable<Post[]> {
-        const headers = this.getHeaders(token);
-        return this.http.get<Post[]>(`${this.apiUrl}/userposts/${userId}`, { headers });
+
+    getAllSavedPosts(token: string): Observable<PostDto[]> {
+        return this.http.get<PostDto[]>(`${this.apiUrl}/user/saved`, { headers: this.getHeaders(token) });
+    }
+
+    isNewUser(token: string): Observable<boolean> {
+        const headers = new HttpHeaders({ Authorization: token });
+        return this.http.post<boolean>('/api/auth/isTutorialComplete', {},{ headers });
+    }
+
+    changeUserStatus(token: string): Observable<void> {
+        const headers = new HttpHeaders({ Authorization: token });
+        return this.http.post<void>('/api/auth/tutorialComplete', {}, { headers });
     }
 
 }

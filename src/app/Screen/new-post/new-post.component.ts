@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { addIcons } from "ionicons";
 import { send, close, folderOutline } from "ionicons/icons";
 import { PostService } from '../../Service/Post.service';
-import { Post } from '../../Models/Post';
+import { NgIf } from "@angular/common";
 
 @Component({
     selector: 'app-new-post',
@@ -14,25 +14,30 @@ import { Post } from '../../Models/Post';
     imports: [
         IonicModule,
         FormsModule,
+        NgIf,
     ]
 })
 export class NewPostComponent implements OnInit {
-    @ViewChild('fileInput') fileInput!: ElementRef;
+    @ViewChild('fileInput', { static: false }) fileInput!: ElementRef<HTMLInputElement>;
     postContent: string = '';
     selectedFile: File | null = null;
+    fileName: string = ''; // Para guardar el nombre del archivo
 
-    constructor(private modalController: ModalController, private postService: PostService) {
+    constructor(
+        private modalController: ModalController,
+        private postService: PostService
+    ) {
         addIcons({ close, send, folderOutline });
     }
 
+    ngOnInit() {}
+
     dismiss() {
         this.modalController.dismiss();
-        window.location.reload();
     }
 
     submitPost() {
         const token = sessionStorage.getItem('token');
-
         if (!token) {
             console.error('No token found in cookies');
             return;
@@ -57,6 +62,7 @@ export class NewPostComponent implements OnInit {
             (response) => {
                 console.log('Post created successfully:', response);
                 this.dismiss();
+                window.location.reload();
             },
             (error) => {
                 console.error('Error creating post:', error);
@@ -64,18 +70,21 @@ export class NewPostComponent implements OnInit {
         );
     }
 
-    ngOnInit() {}
-
     triggerFileInput() {
-        this.fileInput.nativeElement.click();
+        console.log('triggerFileInput llamado');
+        if (this.fileInput && this.fileInput.nativeElement) {
+            this.fileInput.nativeElement.click();
+        } else {
+            console.error('Elemento fileInput no encontrado');
+        }
     }
 
     onFileChange(event: Event) {
         const input = event.target as HTMLInputElement;
         if (input.files && input.files.length > 0) {
             this.selectedFile = input.files[0];
+            this.fileName = this.selectedFile.name;
+            console.log('Archivo seleccionado:', this.fileName);
         }
     }
 }
-
-

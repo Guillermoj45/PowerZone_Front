@@ -1,0 +1,56 @@
+<ion-content class="custom-scroll">
+    <ion-grid class="ion-no-padding post-container movil">
+        <div class="scroll-container">
+            <ion-row *ngFor="let post of savedPosts" class="post">
+                <ion-col size="12" class="user-info">
+                    <ion-avatar>
+                        <img alt="Imagen perfil" [src]="post.avatar" />
+                    </ion-avatar>
+                    <span class="username">{{ post.nickname }}</span>
+                </ion-col>
+
+                <!-- Imagen Principal -->
+                <ion-col *ngIf="post.image_post" size="12" class="post-image">
+                    <ion-img [src]="post.image_post" class="responsive-image"></ion-img>
+                </ion-col>
+
+
+                <!-- Descripción -->
+                <ion-col size="12" class="post-description">
+                    {{ post.post?.content }}
+                </ion-col>
+
+                <!-- Acciones del Post -->
+                <ion-col size="12" class="post-actions">
+                    <ion-button (click)="likePost(post)" fill="clear" class="action-button">
+                        <ion-icon [name]="post.liked ? 'heart' : 'heart-outline'"></ion-icon>
+                        <span>{{ post.numlikes }}</span>
+                    </ion-button>
+                    <ion-button fill="clear" class="action-button" (click)="openNewCommentModal(post.post?.id)">
+                        <ion-icon name="chatbubble"></ion-icon>
+                        <span>{{ post.numcomments }}</span>
+                    </ion-button>
+                    <ion-button fill="clear" class="action-button" (click)="savePost(post)">
+                        <ion-icon [name]="post.saved ? 'bookmark' : 'bookmark-outline'"></ion-icon>
+                    </ion-button>
+                    <ion-button fill="clear" class="action-button" (click)="sharePost(post)">
+                        <ion-icon name="share-social"></ion-icon>
+                    </ion-button>
+                </ion-col>
+
+                <!-- Comentario Destacado -->
+                <ion-col size="12" class="highlighted-comment" (click)="viewPostDetails(post)">
+                    <div class="comment-container">
+                        <ion-avatar>
+                            <img [src]="post.avatarcomment" alt="Avatar del comentario" fill />
+                        </ion-avatar>
+                        <span class="comment">
+                            <b>{{ post.nicknamecomment }}</b> {{ post.firstcomment }}
+                        </span>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </div>
+    </ion-grid>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed"></ion-fab>
+</ion-content>

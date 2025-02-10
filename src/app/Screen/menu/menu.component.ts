@@ -7,7 +7,7 @@ import { ProfileService } from '../../Service/profile.service';
 import { Router } from '@angular/router';
 import {NgForOf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
-import {NewPostComponent} from "../new-post/new-post.component"; // Para redirigir
+import {NewPostComponent} from "../new-post/new-post.component";
 
 @Component({
     selector: 'app-menu',
@@ -17,7 +17,7 @@ import {NewPostComponent} from "../new-post/new-post.component"; // Para redirig
     imports: [
         IonicModule,
         NgForOf,
-        FormsModule
+        FormsModule,
     ]
 })
 export class MenuComponent implements OnInit {

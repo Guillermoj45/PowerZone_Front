@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {InfiniteScrollCustomEvent, IonicModule} from "@ionic/angular";
-import {Router, ActivatedRoute, RouterModule} from "@angular/router";
+import { InfiniteScrollCustomEvent, IonicModule } from "@ionic/angular";
+import { Router, ActivatedRoute, RouterModule } from "@angular/router";
 import { ProfileSettingsService } from '../../Service/profile-settings.service';
 import { ProfileSetting } from '../../Models/ProfileSetting';
 import { PostService } from '../../Service/Post.service';
-import { Post } from '../../Models/Post';
-import {NgForOf, NgIf} from "@angular/common";
+import { PostDto } from '../../Models/PostDto';
+import { NgForOf, NgIf } from "@angular/common";
+import { bookmark, bookmarkOutline, chatbubble, heart, heartOutline, sendSharp, shareSocial } from 'ionicons/icons';
+import { addIcons } from "ionicons";
+import { User } from '../../Models/User';
 
 @Component({
     selector: 'app-profile',
@@ -18,31 +21,40 @@ import {NgForOf, NgIf} from "@angular/common";
     standalone: true
 })
 export class ProfileComponent implements OnInit {
-
+    isOwnProfile: boolean = false;
     showButton: boolean = false;
     items: string[] = [];
     isHeaderHidden = false;
     private lastScrollTop = 0;
     profileId: string | null = null;
-    posts: Post[] = [];
-    profile: ProfileSetting = {
-        nickName: '',
+    posts: PostDto[] = [];
+    profile: any = {
+        nickname: '',
         name: '',
         email: '',
         bornDate: '',
         avatar: ''
     };
+    postImages: string[] = [];
+    isFollowing: boolean = false;
+    followersCount: number = 0;
+    followingCount: number = 0;
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private profileSettings: ProfileSettingsService,
         private postService: PostService
-    ) {}
+    ) {
+        addIcons({ bookmark, sendSharp });
+    }
 
     ngOnInit() {
         this.checkRoute();
         this.profileId = this.route.snapshot.paramMap.get('id');
+
+        const currentUrl = this.router.url;
+        this.isOwnProfile = !this.profileId && currentUrl === '/profile'; // Verifica si es el perfil propio
 
         if (this.profileId) {
             this.profileSettings.getProfileById(this.profileId).subscribe(
@@ -55,6 +67,7 @@ export class ProfileComponent implements OnInit {
                 }
             );
             this.loadPostsByUserId(this.profileId);
+            this.checkIfFollowing();
         } else {
             const token = sessionStorage.getItem('token');
             if (token) {
@@ -83,8 +96,9 @@ export class ProfileComponent implements OnInit {
         const token = sessionStorage.getItem('token');
         if (token) {
             this.postService.getUserPostsById(token, userId).subscribe(
-                (data: Post[]) => {
+                (data: PostDto[]) => {
                     this.posts = data;
+                    this.extractPostImages();
                     console.log('Loaded posts for user ID:', userId, this.posts);
                 },
                 (error) => {
@@ -99,8 +113,9 @@ export class ProfileComponent implements OnInit {
 
     loadPostsByCurrentUser(token: string) {
         this.postService.getUserPosts(token).subscribe(
-            (data: Post[]) => {
+            (data: PostDto[]) => {
                 this.posts = data;
+                this.extractPostImages();
                 console.log('Loaded posts for current user:', this.posts);
             },
             (error) => {
@@ -110,8 +125,54 @@ export class ProfileComponent implements OnInit {
         );
     }
 
+    extractPostImages() {
+        this.postImages = this.posts.map(post => post.image_post).filter((image): image is string => image !== undefined);
+    }
+
     navigateTo(path: string) {
         this.router.navigate([path]);
+    }
+
+    navigateToPost(userId?: number) {
+        if (userId !== undefined && userId !== null) {
+            this.router.navigate(['/posts-user', userId]);
+        }
+    }
+
+    checkIfFollowing() {
+        const token = sessionStorage.getItem('token');
+        if (token && this.profileId) {
+            this.profileSettings.isFollowing(token, parseInt(this.profileId), parseInt(this.profileId)).subscribe(
+                (isFollowing: boolean) => {
+                    this.isFollowing = isFollowing;
+                },
+                (error) => {
+                    console.error('Error checking follow status:', error);
+                }
+            );
+        }
+    }
+
+    async toggleFollow() {
+        const token = sessionStorage.getItem('token');
+        if (token && this.profileId) {
+            try {
+                if (this.isFollowing) {
+                    await this.profileSettings.unfollowUser(token, parseInt(this.profileId), parseInt(this.profileId)).toPromise();
+                    this.isFollowing = false;
+                    console.log('Unfollowed successfully');
+                    this.ngOnInit();
+                } else {
+                    await this.profileSettings.followUser(token, parseInt(this.profileId), parseInt(this.profileId)).toPromise();
+                    this.isFollowing = true;
+                    console.log('Followed successfully');
+                    this.ngOnInit();
+                }
+
+            } catch (error) {
+                console.error('Error toggling follow status:', error);
+            }
+        }
     }
 
     onIonInfinite(event: InfiniteScrollCustomEvent) {

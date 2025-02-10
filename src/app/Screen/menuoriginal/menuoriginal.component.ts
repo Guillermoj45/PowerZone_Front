@@ -9,13 +9,10 @@ import {
     notifications,
     closeCircle,
     personCircleOutline,
-    settingsSharp,
-    logIn, logInOutline
+    settingsSharp, logInOutline
 } from "ionicons/icons";
 import {Router} from "@angular/router";
-import {SearchComponent} from "../search/search.component";
 import {NewPostComponent} from "../new-post/new-post.component";
-import {NgIf} from "@angular/common";
 import {Menu} from "../../Service/Menu.service";
 import {ProfileSetting} from "../../Models/ProfileSetting";
 import {ProfileSettingsService} from "../../Service/profile-settings.service";

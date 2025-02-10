@@ -1,54 +1,210 @@
-import { Component, OnInit } from '@angular/core';
-import {IonicModule, ModalController, ModalOptions, ToastController} from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonicModule, ModalController, ModalOptions, ToastController } from '@ionic/angular';
 import { CommonModule, NgForOf } from '@angular/common';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
-import { bookmark, chatbubble, heart, shareSocial, heartOutline } from 'ionicons/icons';
+import {
+  bookmark,
+  heart,
+  chatbubble,
+  shareSocial,
+  heartOutline,
+  bookmarkOutline,
+  ellipsisHorizontal, trash, exitOutline
+} from 'ionicons/icons';
 import { PostService } from '../../Service/Post.service';
-import { Post } from '../../Models/Post';
 import { PostDto } from '../../Models/PostDto';
 import { NewCommentComponent } from '../new-comment/new-comment.component';
+import {start} from "@popperjs/core";
+import {ProfileService} from "../../Service/profile.service";
+import {FormsModule} from "@angular/forms";
+import {AdminService} from "../../Service/Admin.service";
+import {TutorialService} from "../../Service/tutorial.service";
+
 @Component({
     selector: 'app-posts',
     templateUrl: './posts.component.html',
     styleUrls: ['./posts.component.scss'],
     standalone: true,
-    imports: [
-        IonicModule,
-        NgForOf,
-        CommonModule,
-    ]
+  imports: [
+    IonicModule,
+    NgForOf,
+    CommonModule,
+    FormsModule,
+  ]
 })
 export class PostsComponent implements OnInit {
-    posts: PostDto[] = [];
 
-    constructor(private router: Router, private postService: PostService, private modalController: ModalController, private toastController: ToastController) {
-        addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline });
+    posts: PostDto[] = [];
+    @ViewChild('popover') popover!: HTMLIonPopoverElement;
+
+    isOpen = false;
+    reportReason:string= "";
+    openPopoverIndex: number = -1;
+    isAdmin1: boolean = false;
+    reportReason1: string = "";
+
+    constructor(
+        private router: Router,
+        private postService: PostService,
+        private modalController: ModalController,
+        private toastController: ToastController,
+        private profile : ProfileService,
+        private adminService: AdminService,
+        private tutorialService: TutorialService
+      ) {
+        addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline, ellipsisHorizontal, start, trash, exitOutline });
     }
+
+
+
 
     ngOnInit(): void {
         this.loadAllPosts();
-
+        this.isAdmin();
+        this.startTutorialIfNeeded();
     }
 
+    // Esta función se llama al hacer click en el ícono y abre el popover correspondiente
+    presentPopover(index: number, ev: Event, post: any) {
+      this.openPopoverIndex = index;
+      // Si necesitas usar el evento (ev) o el post para otra lógica, agrégala aquí.
+    }
+
+    deletePost(post: PostDto, state: string) {
+
+      this.adminService.putWarning(post.post!.id!, state).subscribe({
+        next: () => {
+          console.log(`Deleted post: ${post.post!.id}`);
+          this.isOpen = false;
+          this.ngOnInit();
+        },
+        error: (error) => {
+          console.error('Error deleting the post:', error);
+        }
+      });
+      this.openPopoverIndex = -1;
+    }
+
+
+    isAdmin() {
+      this.profile.isAdmin().subscribe({
+        next: (isAdmin) => {
+          this.isAdmin1 = isAdmin;
+        },
+        error: (error) => {
+          this.isAdmin1 = false;
+          console.error('Error checking if user is admin:', error);
+        }
+      })
+    }
+
+    reportPost(post: PostDto) {
+      const token = sessionStorage.getItem('token');
+      if (!token) {
+        console.error('No token found in session storage');
+        return;
+      }
+
+      const postId = post.post?.id;
+      if (postId === undefined) {
+        console.error('Post ID not found');
+        return;
+      }
+
+      if (this.reportReason1 !== "otro"){
+        this.reportReason = this.reportReason1;
+      }
+
+      this.postService.reportPost(postId, this.reportReason).subscribe({
+        next: () => {
+          console.log(`Reported post: ${postId}`);
+          this.isOpen = false;
+          this.reportReason = "";
+          this.reportReason1 = "";
+          this.ngOnInit();
+        },
+        error: (error) => {
+          console.error('Error reporting the post:', error);
+          this.isOpen = false;
+          this.reportReason = "";
+          this.reportReason1 = "";
+        }
+      });
+      this.openPopoverIndex = -1;
+    }
+
+  startTutorialIfNeeded(): void {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      this.postService.isNewUser(token).subscribe({
+        next: (isNewUser) => {
+          if (isNewUser) {
+            console.log("Iniciando tutorial...");
+            setTimeout(() => {
+              this.tutorialService.startTour();
+            }, 1000);
+
+            this.postService.changeUserStatus(token).subscribe({
+              next: () => {
+                console.log('Estado del usuario actualizado.');
+              },
+              error: (error) => {
+                console.error('Error actualizando estado del usuario:', error);
+              }
+            });
+          }
+        },
+        error: (error) => {
+          console.error('Error verificando si es nuevo usuario:', error);
+        }
+      });
+    } else {
+      console.error('No se encontró token en session storage');
+    }
+  }
+    viewPostDetails(post: PostDto) {
+        const postId = post.post?.id;
+        if (postId !== undefined) {
+            this.router.navigate([`/post-details`, postId]);
+        } else {
+            console.error('Post ID not found');
+        }
+    }
     loadAllPosts() {
         const token = sessionStorage.getItem('token');
         if (!token) {
             console.error('No token found in session storage');
             return;
         }
-        this.postService.getAllPosts(token).subscribe(
-            (posts) => {
-                console.log(posts);
-            },
-            (error) => {
-                console.error('Error fetching all posts:', error);
-            }
-        );
 
         this.postService.getAllPosts(token).subscribe(
             (posts) => {
                 this.posts = posts;
+                this.posts.forEach(post => {
+                    const postId = post.post?.id;
+                    if (postId !== undefined) {
+                        // Check if the user has liked the post
+                        this.postService.hasLikedPost(token, postId).subscribe(
+                            (hasLiked) => {
+                                post.liked = hasLiked;
+                            },
+                            (error) => {
+                                console.error(`Error checking like status for post ${postId}:`, error);
+                            }
+                        );
+
+                        // Check if the user has saved the post
+                        this.postService.hasSavedPost(token, postId).subscribe(
+                            (hasSaved) => {
+                                post.saved = hasSaved;
+                            },
+                            (error) => {
+                                console.error(`Error checking save status for post ${postId}:`, error);
+                            }
+                        );
+                    }
+                });
             },
             (error) => {
                 console.error('Error fetching all posts:', error);
@@ -56,11 +212,9 @@ export class PostsComponent implements OnInit {
         );
     }
 
-    viewPostDetails(post: PostDto) {
-        this.router.navigate(['/post-details'], { state: { post } });
-    }
 
-    likePost(post: PostDto) {
+
+    async likePost(post: PostDto) {
         const token = sessionStorage.getItem('token');
         if (!token) {
             console.error('No token found in session storage');
@@ -73,34 +227,23 @@ export class PostsComponent implements OnInit {
             return;
         }
 
-        this.postService.hasLikedPost(token, postId).subscribe(
-            (hasLiked) => {
-                if (hasLiked) {
-
-                    this.postService.unlikePost(token, postId).subscribe(
-                        () => {
-                            console.log(`Unliked post: ${postId}`);
-                            post.liked = false;
-                            this.ngOnInit();
-                        },
-                        (error) => console.error('Error unliking the post:', error)
-                    );
-                } else {
-                    this.postService.likePost(token, postId).subscribe(
-                        () => {
-                            console.log(`Liked post: ${postId}`);
-                            post.liked = true;
-                            this.ngOnInit();
-                        },
-                        (error) => console.error('Error liking the post:', error)
-                    );
-                }
-            },
-            (error) => console.error('Error checking like status:', error)
-        );
+        try {
+            const hasLiked = await this.postService.hasLikedPost(token, postId).toPromise();
+            if (hasLiked) {
+                await this.postService.unlikePost(token, postId).toPromise();
+                console.log(`Unliked post: ${postId}`);
+                post.liked = false;
+                post.numlikes = (post.numlikes ?? 0) - 1;
+            } else {
+                await this.postService.likePost(token, postId).toPromise();
+                console.log(`Liked post: ${postId}`);
+                post.liked = true;
+                post.numlikes = (post.numlikes ?? 0) + 1;
+            }
+        } catch (error) {
+            console.error('Error handling like status:', error);
+        }
     }
-
-
 
     async savePost(post: PostDto) {
         const token = sessionStorage.getItem('token');
@@ -108,31 +251,51 @@ export class PostsComponent implements OnInit {
             console.error('No token found in session storage');
             return;
         }
-        console.log(post);
+
         const postId = post.post?.id;
         if (postId === undefined) {
             console.error('Post ID not found');
             return;
         }
 
-        console.log(`Saving post: ${postId} with token: ${token}`);
-        const toast = await this.toastController.create({
-            message: 'Publicación guardada correctamente',
-            color: 'success',
-            duration: 2000,
-            position: 'top',
-            cssClass: 'custom-toast'
-        });
-        await toast.present();
-        this.postService.savePost(token, postId).subscribe(
-            (response) => {
-
-                console.log(`Saved post: ${postId}`);
-            },
-            (error) => {
-                console.error('Error saving the post:', error);
-            }
-        );
+        if (post.saved) {
+            // Unsave the post
+            this.postService.unsavePost(token, postId).subscribe(
+                async () => {
+                    console.log(`Unsaved post: ${postId}`);
+                    post.saved = false;
+                    const toast = await this.toastController.create({
+                        message: 'Eliminado de los Post guardados',
+                        color: 'success',
+                        duration: 2000,
+                        position: 'top',
+                    });
+                    await toast.present();
+                },
+                (error) => {
+                    console.error('Error unsaving the post:', error);
+                }
+            );
+        } else {
+            // Save the post
+            this.postService.savePost(token, postId).subscribe(
+                async () => {
+                    console.log(`Saved post: ${postId}`);
+                    post.saved = true;
+                    const toast = await this.toastController.create({
+                        message: 'Post guardado correctament',
+                        color: 'success',
+                        duration: 2000,
+                        position: 'top',
+                        cssClass: 'custom-toast'
+                    });
+                    await toast.present();
+                },
+                (error) => {
+                    console.error('Error saving the post:', error);
+                }
+            );
+        }
     }
 
     async openNewCommentModal(idpost: number | undefined) {
@@ -141,8 +304,10 @@ export class PostsComponent implements OnInit {
             componentProps: { postId: idpost }
         } as ModalOptions);
         await modal.present();
-
+        const { data } = await modal.onDidDismiss();
+        this.loadAllPosts();
     }
+
     async sharePost(post: PostDto) {
         const postId = post.post?.id;
         if (postId === undefined) {
@@ -162,5 +327,4 @@ export class PostsComponent implements OnInit {
         });
         await toast.present();
     }
-
 }

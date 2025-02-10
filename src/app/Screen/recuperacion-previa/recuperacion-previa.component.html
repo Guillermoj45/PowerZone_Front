@@ -15,19 +15,19 @@
                 <div class="subForm">
                     <ion-img src="assets/logo.png" id="logo"></ion-img>
                     <ion-item *ngIf="!hecho">
-                        <ion-input [(ngModel)]="email" label="Introduce tu email"></ion-input>
+                        <ion-input [(ngModel)]="email" label="Introduce tu email" placeholder="Introduce tu email"></ion-input>
                     </ion-item>
 
                     <ion-item *ngIf="hecho">
-                        <ion-input [(ngModel)]="code" label="Codigo enviado a email"></ion-input>
+                        <ion-input [(ngModel)]="code" label="Codigo enviado a email" placeholder="Introduce el codigo"></ion-input>
                     </ion-item>
 
                     <ion-item *ngIf="hecho">
-                        <ion-input [(ngModel)]="password" type="password" label="Nueva contraseña"></ion-input>
+                        <ion-input [(ngModel)]="password" type="password" label="Nueva contraseña" placeholder="Introduce la nueva contraseña"></ion-input>
                     </ion-item>
 
                     <ion-item *ngIf="hecho">
-                        <ion-input [(ngModel)]="passwordConfident" type="password" label="Repite contraseña"></ion-input>
+                        <ion-input [(ngModel)]="passwordConfident" type="password" label="Repite contraseña" placeholder="Repite la nueva contraseña"></ion-input>
                     </ion-item>
 
 
