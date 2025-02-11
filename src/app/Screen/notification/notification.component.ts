@@ -43,7 +43,7 @@ export class NotificationComponent  implements OnInit {
         })
     }
 
-    groupNotifications(): void {
+  groupNotifications(): void {
     const today = new Date();
 
     this.notifications.forEach(notif => {
@@ -73,7 +73,6 @@ export class NotificationComponent  implements OnInit {
   goToNotification(notification: MegaNotification): void {
       // Dependiendo del tipo de notificación, navega a una ruta distinta.
       // Asegúrate de que las rutas existan en tu módulo de enrutamiento.
-
       switch (notification.type) {
         case 'MESSAGE':
           // Por ejemplo, redirige a la conversación o mensaje
