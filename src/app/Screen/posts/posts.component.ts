@@ -343,7 +343,19 @@ export class PostsComponent implements OnInit {
                         // Filtro para obtener los posts para que no se repitan
                         const otherPosts = allPosts.filter(post => !followedPosts.some(followedPost => followedPost.post?.id === post.post?.id));
                         this.posts = [...this.posts, ...otherPosts];
-
+                        this.posts.forEach(post => {
+                                const postId = post.post?.id;
+                                if (postId !== undefined) {
+                                    this.postService.hasLikedPost(token, postId).subscribe(
+                                        (hasLiked) => {
+                                            post.liked = hasLiked;
+                                        },
+                                        (error) => {
+                                            console.error(`Error checking like status for post ${postId}:`, error);
+                                        }
+                                    );
+                                }
+                        });
                     },
                     (error) => {
                         console.error('Error loading all posts:', error);
