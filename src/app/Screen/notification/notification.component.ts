@@ -34,7 +34,6 @@ export class NotificationComponent  implements OnInit {
     ngOnInit() {
         this.notificationService.getNotifications().subscribe({
             next: (notifications) => {
-                console.log(notifications)
                 this.notifications = notifications
                 this.groupNotifications()
             },
@@ -53,7 +52,7 @@ export class NotificationComponent  implements OnInit {
       // Calculamos la diferencia en milisegundos y luego la convertimos a días
       const diffMs = today.getTime() - notifDate.getTime();
       const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-      console.log(diffDays)
+
       if (diffDays === 0) {
         // Notificaciones de hoy
         this.notificationsToday.push(notif);
