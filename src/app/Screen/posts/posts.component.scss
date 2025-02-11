@@ -139,4 +139,11 @@ ion-content::part(scroll)::-webkit-scrollbar {
     display: none;
 }
 
+.custom-fab-button {
+    --background: #013534;
+    --color: white;
+}
 
+.custom-fab-icon {
+    color: white;
+}

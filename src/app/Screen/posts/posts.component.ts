@@ -20,6 +20,7 @@ import {ProfileService} from "../../Service/profile.service";
 import {FormsModule} from "@angular/forms";
 import {AdminService} from "../../Service/Admin.service";
 import {TutorialService} from "../../Service/tutorial.service";
+import {NewPostComponent} from "../new-post/new-post.component";
 
 @Component({
     selector: 'app-posts',
@@ -297,7 +298,12 @@ export class PostsComponent implements OnInit {
             );
         }
     }
-
+    async openAddPostModal() {
+        const modal = await this.modalController.create({
+            component: NewPostComponent
+        } as ModalOptions);
+        await modal.present();
+    }
     async openNewCommentModal(idpost: number | undefined) {
         const modal = await this.modalController.create({
             component: NewCommentComponent,
