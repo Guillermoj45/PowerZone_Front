@@ -41,7 +41,7 @@ export class PostDetailsComponent implements OnInit {
     postId!: number;
     post!: PostDto;
     comments: CommentDetails[] = [];
-    @ViewChild('popover') popover!: HTMLIonPopoverElement;
+
 
     isOpen = false;
     reportReason:string= "";

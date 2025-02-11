@@ -37,7 +37,7 @@ import {NewPostComponent} from "../new-post/new-post.component";
 export class PostsComponent implements OnInit {
 
     posts: PostDto[] = [];
-    @ViewChild('popover') popover!: HTMLIonPopoverElement;
+
 
     isOpen = false;
     reportReason:string= "";
