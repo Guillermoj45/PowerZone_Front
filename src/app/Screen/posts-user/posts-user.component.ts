@@ -5,6 +5,16 @@ import { PostDto } from '../../Models/PostDto';
 import {IonicModule, ModalController, ModalOptions, ToastController} from '@ionic/angular';
 import { NewCommentComponent } from '../new-comment/new-comment.component';
 import {NgForOf, NgIf} from "@angular/common";
+import { addIcons } from 'ionicons';
+import {
+    bookmark,
+    heart,
+    chatbubble,
+    shareSocial,
+    heartOutline,
+    bookmarkOutline,
+    ellipsisHorizontal, trash, exitOutline
+} from 'ionicons/icons';
 
 @Component({
     selector: 'app-posts-user',
@@ -28,7 +38,7 @@ export class PostsUserComponent implements OnInit, AfterViewInit {
         private router: Router,
         private modalController: ModalController,
         private toastController: ToastController
-    ) {}
+    ) {addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline, ellipsisHorizontal, trash, exitOutline });}
 
     ngOnInit() {
         this.userId = this.route.snapshot.paramMap.get('id');

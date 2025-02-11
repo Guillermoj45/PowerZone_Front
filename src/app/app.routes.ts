@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import {SearchComponent} from "./Screen/search/search.component";
 import {ScreenSizeGuard} from "./Guards/screen-size.guard";
+import {AuthGuard} from "./Guards/auth.guard";
 
 export const routes: Routes = [
     {
@@ -12,6 +13,7 @@ export const routes: Routes = [
         redirectTo: 'registro',
         pathMatch: 'full',
     },
+
     {
         path: 'registro',
         loadComponent: () => import('./Screen/registro/registro.component').then((m) => m.RegistroComponent),
@@ -42,7 +44,8 @@ export const routes: Routes = [
     },
     {
         path: 'menuoriginal',
-        loadComponent: () => import('./Screen/menuoriginal/menuoriginal.component').then(m => m.MenuoriginalComponent)
+        loadComponent: () => import('./Screen/menuoriginal/menuoriginal.component').then(m => m.MenuoriginalComponent),
+        canActivate: [AuthGuard],
     },
     {
         path: 'admin',
@@ -72,10 +75,16 @@ export const routes: Routes = [
     },
     {
         path:'post-details/:id',
-        loadComponent: ()=> import('./Screen/post-details/post-details.component').then((m) => m.PostDetailsComponent)
+        loadComponent: ()=> import('./Screen/post-details/post-details.component').then((m) => m.PostDetailsComponent),
+        canActivate: [AuthGuard],
     },
     {
         path:'posts-user/:id',
         loadComponent: ()=> import('./Screen/posts-user/posts-user.component').then((m) => m.PostsUserComponent)
-    }
+    },
+    {
+        path: 'suggestion',
+        loadComponent: () => import('./Screen/suggestions/suggestions.component').then((m) => m.SuggestionsComponent),
+        canActivate: [AuthGuard],
+    },
 ];

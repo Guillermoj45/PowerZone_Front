@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonButton, IonCol, IonContent, IonGrid, IonImg, IonInput, IonInputPasswordToggle, IonItem, IonRow, IonText } from '@ionic/angular/standalone';
-import { Router, RouterLink } from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Login } from '../../Models/Login';
 import { RegistroService } from '../../Service/profile.service';
@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
         private fb: FormBuilder,
         private authService: RegistroService,
         private router: Router,
+        private route: ActivatedRoute,
         private alertController: AlertController
     ) {
         // Se crea el formGroup con validadores:
@@ -77,7 +78,8 @@ export class LoginComponent implements OnInit {
                 if (token) {
                     sessionStorage.setItem('token', token);
                     console.log('Navigating to /posts');
-                    this.router.navigate(['/posts']);
+                    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/posts';
+                    this.router.navigateByUrl(returnUrl);
                 } else {
                     this.showAlert('Login fallido: Datos inválidos');
                 }

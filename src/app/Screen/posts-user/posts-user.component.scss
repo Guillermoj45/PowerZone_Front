@@ -3,20 +3,22 @@
     background-color: #042F2E; /* Fondo oscuro */
     color: white;
     padding: 10px;
-
 }
+
 ion-content {
     --background: #042F2E; /* Aplica el color de fondo a todo el contenido */
     background-color: #042F2E !important;
 }
+
 .post-image {
     overflow: hidden;
 }
+
 .post-container {
     max-width: 100%;
     margin: 0 auto;
-
 }
+
 .custom-toast {
     --background: red; /* Fondo rojo */
     --color: white; /* Texto blanco para mejor contraste */
@@ -26,13 +28,11 @@ ion-content {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra ligera */
 }
 
-
 .post {
     background-color: #6fb3a6; /* Fondo del post */
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px;
-
 }
 
 .user-info {
@@ -51,17 +51,16 @@ ion-content {
 .post-image ion-img {
     border-radius: 5px;
     width: 100%;
-    height: auto;
+    height: 300px; /* Ajusta la altura según lo que necesites */
+    object-fit: contain; /* Mantiene toda la imagen visible sin recortes */
     border: 4px solid #042F2E;
-
+    background-color: #042F2E; /* Fondo para las imágenes que no llenan el espacio */
 }
-
-
 
 .post-description {
     margin-top: 10px;
-    font-size: 17px;
-    margin-left: 20px;
+    font-size: 20px;
+    margin-left: 30px;
     color: #042F2E;
     font-weight: bold;
 }
@@ -84,7 +83,6 @@ ion-content {
     font-size: 14px;
 }
 
-
 .highlighted-comment .comment-container {
     display: flex;
     align-items: center;
@@ -94,30 +92,8 @@ ion-content {
 
 .highlighted-comment ion-avatar {
     margin-right: 25px;
-
-}
-.responsive-image {
-    max-width: 100%;
-    max-height: 400px; /* Adjust the max height as needed */
-    width: auto;
-    height: auto;
-    object-fit: cover; /* Ensures the image covers the area while maintaining aspect ratio */
-}
-/* Para pantallas pequeñas */
-@media (max-width: 1000px) {
-    .movil{
-        margin-top: 20%;
-    }
-}
-.scroll-container {
-    overflow: auto;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
 }
 
-.scroll-container::-webkit-scrollbar {
-    display: none;  /* Chrome, Safari, and Opera */
-}
 .responsive-image {
     max-width: 100%;
     max-height: 1000px; /* Ajusta la altura máxima según sea necesario */
@@ -125,6 +101,24 @@ ion-content {
     height: auto;
     object-fit: contain; /* Asegura que la imagen se ajuste al área manteniendo la proporción */
 }
+
+/* Para pantallas pequeñas */
+@media (max-width: 1000px) {
+    .movil {
+        margin-top: 20%;
+    }
+}
+
+.scroll-container {
+    overflow: auto;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.scroll-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+}
+
 /* Aplica estilos a la parte de scroll de ion-content */
 ion-content::part(scroll) {
     scrollbar-width: none; /* Firefox */
@@ -135,5 +129,3 @@ ion-content::part(scroll) {
 ion-content::part(scroll)::-webkit-scrollbar {
     display: none;
 }
-
-

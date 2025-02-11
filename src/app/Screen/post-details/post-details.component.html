@@ -6,9 +6,9 @@
                 <ion-col size="12" class="user-info">
 
                     <div style="display: flex; align-items: center;">
-                      <ion-avatar>
-                        <img [src]="post.avatar" alt="Imagen de perfil"/>
-                      </ion-avatar>
+                        <ion-avatar style="margin-right: 20px;">
+                            <img [src]="post.avatar" />
+                        </ion-avatar>
                       <span class="username">{{ post.nickname }}</span>
                     </div>
                     <!-- Icono alineado a la derecha con evento de click -->
@@ -90,7 +90,7 @@
                     <ion-list *ngIf="comments.length > 0; else noComments">
                         <ion-item *ngFor="let comment of comments" class="comment-item">
                             <ion-avatar slot="start">
-                                <img [src]="comment.avatar" alt="Avatar del comentario" />
+                                <img [src]="comment.avatar"  />
                             </ion-avatar>
                             <ion-label>
                                 <h3>{{ comment.nickname }}</h3>
