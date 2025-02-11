@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Client } from '@stomp/stompjs';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ChatMessage } from '../Models/ChatMessage';
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root',
@@ -10,7 +11,7 @@ export class WebsocketService {
     private stompClient!: Client;
     private messageSubject: BehaviorSubject<ChatMessage[]> = new BehaviorSubject<ChatMessage[]>([]); // Lista de mensajes
 
-    constructor() {}
+    constructor(private http: HttpClient) {}
 
     connect(roomId: string) {
         const webSocketUrl = `ws://localhost:8080/ws-native`; // URL del servidor WebSocket nativo
@@ -52,6 +53,14 @@ export class WebsocketService {
 
     getMessageObservable(): Observable<ChatMessage[]> {
         return this.messageSubject.asObservable();
+    }
+
+    getUserGroups(): Observable<any> {
+        const url = `/api/messages/info`; // URL del endpoint en el backend
+        const token = sessionStorage.getItem('token');
+        console.log('Token obtenido:', token); // Muestra el token en la consola
+        const headers = { Authorization: `Bearer ${token}` }; // Añade el token del usuario
+        return this.http.get<any>(url, { headers });
     }
 
     disconnect() {
