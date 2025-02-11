@@ -63,6 +63,21 @@ export class WebsocketService {
         return this.http.get<any>(url, { headers });
     }
 
+    // Método para obtener los perfiles seguidos
+    getFollowingProfiles(): Observable<any> {
+        const url = `/api/profile/following`; // URL del endpoint para obtener los perfiles seguidos
+        const token = sessionStorage.getItem('token'); // Obtiene el token de la sessionStorage
+        if (!token) {
+            return new Observable(observer => {
+                observer.error('Token no encontrado');
+            });
+        }
+        console.log('Token obtenido:', token); // Muestra el token en la consola
+        const headers = { Authorization: `Bearer ${token}` }; // Añade el token del usuario
+
+        return this.http.get<any>(url, { headers }); // Llama al endpoint del backend
+    }
+
     disconnect() {
         if (this.stompClient && this.stompClient.active) {
             this.stompClient.deactivate();
