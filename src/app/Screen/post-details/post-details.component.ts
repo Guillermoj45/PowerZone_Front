@@ -281,8 +281,13 @@ export class PostDetailsComponent implements OnInit {
             component: NewCommentComponent,
             componentProps: { postId: idpost }
         } as ModalOptions);
-        await modal.present();
 
+        modal.onDidDismiss().then(() => {
+            this.loadPostDetails();
+            this.loadComments();
+        });
+
+        await modal.present();
     }
     async sharePost(post: PostDto) {
         const postId = post.post?.id;
