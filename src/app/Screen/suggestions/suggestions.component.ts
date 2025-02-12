@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import { addIcons } from "ionicons";
 import { closeCircle, personAddOutline } from "ionicons/icons";
+import {AdminService} from "../../Service/Admin.service";
+import {ProfileService} from "../../Service/profile.service";
+import {AuthService} from "../../Service/auth.service";
 
 
 @Component({
@@ -15,10 +18,18 @@ import { closeCircle, personAddOutline } from "ionicons/icons";
 })
 export class SuggestionsComponent  implements OnInit {
 
-    constructor() {
+    constructor(
+      private adminService: AdminService,
+      private profileService: ProfileService,
+      private authService: AuthService
+    ) {
         addIcons({closeCircle, personAddOutline });
     }
 
   ngOnInit() {}
 
+    protected readonly screen = screen;
+
+  screenAdmin() {
+  }
 }
