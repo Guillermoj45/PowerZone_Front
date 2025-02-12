@@ -5,8 +5,8 @@ import { DatePipe, NgForOf } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../Service/auth.service';
-import {ProfileMessenger} from "../../Models/Profile";
-import {ProfileService} from "../../Service/profile.service";
+import { ProfileMessenger } from "../../Models/Profile";
+import { ProfileService } from "../../Service/profile.service";
 
 @Component({
     selector: 'app-chat',
@@ -30,64 +30,75 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
         private websocketService: WebsocketService,
         private route: ActivatedRoute,
         private authService: AuthService,
-        private profileService:ProfileService
+        private profileService: ProfileService
     ) {}
 
     ngOnInit(): void {
         // Obtener el groupId de la URL
         this.route.paramMap.subscribe(params => {
-            this.groupId = +params.get('groupId')!;
-            this.websocketService.connect(this.groupId.toString());
-        });
+            const groupIdParam = params.get('groupId');
+            if (groupIdParam) {
+                this.groupId = +groupIdParam;
+                this.websocketService.connect(this.groupId.toString());
 
-        // Obtener el nickname del usuario
-        const token = sessionStorage.getItem('token');
-        console.log("token",token)
-        this.profileService.getProfile(token!).subscribe({
-           next: (profile:ProfileMessenger) => {
-                console.log("profile",profile)
-               this.user = profile
-               console.log("usuario",this.user);
-           },
-            error: (error) => {
-                 console.error('Error fetching profile:', error);
+                // Llamar al servicio para obtener los mensajes del grupo
+                this.websocketService.getMessagesByGroup(this.groupId).subscribe({
+                    next: (messages: ChatMessage[]) => {
+                        console.log("Mensajes recibidos:", messages);
+                        this.messages = messages; // Cargar los mensajes en la variable
+                    },
+                    error: (error) => {
+                        console.error('Error obteniendo mensajes del grupo:', error);
+                    }
+                });
+            } else {
+                console.error('No se encontró el groupId en la URL.');
             }
         });
-        console.log("usuario",this.user);
-        if (this.user && this.user.nickName) {
-            this.senderNickname = this.user.nickName;
+
+        // Obtener el perfil del usuario
+        const token = sessionStorage.getItem('token');
+        if (token) {
+            this.profileService.getProfile(token).subscribe({
+                next: (profile: ProfileMessenger) => {
+                    this.user = profile;
+                    this.senderNickname = profile.nickName; // Asignar el nickname al usuario
+                },
+                error: (error) => {
+                    console.error('Error obteniendo el perfil del usuario:', error);
+                }
+            });
         } else {
-            console.error('No se ha encontrado el nickname del usuario.');
+            console.error('Token no encontrado en sessionStorage.');
         }
 
-        // Escuchar mensajes entrantes
-        this.websocketService.getMessageObservable().subscribe((messages) => {
-            if (messages) {
-                this.messages = messages;  // Actualizar la lista de mensajes
+        // Suscribirse a los mensajes entrantes (recibiendo un arreglo de mensajes)
+        this.websocketService.getMessageObservable().subscribe({
+            next: (messages: ChatMessage[]) => {
+                this.messages = [...this.messages, ...messages];  // Agregar los mensajes nuevos a la lista existente
+            },
+            error: (error) => {
+                console.error('Error en la recepción de mensajes:', error);
             }
         });
     }
 
     sendMessage() {
-        if (this.newMessage.trim()) {
-
-            console.log("usuario",this.user);
-            if (!this.user) {
-                console.error('No se ha encontrado el usuario.');
-                return;
-            }
-
-            const chatMessage: ChatMessage = {
-                sender: this.user.nickName,
-                userId: this.user.id,
-                content: this.newMessage,
-                timestamp: Date.now(),
-                groupId: this.groupId,
-            };
-
-            this.websocketService.sendMessage(chatMessage);  // Enviar el mensaje
-            this.newMessage = '';  // Limpiar el campo de texto
+        if (!this.newMessage.trim() || !this.user) {
+            console.error('Mensaje vacío o usuario no encontrado.');
+            return;
         }
+
+        const chatMessage: ChatMessage = {
+            sender: this.user.nickName,
+            userId: this.user.id,
+            content: this.newMessage.trim(),
+            timestamp: Date.now(),
+            groupId: this.groupId,
+        };
+
+        this.websocketService.sendMessage(chatMessage);  // Enviar el mensaje
+        this.newMessage = '';  // Limpiar el campo de texto
     }
 
     ngOnDestroy() {
