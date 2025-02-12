@@ -9,6 +9,10 @@ import {ProfileTotal} from "../../Models/ProfileTotal";
 import {NgForOf, NgIf} from "@angular/common";
 import {ProfileSettingsService} from "../../Service/profile-settings.service";
 import {Router} from "@angular/router";
+import { closeCircle, personAddOutline } from "ionicons/icons";
+import {AdminService} from "../../Service/Admin.service";
+import {ProfileService} from "../../Service/profile.service";
+import {AuthService} from "../../Service/auth.service";
 
 
 @Component({
@@ -27,7 +31,9 @@ export class SuggestionsComponent  implements OnInit {
     constructor(
       private profileService: ProfileService,
       private profileSettings: ProfileSettingsService,
-      private router: Router
+      private router: Router,
+      private adminService: AdminService,
+      private authService: AuthService
     ) {
         addIcons({closeCircle, personAddOutline, personRemoveOutline});
     }
@@ -49,6 +55,7 @@ export class SuggestionsComponent  implements OnInit {
     });
   }
 
+
   followUser(profile: ProfileTotal) {
       let token = sessionStorage.getItem('token') || '';
       this.profileSettings.followUser(token, 1, profile.id).subscribe({
@@ -65,6 +72,10 @@ export class SuggestionsComponent  implements OnInit {
     this.router.navigate(['/profile/', profileId]);
 }
 
+    protected readonly screen = screen;
+
+  screenAdmin() {
+  }
   unfollowUser(profile: ProfileTotal) {
     let token = sessionStorage.getItem('token') || '';
     console.log("token", token);

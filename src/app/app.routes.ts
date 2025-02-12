@@ -95,4 +95,8 @@ export const routes: Routes = [
         loadComponent: () => import('./Screen/suggestions/suggestions.component').then((m) => m.SuggestionsComponent),
         canActivate: [AuthGuard],
     },
+    {
+        path: 'prueba/:groupId',
+        loadComponent: () => import('./Screen/rafaparaelchat/rafaparaelchat.component').then((m) => m.RafaparaelchatComponent),
+    }
 ];
