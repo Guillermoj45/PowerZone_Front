@@ -40,7 +40,7 @@
                 </ion-col>
 
                 <!-- Comentario Destacado -->
-                <ion-col size="12" class="highlighted-comment" >
+                <ion-col size="12" class="highlighted-comment" (click)="viewPostDetails(post)">
                     <div class="comment-container">
                         <ion-avatar>
                             <img [src]="post.avatarcomment"fill/>

@@ -71,15 +71,26 @@ export class LoginComponent implements OnInit {
 
         // Combina los datos actuales del modelo con los valores del formulario
         this.login = { ...this.login, ...this.loginForm.value };
-
         this.authService.login(this.login).subscribe(
             (response: any) => {
                 const token = response.token;
                 if (token) {
-                    sessionStorage.setItem('token', token);
-                    console.log('Navigating to /posts');
-                    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/posts';
-                    this.router.navigateByUrl(returnUrl);
+                    this.authService.isBanned(token).subscribe({
+                        next: (response) => {
+                            if (response == true) {
+                                this.showAlert('Login fallido: Usuario baneado');
+                            } else {
+                                sessionStorage.setItem('token', token);
+                                console.log('Navigating to /posts');
+                                const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/posts';
+                                this.router.navigateByUrl(returnUrl);
+                            }
+                        },
+                        error: (error: any) => {
+                            console.error('Error checking ban status', error);
+                            this.showAlert('Error checking ban status');
+                        }
+                    });
                 } else {
                     this.showAlert('Login fallido: Datos inválidos');
                 }

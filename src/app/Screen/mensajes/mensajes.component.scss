@@ -1,0 +1,37 @@
+ion-item {
+    --background: #000000; /* Verde pastel */
+    margin: 8px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ion-label h2 {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ffffff; /* Verde oscuro */
+}
+
+ion-label p {
+    font-size: 1em;
+    color: #055a58; /* Verde intermedio */
+}
+
+ion-button {
+    --background: transparent; /* Fondo transparente */
+    --color: #055a58; /* Color verde para el icono */
+}
+
+ion-button:hover {
+    --background: rgba(5, 90, 88, 0.1); /* Fondo suave al pasar el mouse */
+}
+
+#open-modal {
+    --color: white; /* Color blanco para el texto */
+    --background: #042f2e; /* Verde claro */
+}
+
+.boton-anyadir {
+    --background: #042f2e; /* Verde claro */
+    --color: white; /* Color blanco para el texto */
+}
+

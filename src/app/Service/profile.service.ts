@@ -18,6 +18,13 @@ export class RegistroService {
     login(login: Login): Observable<any> {
         return this.http.post<any>('/api/auth/login', login);
     }
+
+    isBanned(token: string): Observable<any> {
+        const headers = new HttpHeaders({ Authorization: token });
+        return this.http.get<any>('/api/auth/isBanned', { headers });
+    }
+
+
 }
 
 @Injectable({

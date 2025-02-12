@@ -2,7 +2,7 @@ import { MenuComponent } from "./Screen/menu/menu.component";
 import { IonicModule, ModalController, ModalOptions } from "@ionic/angular";
 import { SuggestionsComponent } from "./Screen/suggestions/suggestions.component";
 import { Component, HostListener, OnInit, OnDestroy } from "@angular/core";
-import { Router, NavigationEnd } from "@angular/router";
+import {Router, NavigationEnd, ActivatedRoute} from "@angular/router";
 import { MenuSuggestionsService } from "./Service/menusuggestionsService.service";
 import { NgClass, NgIf } from "@angular/common";
 import { MenuoriginalComponent } from "./Screen/menuoriginal/menuoriginal.component";
@@ -40,7 +40,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     private menuService: Menu,
     private modalController: ModalController,
-    private tutorialService: TutorialService
+    private tutorialService: TutorialService,
+    private route: ActivatedRoute,
   ) {
     addIcons({settingsSharp});
   }
@@ -67,14 +68,15 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const currentUrl = this.router.url;
+          const queryParams = this.route.snapshot.queryParams;
         // Verificar si la ruta actual es /chat
         this.isChatRoute = currentUrl === "/chat";
         // Configurar visibilidad del footer según la ruta
         const hideFooter = ["/chat"].includes(currentUrl);
         this.footerVisible = !hideFooter;
         // Configurar visibilidad de menú y sugerencias según la ruta
-        const hideMenus = ["/login", "/registro", "/recu"].includes(currentUrl);
-        this.menuSuggestionsService.setMenuVisible(!hideMenus);
+          const hideMenus = ["/login", "/registro", "/recu"].includes(currentUrl) || queryParams['fromShare'] === "true";
+          this.menuSuggestionsService.setMenuVisible(!hideMenus);
         this.menuSuggestionsService.setSuggestionsVisible(!hideMenus);
         // Ocultar menú hamburguesa si es necesario
         this.closeHamburgerMenuIfNeeded();
@@ -89,6 +91,16 @@ export class AppComponent implements OnInit, OnDestroy {
     this.menuSuggestionsService.suggestionsVisible$.subscribe((visible) => {
       this.suggestionsVisible = visible;
     });
+      this.route.queryParams.subscribe(params => {
+          console.log("Query Params:", params);
+          if (params['fromShare'] === "true") {
+              console.log("Ocultando menús por fromShare");
+              setTimeout(() => {
+                  this.menuSuggestionsService.setMenuVisible(false);
+                  this.menuSuggestionsService.setSuggestionsVisible(false);
+              }, 0);
+          }
+      });
   }
 
   updateViewBasedOnScreenSize() {

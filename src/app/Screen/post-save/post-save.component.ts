@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController, ModalController, IonicModule } from '@ionic/angular';
+import {ToastController, ModalController, IonicModule, ModalOptions} from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NewCommentComponent } from '../new-comment/new-comment.component';
 import { CommonModule } from '@angular/common';
@@ -180,8 +180,9 @@ export class PostSaveComponent implements OnInit {
         const modal = await this.modalController.create({
             component: NewCommentComponent,
             componentProps: { postId: idpost }
-        });
+        } as ModalOptions);
         await modal.present();
+
     }
 
     async sharePost(post: PostDto) {
