@@ -19,10 +19,10 @@ import { TutorialService } from "./Service/tutorial.service";
   imports: [
     MenuComponent,
     IonicModule,
-    SuggestionsComponent,
     NgIf,
     MenuoriginalComponent,
     FooterComponent,
+    SuggestionsComponent,
   ],
   standalone: true,
 })

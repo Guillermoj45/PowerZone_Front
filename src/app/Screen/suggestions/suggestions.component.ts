@@ -2,15 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import { addIcons } from "ionicons";
 import {closeCircle, personAddOutline, personRemoveOutline} from "ionicons/icons";
-import {PostDto} from "../../Models/PostDto";
-import {Profile} from "../../Models/Profile";
-import {ProfileService} from "../../Service/profile.service";
 import {ProfileTotal} from "../../Models/ProfileTotal";
 import {NgForOf, NgIf} from "@angular/common";
 import {ProfileSettingsService} from "../../Service/profile-settings.service";
 import {Router} from "@angular/router";
 import {AdminService} from "../../Service/Admin.service";
 import {AuthService} from "../../Service/auth.service";
+import {ProfileService} from "../../Service/profile.service";
 
 
 @Component({
