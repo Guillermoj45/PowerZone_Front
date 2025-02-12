@@ -112,7 +112,7 @@ export class PostsUserComponent implements OnInit, AfterViewInit {
         }
     }
 
-    likePost(post: PostDto) {
+    async likePost(post: PostDto) {
         const token = sessionStorage.getItem('token');
         if (!token) {
             console.error('No token found in session storage');
@@ -150,7 +150,14 @@ export class PostsUserComponent implements OnInit, AfterViewInit {
             (error) => console.error('Error checking like status:', error)
         );
     }
-
+    viewPostDetails(post: PostDto) {
+        const postId = post.post?.id;
+        if (postId !== undefined) {
+            this.router.navigate([`/post-details`, postId]);
+        } else {
+            console.error('Post ID not found');
+        }
+    }
     async savePost(post: PostDto) {
         const token = sessionStorage.getItem('token');
         if (!token) {

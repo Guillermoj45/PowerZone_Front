@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonicModule, ModalController, ModalOptions, ToastController } from '@ionic/angular';
 import { CommonModule, NgForOf } from '@angular/common';
-import { Router } from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import { addIcons } from 'ionicons';
 import {
   bookmark,
@@ -64,6 +64,11 @@ export class PostsComponent implements OnInit {
         this.loadFollowedPosts();
         this.isAdmin();
         this.startTutorialIfNeeded();
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                this.loadFollowedPosts();
+            }
+        });
     }
 
     // Esta función se llama al hacer click en el ícono y abre el popover correspondiente
@@ -358,6 +363,14 @@ export class PostsComponent implements OnInit {
                                         },
                                         (error) => {
                                             console.error(`Error checking like status for post ${postId}:`, error);
+                                        }
+                                    );
+                                    this.postService.hasSavedPost(token, postId).subscribe(
+                                        (hasSaved) => {
+                                            post.saved = hasSaved;
+                                        },
+                                        (error) => {
+                                            console.error(`Error checking save status for post ${postId}:`, error);
                                         }
                                     );
                                 }

@@ -153,6 +153,14 @@ export class PostDetailsComponent implements OnInit {
                             },
                             (error) => console.error('Error checking like status:', error)
                         );
+                        this.postService.hasSavedPost(token, postId).subscribe(
+                            (hasSaved) => {
+                                post.saved = hasSaved;
+                            },
+                            (error) => {
+                                console.error(`Error checking save status for post ${postId}:`, error);
+                            }
+                        );
                     }
 
                 },
