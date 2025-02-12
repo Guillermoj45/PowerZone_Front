@@ -25,7 +25,7 @@ export class WebsocketService {
                     try {
                         const chatMessage: ChatMessage = JSON.parse(message.body);
                         const currentMessages = this.messageSubject.getValue(); // Obtener los mensajes actuales
-                        this.messageSubject.next([...currentMessages, chatMessage]); // Emitir nuevos mensajes
+                        this.messageSubject.next([chatMessage]); // Emitir nuevos mensajes
                     } catch (error) {
                         console.error('Error al procesar el mensaje recibido:', error);
                     }
@@ -95,6 +95,14 @@ export class WebsocketService {
         const body = userIds; // Lista de IDs de usuarios en el cuerpo de la solicitud
 
         return this.http.post<any>(url, body, { headers, params });
+    }
+
+    getMessagesByGroup(groupId: number): Observable<ChatMessage[]> {
+        const url = `/api/messages/group/${groupId}`; // Endpoint del backend
+        const token = sessionStorage.getItem('token'); // Obtiene el token de sesión
+        const headers = { Authorization: `Bearer ${token}` }; // Incluye el token en los headers
+
+        return this.http.get<ChatMessage[]>(url, { headers });
     }
 
     disconnect() {
