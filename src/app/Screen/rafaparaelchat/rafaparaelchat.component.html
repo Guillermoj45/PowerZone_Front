@@ -1,0 +1,17 @@
+<div class="chat-container">
+    <div class="user-info">
+        <p>Usuario: {{ senderNickname }}</p>
+    </div>
+
+    <div class="messages">
+        <div *ngFor="let message of messages" class="message">
+            <strong>{{ message.sender }}:</strong> {{ message.content }}
+            <span class="timestamp">{{ message.timestamp | date: 'shortTime' }}</span>
+        </div>
+    </div>
+
+    <div class="message-input">
+        <input [(ngModel)]="newMessage" placeholder="Escribe un mensaje..." (keyup.enter)="sendMessage()" />
+        <button (click)="sendMessage()">Enviar</button>
+    </div>
+</div>

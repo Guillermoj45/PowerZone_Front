@@ -16,9 +16,13 @@
                     <ion-icon aria-hidden="true" name="add" slot="start"></ion-icon>
                     <ion-label (click)="openAddPostModal()" >Publicar</ion-label>
                 </ion-item>
+                <ion-item lines="none" (click)="navigateTo('/mensajes')">
+                    <ion-icon name="paper-plane-outline" aria-hidden="true" slot="start"></ion-icon>
+                    <ion-label>Mensajes</ion-label>
+                </ion-item>
                 <ion-item lines="none" (click)="navigateTo('/health')" id="chatbot">
                     <ion-icon aria-hidden="true" name="restaurant" slot="start"></ion-icon>
-                    <ion-label>Comidas y Ejercicios</ion-label>
+                    <ion-label>Chatbot</ion-label>
                 </ion-item>
                 <ion-item lines="none" (click)="navigateTo('/notification')" id="notificaciones" >
                     <ion-icon aria-hidden="true" name="notifications" slot="start"></ion-icon>
@@ -27,11 +31,6 @@
                 <ion-item lines="none" (click)="navigateTo('/profile')" id="perfil">
                     <ion-icon aria-hidden="true" name="person-circle-outline" slot="start"></ion-icon>
                     <ion-label>Perfil</ion-label>
-                </ion-item>
-
-                <ion-item lines="none" (click)="navigateTo('/settings')" id="ajustes" >
-                    <ion-icon aria-hidden="true" name="settings-sharp" slot="start"></ion-icon>
-                    <ion-label>Ajustes del perfil</ion-label>
                 </ion-item>
                 <ion-item lines="none" (click)="LogOut()" id="cerrar-sesion">
                     <ion-icon aria-hidden="true" name="log-in-outline" slot="start"></ion-icon>
