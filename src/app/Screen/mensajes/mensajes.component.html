@@ -2,9 +2,14 @@
     <ion-toolbar>
         <ion-title class="header">Mensajes directos</ion-title>
     </ion-toolbar>
-    <ion-content class="ion-padding">
-        <ion-button id="open-modal" expand="block" (click)="crearNuevaConversacion('someGroupId')">Crear nueva conversación</ion-button>
 
+    <ion-content class="ion-padding">
+        <!-- Botón para crear una nueva conversación -->
+        <ion-button id="open-modal" expand="block" (click)="crearNuevaConversacion('someGroupId')">
+            Crear nueva conversación
+        </ion-button>
+
+        <!-- Lista de grupos -->
         <ion-list>
             <ion-item *ngFor="let grupo of grupos">
                 <ion-avatar slot="start">
@@ -13,12 +18,13 @@
                 <ion-label>
                     <h2>{{ grupo.name }}</h2>
                 </ion-label>
-                <ion-button fill="clear" slot="end" class="boton-anyadir" (click)="crearNuevaConversacion(grupo.id)">
+                <ion-button fill="clear" slot="end" class="boton-anyadir" (click)="verGrupo(grupo.id)">
                     <ion-icon name="arrow-redo-outline"></ion-icon>
                 </ion-button>
             </ion-item>
         </ion-list>
 
+        <!-- Modal para seleccionar personas a añadir al grupo -->
         <ion-modal #modal trigger="open-modal" [presentingElement]="presentingElement">
             <ng-template>
                 <ion-header>
@@ -29,7 +35,15 @@
                         </ion-buttons>
                     </ion-toolbar>
                 </ion-header>
+
                 <ion-content>
+                    <!-- Campo para ingresar el nombre del grupo -->
+                    <ion-item>
+                        <ion-label position="floating">Nombre del grupo</ion-label>
+                        <ion-input [(ngModel)]="nombreGrupo"></ion-input>
+                    </ion-item>
+
+                    <!-- Lista de perfiles seguidos -->
                     <ion-list>
                         <ion-item *ngFor="let perfil of perfilesSeguidos">
                             <ion-avatar slot="start">
@@ -39,12 +53,31 @@
                                 <h2>{{ perfil.name }}</h2>
                                 <p>{{ perfil.nickname }}</p>
                             </ion-label>
-                            <ion-button fill="clear" slot="end" class="boton-anyadir">
-                                <ion-icon name="add"></ion-icon>
+                            <ion-button
+                                fill="clear"
+                                slot="end"
+                                class="boton-anyadir"
+                                (click)="toggleSeleccionPerfil(perfil)">
+                                <ion-icon name="{{ perfilesSeleccionados.includes(perfil) ? 'checkmark' : 'add' }}"></ion-icon>
                             </ion-button>
                         </ion-item>
                     </ion-list>
                 </ion-content>
+
+                <ion-footer>
+                    <ion-toolbar>
+                        <ion-title>
+                            Seleccionados: {{ perfilesSeleccionados.length }}
+                        </ion-title>
+                        <ion-buttons slot="end">
+                            <ion-button
+                                [disabled]="perfilesSeleccionados.length === 0 || !nombreGrupo"
+                                (click)="crearGrupoConSeleccionados()">
+                                Crear
+                            </ion-button>
+                        </ion-buttons>
+                    </ion-toolbar>
+                </ion-footer>
             </ng-template>
         </ion-modal>
     </ion-content>

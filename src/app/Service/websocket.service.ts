@@ -78,6 +78,25 @@ export class WebsocketService {
         return this.http.get<any>(url, { headers }); // Llama al endpoint del backend
     }
 
+    createGroup(groupName: { name: string }): Observable<any> {
+        const url = `/api/messages/create`; // Endpoint del backend
+        const token = sessionStorage.getItem('token'); // Obtiene el token si es necesario
+        const headers = { Authorization: `Bearer ${token}` };
+        const body = { name: groupName.name }; // Envía solo el nombre del grupo
+
+        return this.http.post<any>(url, body, { headers });
+    }
+
+    addUsersToGroup(groupId: number, userIds: number[]): Observable<any> {
+        const url = `/api/messages/addUsersToGroup`; // Endpoint del backend
+        const token = sessionStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
+        const params = { groupId }; // Solo enviamos el groupId como parámetro
+        const body = userIds; // Lista de IDs de usuarios en el cuerpo de la solicitud
+
+        return this.http.post<any>(url, body, { headers, params });
+    }
+
     disconnect() {
         if (this.stompClient && this.stompClient.active) {
             this.stompClient.deactivate();
