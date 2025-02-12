@@ -9,7 +9,8 @@ import {
     notifications,
     closeCircle,
     personCircleOutline,
-    settingsSharp, logInOutline
+    settingsSharp,
+    logIn, logInOutline, paperPlaneOutline
 } from "ionicons/icons";
 import {Router} from "@angular/router";
 import {NewPostComponent} from "../new-post/new-post.component";
@@ -50,7 +51,8 @@ export class MenuoriginalComponent implements OnInit {
             closeCircle,
             personCircleOutline,
             settingsSharp,
-            logInOutline
+            logInOutline,
+            paperPlaneOutline
         });
     }
 

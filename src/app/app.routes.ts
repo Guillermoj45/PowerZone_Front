@@ -83,6 +83,14 @@ export const routes: Routes = [
         loadComponent: ()=> import('./Screen/posts-user/posts-user.component').then((m) => m.PostsUserComponent)
     },
     {
+        path: 'prueba/:groupId',
+        loadComponent: () => import('./Screen/rafaparaelchat/rafaparaelchat.component').then((m) => m.RafaparaelchatComponent),
+    },
+    {
+        path: 'mensajes'
+        ,loadComponent: () => import('./Screen/mensajes/mensajes.component').then((m) => m.MensajesComponent),
+    },
+    {
         path: 'suggestion',
         loadComponent: () => import('./Screen/suggestions/suggestions.component').then((m) => m.SuggestionsComponent),
         canActivate: [AuthGuard],

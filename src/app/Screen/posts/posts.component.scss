@@ -102,6 +102,14 @@ ion-content {
     height: auto;
     object-fit: cover; /* Ensures the image covers the area while maintaining aspect ratio */
 }
+ion-content::part(scroll){
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+ion-content::part(scroll)::-webkit-scrollbar{
+    display: none;
+}
 /* Para pantallas pequeñas */
 @media (max-width: 1000px) {
     .movil{
