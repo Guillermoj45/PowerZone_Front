@@ -89,7 +89,6 @@ export const routes: Routes = [
     {
         path: 'mensajes'
         ,loadComponent: () => import('./Screen/mensajes/mensajes.component').then((m) => m.MensajesComponent),
-    }
     },
     {
         path: 'suggestion',
