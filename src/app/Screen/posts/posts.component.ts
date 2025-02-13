@@ -63,7 +63,6 @@ export class PostsComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.loadFollowedPosts();
         this.isAdmin();
         this.startTutorialIfNeeded();
         this.router.events.subscribe(event => {
@@ -225,7 +224,27 @@ export class PostsComponent implements OnInit {
         );
     }
 
+  navigateToProfile(postId: number | undefined) {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in session storage');
+      return;
+    }
 
+    if (postId === undefined) {
+      console.error('Post ID not found');
+      return;
+    }
+
+    this.postService.getUserIdByPostId(token, postId).subscribe(
+      (userId) => {
+        this.router.navigate([`/profile/${userId}`]);
+      },
+      (error) => {
+        console.error('Error fetching user ID:', error);
+      }
+    );
+  }
 
     async likePost(post: PostDto) {
         const token = sessionStorage.getItem('token');
@@ -345,52 +364,58 @@ export class PostsComponent implements OnInit {
         });
         await toast.present();
     }
-    loadFollowedPosts(): void {
-        const token = sessionStorage.getItem('token');
-        if (!token) {
-            console.error('No token found in session storage');
-            return;
-        }
-
-        this.postService.getFollowedPosts(token).subscribe(
-            (followedPosts) => {
-                this.posts = followedPosts;
-
-                this.postService.getAllPosts(token).subscribe(
-                    (allPosts) => {
-                        // Filtro para obtener los posts para que no se repitan
-                        const otherPosts = allPosts.filter(post => !followedPosts.some(followedPost => followedPost.post?.id === post.post?.id));
-                        this.posts = [...this.posts, ...otherPosts];
-                        this.posts.forEach(post => {
-                                const postId = post.post?.id;
-                                if (postId !== undefined) {
-                                    this.postService.hasLikedPost(token, postId).subscribe(
-                                        (hasLiked) => {
-                                            post.liked = hasLiked;
-                                        },
-                                        (error) => {
-                                            console.error(`Error checking like status for post ${postId}:`, error);
-                                        }
-                                    );
-                                    this.postService.hasSavedPost(token, postId).subscribe(
-                                        (hasSaved) => {
-                                            post.saved = hasSaved;
-                                        },
-                                        (error) => {
-                                            console.error(`Error checking save status for post ${postId}:`, error);
-                                        }
-                                    );
-                                }
-                        });
-                    },
-                    (error) => {
-                        console.error('Error loading all posts:', error);
-                    }
-                );
-            },
-            (error) => {
-                console.error('Error loading followed posts:', error);
-            }
-        );
+  loadFollowedPosts(): void {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in session storage');
+      return;
     }
+
+    this.postService.getFollowedPosts(token).subscribe(
+      (followedPosts) => {
+        const postIds = new Set<number>();
+
+        // Filtramos los posts seguidos y guardamos sus IDs
+        this.posts = followedPosts.filter(post => {
+          const postId = post.post?.id;
+          if (postId !== undefined && !postIds.has(postId)) {
+            postIds.add(postId);
+            return true;
+          }
+          return false;
+        });
+
+        this.postService.getAllPosts(token).subscribe(
+          (allPosts) => {
+            // Filtrar los posts que no están en los seguidos
+            const uniqueOtherPosts = allPosts.filter(post => {
+              const postId = post.post?.id;
+              return postId !== undefined && !postIds.has(postId);
+            });
+
+            // Concatenar sin duplicados
+            this.posts = [...this.posts, ...uniqueOtherPosts];
+
+            // Llamadas para verificar likes y guardados
+            this.posts.forEach(post => {
+              const postId = post.post?.id;
+              if (postId !== undefined) {
+                this.postService.hasLikedPost(token, postId).subscribe(
+                  (hasLiked) => post.liked = hasLiked,
+                  (error) => console.error(`Error checking like status for post ${postId}:`, error)
+                );
+                this.postService.hasSavedPost(token, postId).subscribe(
+                  (hasSaved) => post.saved = hasSaved,
+                  (error) => console.error(`Error checking save status for post ${postId}:`, error)
+                );
+              }
+            });
+          },
+          (error) => console.error('Error loading all posts:', error)
+        );
+      },
+      (error) => console.error('Error loading followed posts:', error)
+    );
+  }
+
 }

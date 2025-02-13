@@ -18,7 +18,11 @@ export class PostService {
 
         });
     }
-
+  getUserIdByPostId(token: string, postId: number): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/${postId}/userId`, {
+      headers: this.getHeaders(token)
+    });
+  }
 
     getPostById(token: string, postId: number): Observable<PostDto> {
         return this.http.get<PostDto>(`/api/post/${postId}`, {
