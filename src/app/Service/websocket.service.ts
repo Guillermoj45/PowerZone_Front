@@ -14,7 +14,7 @@ export class WebsocketService {
     constructor(private http: HttpClient) {}
 
     connect(roomId: string) {
-        const webSocketUrl = `ws://localhost:8080/ws-native`; // URL del servidor WebSocket nativo
+        const webSocketUrl = `ws://guillemonas.synology.me:6767/ws-native`; // URL del servidor WebSocket nativo
         this.stompClient = new Client({
             webSocketFactory: () => new WebSocket(webSocketUrl),
             reconnectDelay: 5000,
