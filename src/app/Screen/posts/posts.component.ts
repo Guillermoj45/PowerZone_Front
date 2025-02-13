@@ -183,46 +183,29 @@ export class PostsComponent implements OnInit {
             console.error('Post ID not found');
         }
     }
-    loadAllPosts() {
-        const token = sessionStorage.getItem('token');
-        if (!token) {
-            console.error('No token found in session storage');
-            return;
-        }
 
-        this.postService.getAllPosts(token).subscribe(
-            (posts) => {
-                this.posts = posts;
-                this.posts.forEach(post => {
-                    const postId = post.post?.id;
-                    if (postId !== undefined) {
-                        // Check if the user has liked the post
-                        this.postService.hasLikedPost(token, postId).subscribe(
-                            (hasLiked) => {
-                                post.liked = hasLiked;
-                            },
-                            (error) => {
-                                console.error(`Error checking like status for post ${postId}:`, error);
-                            }
-                        );
-
-                        // Check if the user has saved the post
-                        this.postService.hasSavedPost(token, postId).subscribe(
-                            (hasSaved) => {
-                                post.saved = hasSaved;
-                            },
-                            (error) => {
-                                console.error(`Error checking save status for post ${postId}:`, error);
-                            }
-                        );
-                    }
-                });
-            },
-            (error) => {
-                console.error('Error fetching all posts:', error);
-            }
-        );
+  async loadAllPosts() {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in session storage');
+      return;
     }
+
+    try {
+      const posts = await this.postService.getAllPosts(token).toPromise();
+      this.posts = posts || [];
+      for (const post of this.posts) {
+        const postId = post.post?.id;
+        if (postId !== undefined) {
+          post.liked = await this.postService.hasLikedPost(token, postId).toPromise();
+          post.saved = await this.postService.hasSavedPost(token, postId).toPromise();
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching all posts:', error);
+    }
+  }
+
 
   navigateToProfile(postId: number | undefined) {
     const token = sessionStorage.getItem('token');
@@ -335,17 +318,21 @@ export class PostsComponent implements OnInit {
         } as ModalOptions);
         await modal.present();
     }
-    async openNewCommentModal(idpost: number | undefined) {
-        const modal = await this.modalController.create({
-            component: NewCommentComponent,
-            componentProps: { postId: idpost }
-        } as ModalOptions);
-        await modal.present();
-        const { data } = await modal.onDidDismiss();
-        this.loadAllPosts();
-    }
 
-    async sharePost(post: PostDto) {
+    //TODO: Cambiar a un modal
+  async openNewCommentModal(idpost: number | undefined, post: PostDto) {
+    const modal = await this.modalController.create({
+      component: NewCommentComponent,
+      componentProps: { postId: idpost }
+    } as ModalOptions);
+    await modal.present();
+    await modal.onDidDismiss();
+
+    // Increment the number of comments by 1
+    post.numcomments = (post.numcomments ?? 0) + 1;
+  }
+
+  async sharePost(post: PostDto) {
         const postId = post.post?.id;
         if (postId === undefined) {
             console.error('Post ID not found');

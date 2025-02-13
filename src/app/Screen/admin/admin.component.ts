@@ -35,6 +35,7 @@ export class AdminComponent  implements OnInit {
         this.recuperarReportes();
         event.target.complete();
     }, 500);
+    window.location.reload()
   }
 
   onIonInfiniteAvisado(event: InfiniteScrollCustomEvent) {
@@ -42,6 +43,7 @@ export class AdminComponent  implements OnInit {
         this.recuperarAvisados();
         event.target.complete();
     }, 500);
+      window.location.reload()
   }
 
   onIonInfiniteSuspendidos(event: InfiniteScrollCustomEvent) {
@@ -49,6 +51,7 @@ export class AdminComponent  implements OnInit {
         this.recuperarSuspendidos();
         event.target.complete();
     }, 500);
+      window.location.reload()
   }
 
   recuperarReportes() {

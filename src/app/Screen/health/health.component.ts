@@ -5,7 +5,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ChatBotService } from '../../Service/chat-bot.service';
 import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
-import { sendSharp } from 'ionicons/icons';
+import {logoIonitron, sendOutline, sendSharp} from 'ionicons/icons';
 import { BoldPipe } from '../../Service/bold.pipe';
 
 @Component({
@@ -23,7 +23,7 @@ export class HealthComponent {
 
     constructor(private chabot: ChatBotService) {
         addIcons({
-            sendSharp
+            sendSharp, logoIonitron, sendOutline
         });
     }
 

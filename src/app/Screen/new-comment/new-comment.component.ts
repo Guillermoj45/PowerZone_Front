@@ -30,11 +30,11 @@ export class NewCommentComponent {
     submitComment() {
         const token = sessionStorage.getItem('token');
         if (!token) {
-            console.error('No token found in session storage');
+            console.error('No se ha encontrado el token');
             return;
         }
         if (!this.postId) {
-            console.error('Post ID is not defined');
+            console.error('El post no tiene un ID definido');
             return;
         }
         console.log('Creating comment:', this.commentContent);

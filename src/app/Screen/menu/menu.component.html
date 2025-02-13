@@ -2,25 +2,32 @@
 <ion-grid class="ion-no-padding">
     <ion-row>
         <ion-col size="3" class="menuizq-column">
-            <ion-list class="menuizq">
-                <a href="/posts">
-                    <ion-icon aria-hidden="true" name="home" slot="start"></ion-icon>
-                </a><br>
-                <ion-icon aria-hidden="true" name="search" slot="start"></ion-icon>
-                <br>
-                <a (click)="openAddPostModal()">
-                    <ion-icon aria-hidden="true" name="add" slot="start"></ion-icon>
-                </a><br>
-                <a href="/health">
-                    <ion-icon aria-hidden="true" name="restaurant" slot="start"></ion-icon>
-                </a><br>
-                <a href="/notification">
-                    <ion-icon aria-hidden="true" name="notifications" slot="start"></ion-icon>
-                </a>
-                <a href="/settings">
-                    <ion-icon aria-hidden="true" name="settings-sharp" slot="start"></ion-icon>
-                </a>
-            </ion-list>
+          <ion-list class="menuizq">
+            <a href="/posts">
+              <ion-icon aria-hidden="true" name="home" slot="start"></ion-icon>
+            </a><br>
+            <a (click)="openAddPostModal()">
+              <ion-icon aria-hidden="true" name="add" slot="start"></ion-icon>
+            </a><br>
+            <a href="/mensajes">
+              <ion-icon name="paper-plane-outline" aria-hidden="true" slot="start"></ion-icon>
+            </a><br>
+            <a href="/health" id="chatbot">
+              <ion-icon name="logo-ionitron" aria-hidden="true" slot="start"></ion-icon>
+            </a><br>
+            <a href="/notification" id="notificaciones">
+              <ion-icon aria-hidden="true" name="notifications" slot="start"></ion-icon>
+            </a><br>
+            <a href="/profile" id="perfil">
+              <ion-icon aria-hidden="true" name="person-circle-outline" slot="start"></ion-icon>
+            </a><br>
+            <a href="/settings">
+              <ion-icon aria-hidden="true" name="settings-sharp" slot="start"></ion-icon>
+            </a>
+            <a (click)="LogOut()" id="cerrar-sesion">
+              <ion-icon aria-hidden="true" name="log-in-outline" slot="start"></ion-icon>
+            </a><br>
+          </ion-list>
         </ion-col>
         <ion-col size="9" class="content-column">
             <ion-list>

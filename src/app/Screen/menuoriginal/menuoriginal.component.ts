@@ -2,15 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {IonicModule, ModalController, ModalOptions} from "@ionic/angular";
 import {addIcons} from "ionicons";
 import {
-    home,
-    search,
-    add,
-    restaurant,
-    notifications,
-    closeCircle,
-    personCircleOutline,
-    settingsSharp,
-    logIn, logInOutline, paperPlaneOutline
+  home,
+  search,
+  add,
+  restaurant,
+  notifications,
+  closeCircle,
+  personCircleOutline,
+  settingsSharp,
+  logIn, logInOutline, paperPlaneOutline, logoIonitron
 } from "ionicons/icons";
 import {Router} from "@angular/router";
 import {NewPostComponent} from "../new-post/new-post.component";
@@ -52,7 +52,9 @@ export class MenuoriginalComponent implements OnInit {
             personCircleOutline,
             settingsSharp,
             logInOutline,
-            paperPlaneOutline
+            paperPlaneOutline,
+            logoIonitron
+
         });
     }
 

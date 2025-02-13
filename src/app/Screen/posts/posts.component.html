@@ -1,22 +1,31 @@
 <ion-content class="custom-scroll" id="pantallaPosts">
   <ion-grid class="ion-no-padding post-container movil">
     <div class="scroll-container" id="posts">
-
-           <ion-row *ngFor="let post of posts; let i = index" class="post">
-        <ion-col class="user-info" size="12" style="display: flex; justify-content: space-between; align-items: center;">
-          <!-- Contenedor izquierdo: Avatar y Nombre de usuario -->
-            <div style="display: flex; align-items: center;">
-              <ion-button fill="clear" (click)="navigateToProfile(post.post?.id)" style="padding: 0;">
-                <ion-avatar >
-                  <img [src]="post.avatar" alt="Imagen de perfil"/>
-                </ion-avatar>
-              </ion-button>
-                <span class="username">{{ post.nickname }}</span>
-            </div>
-          <!-- Icono alineado a la derecha con evento de click -->
-          <ion-icon name="ellipsis-horizontal" class="more-button" (click)="presentPopover(i, $event, post)"></ion-icon>
-
-          <!-- Popover específico para cada post -->
+      <ion-row
+        *ngFor="let post of posts; let i = index"
+        class="post"
+        [attr.id]="'post-' + post.post?.id"
+      >
+        <!-- Encabezado del Post -->
+        <ion-col
+          class="user-info"
+          size="12"
+          style="display: flex; justify-content: space-between; align-items: center;"
+        >
+          <div style="display: flex; align-items: center;">
+            <ion-button fill="clear" (click)="navigateToProfile(post.post?.id)" style="padding: 0;">
+              <ion-avatar>
+                <img [src]="post.avatar" alt="Imagen de perfil" />
+              </ion-avatar>
+            </ion-button>
+            <span class="username">{{ post.nickname }}</span>
+          </div>
+          <ion-icon
+            name="ellipsis-horizontal"
+            class="more-button"
+            (click)="presentPopover(i, $event, post)"
+          ></ion-icon>
+          <!-- Popover (sin cambios) -->
           <ion-popover [isOpen]="openPopoverIndex === i" (didDismiss)="openPopoverIndex = -1">
             <ng-template>
               <div *ngIf="!isAdmin1" style="margin: auto; padding-top: 10px;">
@@ -27,8 +36,11 @@
                   <ion-select-option value="informacion_falsa">Información falsa</ion-select-option>
                   <ion-select-option value="otro">Otro</ion-select-option>
                 </ion-select>
-
-                <ion-input *ngIf="reportReason1 === 'otro'" placeholder="Razón de reporte" [(ngModel)]="reportReason"></ion-input>
+                <ion-input
+                  *ngIf="reportReason1 === 'otro'"
+                  placeholder="Razón de reporte"
+                  [(ngModel)]="reportReason"
+                ></ion-input>
                 <ion-col class="post-actions" size="12" style="display: flex; justify-content: center;">
                   <ion-button color="danger" (click)="reportPost(post)">
                     <ion-icon name="trash" slot="start"></ion-icon>
@@ -54,53 +66,62 @@
           </ion-popover>
         </ion-col>
 
-                <!-- Imagen Principal -->
-                <ion-col *ngIf="post.image_post" size="12" class="post-image">
-                    <ion-img [src]="post.image_post" class="responsive-image"></ion-img>
-                </ion-col>
+        <!-- Imagen del Post -->
+        <ion-col *ngIf="post.image_post" size="12" class="post-image">
+          <ion-img [src]="post.image_post" class="responsive-image"></ion-img>
+        </ion-col>
 
+        <!-- Descripción del Post -->
+        <ion-col size="12" class="post-description" [innerHTML]="highlightHashtags(post.post?.content)"></ion-col>
 
-                <!-- Descripción -->
-             <ion-col size="12" class="post-description" [innerHTML]="highlightHashtags(post.post?.content)">
-             </ion-col>
-             <!-- Acciones del PostDetails -->
-                <ion-col size="12" class="post-actions">
-                    <ion-button (click)="likePost(post)" fill="clear" class="action-button" id="like-button">
-                        <ion-icon [name]="post.liked ? 'heart' : 'heart-outline'"></ion-icon>
-                        <span>{{ post.numlikes }}</span>
-                    </ion-button>
-                    <ion-button fill="clear" class="action-button" (click)="openNewCommentModal(post.post?.id)" id="chat">
-                        <ion-icon name="chatbubble"></ion-icon>
-                        <span>{{ post.numcomments }}</span>
-                    </ion-button>
-                    <ion-button fill="clear" class="action-button save-button" (click)="savePost(post)" id="guardar">
-                        <ion-icon [name]="post.saved ? 'bookmark' : 'bookmark-outline'"></ion-icon>
-                    </ion-button>
-                    <ion-button fill="clear" class="action-button" (click)="sharePost(post)" id="compartir">
-                        <ion-icon name="share-social"></ion-icon>
-                    </ion-button>
+        <!-- Acciones del Post -->
+        <ion-col size="12" class="post-actions">
+          <ion-button (click)="likePost(post)" fill="clear" class="action-button" id="like-button">
+            <ion-icon [name]="post.liked ? 'heart' : 'heart-outline'"></ion-icon>
+            <span>{{ post.numlikes }}</span>
+          </ion-button>
+          <!-- Botón de comentarios, se llama a openNewCommentModal pasando el id del post -->
+          <ion-button
+            fill="clear"
+            class="action-button"
+            id="chat"
+            (click)="openNewCommentModal(post.post?.id, post)"
+          >
+            <ion-icon name="chatbubble"></ion-icon>
+            <span>{{ post.numcomments }}</span>
+          </ion-button>
+          <ion-button
+            fill="clear"
+            class="action-button save-button"
+            (click)="savePost(post)"
+            id="guardar"
+          >
+            <ion-icon [name]="post.saved ? 'bookmark' : 'bookmark-outline'"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" class="action-button" (click)="sharePost(post)" id="compartir">
+            <ion-icon name="share-social"></ion-icon>
+          </ion-button>
+        </ion-col>
 
-                </ion-col>
+        <!-- Comentario Destacado -->
+        <ion-col size="12" class="highlighted-comment" (click)="viewPostDetails(post)" id="comentarios">
+          <div class="comment-container">
+            <ion-avatar *ngIf="post.avatarcomment">
+              <img [src]="post.avatarcomment" fill />
+            </ion-avatar>
+            <span class="comment">
+              <b>{{ post.nicknamecomment }}</b> {{ post.firstcomment }}
+            </span>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
 
-                <!-- Comentario Destacado -->
-                <ion-col size="12" class="highlighted-comment" (click)="viewPostDetails(post)" id="comentarios">
-                    <div class="comment-container">
-                        <ion-avatar *ngIf="post.avatarcomment">
-                            <img [src]="post.avatarcomment" fill/>
-                        </ion-avatar>
-                        <span class="comment">
-      <b>{{ post.nicknamecomment }}</b> {{ post.firstcomment }}
-    </span>
-                    </div>
-                </ion-col>
-            </ion-row>
-        </div>
-    </ion-grid>
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button  id="publicar" class="custom-fab-button" (click)="openAddPostModal()">
-            <ion-icon name="add" class="custom-fab-icon"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
+  <!-- Botón para crear nuevo post -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button id="publicar" class="custom-fab-button" (click)="openAddPostModal()">
+      <ion-icon name="add" class="custom-fab-icon"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
-
-

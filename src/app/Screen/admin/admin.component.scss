@@ -1,11 +1,77 @@
-.admin_footer {
-  --background-color: #cb2ad5;
-  //#002b36
-}
-.ion-text-size{
-    font-size: 150%;
+/* --------- Layout General --------- */
+.page-container {
+  height: 92%; /* reemplaza tu inline style="height: 92%" */
+  background-color: #002b36;
 }
 
+/* Color de fondo general de tabs, toolbars, etc. */
+ion-tabs,
+ion-tab-bar,
+ion-toolbar {
+  --background: #002b36; /* FONDO SOLARIZED DARK */
+}
+
+/* Ajusta la fuente y color de texto global */
+ion-content,
+ion-list,
+.example-content,
+ion-label,
+h1,
+span,
+.ion-text-size {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #eaeaea; /* Texto claro */
+}
+
+/* Títulos */
+ion-title h1 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #eaeaea;
+}
+
+/* Ajuste del tamaño de letra en tabs (si deseas) */
+.ion-text-size {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* ---------- Estilos de Items y Listas ---------- */
+
+/* Quita márgenes/padding extra */
+.ion-no-padding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Fondo de la lista */
+ion-list {
+  background-color: #002b36;
+}
+
+/* Cada ítem en la lista */
+ion-item.item_list {
+  --background: #073642; /* Un tono ligeramente distinto para resaltar */
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  /* Pequeña sombra para destacar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  /* Animación sutil al hacer clic */
+  transition: transform 0.1s ease;
+}
+
+ion-item.item_list:hover {
+  transform: scale(1.01);
+}
+
+/* Avatar */
+ion-avatar img {
+  border-radius: 50%;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Información de cada reporte ---------- */
 .report-info {
   display: flex;
   flex-direction: column;
@@ -22,9 +88,16 @@
 
 .report-reason {
   font-size: 0.9rem;
-  color: #ccc;
+  color: #b3b3b3;
 }
 
+/* Checkbox deshabilitado con color personalizado */
+ion-checkbox[disabled] {
+  --background: #b3b3b3;
+  --checkmark-color: #b3b3b3;
+}
+
+/* ---------- Icono extra (check o advertencia) ---------- */
 .icon-container {
   display: flex;
   align-items: center;
@@ -32,4 +105,34 @@
   min-width: 30px;
 }
 
+.icon-container svg {
+  width: 24px;
+  height: 24px;
+  fill: #fff; /* o un color de acento si lo prefieres */
+}
 
+/* ---------- Tab Bar ---------- */
+ion-tab-bar {
+  --border: none; /* Quita la línea superior si quieres */
+}
+
+/* Botones de tab */
+ion-tab-button {
+  --color: #eaeaea;         /* color texto sin activar */
+  --color-selected: #2aa198; /* color texto al estar activo */
+  --ripple-color: #2aa198;   /* efecto de clic */
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .ion-text-size {
+    font-size: 1rem;
+  }
+  ion-title h1 {
+    font-size: 1rem;
+  }
+}
+
+#uwu {
+  background: #d54d4d;
+}

@@ -1,48 +1,55 @@
 <ion-content fullscreen>
-    <ion-grid class="chat-container ion-no-padding">
-        <!-- Encabezado del chat -->
-        <ion-row class="chat-header movil">
-            <ion-col size="1" class="icon-back">
-                <ion-icon name="arrow-back-outline"></ion-icon>
-            </ion-col>
-            <ion-col size="1" class="chat-avatar">
-                <ion-avatar>
-                    <img style="width: 150%; height: 70%; margin: 20%" src="../../../assets/img/ai.png" alt="powerzone"/>
-                </ion-avatar>
-            </ion-col>
-            <ion-col size="10" class="chat-user-info">
-                <h4 style="margin-left: 20%">POWERZONE IA</h4>
-            </ion-col>
-        </ion-row>
+  <ion-grid class="chat-container ion-no-padding">
+    <!-- Encabezado del chat -->
+    <ion-row class="chat-header movil">
+      <ion-col size="1" class="icon-back">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-col>
+      <ion-col size="1" class="chat-avatar">
+        <ion-icon name="logo-ionitron"></ion-icon>
+      </ion-col>
+      <ion-col size="10" class="chat-user-info">
+        <h4>POWERZONE IA</h4>
+      </ion-col>
+    </ion-row>
 
-        <!-- Mensajes -->
-        <ion-row class="chat-messages">
-            <ion-col>
-                <div class="message-list">
-                    <div *ngFor="let msg of messages" [class.user]="msg.isUser" [class.bot]="!msg.isUser" class="message">
-                        <span [innerHTML]="msg.text | bold"></span>
-                    </div>
+    <!-- Mensajes -->
+    <ion-row class="chat-messages">
+      <ion-col>
+        <div class="message-list">
+          <div
+            *ngFor="let msg of messages"
+            [class.user]="msg.isUser"
+            [class.bot]="!msg.isUser"
+            class="message"
+          >
+            <span [innerHTML]="msg.text | bold"></span>
+          </div>
 
-                    <!-- Animación de "escribiendo" -->
-                    <div *ngIf="isTyping" class="message bot typing-animation">
-                        <span>Escribiendo...</span>
-                        <ion-spinner name="dots" color="primary"></ion-spinner>
-                    </div>
-                </div>
-            </ion-col>
-        </ion-row>
+          <!-- Animación de "escribiendo" -->
+          <div *ngIf="isTyping" class="message bot typing-animation">
+            <span>Escribiendo...</span>
+            <ion-spinner name="dots" color="primary"></ion-spinner>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
 
-        <!-- Input de texto -->
-        <ion-row class="chat-input-row">
-            <ion-col size="10">
-                <ion-input style="color: black" placeholder=" Escriba un mensaje..." [(ngModel)]="messageText" (keyup.enter)="sendMessage()"></ion-input>
-            </ion-col>
-            <ion-col size="2" class="send-icon">
-                <ion-icon name="send"></ion-icon>
-                <ion-button (click)="sendMessage()">
-                    <ion-icon name="send-sharp" style="color: white"></ion-icon>
-                </ion-button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+    <!-- Input de texto -->
+    <ion-row class="chat-input-row">
+      <ion-col size="10">
+        <ion-input
+          style="color: white"
+          placeholder=" Escriba un mensaje..."
+          [(ngModel)]="messageText"
+          (keyup.enter)="sendMessage()"
+        ></ion-input>
+      </ion-col>
+      <ion-col size="2" class="send-icon">
+        <button (click)="sendMessage()">
+          <span>Enviar</span>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
