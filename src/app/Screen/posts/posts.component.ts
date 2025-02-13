@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import { IonicModule, ModalController, ModalOptions, ToastController } from '@ionic/angular';
 import { CommonModule, NgForOf } from '@angular/common';
 import {NavigationEnd, Router} from '@angular/router';
@@ -38,7 +38,7 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 export class PostsComponent implements OnInit {
 
     posts: PostDto[] = [];
-
+    selectedFilter: string = 'recientes';
 
     isOpen = false;
     reportReason:string= "";
@@ -67,12 +67,13 @@ export class PostsComponent implements OnInit {
         this.startTutorialIfNeeded();
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
-                this.loadFollowedPosts();
+                this.loadPosts();
             }
         });
     }
 
     // Esta función se llama al hacer click en el ícono y abre el popover correspondiente
+
     presentPopover(index: number, ev: Event, post: any) {
       this.openPopoverIndex = index;
       // Si necesitas usar el evento (ev) o el post para otra lógica, agrégala aquí.
@@ -315,7 +316,7 @@ export class PostsComponent implements OnInit {
                     console.log(`Saved post: ${postId}`);
                     post.saved = true;
                     const toast = await this.toastController.create({
-                        message: 'Post guardado correctament',
+                        message: 'Post guardado correctamente',
                         color: 'success',
                         duration: 2000,
                         position: 'top',
@@ -373,6 +374,7 @@ export class PostsComponent implements OnInit {
 
     this.postService.getFollowedPosts(token).subscribe(
       (followedPosts) => {
+        console.log('Followed Posts:', followedPosts);
         const postIds = new Set<number>();
 
         // Filtramos los posts seguidos y guardamos sus IDs
@@ -385,37 +387,111 @@ export class PostsComponent implements OnInit {
           return false;
         });
 
-        this.postService.getAllPosts(token).subscribe(
-          (allPosts) => {
-            // Filtrar los posts que no están en los seguidos
-            const uniqueOtherPosts = allPosts.filter(post => {
-              const postId = post.post?.id;
-              return postId !== undefined && !postIds.has(postId);
-            });
-
-            // Concatenar sin duplicados
-            this.posts = [...this.posts, ...uniqueOtherPosts];
-
-            // Llamadas para verificar likes y guardados
-            this.posts.forEach(post => {
-              const postId = post.post?.id;
-              if (postId !== undefined) {
-                this.postService.hasLikedPost(token, postId).subscribe(
-                  (hasLiked) => post.liked = hasLiked,
-                  (error) => console.error(`Error checking like status for post ${postId}:`, error)
-                );
-                this.postService.hasSavedPost(token, postId).subscribe(
-                  (hasSaved) => post.saved = hasSaved,
-                  (error) => console.error(`Error checking save status for post ${postId}:`, error)
-                );
-              }
-            });
-          },
-          (error) => console.error('Error loading all posts:', error)
-        );
+        // Llamadas para verificar likes y guardados
+        this.posts.forEach(post => {
+          const postId = post.post?.id;
+          if (postId !== undefined) {
+            this.postService.hasLikedPost(token, postId).subscribe(
+              (hasLiked) => post.liked = hasLiked,
+              (error) => console.error(`Error checking like status for post ${postId}:`, error)
+            );
+            this.postService.hasSavedPost(token, postId).subscribe(
+              (hasSaved) => post.saved = hasSaved,
+              (error) => console.error(`Error checking save status for post ${postId}:`, error)
+            );
+          }
+        });
       },
       (error) => console.error('Error loading followed posts:', error)
     );
   }
 
+  loadMostLikedPosts(): void {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in session storage');
+      return;
+    }
+
+    this.postService.getPostsWithMostLikes(token).subscribe(
+      (mostLikedPosts) => {
+        console.log('Most Liked Posts:', mostLikedPosts);
+        this.posts = mostLikedPosts;
+        this.posts.forEach(post => {
+          const postId = post.post?.id;
+          if (postId !== undefined) {
+            this.postService.hasLikedPost(token, postId).subscribe(
+              (hasLiked) => post.liked = hasLiked,
+              (error) => console.error(`Error checking like status for post ${postId}:`, error)
+            );
+            this.postService.hasSavedPost(token, postId).subscribe(
+              (hasSaved) => post.saved = hasSaved,
+              (error) => console.error(`Error checking save status for post ${postId}:`, error)
+            );
+          }
+        });
+      },
+      (error) => console.error('Error loading most liked posts:', error)
+    );
+  }
+
+
+  loadMostCommentedPosts(): void {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in session storage');
+      return;
+    }
+
+    this.postService.getPostsWithMostComments(token).subscribe(
+      (mostCommentedPosts) => {
+        console.log('Most Commented Posts:', mostCommentedPosts);
+        this.posts = mostCommentedPosts;
+        this.posts.forEach(post => {
+          const postId = post.post?.id;
+          if (postId !== undefined) {
+            this.postService.hasLikedPost(token, postId).subscribe(
+              (hasLiked) => post.liked = hasLiked,
+              (error) => console.error(`Error checking like status for post ${postId}:`, error)
+            );
+            this.postService.hasSavedPost(token, postId).subscribe(
+              (hasSaved) => post.saved = hasSaved,
+              (error) => console.error(`Error checking save status for post ${postId}:`, error)
+            );
+          }
+        });
+      },
+      (error) => console.error('Error loading most commented posts:', error)
+    );
+  }
+  onFilterChange(): void {
+    console.log('Filtro cambiado a:', this.selectedFilter);
+    this.loadPosts();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedFilter'] && !changes['selectedFilter'].isFirstChange()) {
+      this.loadPosts();
+    }
+  }
+
+  loadPosts(): void {
+    switch (this.selectedFilter) {
+      case 'recientes':
+        this.loadAllPosts();
+        break;
+      case 'mas-gustados':
+        this.loadMostLikedPosts();
+        break;
+      case 'mas-hablados':
+        this.loadMostCommentedPosts();
+        break;
+      case 'seguidores':
+        this.loadFollowedPosts();
+        break;
+      default:
+        this.loadAllPosts();
+        break;
+    }
+  }
 }

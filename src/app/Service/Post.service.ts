@@ -32,6 +32,13 @@ export class PostService {
     getFollowedPosts(token: string): Observable<PostDto[]> {
         return this.http.get<PostDto[]>(`${this.apiUrl}/followed`, { headers: this.getHeaders(token) });
     }
+    getPostsWithMostLikes(token: string): Observable<PostDto[]> {
+      return this.http.get<PostDto[]>(`${this.apiUrl}/most-liked`, { headers: this.getHeaders(token) });
+    }
+
+    getPostsWithMostComments(token: string): Observable<PostDto[]> {
+      return this.http.get<PostDto[]>(`${this.apiUrl}/most-commented`, { headers: this.getHeaders(token) });
+    }
 
     reportPost(postId: number, reason: string): Observable<void> {
       const token = sessionStorage.getItem('token') || '';
@@ -52,9 +59,7 @@ export class PostService {
     getAllPosts(token: string): Observable<PostDto[]> {
         return this.http.get<PostDto[]>(`${this.apiUrl}/all`, { headers: this.getHeaders(token) });
     }
-    getBestPosts(token: string): Observable<PostDto[]> {
-        return this.http.get<PostDto[]>(`${this.apiUrl}/best`, { headers: this.getHeaders(token) });
-    }
+
     getUserPostsById(token: string, userId: string): Observable<PostDto[]> {
         const headers = this.getHeaders(token);
         return this.http.get<PostDto[]>(`${this.apiUrl}/userposts/${userId}`, { headers });

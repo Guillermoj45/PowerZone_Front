@@ -12,4 +12,5 @@ export class PostDto {
     firstcomment?: string;
     liked?: boolean;
     saved?: boolean;
+    createdAt?: Date;
 }

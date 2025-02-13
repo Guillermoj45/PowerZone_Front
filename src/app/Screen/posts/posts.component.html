@@ -1,8 +1,17 @@
 <ion-content class="custom-scroll" id="pantallaPosts">
   <ion-grid class="ion-no-padding post-container movil">
     <div class="scroll-container" id="posts">
-
-           <ion-row *ngFor="let post of posts; let i = index" class="post">
+      <ion-list class="post-list">
+        <ion-item class="post-list-item">
+          <ion-select aria-label="Post Filter" [(ngModel)]="selectedFilter" (ionChange)="onFilterChange()">
+            <ion-select-option value="recientes">Recientes</ion-select-option>
+            <ion-select-option value="mas-gustados">Más Gustados</ion-select-option>
+            <ion-select-option value="mas-hablados">Más Hablados</ion-select-option>
+            <ion-select-option value="seguidores">Seguidores</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <ion-row *ngFor="let post of posts; let i = index" class="post">
         <ion-col class="user-info" size="12" style="display: flex; justify-content: space-between; align-items: center;">
           <!-- Contenedor izquierdo: Avatar y Nombre de usuario -->
             <div style="display: flex; align-items: center;">
@@ -12,6 +21,9 @@
                 </ion-avatar>
               </ion-button>
                 <span class="username">{{ post.nickname }}</span>
+              <span class="post-date">
+              {{ post.post?.createdAt | date:'dd/MM/yyyy HH:mm' }}
+                </span>
             </div>
           <!-- Icono alineado a la derecha con evento de click -->
           <ion-icon name="ellipsis-horizontal" class="more-button" (click)="presentPopover(i, $event, post)"></ion-icon>
