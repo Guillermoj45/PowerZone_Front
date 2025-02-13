@@ -151,3 +151,11 @@ ion-content::part(scroll)::-webkit-scrollbar {
 .custom-fab-icon {
     color: white;
 }
+
+:host ::ng-deep .hashtag {
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+

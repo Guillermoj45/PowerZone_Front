@@ -21,6 +21,7 @@ import {FormsModule} from "@angular/forms";
 import {AdminService} from "../../Service/Admin.service";
 import {TutorialService} from "../../Service/tutorial.service";
 import {NewPostComponent} from "../new-post/new-post.component";
+import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-posts',
@@ -52,7 +53,8 @@ export class PostsComponent implements OnInit {
         private toastController: ToastController,
         private profile : ProfileService,
         private adminService: AdminService,
-        private tutorialService: TutorialService
+        private tutorialService: TutorialService,
+        private sanitizer: DomSanitizer
       ) {
         addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline, ellipsisHorizontal, start, trash, exitOutline });
     }
@@ -76,8 +78,13 @@ export class PostsComponent implements OnInit {
       this.openPopoverIndex = index;
       // Si necesitas usar el evento (ev) o el post para otra lógica, agrégala aquí.
     }
+  highlightHashtags(text: string | undefined): SafeHtml {
+    if (!text) return ''; // Evita errores con undefined
+    const replacedText = text.replace(/#(\w+)/g, '<span class="hashtag">#$1</span>');
+    return this.sanitizer.bypassSecurityTrustHtml(replacedText);
+  }
 
-    deletePost(post: PostDto, state: string) {
+  deletePost(post: PostDto, state: string) {
 
       this.adminService.putWarning(post.post!.id!, state).subscribe({
         next: () => {

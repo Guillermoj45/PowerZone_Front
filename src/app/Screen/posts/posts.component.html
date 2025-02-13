@@ -59,11 +59,9 @@
 
 
                 <!-- Descripción -->
-                <ion-col size="12" class="post-description">
-                    {{ post.post?.content }}
-                </ion-col>
-
-                <!-- Acciones del PostDetails -->
+             <ion-col size="12" class="post-description" [innerHTML]="highlightHashtags(post.post?.content)">
+             </ion-col>
+             <!-- Acciones del PostDetails -->
                 <ion-col size="12" class="post-actions">
                     <ion-button (click)="likePost(post)" fill="clear" class="action-button" id="like-button">
                         <ion-icon [name]="post.liked ? 'heart' : 'heart-outline'"></ion-icon>
