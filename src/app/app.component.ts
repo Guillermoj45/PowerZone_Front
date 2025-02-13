@@ -9,7 +9,7 @@ import { MenuoriginalComponent } from "./Screen/menuoriginal/menuoriginal.compon
 import { FooterComponent } from "./Screen/footer/footer.component";
 import { Menu } from "./Service/Menu.service";
 import { addIcons } from "ionicons";
-import { settingsSharp } from "ionicons/icons";
+import {logoIonitron, settingsSharp} from "ionicons/icons";
 import { NewPostComponent } from "./Screen/new-post/new-post.component";
 import { TutorialService } from "./Service/tutorial.service";
 
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private tutorialService: TutorialService,
     private route: ActivatedRoute,
   ) {
-    addIcons({settingsSharp});
+    addIcons({settingsSharp, logoIonitron});
   }
 
   @HostListener("window:resize", ["$event"])
