@@ -3,9 +3,11 @@
         <div class="scroll-container">
             <ion-row *ngFor="let post of savedPosts" class="post">
                 <ion-col size="12" class="user-info">
+                  <ion-button fill="clear" (click)="navigateToProfile(post.post?.id)" style="padding: 0;">
                     <ion-avatar>
                         <img alt="Imagen perfil" [src]="post.avatar" />
                     </ion-avatar>
+                  </ion-button>
                     <span class="username">{{ post.nickname }}</span>
                 </ion-col>
 

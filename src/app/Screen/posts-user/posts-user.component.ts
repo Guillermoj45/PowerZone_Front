@@ -229,4 +229,25 @@ export class PostsUserComponent implements OnInit, AfterViewInit {
         });
         await toast.present();
     }
+  navigateToProfile(postId: number | undefined) {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in session storage');
+      return;
+    }
+
+    if (postId === undefined) {
+      console.error('Post ID not found');
+      return;
+    }
+
+    this.postService.getUserIdByPostId(token, postId).subscribe(
+      (userId) => {
+        this.router.navigate([`/profile/${userId}`]);
+      },
+      (error) => {
+        console.error('Error fetching user ID:', error);
+      }
+    );
+  }
 }

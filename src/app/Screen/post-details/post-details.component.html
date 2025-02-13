@@ -6,9 +6,11 @@
                 <ion-col size="12" class="user-info">
 
                     <div style="display: flex; align-items: center;">
-                        <ion-avatar style="margin-right: 20px;">
+                      <ion-button fill="clear" (click)="navigateToProfile(post.post?.id)" style="padding: 0;">
+                        <ion-avatar >
                             <img [src]="post.avatar" />
                         </ion-avatar>
+                      </ion-button>
                       <span class="username">{{ post.nickname }}</span>
                     </div>
                     <!-- Icono alineado a la derecha con evento de click -->
