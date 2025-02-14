@@ -1,13 +1,14 @@
 <ion-content class="custom-scroll" id="pantallaPosts">
   <ion-grid class="ion-no-padding post-container movil">
     <div class="scroll-container" id="posts">
+      <!-- Lista de Filtros -->
       <ion-list class="post-list">
         <ion-item class="post-list-item">
           <ion-select aria-label="Post Filter" [(ngModel)]="selectedFilter" (ionChange)="onFilterChange()">
             <ion-select-option value="recientes">Recientes</ion-select-option>
             <ion-select-option value="mas-gustados">Más Gustados</ion-select-option>
-            <ion-select-option value="mas-hablados">Más Hablados</ion-select-option>
-            <ion-select-option value="seguidores">Seguidores</ion-select-option>
+            <ion-select-option value="mas-hablados">Más Comentados</ion-select-option>
+            <ion-select-option value="seguidores">Tus Seguidores</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-list>
@@ -21,9 +22,6 @@
               </ion-avatar>
             </ion-button>
             <span class="username">{{ post.nickname }}</span>
-            <span class="post-date">
-              {{ post.post?.createdAt | date:'dd/MM/yyyy HH:mm' }}
-                </span>
           </div>
           <!-- Icono alineado a la derecha con evento de click -->
           <ion-icon name="ellipsis-horizontal" class="more-button" (click)="presentPopover(i, $event, post)"></ion-icon>
@@ -97,17 +95,23 @@
         <!-- Comentario Destacado -->
         <ion-col size="12" class="highlighted-comment" (click)="viewPostDetails(post)" id="comentarios">
           <div class="comment-container">
-            <ion-avatar *ngIf="post.avatarcomment">
-              <img [src]="post.avatarcomment" fill/>
+
+            <ion-avatar
+              *ngIf="post.avatarcomment && post.avatarcomment.trim().length > 0"
+            >
+              <img [src]="post.avatarcomment" />
             </ion-avatar>
             <span class="comment">
       <b>{{ post.nicknamecomment }}</b> {{ post.firstcomment }}
     </span>
           </div>
         </ion-col>
+        <span class="post-date">{{ post.post?.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
       </ion-row>
     </div>
   </ion-grid>
+
+  <!-- Botón para crear nuevo post -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button  id="publicar" class="custom-fab-button" (click)="openAddPostModal()">
       <ion-icon name="add" class="custom-fab-icon"></ion-icon>
