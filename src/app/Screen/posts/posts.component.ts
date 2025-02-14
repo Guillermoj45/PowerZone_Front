@@ -352,46 +352,6 @@ export class PostsComponent implements OnInit {
         });
         await toast.present();
     }
-  loadFollowedPosts(): void {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      console.error('No token found in session storage');
-      return;
-    }
-
-    this.postService.getFollowedPosts(token).subscribe(
-      (followedPosts) => {
-        console.log('Followed Posts:', followedPosts);
-        const postIds = new Set<number>();
-
-        // Filtramos los posts seguidos y guardamos sus IDs
-        this.posts = followedPosts.filter(post => {
-          const postId = post.post?.id;
-          if (postId !== undefined && !postIds.has(postId)) {
-            postIds.add(postId);
-            return true;
-          }
-          return false;
-        });
-
-        // Llamadas para verificar likes y guardados
-        this.posts.forEach(post => {
-          const postId = post.post?.id;
-          if (postId !== undefined) {
-            this.postService.hasLikedPost(token, postId).subscribe(
-              (hasLiked) => post.liked = hasLiked,
-              (error) => console.error(`Error checking like status for post ${postId}:`, error)
-            );
-            this.postService.hasSavedPost(token, postId).subscribe(
-              (hasSaved) => post.saved = hasSaved,
-              (error) => console.error(`Error checking save status for post ${postId}:`, error)
-            );
-          }
-        });
-      },
-      (error) => console.error('Error loading followed posts:', error)
-    );
-  }
 
   loadMostLikedPosts(): void {
     const token = sessionStorage.getItem('token');
@@ -403,7 +363,15 @@ export class PostsComponent implements OnInit {
     this.postService.getPostsWithMostLikes(token).subscribe(
       (mostLikedPosts) => {
         console.log('Most Liked Posts:', mostLikedPosts);
-        this.posts = mostLikedPosts;
+        const postIds = new Set<number>();
+        this.posts = mostLikedPosts.filter(post => {
+          const postId = post.post?.id;
+          if (postId !== undefined && !postIds.has(postId)) {
+            postIds.add(postId);
+            return true;
+          }
+          return false;
+        });
         this.posts.forEach(post => {
           const postId = post.post?.id;
           if (postId !== undefined) {
@@ -422,7 +390,6 @@ export class PostsComponent implements OnInit {
     );
   }
 
-
   loadMostCommentedPosts(): void {
     const token = sessionStorage.getItem('token');
     if (!token) {
@@ -433,7 +400,15 @@ export class PostsComponent implements OnInit {
     this.postService.getPostsWithMostComments(token).subscribe(
       (mostCommentedPosts) => {
         console.log('Most Commented Posts:', mostCommentedPosts);
-        this.posts = mostCommentedPosts;
+        const postIds = new Set<number>();
+        this.posts = mostCommentedPosts.filter(post => {
+          const postId = post.post?.id;
+          if (postId !== undefined && !postIds.has(postId)) {
+            postIds.add(postId);
+            return true;
+          }
+          return false;
+        });
         this.posts.forEach(post => {
           const postId = post.post?.id;
           if (postId !== undefined) {
@@ -449,6 +424,43 @@ export class PostsComponent implements OnInit {
         });
       },
       (error) => console.error('Error loading most commented posts:', error)
+    );
+  }
+
+  loadFollowedPosts(): void {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in session storage');
+      return;
+    }
+
+    this.postService.getFollowedPosts(token).subscribe(
+      (followedPosts) => {
+        console.log('Followed Posts:', followedPosts);
+        const postIds = new Set<number>();
+        this.posts = followedPosts.filter(post => {
+          const postId = post.post?.id;
+          if (postId !== undefined && !postIds.has(postId)) {
+            postIds.add(postId);
+            return true;
+          }
+          return false;
+        });
+        this.posts.forEach(post => {
+          const postId = post.post?.id;
+          if (postId !== undefined) {
+            this.postService.hasLikedPost(token, postId).subscribe(
+              (hasLiked) => post.liked = hasLiked,
+              (error) => console.error(`Error checking like status for post ${postId}:`, error)
+            );
+            this.postService.hasSavedPost(token, postId).subscribe(
+              (hasSaved) => post.saved = hasSaved,
+              (error) => console.error(`Error checking save status for post ${postId}:`, error)
+            );
+          }
+        });
+      },
+      (error) => console.error('Error loading followed posts:', error)
     );
   }
   onFilterChange(): void {
