@@ -11,7 +11,7 @@ import { Menu } from "./Service/Menu.service";
 import { addIcons } from "ionicons";
 import {logoIonitron, settingsSharp} from "ionicons/icons";
 import { NewPostComponent } from "./Screen/new-post/new-post.component";
-import { TutorialService } from "./Service/tutorial.service";
+import {WebsocketServiceNotification} from "./Service/WebSocketNotification";
 
 @Component({
   selector: "app-root",
@@ -40,8 +40,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     private menuService: Menu,
     private modalController: ModalController,
-    private tutorialService: TutorialService,
     private route: ActivatedRoute,
+    private webSocketNotificationService: WebsocketServiceNotification
   ) {
     addIcons({settingsSharp, logoIonitron});
   }
@@ -59,6 +59,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.webSocketNotificationService.connectToNotification();
     // Configuración inicial basada en el tamaño de pantalla
     this.updateViewBasedOnScreenSize();
     this.menuService.useAlternateMenu$.subscribe((useAlternateMenu) => {
