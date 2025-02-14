@@ -3,7 +3,7 @@ import { IonicModule, ToastController } from '@ionic/angular';
 import { ProfileSettingsService } from "../../Service/profile-settings.service";
 import { ProfileSetting } from "../../Models/ProfileSetting";
 import { FormsModule } from "@angular/forms";
-import { CommonModule } from '@angular/common';
+import {CommonModule, formatDate} from '@angular/common';
 import { addIcons } from 'ionicons';
 import { colorWandOutline } from 'ionicons/icons';
 
@@ -35,13 +35,17 @@ export class SettingsComponent implements OnInit {
         const token = sessionStorage.getItem('token');
         if (token) {
             this.profileSettings.getData(token).subscribe((data: ProfileSetting) => {
+                if (data.bornDate) {
+                    data.bornDate = formatDate(data.bornDate, 'dd/MM/yyyy', 'en');
+                }
                 this.profile = data;
-                this.originalProfile = { ...data }; // Guardamos una copia del perfil original
+                this.originalProfile = { ...data };
             });
         } else {
             console.error('Token is null');
         }
     }
+
     @ViewChild('fileInput') fileInput!: ElementRef;
 
     triggerFileInput() {
@@ -49,6 +53,11 @@ export class SettingsComponent implements OnInit {
     }
 
     async updateProfile() {
+
+        if (this.profile.bornDate) {
+            this.profile.bornDate = formatDate(this.profile.bornDate, 'dd/MM/yyyy', 'en');
+        }
+
         const isModified =
             this.profile.nickName !== this.originalProfile.nickName ||
             this.profile.name !== this.originalProfile.name ||
