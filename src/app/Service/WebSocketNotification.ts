@@ -2,11 +2,8 @@ import { Injectable } from '@angular/core';
 import { Client } from '@stomp/stompjs';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ChatMessage } from '../Models/ChatMessage';
-import {HttpClient} from "@angular/common/http";
 import {ProfileService} from "./profile.service";
-import {Profile} from "../Models/Profile";
 import {ProfileTotal} from "../Models/ProfileTotal";
-import {NotificationService} from "./NotificationService";
 import {MegaNotification} from "../Models/MegaNotification";
 
 @Injectable({
