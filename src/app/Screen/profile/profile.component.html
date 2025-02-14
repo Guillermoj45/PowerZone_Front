@@ -5,9 +5,9 @@
             <ion-row class="movil" style="justify-content: center; margin-bottom: 10px">
                 <ion-col style="display: flex; align-items: center">
                     <ion-avatar>
-                        <img alt="Imagen perfil" [src]="profile.avatar || 'https://picsum.photos/800/400?random=1'" />
+                        <img alt="Imagen perfil" [src]="profile.avatar "/>
                     </ion-avatar>
-                    <ion-text style="padding-left: 7%">{{ profile.nickName || profile.name }}</ion-text>
+                    <ion-text style="padding-left: 7%">{{ profile.nickname || profile.name }}</ion-text>
                 </ion-col>
             </ion-row>
 
@@ -15,13 +15,13 @@
             <ion-row class="stats">
                 <ion-col>
                     <div class="text-center">
-                        <ion-text class="info_num">0</ion-text>
+                        <ion-text class="info_num">{{ profile.followers }}</ion-text>
                         <ion-text>Seguidores</ion-text>
                     </div>
                 </ion-col>
                 <ion-col>
                     <div class="text-center">
-                        <ion-text class="info_num">0</ion-text>
+                        <ion-text class="info_num">{{ profile.following }}</ion-text>
                         <ion-text>Seguidos</ion-text>
                     </div>
                 </ion-col>
@@ -37,25 +37,34 @@
             <ion-row style="margin: 2% 5%">
                 <ion-col size="5">
                     <div *ngIf="showButton">
-                        <ion-button>
-                            <ion-icon style="margin-right: 5%" name="person-add-outline"></ion-icon>Seguir
+                        <ion-button (click)="toggleFollow()">
+                            <ion-icon style="margin-right: 5%"
+                                      [name]="isFollowing ? 'person-remove-outline' : 'person-add-outline'"></ion-icon>
+                            {{ isFollowing ? 'Dejar de seguir' : 'Seguir' }}
                         </ion-button>
                     </div>
                     <div *ngIf="!showButton">
-                        <ion-button routerLink="/settings">
-                            <ion-icon style="margin-right: 5%" name="person-add-outline"></ion-icon>
-                            Ajustes de perfil
+                        <ion-button (click)="navigateTo('/post-save')">
+                            <ion-icon style="margin-right: 5%" name="bookmark"></ion-icon>
+                            Post guardados
                         </ion-button>
                     </div>
 
                 </ion-col>
                 <ion-col size="2"></ion-col>
                 <ion-col size="5">
-                    <ion-button (click)="navigateTo('/chat')">
-                        Enviar un mensaje
-                        <ion-icon style="margin-left: 5%" name="send-sharp"></ion-icon>
+                    <ion-button *ngIf="isOwnProfile; else sendMessage" (click)="navigateTo('/settings')">
+                        Ajustes del perfil
+                        <ion-icon style="margin-left: 5%; margin-right: 4.5%" name="settings-outline" slot="start"></ion-icon>
                     </ion-button>
+                    <ng-template #sendMessage>
+                        <ion-button (click)="navigateTo('/chat')">
+                            Enviar un mensaje
+                            <ion-icon style="margin-left: 5%" name="send-sharp"></ion-icon>
+                        </ion-button>
+                    </ng-template>
                 </ion-col>
+
             </ion-row>
         </ion-grid>
     </div>
@@ -65,11 +74,11 @@
     </div>
 
     <!-- Imagenes del grid -->
-    <div class="image-grid" *ngIf="posts.length > 0">
-        <img *ngFor="let post of posts; let i = index"
-             (click)="navigateTo('post-details/{{post.id}}')"
-             [src]="'https://picsum.photos/100/100?random=' + i"
-             alt="Imagen {{ i }}" />
+    <div class="image-grid" *ngIf="postImages.length > 0">
+        <img *ngFor="let image of postImages; let i = index"
+             (click)="navigateToPost(profile.id)"
+             [src]="image || 'https://picsum.photos/200/300?random=2'"
+             alt="Imagen {{ i }}"/>
     </div>
 
 

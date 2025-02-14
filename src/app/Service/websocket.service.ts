@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Client } from '@stomp/stompjs';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ChatMessage } from '../Models/ChatMessage';
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root',
@@ -10,7 +11,7 @@ export class WebsocketService {
     private stompClient!: Client;
     private messageSubject: BehaviorSubject<ChatMessage[]> = new BehaviorSubject<ChatMessage[]>([]); // Lista de mensajes
 
-    constructor() {}
+    constructor(private http: HttpClient) {}
 
     connect(roomId: string) {
         const webSocketUrl = `ws://localhost:8080/ws-native`; // URL del servidor WebSocket nativo
@@ -24,7 +25,7 @@ export class WebsocketService {
                     try {
                         const chatMessage: ChatMessage = JSON.parse(message.body);
                         const currentMessages = this.messageSubject.getValue(); // Obtener los mensajes actuales
-                        this.messageSubject.next([...currentMessages, chatMessage]); // Emitir nuevos mensajes
+                        this.messageSubject.next([chatMessage]); // Emitir nuevos mensajes
                     } catch (error) {
                         console.error('Error al procesar el mensaje recibido:', error);
                     }
@@ -52,6 +53,56 @@ export class WebsocketService {
 
     getMessageObservable(): Observable<ChatMessage[]> {
         return this.messageSubject.asObservable();
+    }
+
+    getUserGroups(): Observable<any> {
+        const url = `/api/messages/info`; // URL del endpoint en el backend
+        const token = sessionStorage.getItem('token');
+        console.log('Token obtenido:', token); // Muestra el token en la consola
+        const headers = { Authorization: `Bearer ${token}` }; // Añade el token del usuario
+        return this.http.get<any>(url, { headers });
+    }
+
+    // Método para obtener los perfiles seguidos
+    getFollowingProfiles(): Observable<any> {
+        const url = `/api/profile/following`; // URL del endpoint para obtener los perfiles seguidos
+        const token = sessionStorage.getItem('token'); // Obtiene el token de la sessionStorage
+        if (!token) {
+            return new Observable(observer => {
+                observer.error('Token no encontrado');
+            });
+        }
+        console.log('Token obtenido:', token); // Muestra el token en la consola
+        const headers = { Authorization: `Bearer ${token}` }; // Añade el token del usuario
+
+        return this.http.get<any>(url, { headers }); // Llama al endpoint del backend
+    }
+
+    createGroup(groupName: { name: string }): Observable<any> {
+        const url = `/api/messages/create`; // Endpoint del backend
+        const token = sessionStorage.getItem('token'); // Obtiene el token si es necesario
+        const headers = { Authorization: `Bearer ${token}` };
+        const body = { name: groupName.name }; // Envía solo el nombre del grupo
+
+        return this.http.post<any>(url, body, { headers });
+    }
+
+    addUsersToGroup(groupId: number, userIds: number[]): Observable<any> {
+        const url = `/api/messages/addUsersToGroup`; // Endpoint del backend
+        const token = sessionStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
+        const params = { groupId }; // Solo enviamos el groupId como parámetro
+        const body = userIds; // Lista de IDs de usuarios en el cuerpo de la solicitud
+
+        return this.http.post<any>(url, body, { headers, params });
+    }
+
+    getMessagesByGroup(groupId: number): Observable<ChatMessage[]> {
+        const url = `/api/messages/group/${groupId}`; // Endpoint del backend
+        const token = sessionStorage.getItem('token'); // Obtiene el token de sesión
+        const headers = { Authorization: `Bearer ${token}` }; // Incluye el token en los headers
+
+        return this.http.get<ChatMessage[]>(url, { headers });
     }
 
     disconnect() {

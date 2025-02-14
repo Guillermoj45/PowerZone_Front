@@ -4,13 +4,14 @@ import { addIcons } from 'ionicons';
 import { close, send } from 'ionicons/icons';
 import { FormsModule } from '@angular/forms';
 import { CommentService } from '../../Service/Comment.service';
+
 @Component({
     selector: 'app-new-comment',
     templateUrl: './new-comment.component.html',
     styleUrls: ['./new-comment.component.scss'],
     imports: [
         IonicModule,
-        FormsModule
+        FormsModule,
     ],
     standalone: true
 })
@@ -24,17 +25,16 @@ export class NewCommentComponent {
 
     dismiss() {
         this.modalController.dismiss();
-        window.location.reload();
     }
 
     submitComment() {
         const token = sessionStorage.getItem('token');
         if (!token) {
-            console.error('No token found in session storage');
+            console.error('No se ha encontrado el token');
             return;
         }
         if (!this.postId) {
-            console.error('Post ID is not defined');
+            console.error('El post no tiene un ID definido');
             return;
         }
         console.log('Creating comment:', this.commentContent);

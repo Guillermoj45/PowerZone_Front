@@ -1,22 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { CarrouselComponent } from "../../Component/carrousel/carrousel.component";
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
-import {
-    IonButton,
-    IonCol,
-    IonContent,
-    IonGrid,
-    IonImg,
-    IonInput,
-    IonInputPasswordToggle,
-    IonItem,
-    IonRow,
-    IonText
-} from "@ionic/angular/standalone";
-import { Router, RouterLink } from "@angular/router";
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IonButton, IonCol, IonContent, IonGrid, IonImg, IonInput, IonInputPasswordToggle, IonItem, IonRow, IonText } from '@ionic/angular/standalone';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { Login } from '../../Models/Login';
 import { RegistroService } from '../../Service/profile.service';
-import { AlertController } from '@ionic/angular';
+import { CarrouselComponent } from '../../Component/carrousel/carrousel.component';
 
 @Component({
     selector: 'app-login',
@@ -26,6 +15,7 @@ import { AlertController } from '@ionic/angular';
     imports: [
         CarrouselComponent,
         FormsModule,
+        ReactiveFormsModule,
         IonButton,
         IonCol,
         IonContent,
@@ -36,21 +26,30 @@ import { AlertController } from '@ionic/angular';
         IonItem,
         IonRow,
         IonText,
-        RouterLink,
-        ReactiveFormsModule
+        RouterLink
     ]
 })
 export class LoginComponent implements OnInit {
-    login: Login = {
-        email: '',
-        password: ''
-    };
+    // Declaramos el FormGroup para el login
+    loginForm: FormGroup;
+    // Modelo de login que se actualizará con los datos del formulario
+    login: Login = new Login();
 
     constructor(
+        private fb: FormBuilder,
         private authService: RegistroService,
         private router: Router,
+        private route: ActivatedRoute,
         private alertController: AlertController
-    ) { }
+    ) {
+        // Se crea el formGroup con validadores:
+        // - Email: requerido y debe tener formato de correo
+        // - Password: requerido
+        this.loginForm = this.fb.group({
+            email: [this.login.email, [Validators.required, Validators.email]],
+            password: [this.login.password, Validators.required]
+        });
+    }
 
     ngOnInit() {}
 
@@ -64,35 +63,49 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-        if (this.login.email?.trim() === "" || this.login.password?.trim() === "") {
-            this.showAlert('Para acceder se necesitan rellenar los campos.');
+        if (this.loginForm.invalid) {
+            this.markFormTouched();
+            this.showAlert('Para acceder se necesitan rellenar los campos correctamente.');
             return;
         }
 
+        // Combina los datos actuales del modelo con los valores del formulario
+        this.login = { ...this.login, ...this.loginForm.value };
         this.authService.login(this.login).subscribe(
             (response: any) => {
                 const token = response.token;
-                const username = response.username;
-                const nickname = response.nickname;
-
                 if (token) {
-                    // Guardar token en sessionStorage
-                    sessionStorage.setItem('token', token);
-
-                    // Guardar username y nickname en localStorage
-                    localStorage.setItem('username', username);
-                    localStorage.setItem('nickname', nickname);
-
-                    // Navegar a la página de posts
-                    this.router.navigate(['/posts']);
+                    this.authService.isBanned(token).subscribe({
+                        next: (response) => {
+                            if (response == true) {
+                                this.showAlert('Login fallido: Usuario baneado');
+                            } else {
+                                sessionStorage.setItem('token', token);
+                                console.log('Navigating to /posts');
+                                const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/posts';
+                                this.router.navigateByUrl(returnUrl);
+                            }
+                        },
+                        error: (error: any) => {
+                            console.error('Error checking ban status', error);
+                            this.showAlert('Error checking ban status');
+                        }
+                    });
                 } else {
-                    this.showAlert('Login fallido: Datos inválidos.');
+                    this.showAlert('Login fallido: Datos inválidos');
                 }
             },
             (error: any) => {
                 console.error('Login fallido', error);
-                this.showAlert('Login fallido: Verifique sus credenciales.');
+                this.showAlert('Login fallido: Datos inválidos');
             }
         );
+    }
+
+    // Función para marcar todos los controles del formulario como "touched"
+    markFormTouched() {
+        Object.values(this.loginForm.controls).forEach(control => {
+            control.markAsTouched();
+        });
     }
 }

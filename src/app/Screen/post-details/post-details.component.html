@@ -1,5 +1,111 @@
-<ion-content>
-  <div *ngFor="let post of posts" class="post-container" [id]="post.id">
-    <app-publication [post]="post"></app-publication>
-  </div>
+<ion-content class="custom-scroll" *ngIf="post">
+    <ion-grid class="ion-no-padding post-container movil">
+        <div class="scroll-container">
+            <ion-row class="post">
+                <!-- Información del usuario -->
+                <ion-col size="12" class="user-info">
+
+                    <div style="display: flex; align-items: center;">
+                      <ion-button fill="clear" (click)="navigateToProfile(post.post?.id)" style="padding: 0;">
+                        <ion-avatar >
+                            <img [src]="post.avatar" />
+                        </ion-avatar>
+                      </ion-button>
+                      <span class="username">{{ post.nickname }}</span>
+                    </div>
+                    <!-- Icono alineado a la derecha con evento de click -->
+                   <ion-icon
+                    name="ellipsis-horizontal"
+                    class="more-button"
+                    style="margin-left: auto;"
+                    (click)="presentPopover($event, post)"
+                  ></ion-icon>
+
+                    <ion-popover [isOpen]="openPopoverIndex === 1" (didDismiss)="openPopoverIndex = -1">
+              <ng-template>
+                <div *ngIf="!isAdmin1" style="margin: auto; padding-top: 10px;">
+                  <ion-select [(ngModel)]="reportReason1" placeholder="Razón de reporte">
+                    <ion-select-option value="spam">Spam</ion-select-option>
+                    <ion-select-option value="abuso">Abuso</ion-select-option>
+                    <ion-select-option value="contenido_inapropiado">Contenido inapropiado</ion-select-option>
+                    <ion-select-option value="informacion_falsa">Información falsa</ion-select-option>
+                    <ion-select-option value="otro">Otro</ion-select-option>
+                  </ion-select>
+
+                  <ion-input *ngIf="reportReason1 === 'otro'" placeholder="Razón de reporte" [(ngModel)]="reportReason"></ion-input>
+                  <ion-col class="post-actions" size="12" style="display: flex; justify-content: center;">
+                    <ion-button color="danger" (click)="reportPost(post)">
+                      <ion-icon name="trash" slot="start"></ion-icon>
+                      <ion-label>Reportar</ion-label>
+                    </ion-button>
+                  </ion-col>
+                </div>
+                <div *ngIf="isAdmin1" style="margin: auto">
+                  <ion-col class="post-actions" size="12" style="display: flex; justify-content: center;">
+                    <ion-button color="danger" (click)="deletePost(post, 'SANCTIONED')">
+                      <ion-icon name="trash" slot="start"></ion-icon>
+                      <ion-label>Eliminar y advertir</ion-label>
+                    </ion-button>
+                  </ion-col>
+                  <ion-col class="post-actions" size="12" style="display: flex; justify-content: center;">
+                    <ion-button color="success" (click)="deletePost(post, 'SOLVED')">
+                      <ion-icon name="exit-outline" slot="start"></ion-icon>
+                      <ion-label>Dejar pasar</ion-label>
+                    </ion-button>
+                  </ion-col>
+                </div>
+              </ng-template>
+            </ion-popover>
+
+                </ion-col>
+
+                <!-- Imagen Principal -->
+                <ion-col size="12" class="post-image" *ngIf="post.image_post">
+                    <ion-img [src]="post.image_post" class="responsive-image"></ion-img>
+                </ion-col>
+
+                <!-- Descripción -->
+                <ion-col size="12" class="post-description">
+                    {{ post.post?.content || 'Sin descripción disponible.' }}
+                </ion-col>
+
+                <!-- Acciones del Post -->
+                <ion-col size="12" class="post-actions">
+                    <ion-button (click)="likePost(post)" fill="clear" class="action-button">
+                        <ion-icon [name]="post.liked ? 'heart' : 'heart-outline'"></ion-icon>
+                        <span>{{ post.numlikes || 0 }}</span>
+                    </ion-button>
+                    <ion-button fill="clear" class="action-button" (click)="openNewCommentModal(post.post?.id)">
+                        <ion-icon name="chatbubble"></ion-icon>
+                        <span>{{ post.numcomments || 0 }}</span>
+                    </ion-button>
+                    <ion-button fill="clear" class="action-button" (click)="savePost(post)">
+                        <ion-icon [name]="post.saved ? 'bookmark' : 'bookmark-outline'"></ion-icon>
+                    </ion-button>
+                    <ion-button fill="clear" class="action-button" (click)="sharePost(post)">
+                        <ion-icon name="share-social"></ion-icon>
+                    </ion-button>
+                </ion-col>
+
+                <!-- Comentarios -->
+                <ion-col size="12" class="comments-section">
+                    <ion-list *ngIf="comments.length > 0; else noComments">
+                        <ion-item *ngFor="let comment of comments" class="comment-item">
+                            <ion-avatar slot="start">
+                                <img [src]="comment.avatar"  />
+                            </ion-avatar>
+                            <ion-label>
+                                <h3>{{ comment.nickname }}</h3>
+                                <p>{{ comment.content }}</p>
+                            </ion-label>
+                        </ion-item>
+                    </ion-list>
+                    <ng-template #noComments>
+                        <p>No hay comentarios aún.</p>
+                    </ng-template>
+                </ion-col>
+
+            </ion-row>
+        </div>
+    </ion-grid>
 </ion-content>

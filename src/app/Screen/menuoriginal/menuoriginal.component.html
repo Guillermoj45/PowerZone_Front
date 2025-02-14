@@ -1,4 +1,5 @@
 <body>
+
 <ion-grid>
     <ion-row>
         <ion-col>
@@ -7,7 +8,7 @@
                     <ion-icon aria-hidden="true" name="home" slot="start"></ion-icon>
                     <ion-label>Inicio</ion-label>
                 </ion-item>
-                <ion-item lines="none" (click)="toggleMenu()">
+                <ion-item lines="none" (click)="toggleMenu()" id="busqueda">
                     <ion-icon aria-hidden="true" name="search" slot="start"></ion-icon>
                     <ion-label>Busqueda</ion-label>
                 </ion-item>
@@ -15,24 +16,23 @@
                     <ion-icon aria-hidden="true" name="add" slot="start"></ion-icon>
                     <ion-label (click)="openAddPostModal()" >Publicar</ion-label>
                 </ion-item>
-                <ion-item lines="none" (click)="navigateTo('/health')" >
-                    <ion-icon aria-hidden="true" name="restaurant" slot="start"></ion-icon>
-                    <ion-label>Comidas y Ejercicios</ion-label>
+                <ion-item lines="none" (click)="navigateTo('/mensajes')">
+                    <ion-icon name="paper-plane-outline" aria-hidden="true" slot="start"></ion-icon>
+                    <ion-label>Mensajes</ion-label>
                 </ion-item>
-                <ion-item lines="none" (click)="navigateTo('/notification')" >
+                <ion-item lines="none" (click)="navigateTo('/health')" id="chatbot">
+                  <ion-icon name="logo-ionitron" aria-hidden="true" slot="start"></ion-icon>
+                    <ion-label>Chatbot</ion-label>
+                </ion-item>
+                <ion-item lines="none" (click)="navigateTo('/notification')" id="notificaciones" >
                     <ion-icon aria-hidden="true" name="notifications" slot="start"></ion-icon>
                     <ion-label>Notificaciones</ion-label>
                 </ion-item>
-                <ion-item lines="none" (click)="navigateTo('/profile')">
+                <ion-item lines="none" (click)="navigateTo('/profile')" id="perfil">
                     <ion-icon aria-hidden="true" name="person-circle-outline" slot="start"></ion-icon>
                     <ion-label>Perfil</ion-label>
                 </ion-item>
-
-                <ion-item lines="none" (click)="navigateTo('/settings')" >
-                    <ion-icon aria-hidden="true" name="settings-sharp" slot="start"></ion-icon>
-                    <ion-label>Ajustes del perfil</ion-label>
-                </ion-item>
-                <ion-item lines="none" (click)="LogOut()" >
+                <ion-item lines="none" (click)="LogOut()" id="cerrar-sesion">
                     <ion-icon aria-hidden="true" name="log-in-outline" slot="start"></ion-icon>
                     <ion-label>Cerrar Sesión</ion-label>
                 </ion-item>

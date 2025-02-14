@@ -2,20 +2,18 @@ import {Component, OnInit} from '@angular/core';
 import {IonicModule, ModalController, ModalOptions} from "@ionic/angular";
 import {addIcons} from "ionicons";
 import {
-    home,
-    search,
-    add,
-    restaurant,
-    notifications,
-    closeCircle,
-    personCircleOutline,
-    settingsSharp,
-    logIn, logInOutline
+  home,
+  search,
+  add,
+  restaurant,
+  notifications,
+  closeCircle,
+  personCircleOutline,
+  settingsSharp,
+  logIn, logInOutline, paperPlaneOutline, logoIonitron
 } from "ionicons/icons";
 import {Router} from "@angular/router";
-import {SearchComponent} from "../search/search.component";
 import {NewPostComponent} from "../new-post/new-post.component";
-import {NgIf} from "@angular/common";
 import {Menu} from "../../Service/Menu.service";
 import {ProfileSetting} from "../../Models/ProfileSetting";
 import {ProfileSettingsService} from "../../Service/profile-settings.service";
@@ -53,7 +51,10 @@ export class MenuoriginalComponent implements OnInit {
             closeCircle,
             personCircleOutline,
             settingsSharp,
-            logInOutline
+            logInOutline,
+            paperPlaneOutline,
+            logoIonitron
+
         });
     }
 

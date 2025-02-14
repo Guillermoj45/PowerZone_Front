@@ -35,20 +35,23 @@ export class AdminComponent  implements OnInit {
         this.recuperarReportes();
         event.target.complete();
     }, 500);
+    window.location.reload()
   }
 
   onIonInfiniteAvisado(event: InfiniteScrollCustomEvent) {
     setTimeout(() => {
-        this.recuperarReportes();
+        this.recuperarAvisados();
         event.target.complete();
     }, 500);
+      window.location.reload()
   }
 
   onIonInfiniteSuspendidos(event: InfiniteScrollCustomEvent) {
     setTimeout(() => {
-        this.recuperarReportes();
+        this.recuperarSuspendidos();
         event.target.complete();
     }, 500);
+      window.location.reload()
   }
 
   recuperarReportes() {
