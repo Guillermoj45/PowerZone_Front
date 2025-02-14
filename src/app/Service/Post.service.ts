@@ -24,7 +24,11 @@ export class PostService {
     });
   }
 
-
+  getPostsByPattern(pattern: string): Observable<PostDto[]> {
+    const token = sessionStorage.getItem('token') || '';
+    const headers = this.getHeaders(token);
+    return this.http.get<PostDto[]>(`${this.apiUrl}/pattern`, { headers, params: { pattern } });
+  }
     getPostById(token: string, postId: number): Observable<PostDto> {
         return this.http.get<PostDto>(`/api/post/${postId}`, {
             headers: { Authorization: `Bearer ${token}` }

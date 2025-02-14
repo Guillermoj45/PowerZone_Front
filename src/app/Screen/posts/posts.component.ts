@@ -44,7 +44,7 @@ export class PostsComponent implements OnInit {
   posts: PostDto[] = [];
   selectedFilter: string = 'recientes';
 
-
+  searchQuery: string = '';
   isOpen = false;
   reportReason:string= "";
   openPopoverIndex: number = -1;
@@ -563,7 +563,21 @@ export class PostsComponent implements OnInit {
       this.loadPosts();
     }
   }
+  filterPostsByPattern(): void {
+    if (this.searchQuery.trim() === '' || !this.searchQuery.includes('#')) {
+      this.loadPosts();
+      return;
+    }
 
+    this.postService.getPostsByPattern(this.searchQuery).subscribe(
+      (data: PostDto[]) => {
+        this.posts = data.filter(post => post.post?.content && post.post.content.includes(this.searchQuery));
+      },
+      (error) => {
+        console.error('Error filtering posts by pattern:', error);
+      }
+    );
+  }
 
   loadPosts(): void {
     switch (this.selectedFilter) {

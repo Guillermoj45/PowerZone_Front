@@ -2,16 +2,24 @@
   <ion-grid class="ion-no-padding post-container movil">
     <div class="scroll-container" id="posts">
       <!-- Lista de Filtros -->
-      <ion-list class="post-list">
-        <ion-item class="post-list-item">
-          <ion-select aria-label="Post Filter" [(ngModel)]="selectedFilter" (ionChange)="onFilterChange()">
-            <ion-select-option value="recientes">Recientes</ion-select-option>
-            <ion-select-option value="mas-gustados">Más Gustados</ion-select-option>
-            <ion-select-option value="mas-hablados">Más Comentados</ion-select-option>
-            <ion-select-option value="seguidores">Tus Seguidores</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-list>
+      <ion-row class="sticky-header">
+        <ion-col size="10">
+          <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="filterPostsByPattern()"></ion-searchbar>
+        </ion-col>
+        <ion-col size="2">
+          <ion-list class="post-list">
+            <ion-item class="post-list-item">
+              <ion-select aria-label="Post Filter" [(ngModel)]="selectedFilter" (ionChange)="onFilterChange()">
+                <ion-select-option value="recientes">Recientes</ion-select-option>
+                <ion-select-option value="mas-gustados">Más Gustados</ion-select-option>
+                <ion-select-option value="mas-hablados">Más Comentados</ion-select-option>
+                <ion-select-option value="seguidores">Tus Seguidores</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
 
       <!-- Posts -->
       <ion-row *ngFor="let post of posts; let i = index" class="post" [attr.id]="'post-' + post.post?.id">
