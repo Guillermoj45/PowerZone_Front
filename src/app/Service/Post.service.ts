@@ -24,6 +24,7 @@ export class PostService {
     });
   }
 
+
     getPostById(token: string, postId: number): Observable<PostDto> {
         return this.http.get<PostDto>(`/api/post/${postId}`, {
             headers: { Authorization: `Bearer ${token}` }

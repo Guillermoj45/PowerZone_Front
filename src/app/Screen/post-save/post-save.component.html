@@ -43,9 +43,11 @@
                 <!-- Comentario Destacado -->
                 <ion-col size="12" class="highlighted-comment" (click)="viewPostDetails(post)">
                     <div class="comment-container">
-                        <ion-avatar>
-                            <img [src]="post.avatarcomment"  fill />
-                        </ion-avatar>
+                      <ion-avatar
+                        *ngIf="post.avatarcomment && post.avatarcomment.trim().length > 0"
+                      >
+                        <img [src]="post.avatarcomment" />
+                      </ion-avatar>
                         <span class="comment">
                             <b>{{ post.nicknamecomment }}</b> {{ post.firstcomment }}
                         </span>

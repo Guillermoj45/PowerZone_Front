@@ -22,6 +22,8 @@ import {AdminService} from "../../Service/Admin.service";
 import {TutorialService} from "../../Service/tutorial.service";
 import {NewPostComponent} from "../new-post/new-post.component";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
+import {CommentDetails} from "../../Models/CommentDetails";
+import {CommentService} from "../../Service/Comment.service";
 
 @Component({
     selector: 'app-posts',
@@ -54,7 +56,8 @@ export class PostsComponent implements OnInit {
         private profile : ProfileService,
         private adminService: AdminService,
         private tutorialService: TutorialService,
-        private sanitizer: DomSanitizer
+        private sanitizer: DomSanitizer,
+        private commentService: CommentService
       ) {
         addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline, ellipsisHorizontal, start, trash, exitOutline });
     }
@@ -331,8 +334,36 @@ export class PostsComponent implements OnInit {
 
     // Increment the number of comments by 1
     post.numcomments = (post.numcomments ?? 0) + 1;
+    this.loadComments(post);
   }
+  async loadComments(post: PostDto) {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in session storage');
+      return;
+    }
 
+    try {
+      const postId = post.post?.id;
+      if (postId === undefined) {
+        console.error('Post ID not found');
+        return;
+      }
+
+      const comments = await this.commentService.getCommentsByPostId(token, postId).toPromise();
+      if (comments) {
+        post.numcomments = comments.length;
+        if (comments.length > 0) {
+          const firstComment: CommentDetails = comments[0];
+          post.avatarcomment = firstComment.avatar;
+          post.nicknamecomment = firstComment.nickname;
+          post.firstcomment = firstComment.content;
+        }
+      }
+    } catch (error) {
+      console.error('Error loading comments:', error);
+    }
+  }
   async sharePost(post: PostDto) {
         const postId = post.post?.id;
         if (postId === undefined) {
@@ -353,78 +384,84 @@ export class PostsComponent implements OnInit {
         await toast.present();
     }
 
-  loadMostLikedPosts(): void {
+  async loadMostLikedPosts(): Promise<void> {
     const token = sessionStorage.getItem('token');
     if (!token) {
       console.error('No token found in session storage');
       return;
     }
 
-    this.postService.getPostsWithMostLikes(token).subscribe(
-      (mostLikedPosts) => {
-        console.log('Most Liked Posts:', mostLikedPosts);
-        const postIds = new Set<number>();
-        this.posts = mostLikedPosts.filter(post => {
-          const postId = post.post?.id;
-          if (postId !== undefined && !postIds.has(postId)) {
-            postIds.add(postId);
-            return true;
-          }
-          return false;
-        });
-        this.posts.forEach(post => {
-          const postId = post.post?.id;
-          if (postId !== undefined) {
-            this.postService.hasLikedPost(token, postId).subscribe(
-              (hasLiked) => post.liked = hasLiked,
-              (error) => console.error(`Error checking like status for post ${postId}:`, error)
-            );
-            this.postService.hasSavedPost(token, postId).subscribe(
-              (hasSaved) => post.saved = hasSaved,
-              (error) => console.error(`Error checking save status for post ${postId}:`, error)
-            );
-          }
-        });
-      },
-      (error) => console.error('Error loading most liked posts:', error)
-    );
+    try {
+      const mostLikedPosts = await this.postService.getPostsWithMostLikes(token).toPromise();
+      const allPosts = await this.postService.getAllPosts(token).toPromise();
+
+      if (!mostLikedPosts || !allPosts) {
+        console.error('Error: mostLikedPosts or allPosts is undefined');
+        return;
+      }
+
+      const postIds = new Set<number>();
+      const combinedPosts = [...mostLikedPosts, ...allPosts].filter(post => {
+        const postId = post.post?.id;
+        if (postId !== undefined && !postIds.has(postId)) {
+          postIds.add(postId);
+          return true;
+        }
+        return false;
+      });
+
+      this.posts = combinedPosts.sort((a, b) => (b.numlikes ?? 0) - (a.numlikes ?? 0));
+
+      for (const post of this.posts) {
+        const postId = post.post?.id;
+        if (postId !== undefined) {
+          post.liked = await this.postService.hasLikedPost(token, postId).toPromise();
+          post.saved = await this.postService.hasSavedPost(token, postId).toPromise();
+        }
+      }
+    } catch (error) {
+      console.error('Error loading posts:', error);
+    }
   }
 
-  loadMostCommentedPosts(): void {
+  async loadMostCommentedPosts(): Promise<void> {
     const token = sessionStorage.getItem('token');
     if (!token) {
       console.error('No token found in session storage');
       return;
     }
 
-    this.postService.getPostsWithMostComments(token).subscribe(
-      (mostCommentedPosts) => {
-        console.log('Most Commented Posts:', mostCommentedPosts);
-        const postIds = new Set<number>();
-        this.posts = mostCommentedPosts.filter(post => {
-          const postId = post.post?.id;
-          if (postId !== undefined && !postIds.has(postId)) {
-            postIds.add(postId);
-            return true;
-          }
-          return false;
-        });
-        this.posts.forEach(post => {
-          const postId = post.post?.id;
-          if (postId !== undefined) {
-            this.postService.hasLikedPost(token, postId).subscribe(
-              (hasLiked) => post.liked = hasLiked,
-              (error) => console.error(`Error checking like status for post ${postId}:`, error)
-            );
-            this.postService.hasSavedPost(token, postId).subscribe(
-              (hasSaved) => post.saved = hasSaved,
-              (error) => console.error(`Error checking save status for post ${postId}:`, error)
-            );
-          }
-        });
-      },
-      (error) => console.error('Error loading most commented posts:', error)
-    );
+    try {
+      const mostCommentedPosts = await this.postService.getPostsWithMostComments(token).toPromise();
+      const allPosts = await this.postService.getAllPosts(token).toPromise();
+
+      if (!mostCommentedPosts || !allPosts) {
+        console.error('Error: mostCommentedPosts or allPosts is undefined');
+        return;
+      }
+
+      const postIds = new Set<number>();
+      const combinedPosts = [...mostCommentedPosts, ...allPosts].filter(post => {
+        const postId = post.post?.id;
+        if (postId !== undefined && !postIds.has(postId)) {
+          postIds.add(postId);
+          return true;
+        }
+        return false;
+      });
+
+      this.posts = combinedPosts.sort((a, b) => (b.numcomments ?? 0) - (a.numcomments ?? 0));
+
+      for (const post of this.posts) {
+        const postId = post.post?.id;
+        if (postId !== undefined) {
+          post.liked = await this.postService.hasLikedPost(token, postId).toPromise();
+          post.saved = await this.postService.hasSavedPost(token, postId).toPromise();
+        }
+      }
+    } catch (error) {
+      console.error('Error loading posts:', error);
+    }
   }
 
   loadFollowedPosts(): void {
