@@ -3,14 +3,14 @@
         <ion-title class="header">Mensajes directos</ion-title>
     </ion-toolbar>
 
-    <ion-content class="ion-padding">
+    <ion-content style="--background: #055a58" class="ion-padding">
         <!-- Botón para crear una nueva conversación -->
         <ion-button id="open-modal" expand="block" (click)="crearNuevaConversacion('someGroupId')">
             Crear nueva conversación
         </ion-button>
 
         <!-- Lista de grupos -->
-        <ion-list>
+        <ul style="margin-right: 5%">
             <ion-item *ngFor="let grupo of grupos">
                 <ion-avatar slot="start">
                     <ion-img src="https://i.pravatar.cc/300?u={{ grupo.id }}"></ion-img>
@@ -22,7 +22,7 @@
                     <ion-icon name="arrow-redo-outline"></ion-icon>
                 </ion-button>
             </ion-item>
-        </ion-list>
+        </ul>
 
         <!-- Modal para seleccionar personas a añadir al grupo -->
         <ion-modal #modal trigger="open-modal" [presentingElement]="presentingElement">

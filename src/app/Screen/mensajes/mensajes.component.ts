@@ -90,8 +90,8 @@ export class MensajesComponent implements OnInit {
             return;
         }
 
-        if (this.perfilesSeleccionados.length < 2) {
-            this.mostrarToast('Debes seleccionar al menos 2 usuarios.', 'warning');
+        if (this.perfilesSeleccionados.length < 1) {
+            this.mostrarToast('Debes seleccionar al menos 1 usuarios.', 'warning');
             return;
         }
 
