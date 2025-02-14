@@ -22,6 +22,9 @@ import {AdminService} from "../../Service/Admin.service";
 import {TutorialService} from "../../Service/tutorial.service";
 import {NewPostComponent} from "../new-post/new-post.component";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
+import {CommentDetails} from "../../Models/CommentDetails";
+import {CommentService} from "../../Service/Comment.service";
+
 
 @Component({
   selector: 'app-posts',
@@ -37,14 +40,17 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 })
 export class PostsComponent implements OnInit {
 
+
   posts: PostDto[] = [];
   selectedFilter: string = 'recientes';
+
 
   isOpen = false;
   reportReason:string= "";
   openPopoverIndex: number = -1;
   isAdmin1: boolean = false;
   reportReason1: string = "";
+
 
   constructor(
     private router: Router,
@@ -54,10 +60,15 @@ export class PostsComponent implements OnInit {
     private profile : ProfileService,
     private adminService: AdminService,
     private tutorialService: TutorialService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private commentService: CommentService
   ) {
     addIcons({ bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline, ellipsisHorizontal, start, trash, exitOutline });
   }
+
+
+
+
 
 
 
@@ -72,7 +83,9 @@ export class PostsComponent implements OnInit {
     });
   }
 
+
   // Esta función se llama al hacer click en el ícono y abre el popover correspondiente
+
 
   presentPopover(index: number, ev: Event, post: any) {
     this.openPopoverIndex = index;
@@ -84,7 +97,9 @@ export class PostsComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(replacedText);
   }
 
+
   deletePost(post: PostDto, state: string) {
+
 
     this.adminService.putWarning(post.post!.id!, state).subscribe({
       next: () => {
@@ -100,6 +115,8 @@ export class PostsComponent implements OnInit {
   }
 
 
+
+
   isAdmin() {
     this.profile.isAdmin().subscribe({
       next: (isAdmin) => {
@@ -112,6 +129,7 @@ export class PostsComponent implements OnInit {
     })
   }
 
+
   reportPost(post: PostDto) {
     const token = sessionStorage.getItem('token');
     if (!token) {
@@ -119,15 +137,18 @@ export class PostsComponent implements OnInit {
       return;
     }
 
+
     const postId = post.post?.id;
     if (postId === undefined) {
       console.error('Post ID not found');
       return;
     }
 
+
     if (this.reportReason1 !== "otro"){
       this.reportReason = this.reportReason1;
     }
+
 
     this.postService.reportPost(postId, this.reportReason).subscribe({
       next: () => {
@@ -147,6 +168,7 @@ export class PostsComponent implements OnInit {
     this.openPopoverIndex = -1;
   }
 
+
   startTutorialIfNeeded(): void {
     const token = sessionStorage.getItem('token');
     if (token) {
@@ -157,6 +179,7 @@ export class PostsComponent implements OnInit {
             setTimeout(() => {
               this.tutorialService.startTour();
             }, 1000);
+
 
             this.postService.changeUserStatus(token).subscribe({
               next: () => {
@@ -184,46 +207,33 @@ export class PostsComponent implements OnInit {
       console.error('Post ID not found');
     }
   }
-  loadAllPosts() {
+
+
+  async loadAllPosts() {
     const token = sessionStorage.getItem('token');
     if (!token) {
       console.error('No token found in session storage');
       return;
     }
 
-    this.postService.getAllPosts(token).subscribe(
-      (posts) => {
-        this.posts = posts;
-        this.posts.forEach(post => {
-          const postId = post.post?.id;
-          if (postId !== undefined) {
-            // Check if the user has liked the post
-            this.postService.hasLikedPost(token, postId).subscribe(
-              (hasLiked) => {
-                post.liked = hasLiked;
-              },
-              (error) => {
-                console.error(`Error checking like status for post ${postId}:`, error);
-              }
-            );
 
-            // Check if the user has saved the post
-            this.postService.hasSavedPost(token, postId).subscribe(
-              (hasSaved) => {
-                post.saved = hasSaved;
-              },
-              (error) => {
-                console.error(`Error checking save status for post ${postId}:`, error);
-              }
-            );
-          }
-        });
-      },
-      (error) => {
-        console.error('Error fetching all posts:', error);
+    try {
+      const posts = await this.postService.getAllPosts(token).toPromise();
+      this.posts = posts || [];
+      for (const post of this.posts) {
+        const postId = post.post?.id;
+        if (postId !== undefined) {
+          post.liked = await this.postService.hasLikedPost(token, postId).toPromise();
+          post.saved = await this.postService.hasSavedPost(token, postId).toPromise();
+        }
       }
-    );
+    } catch (error) {
+      console.error('Error fetching all posts:', error);
+    }
   }
+
+
+
 
   navigateToProfile(postId: number | undefined) {
     const token = sessionStorage.getItem('token');
@@ -232,10 +242,12 @@ export class PostsComponent implements OnInit {
       return;
     }
 
+
     if (postId === undefined) {
       console.error('Post ID not found');
       return;
     }
+
 
     this.postService.getUserIdByPostId(token, postId).subscribe(
       (userId) => {
@@ -247,6 +259,7 @@ export class PostsComponent implements OnInit {
     );
   }
 
+
   async likePost(post: PostDto) {
     const token = sessionStorage.getItem('token');
     if (!token) {
@@ -254,11 +267,13 @@ export class PostsComponent implements OnInit {
       return;
     }
 
+
     const postId = post.post?.id;
     if (postId === undefined) {
       console.error('Post ID not found');
       return;
     }
+
 
     try {
       const hasLiked = await this.postService.hasLikedPost(token, postId).toPromise();
@@ -278,6 +293,7 @@ export class PostsComponent implements OnInit {
     }
   }
 
+
   async savePost(post: PostDto) {
     const token = sessionStorage.getItem('token');
     if (!token) {
@@ -285,11 +301,13 @@ export class PostsComponent implements OnInit {
       return;
     }
 
+
     const postId = post.post?.id;
     if (postId === undefined) {
       console.error('Post ID not found');
       return;
     }
+
 
     if (post.saved) {
       // Unsave the post
@@ -336,16 +354,52 @@ export class PostsComponent implements OnInit {
     } as ModalOptions);
     await modal.present();
   }
-  async openNewCommentModal(idpost: number | undefined) {
+
+
+  //TODO: Cambiar a un modal
+  async openNewCommentModal(idpost: number | undefined, post: PostDto) {
     const modal = await this.modalController.create({
       component: NewCommentComponent,
       componentProps: { postId: idpost }
     } as ModalOptions);
     await modal.present();
-    const { data } = await modal.onDidDismiss();
-    this.loadAllPosts();
-  }
+    await modal.onDidDismiss();
 
+
+    // Increment the number of comments by 1
+    post.numcomments = (post.numcomments ?? 0) + 1;
+    this.loadComments(post);
+  }
+  async loadComments(post: PostDto) {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in session storage');
+      return;
+    }
+
+
+    try {
+      const postId = post.post?.id;
+      if (postId === undefined) {
+        console.error('Post ID not found');
+        return;
+      }
+
+
+      const comments = await this.commentService.getCommentsByPostId(token, postId).toPromise();
+      if (comments) {
+        post.numcomments = comments.length;
+        if (comments.length > 0) {
+          const firstComment: CommentDetails = comments[0];
+          post.avatarcomment = firstComment.avatar;
+          post.nicknamecomment = firstComment.nickname;
+          post.firstcomment = firstComment.content;
+        }
+      }
+    } catch (error) {
+      console.error('Error loading comments:', error);
+    }
+  }
   async sharePost(post: PostDto) {
     const postId = post.post?.id;
     if (postId === undefined) {
@@ -353,8 +407,10 @@ export class PostsComponent implements OnInit {
       return;
     }
 
+
     const link = `${window.location.origin}/post-details/${postId}`;
     await navigator.clipboard.writeText(link);
+
 
     const toast = await this.toastController.create({
       message: 'Enlace en el portapapeles',
@@ -365,6 +421,100 @@ export class PostsComponent implements OnInit {
     });
     await toast.present();
   }
+
+
+  async loadMostLikedPosts(): Promise<void> {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in session storage');
+      return;
+    }
+
+
+    try {
+      const mostLikedPosts = await this.postService.getPostsWithMostLikes(token).toPromise();
+      const allPosts = await this.postService.getAllPosts(token).toPromise();
+
+
+      if (!mostLikedPosts || !allPosts) {
+        console.error('Error: mostLikedPosts or allPosts is undefined');
+        return;
+      }
+
+
+      const postIds = new Set<number>();
+      const combinedPosts = [...mostLikedPosts, ...allPosts].filter(post => {
+        const postId = post.post?.id;
+        if (postId !== undefined && !postIds.has(postId)) {
+          postIds.add(postId);
+          return true;
+        }
+        return false;
+      });
+
+
+      this.posts = combinedPosts.sort((a, b) => (b.numlikes ?? 0) - (a.numlikes ?? 0));
+
+
+      for (const post of this.posts) {
+        const postId = post.post?.id;
+        if (postId !== undefined) {
+          post.liked = await this.postService.hasLikedPost(token, postId).toPromise();
+          post.saved = await this.postService.hasSavedPost(token, postId).toPromise();
+        }
+      }
+    } catch (error) {
+      console.error('Error loading posts:', error);
+    }
+  }
+
+
+  async loadMostCommentedPosts(): Promise<void> {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in session storage');
+      return;
+    }
+
+
+    try {
+      const mostCommentedPosts = await this.postService.getPostsWithMostComments(token).toPromise();
+      const allPosts = await this.postService.getAllPosts(token).toPromise();
+
+
+      if (!mostCommentedPosts || !allPosts) {
+        console.error('Error: mostCommentedPosts or allPosts is undefined');
+        return;
+      }
+
+
+      const postIds = new Set<number>();
+      const combinedPosts = [...mostCommentedPosts, ...allPosts].filter(post => {
+        const postId = post.post?.id;
+        if (postId !== undefined && !postIds.has(postId)) {
+          postIds.add(postId);
+          return true;
+        }
+        return false;
+      });
+
+
+      this.posts = combinedPosts.sort((a, b) => (b.numcomments ?? 0) - (a.numcomments ?? 0));
+
+
+      for (const post of this.posts) {
+        const postId = post.post?.id;
+        if (postId !== undefined) {
+          post.liked = await this.postService.hasLikedPost(token, postId).toPromise();
+          post.saved = await this.postService.hasSavedPost(token, postId).toPromise();
+        }
+      }
+    } catch (error) {
+      console.error('Error loading posts:', error);
+    }
+  }
+
+
   loadFollowedPosts(): void {
     const token = sessionStorage.getItem('token');
     if (!token) {
@@ -372,12 +522,11 @@ export class PostsComponent implements OnInit {
       return;
     }
 
+
     this.postService.getFollowedPosts(token).subscribe(
       (followedPosts) => {
         console.log('Followed Posts:', followedPosts);
         const postIds = new Set<number>();
-
-        // Filtramos los posts seguidos y guardamos sus IDs
         this.posts = followedPosts.filter(post => {
           const postId = post.post?.id;
           if (postId !== undefined && !postIds.has(postId)) {
@@ -386,8 +535,6 @@ export class PostsComponent implements OnInit {
           }
           return false;
         });
-
-        // Llamadas para verificar likes y guardados
         this.posts.forEach(post => {
           const postId = post.post?.id;
           if (postId !== undefined) {
@@ -405,75 +552,18 @@ export class PostsComponent implements OnInit {
       (error) => console.error('Error loading followed posts:', error)
     );
   }
-
-  loadMostLikedPosts(): void {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      console.error('No token found in session storage');
-      return;
-    }
-
-    this.postService.getPostsWithMostLikes(token).subscribe(
-      (mostLikedPosts) => {
-        console.log('Most Liked Posts:', mostLikedPosts);
-        this.posts = mostLikedPosts;
-        this.posts.forEach(post => {
-          const postId = post.post?.id;
-          if (postId !== undefined) {
-            this.postService.hasLikedPost(token, postId).subscribe(
-              (hasLiked) => post.liked = hasLiked,
-              (error) => console.error(`Error checking like status for post ${postId}:`, error)
-            );
-            this.postService.hasSavedPost(token, postId).subscribe(
-              (hasSaved) => post.saved = hasSaved,
-              (error) => console.error(`Error checking save status for post ${postId}:`, error)
-            );
-          }
-        });
-      },
-      (error) => console.error('Error loading most liked posts:', error)
-    );
-  }
-
-
-  loadMostCommentedPosts(): void {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      console.error('No token found in session storage');
-      return;
-    }
-
-    this.postService.getPostsWithMostComments(token).subscribe(
-      (mostCommentedPosts) => {
-        console.log('Most Commented Posts:', mostCommentedPosts);
-        this.posts = mostCommentedPosts;
-        this.posts.forEach(post => {
-          const postId = post.post?.id;
-          if (postId !== undefined) {
-            this.postService.hasLikedPost(token, postId).subscribe(
-              (hasLiked) => post.liked = hasLiked,
-              (error) => console.error(`Error checking like status for post ${postId}:`, error)
-            );
-            this.postService.hasSavedPost(token, postId).subscribe(
-              (hasSaved) => post.saved = hasSaved,
-              (error) => console.error(`Error checking save status for post ${postId}:`, error)
-            );
-          }
-        });
-      },
-      (error) => console.error('Error loading most commented posts:', error)
-    );
-  }
   onFilterChange(): void {
     console.log('Filtro cambiado a:', this.selectedFilter);
     this.loadPosts();
   }
+
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedFilter'] && !changes['selectedFilter'].isFirstChange()) {
       this.loadPosts();
     }
   }
+
 
   loadPosts(): void {
     switch (this.selectedFilter) {
@@ -495,3 +585,4 @@ export class PostsComponent implements OnInit {
     }
   }
 }
+
