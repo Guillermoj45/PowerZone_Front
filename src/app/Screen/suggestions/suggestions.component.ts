@@ -71,6 +71,16 @@ export class SuggestionsComponent  implements OnInit {
     protected readonly screen = screen;
 
   screenAdmin() {
+    this.adminService.verifyAdmin().subscribe({
+      next: (data: boolean) => {
+        if (data == true) {
+          this.router.navigate(['/admin']);
+        }
+      },
+      error: (err: any) => {
+        console.error(err);
+    }
+    });
   }
   unfollowUser(profile: ProfileTotal) {
     let token = sessionStorage.getItem('token') || '';

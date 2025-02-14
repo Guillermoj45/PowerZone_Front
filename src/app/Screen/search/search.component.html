@@ -16,7 +16,7 @@
             <ion-avatar slot="start">
                 <img [src]="user.avatar || 'https://picsum.photos/200/300?random=1'" />
             </ion-avatar>
-            <ion-label style="color: white;">{{ user.name }}</ion-label>
+            <ion-label style="color: white;">{{ user.nickname }}</ion-label>
             <ion-button slot="end" fill="clear" (click)="removeUser(user)">
                 <ion-icon name="close-circle" style="color: white;"></ion-icon>
             </ion-button>

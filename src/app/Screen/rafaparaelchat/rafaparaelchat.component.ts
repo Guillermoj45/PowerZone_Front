@@ -1,12 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WebsocketService } from '../../Service/websocket.service';
 import { ChatMessage } from '../../Models/ChatMessage';
-import { DatePipe, NgForOf } from "@angular/common";
+import {DatePipe, NgClass, NgForOf} from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../Service/auth.service';
 import { ProfileMessenger } from "../../Models/Profile";
 import { ProfileService } from "../../Service/profile.service";
+import { Location } from '@angular/common';
+import {IonicModule} from "@ionic/angular";
+import {addIcons} from "ionicons";
+import {arrowBackOutline, send} from "ionicons/icons";
 
 @Component({
     selector: 'app-chat',
@@ -15,7 +19,9 @@ import { ProfileService } from "../../Service/profile.service";
     imports: [
         DatePipe,
         FormsModule,
-        NgForOf
+        NgForOf,
+        IonicModule,
+        NgClass
     ],
     standalone: true
 })
@@ -30,8 +36,11 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
         private websocketService: WebsocketService,
         private route: ActivatedRoute,
         private authService: AuthService,
-        private profileService: ProfileService
-    ) {}
+        private profileService: ProfileService,
+        private location: Location
+    ) {
+        addIcons({arrowBackOutline, send})
+    }
 
     ngOnInit(): void {
         // Obtener el groupId de la URL
@@ -81,6 +90,10 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
                 console.error('Error en la recepción de mensajes:', error);
             }
         });
+    }
+
+    navigateBack() {
+        this.location.back(); // Volver a la página anterior
     }
 
     sendMessage() {

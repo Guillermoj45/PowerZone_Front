@@ -1,37 +1,90 @@
+/* Animación para el fondo del ion-item al hacer hover */
 ion-item {
-    --background: #000000; /* Verde pastel */
-    margin: 8px 0;
+    --background: #042f2e; /* Verde pastel */
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease; /* Animación suave en todos los cambios */
+    margin: 2% 0;
 }
 
-ion-label h2 {
-    font-size: 1.2em;
+ion-toolbar {
+    --background: #042f2e;
+    --color: white;
+    padding: 12px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-bottom: 4px solid #ffffff;
+}
+
+/* Título del header */
+.header {
+    font-size: 1.6em;
     font-weight: bold;
-    color: #ffffff; /* Verde oscuro */
+    color: #ffffff;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
 }
 
-ion-label p {
-    font-size: 1em;
-    color: #055a58; /* Verde intermedio */
+ion-item:hover {
+    transform: translateY(-5px); /* Desplazar ligeramente el item hacia arriba */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Agregar una sombra más pronunciada */
 }
 
-ion-button {
-    --background: transparent; /* Fondo transparente */
-    --color: #055a58; /* Color verde para el icono */
-}
-
+/* Efecto hover para los botones */
 ion-button:hover {
     --background: rgba(5, 90, 88, 0.1); /* Fondo suave al pasar el mouse */
+    transform: scale(1.02); /* Aumentar ligeramente el tamaño del botón */
+    transition: all 0.3s ease; /* Animación suave */
 }
 
+/* Animación para los perfiles de la lista cuando se añaden o eliminan */
+ion-item .boton-anyadir {
+    transition: transform 0.3s ease;
+}
+
+ion-item .boton-anyadir:hover {
+    transform: rotate(45deg); /* Rotación suave del icono al hacer hover */
+}
+
+/* Animación al mostrar el modal */
+ion-modal {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Animación personalizada con keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Animación para el botón "Crear nueva conversación" */
 #open-modal {
     --color: white; /* Color blanco para el texto */
     --background: #042f2e; /* Verde claro */
+    transition: background-color 0.3s ease; /* Transición suave de fondo */
 }
 
-.boton-anyadir {
-    --background: #042f2e; /* Verde claro */
-    --color: white; /* Color blanco para el texto */
+/* Animación al aparecer la lista de grupos */
+ion-list {
+    --background: #f4f4f4; /* Fondo claro para la lista */
+    padding: 0; /* Eliminar espacio adicional */
+    border-radius: 8px; /* Bordes redondeados para la lista */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
 }
 
+
+/* Animación de deslizamiento para la lista */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

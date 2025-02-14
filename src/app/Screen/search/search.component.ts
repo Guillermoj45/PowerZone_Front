@@ -32,6 +32,7 @@ export class SearchComponent implements OnInit {
         if (this.searchText.trim().length > 0) {
             this.profileService.searchProfiles(this.searchText).subscribe((data) => {
                 this.users = data; // Actualizar la lista de usuarios
+                console.log(data)
             });
         } else {
             this.users = []; // Limpiar resultados si no hay texto
