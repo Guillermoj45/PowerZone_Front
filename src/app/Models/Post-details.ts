@@ -13,4 +13,5 @@ export class PostDetails {
     firstcomment?: string;
     liked?: boolean;
     saved?: boolean;
+    created_at?: Date;
 }
