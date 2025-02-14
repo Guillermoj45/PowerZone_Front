@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 export class ChatBotService {
     constructor(private httpClient: HttpClient) {}
 
-    sendMessage(message: string, token: string | null): Observable<any> {
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        return this.httpClient.post<any>('/api/chatBot/chat', { text: message }, { headers });
-    }
+  sendMessage(message: string, token: string | null): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.post<any>('/api/chatBot/chat', { text: message }, { headers });
+  }
 }
