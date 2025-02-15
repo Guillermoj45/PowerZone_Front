@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Client } from '@stomp/stompjs';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ChatMessage } from '../Models/ChatMessage';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root',
@@ -78,14 +78,20 @@ export class WebsocketService {
         return this.http.get<any>(url, { headers }); // Llama al endpoint del backend
     }
 
-    createGroup(groupName: { name: string }): Observable<any> {
-        const url = `/api/messages/create`; // Endpoint del backend
-        const token = sessionStorage.getItem('token'); // Obtiene el token si es necesario
-        const headers = { Authorization: `Bearer ${token}` };
-        const body = { name: groupName.name }; // Envía solo el nombre del grupo
+    createGroup(groupName: { name: string }, file?: File | null): Observable<any> {
+        const url = '/api/messages/create';  // Endpoint del backend
+        const token = sessionStorage.getItem('token');
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-        return this.http.post<any>(url, body, { headers });
+        const formData = new FormData();
+        formData.append('group', JSON.stringify({ name: groupName.name }));
+        if (file) {
+            formData.append('file', file); // Solo agregar el archivo si está presente
+        }
+
+        return this.http.post<any>(url, formData, { headers });
     }
+
 
     addUsersToGroup(groupId: number, userIds: number[]): Observable<any> {
         const url = `/api/messages/addUsersToGroup`; // Endpoint del backend
