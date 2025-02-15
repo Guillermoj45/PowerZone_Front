@@ -105,6 +105,13 @@ export class WebsocketService {
         return this.http.get<ChatMessage[]>(url, { headers });
     }
 
+    getUltimosMensajesPorGrupo(): Observable<any> {
+        const url = `/api/messages/grupos/ultimos-mensajes`; // Endpoint del backend
+        const token = sessionStorage.getItem('token'); // Obtiene el token de sesión
+        const headers = { Authorization: `Bearer ${token}` }; // Incluye el token en los headers
+        return this.http.get<any>(url, { headers }); // Llama al endpoint del backend
+    }
+
     disconnect() {
         if (this.stompClient && this.stompClient.active) {
             this.stompClient.deactivate();

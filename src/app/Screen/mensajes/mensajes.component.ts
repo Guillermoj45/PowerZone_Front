@@ -38,6 +38,23 @@ export class MensajesComponent implements OnInit {
         this.cargarGrupos();
     }
 
+    formatearFecha(timestamp: string): string {
+        if (!timestamp) return '';
+
+        const fechaMensaje = new Date(timestamp);
+        const ahora = new Date();
+        const diferenciaHoras = (ahora.getTime() - fechaMensaje.getTime()) / (1000 * 60 * 60);
+
+        if (diferenciaHoras < 24) {
+            // Mostrar solo la hora y minutos si es reciente
+            return fechaMensaje.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        } else {
+            // Mostrar la fecha si ha pasado más de 24 horas
+            return fechaMensaje.toLocaleDateString();
+        }
+    }
+
+
     async cargarGrupos(): Promise<void> {
         const loading = await this.loadingController.create({ message: 'Cargando grupos...' });
         await loading.present();
@@ -45,6 +62,30 @@ export class MensajesComponent implements OnInit {
         this.websocketService.getUserGroups().subscribe({
             next: async (response) => {
                 this.grupos = response.grupos || [];
+
+                // Obtener los últimos mensajes de cada grupo
+                this.websocketService.getUltimosMensajesPorGrupo().subscribe({
+                    next: (mensajesResponse) => {
+                        console.log('Mensajes recibidos:', mensajesResponse);
+                        this.grupos.forEach(grupo => {
+                            const mensaje = mensajesResponse.find((m: any) => m.grupoId === grupo.id);
+                            if (mensaje) {
+                                grupo.ultimoMensaje = mensaje.ultimoMensaje || 'Sin mensajes';
+                                grupo.ultimoMensajeHora = this.formatearFecha(mensaje.ultimoMensajeTimestamp);
+                            } else {
+                                grupo.ultimoMensaje = 'Sin mensajes';
+                                grupo.ultimoMensajeHora = '';
+                            }
+                        });
+                    },
+                    error: () => {
+                        this.grupos.forEach(grupo => {
+                            grupo.ultimoMensaje = 'Sin mensajes';
+                            grupo.ultimoMensajeHora = '';
+                        });
+                    }
+                });
+
                 console.log('Grupos cargados:', this.grupos);
                 await loading.dismiss();
             },
@@ -55,6 +96,7 @@ export class MensajesComponent implements OnInit {
             },
         });
     }
+
 
     async mostrarPerfilesSeguidos(): Promise<void> {
         const loading = await this.loadingController.create({ message: 'Cargando perfiles...' });

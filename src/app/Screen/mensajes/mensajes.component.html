@@ -17,6 +17,7 @@
                 </ion-avatar>
                 <ion-label>
                     <h2>{{ grupo.name }}</h2>
+                    <p>{{ grupo.ultimoMensaje }} - <strong>{{ grupo.ultimoMensajeHora }}</strong></p>
                 </ion-label>
                 <ion-button fill="clear" slot="end" class="boton-anyadir" (click)="verGrupo(grupo.id)">
                     <ion-icon name="arrow-redo-outline"></ion-icon>

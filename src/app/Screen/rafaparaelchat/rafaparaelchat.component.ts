@@ -93,8 +93,10 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
     }
 
     navigateBack() {
-        this.location.back(); // Volver a la página anterior
+        window.history.back();
+        setTimeout(() => location.reload(), 100);
     }
+
 
     sendMessage() {
         if (!this.newMessage.trim() || !this.user) {
