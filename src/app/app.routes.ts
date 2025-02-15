@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 import {SearchComponent} from "./Screen/search/search.component";
 import {ScreenSizeGuard} from "./Guards/screen-size.guard";
 import {AuthGuard} from "./Guards/auth.guard";

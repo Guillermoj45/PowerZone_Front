@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { RafaparaelchatComponent } from './rafaparaelchat.component';
+import {RafaparaelchatComponent} from './rafaparaelchat.component';
 
 describe('RafaparaelchatComponent', () => {
   let component: RafaparaelchatComponent;

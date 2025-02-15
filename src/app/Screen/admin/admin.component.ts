@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {InfiniteScrollCustomEvent, IonicModule} from "@ionic/angular";
-import { Report } from 'src/app/Models/Report';
-import { AdminService } from 'src/app/Service/Admin.service';
+import {Report} from 'src/app/Models/Report';
+import {AdminService} from 'src/app/Service/Admin.service';
 import {ProfileWarningBan} from "../../Models/ProfileWarningBan";
 import {Router, RouterLink} from "@angular/router";
 

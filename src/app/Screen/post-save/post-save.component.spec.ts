@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { PostSaveComponent } from './post-save.component';
+import {PostSaveComponent} from './post-save.component';
 
 describe('PostSaveComponent', () => {
   let component: PostSaveComponent;

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IonicModule, ModalController, ModalOptions} from "@ionic/angular";
-import { home, search, add, restaurant, notifications, closeCircle, personCircleOutline } from "ionicons/icons";
+import {add, closeCircle, home, notifications, personCircleOutline, restaurant, search} from "ionicons/icons";
 import {addIcons} from "ionicons";
 import {Router} from "@angular/router";
 import {NewPostComponent} from "../new-post/new-post.component";

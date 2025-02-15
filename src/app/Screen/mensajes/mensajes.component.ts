@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicModule, ToastController } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
-import { WebsocketService } from '../../Service/websocket.service';
-import { LoadingController } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { arrowRedoOutline } from 'ionicons/icons';
-import { Router } from '@angular/router';
-import { FormsModule } from "@angular/forms";
-import { ProfileService } from '../../Service/profile.service';  // Importa el ProfileService
-import { CloudinaryService } from "../../Service/Cloudinary.service";
+import {Component, OnInit} from '@angular/core';
+import {IonicModule, ToastController} from '@ionic/angular';
+import {CommonModule} from '@angular/common';
+import {WebsocketService} from '../../Service/websocket.service';
+import {LoadingController} from '@ionic/angular/standalone';
+import {addIcons} from 'ionicons';
+import {arrowRedoOutline} from 'ionicons/icons';
+import {Router} from '@angular/router';
+import {FormsModule} from "@angular/forms";
+import {ProfileService} from '../../Service/profile.service'; // Importa el ProfileService
+import {CloudinaryService} from "../../Service/Cloudinary.service";
 
 @Component({
     selector: 'app-mensajes',

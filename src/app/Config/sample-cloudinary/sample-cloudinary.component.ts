@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CloudinaryModule} from "@cloudinary/ng";
 import {CloudinaryImage} from "@cloudinary/url-gen";
 import {CloudinaryService} from "../../Service/Cloudinary.service";

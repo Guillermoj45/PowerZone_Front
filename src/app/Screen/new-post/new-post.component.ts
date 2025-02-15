@@ -1,10 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { IonicModule, ModalController } from "@ionic/angular";
-import { FormsModule } from "@angular/forms";
-import { addIcons } from "ionicons";
-import { send, close, folderOutline } from "ionicons/icons";
-import { PostService } from '../../Service/Post.service';
-import { NgIf } from "@angular/common";
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {IonicModule, ModalController} from "@ionic/angular";
+import {FormsModule} from "@angular/forms";
+import {addIcons} from "ionicons";
+import {close, folderOutline, send} from "ionicons/icons";
+import {PostService} from '../../Service/Post.service';
+import {NgIf} from "@angular/common";
 
 @Component({
     selector: 'app-new-post',

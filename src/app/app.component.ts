@@ -1,16 +1,16 @@
-import { MenuComponent } from "./Screen/menu/menu.component";
-import { IonicModule, ModalController, ModalOptions } from "@ionic/angular";
-import { SuggestionsComponent } from "./Screen/suggestions/suggestions.component";
-import { Component, HostListener, OnInit, OnDestroy } from "@angular/core";
-import {Router, NavigationEnd, ActivatedRoute} from "@angular/router";
-import { MenuSuggestionsService } from "./Service/menusuggestionsService.service";
-import { NgClass, NgIf } from "@angular/common";
-import { MenuoriginalComponent } from "./Screen/menuoriginal/menuoriginal.component";
-import { FooterComponent } from "./Screen/footer/footer.component";
-import { Menu } from "./Service/Menu.service";
-import { addIcons } from "ionicons";
+import {MenuComponent} from "./Screen/menu/menu.component";
+import {IonicModule, ModalController, ModalOptions} from "@ionic/angular";
+import {SuggestionsComponent} from "./Screen/suggestions/suggestions.component";
+import {Component, HostListener, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {MenuSuggestionsService} from "./Service/menusuggestionsService.service";
+import {NgIf} from "@angular/common";
+import {MenuoriginalComponent} from "./Screen/menuoriginal/menuoriginal.component";
+import {FooterComponent} from "./Screen/footer/footer.component";
+import {Menu} from "./Service/Menu.service";
+import {addIcons} from "ionicons";
 import {logoIonitron, settingsSharp} from "ionicons/icons";
-import { NewPostComponent } from "./Screen/new-post/new-post.component";
+import {NewPostComponent} from "./Screen/new-post/new-post.component";
 import {WebsocketServiceNotification} from "./Service/WebSocketNotification";
 
 @Component({

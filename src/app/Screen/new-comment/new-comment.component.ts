@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { IonicModule, ModalController } from '@ionic/angular';
-import { addIcons } from 'ionicons';
-import { close, send } from 'ionicons/icons';
-import { FormsModule } from '@angular/forms';
-import { CommentService } from '../../Service/Comment.service';
+import {Component, Input} from '@angular/core';
+import {IonicModule, ModalController} from '@ionic/angular';
+import {addIcons} from 'ionicons';
+import {close, send} from 'ionicons/icons';
+import {FormsModule} from '@angular/forms';
+import {CommentService} from '../../Service/Comment.service';
 
 @Component({
     selector: 'app-new-comment',

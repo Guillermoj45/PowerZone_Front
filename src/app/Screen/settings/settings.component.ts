@@ -1,11 +1,11 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { IonicModule, ToastController } from '@ionic/angular';
-import { ProfileSettingsService } from "../../Service/profile-settings.service";
-import { ProfileSetting } from "../../Models/ProfileSetting";
-import { FormsModule } from "@angular/forms";
+import {IonicModule, ToastController} from '@ionic/angular';
+import {ProfileSettingsService} from "../../Service/profile-settings.service";
+import {ProfileSetting} from "../../Models/ProfileSetting";
+import {FormsModule} from "@angular/forms";
 import {CommonModule, formatDate} from '@angular/common';
-import { addIcons } from 'ionicons';
-import { colorWandOutline } from 'ionicons/icons';
+import {addIcons} from 'ionicons';
+import {colorWandOutline} from 'ionicons/icons';
 import {LoadingController} from "@ionic/angular/standalone";
 
 @Component({

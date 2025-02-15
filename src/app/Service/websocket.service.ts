@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Client } from '@stomp/stompjs';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { ChatMessage } from '../Models/ChatMessage';
+import {Injectable} from '@angular/core';
+import {Client} from '@stomp/stompjs';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {ChatMessage} from '../Models/ChatMessage';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({

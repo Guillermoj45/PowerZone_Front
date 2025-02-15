@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { RecuperacionPreviaComponent } from './recuperacion-previa.component';
+import {RecuperacionPreviaComponent} from './recuperacion-previa.component';
 
 describe('RecuperacionPreviaComponent', () => {
   let component: RecuperacionPreviaComponent;

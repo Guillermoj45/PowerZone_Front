@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IonicModule} from "@ionic/angular";
-import { addIcons } from "ionicons";
+import {addIcons} from "ionicons";
 import {closeCircle, personAddOutline, personRemoveOutline} from "ionicons/icons";
 import {ProfileTotal} from "../../Models/ProfileTotal";
 import {NgForOf, NgIf} from "@angular/common";

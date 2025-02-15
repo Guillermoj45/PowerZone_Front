@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import { Report } from 'src/app/Models/Report';
+import {Report} from 'src/app/Models/Report';
 import {ProfileWarningBan} from "../Models/ProfileWarningBan";
 import {Observable} from "rxjs";
 
