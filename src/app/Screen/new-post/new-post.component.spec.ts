@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { NewPostComponent } from './new-post.component';
+import {NewPostComponent} from './new-post.component';
 
 describe('NewPostComponent', () => {
   let component: NewPostComponent;

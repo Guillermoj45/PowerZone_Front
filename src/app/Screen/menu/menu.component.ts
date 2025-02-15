@@ -1,10 +1,19 @@
 // menu.component.ts
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IonicModule, ModalController, ModalOptions} from '@ionic/angular';
-import { addIcons } from 'ionicons';
-import { home, search, add, restaurant, notifications, closeCircle, personCircleOutline, settingsSharp } from 'ionicons/icons';
-import { ProfileService } from '../../Service/profile.service';
-import { Router } from '@angular/router';
+import {addIcons} from 'ionicons';
+import {
+    add,
+    closeCircle,
+    home,
+    notifications,
+    personCircleOutline,
+    restaurant,
+    search,
+    settingsSharp
+} from 'ionicons/icons';
+import {ProfileService} from '../../Service/profile.service';
+import {Router} from '@angular/router';
 import {NgForOf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {NewPostComponent} from "../new-post/new-post.component";

@@ -1,16 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { WebsocketService } from '../../Service/websocket.service';
-import { ChatMessage } from '../../Models/ChatMessage';
-import {DatePipe, NgClass, NgForOf} from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../Service/auth.service';
-import { ProfileMessenger } from "../../Models/Profile";
-import { ProfileService } from "../../Service/profile.service";
-import { Location } from '@angular/common';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {WebsocketService} from '../../Service/websocket.service';
+import {ChatMessage} from '../../Models/ChatMessage';
+import {DatePipe, Location, NgClass, NgForOf, NgIf} from "@angular/common";
+import {FormsModule} from "@angular/forms";
+import {ActivatedRoute} from '@angular/router';
+import {AuthService} from '../../Service/auth.service';
+import {ProfileMessenger} from "../../Models/Profile";
+import {ProfileService} from "../../Service/profile.service";
 import {IonicModule} from "@ionic/angular";
 import {addIcons} from "ionicons";
-import {arrowBackOutline, send} from "ionicons/icons";
+import {arrowBackOutline, send, searchOutline, closeOutline} from "ionicons/icons";
 import {CloudinaryService} from "../../Service/Cloudinary.service";
 
 @Component({
@@ -22,7 +21,8 @@ import {CloudinaryService} from "../../Service/Cloudinary.service";
         FormsModule,
         NgForOf,
         IonicModule,
-        NgClass
+        NgClass,
+        NgIf
     ],
     standalone: true
 })
@@ -34,7 +34,9 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
     user?: ProfileMessenger;
     groupName: string = '';  // Variable para almacenar el nombre del grupo
     groupPhotoUrl: string = '';  // Variable para almacenar la URL de la foto del grupo
-
+    searchTerm: string = '';  // Variable para almacenar el término de búsqueda
+    searchIndex: number = 0;
+    showSearchBar: boolean = false;
     constructor(
         private websocketService: WebsocketService,
         private route: ActivatedRoute,
@@ -43,7 +45,7 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
         private location: Location,
         private cloudinaryService: CloudinaryService,
     ) {
-        addIcons({ arrowBackOutline, send });
+        addIcons({ arrowBackOutline, send, searchOutline, closeOutline });
     }
 
     ngOnInit(): void {
@@ -136,4 +138,51 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
         window.history.back();
         setTimeout(() => location.reload(), 100);
     }
+    onSearchInput(event: any) {
+        if (event.key === 'Enter') {
+            this.searchMessages();
+        }
+    }
+
+    clearSearch() {
+        this.searchTerm = '';
+        this.searchIndex = 0;
+    }
+    toggleSearchBar() {
+        this.showSearchBar = !this.showSearchBar;
+    }
+    searchMessages() {
+        if (!this.searchTerm.trim()) {
+            console.error('Término de búsqueda vacío.');
+            return;
+        }
+
+        // Convertimos ambos a minúsculas para hacer la búsqueda insensible a mayúsculas/minúsculas
+        const term = this.searchTerm.trim().toLowerCase();
+
+        const searchResults = this.messages.filter(message => message.content.toLowerCase().includes(term));
+
+        if (searchResults.length > 0) {
+            const selectedMessage = searchResults[this.searchIndex];
+
+            // Buscar el mensaje en el DOM con el timestamp correspondiente
+            const messageElement = document.querySelector(`[data-message-id="${selectedMessage.timestamp}"]`);
+
+            if (messageElement) {
+                messageElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                messageElement.classList.add('highlight'); // Añadir clase para resaltar el mensaje
+
+                // Remover la clase después de 2 segundos para no dejarlo permanentemente resaltado
+                setTimeout(() => messageElement.classList.remove('highlight'), 2000);
+
+                // Avanzar al siguiente resultado en la lista
+                this.searchIndex = (this.searchIndex + 1) % searchResults.length;
+            } else {
+                console.error('No se pudo encontrar el mensaje en el DOM.');
+            }
+        } else {
+            console.error('No se encontraron mensajes con el término de búsqueda.');
+        }
+    }
+
 }

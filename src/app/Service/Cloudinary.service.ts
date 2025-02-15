@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 
 // Import the CloudinaryModule.
-import {CloudinaryModule} from '@cloudinary/ng';
 
 // Import the Cloudinary classes.
 import {Cloudinary, CloudinaryImage} from '@cloudinary/url-gen';
-import { name } from "@cloudinary/url-gen/actions/namedTransformation";
+import {name} from "@cloudinary/url-gen/actions/namedTransformation";
 
 @Injectable({
   providedIn: 'root',

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { RegistroService } from '../../Service/profile.service';
-import { Register } from '../../Models/Register';
-import { IonicModule, AlertController } from '@ionic/angular';
-import { CarrouselComponent } from '../../Component/carrousel/carrousel.component';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgIf } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {RegistroService} from '../../Service/profile.service';
+import {Register} from '../../Models/Register';
+import {AlertController, IonicModule} from '@ionic/angular';
+import {CarrouselComponent} from '../../Component/carrousel/carrousel.component';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {NgIf} from '@angular/common';
+import {Router, RouterModule} from '@angular/router';
 import {LoadingController} from "@ionic/angular/standalone";
 
 @Component({

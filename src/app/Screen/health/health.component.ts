@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ChatBotService } from '../../Service/chat-bot.service';
-import { CommonModule } from '@angular/common';
-import { addIcons } from 'ionicons';
+import {Component, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {IonicModule} from '@ionic/angular';
+import {ChatBotService} from '../../Service/chat-bot.service';
+import {CommonModule} from '@angular/common';
+import {addIcons} from 'ionicons';
 import {logoIonitron, sendOutline, sendSharp} from 'ionicons/icons';
-import { BoldPipe } from '../../Service/bold.pipe';
+import {BoldPipe} from '../../Service/bold.pipe';
 
 @Component({
     selector: 'app-health',

@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Client } from '@stomp/stompjs';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { ChatMessage } from '../Models/ChatMessage';
+import {Injectable} from '@angular/core';
+import {Client} from '@stomp/stompjs';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {ChatMessage} from '../Models/ChatMessage';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
@@ -10,6 +10,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 export class WebsocketService {
     private stompClient!: Client;
     private messageSubject: BehaviorSubject<ChatMessage[]> = new BehaviorSubject<ChatMessage[]>([]); // Lista de mensajes
+
 
     constructor(private http: HttpClient) {}
 
@@ -38,6 +39,10 @@ export class WebsocketService {
         });
 
         this.stompClient.activate();
+    }
+
+    newSubscription(roomId: string) {
+
     }
 
     // Método para enviar mensajes

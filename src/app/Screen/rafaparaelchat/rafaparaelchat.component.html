@@ -13,6 +13,14 @@
             <h4>{{ groupName }}</h4>
             <p>En línea</p>
         </div>
+        <div class="search-container">
+            <ion-icon *ngIf="!showSearchBar" name="search-outline" (click)="toggleSearchBar()"></ion-icon>
+
+            <div *ngIf="showSearchBar" class="search-bar-wrapper">
+                <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="onSearchInput($event)" (keyup.enter)="searchMessages()"></ion-searchbar>
+                <ion-icon name="close-outline" (click)="toggleSearchBar()"></ion-icon>
+            </div>
+        </div>
     </div>
 
     <!-- Mensajes -->
@@ -20,8 +28,8 @@
         <div class="message-list">
             <div *ngFor="let message of messages"
                  [ngClass]="{'message-sent': message.sender === user?.nickName, 'message-received': message.sender !== user?.nickName}"
-                 class="message-container">
-
+                 class="message-container"
+                [attr.data-message-id]="message.timestamp">
                 <!-- Nombre del usuario encima del mensaje -->
                 <div class="message-sender">{{ message.sender }}</div>
 

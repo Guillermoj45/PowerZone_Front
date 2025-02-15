@@ -1,4 +1,4 @@
-import {Profile, ProfileMessenger} from "./Profile";
+import {ProfileMessenger} from "./Profile";
 import {PostDto} from "./PostDto";
 
 export class MegaNotification {

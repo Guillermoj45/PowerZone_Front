@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import introJs from 'intro.js';
 import 'intro.js/introjs.css';
-import { MenuoriginalComponent } from '../Screen/menuoriginal/menuoriginal.component';
 
 @Injectable({
   providedIn: 'root'

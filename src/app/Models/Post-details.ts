@@ -1,4 +1,3 @@
-import {Profile} from "./Profile";
 import {Post} from "./Post";
 
 export class PostDetails {

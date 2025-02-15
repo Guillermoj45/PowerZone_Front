@@ -1,20 +1,22 @@
-import {Component, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import { IonicModule, ModalController, ModalOptions, ToastController } from '@ionic/angular';
-import { CommonModule, NgForOf } from '@angular/common';
+import {Component, OnInit, SimpleChanges} from '@angular/core';
+import {IonicModule, ModalController, ModalOptions, ToastController} from '@ionic/angular';
+import {CommonModule, NgForOf} from '@angular/common';
 import {NavigationEnd, Router} from '@angular/router';
-import { addIcons } from 'ionicons';
+import {addIcons} from 'ionicons';
 import {
-  bookmark,
-  heart,
-  chatbubble,
-  shareSocial,
-  heartOutline,
-  bookmarkOutline,
-  ellipsisHorizontal, trash, exitOutline
+    bookmark,
+    bookmarkOutline,
+    chatbubble,
+    ellipsisHorizontal,
+    exitOutline,
+    heart,
+    heartOutline,
+    shareSocial,
+    trash
 } from 'ionicons/icons';
-import { PostService } from '../../Service/Post.service';
-import { PostDto } from '../../Models/PostDto';
-import { NewCommentComponent } from '../new-comment/new-comment.component';
+import {PostService} from '../../Service/Post.service';
+import {PostDto} from '../../Models/PostDto';
+import {NewCommentComponent} from '../new-comment/new-comment.component';
 import {start} from "@popperjs/core";
 import {ProfileService} from "../../Service/profile.service";
 import {FormsModule} from "@angular/forms";

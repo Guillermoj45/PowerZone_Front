@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Register } from '../Models/Register';
-import { Login } from '../Models/Login';
+import {Observable} from 'rxjs';
+import {Register} from '../Models/Register';
+import {Login} from '../Models/Login';
 import {ProfileTotal} from "../Models/ProfileTotal";
 
 @Injectable({

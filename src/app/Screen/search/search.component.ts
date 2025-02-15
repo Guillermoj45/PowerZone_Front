@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicModule } from "@ionic/angular";
-import { FormsModule } from "@angular/forms";
-import { NgForOf } from "@angular/common";
-import { ProfileService } from '../../Service/profile.service'; // Importar el servicio
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {IonicModule} from "@ionic/angular";
+import {FormsModule} from "@angular/forms";
+import {NgForOf} from "@angular/common";
+import {ProfileService} from '../../Service/profile.service'; // Importar el servicio
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-search',

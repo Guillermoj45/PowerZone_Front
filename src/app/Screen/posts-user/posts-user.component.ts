@@ -1,19 +1,20 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PostService } from '../../Service/Post.service';
-import { PostDto } from '../../Models/PostDto';
-import {IonicModule, ModalController, ModalOptions, ToastController} from '@ionic/angular';
-import { NewCommentComponent } from '../new-comment/new-comment.component';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {PostService} from '../../Service/Post.service';
+import {PostDto} from '../../Models/PostDto';
+import {IonicModule, ModalController, ToastController} from '@ionic/angular';
 import {NgForOf, NgIf} from "@angular/common";
-import { addIcons } from 'ionicons';
+import {addIcons} from 'ionicons';
 import {
     bookmark,
-    heart,
-    chatbubble,
-    shareSocial,
-    heartOutline,
     bookmarkOutline,
-    ellipsisHorizontal, trash, exitOutline
+    chatbubble,
+    ellipsisHorizontal,
+    exitOutline,
+    heart,
+    heartOutline,
+    shareSocial,
+    trash
 } from 'ionicons/icons';
 
 @Component({
