@@ -11,6 +11,7 @@ export class WebsocketService {
     private stompClient!: Client;
     private messageSubject: BehaviorSubject<ChatMessage[]> = new BehaviorSubject<ChatMessage[]>([]); // Lista de mensajes
 
+
     constructor(private http: HttpClient) {}
 
     // Método para conectarse al WebSocket
@@ -38,6 +39,10 @@ export class WebsocketService {
         });
 
         this.stompClient.activate();
+    }
+
+    newSubscription(roomId: string) {
+
     }
 
     // Método para enviar mensajes
