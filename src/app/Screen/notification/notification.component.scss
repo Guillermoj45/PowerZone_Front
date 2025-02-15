@@ -3,6 +3,10 @@ ion-grid {
     height: 100%;
 }
 
+ion-content {
+    --background: #007875;
+}
+
 ion-toolbar {
     --background: #042f2e;
     --color: white;
