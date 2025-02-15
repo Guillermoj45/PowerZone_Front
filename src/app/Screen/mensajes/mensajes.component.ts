@@ -8,6 +8,7 @@ import { arrowRedoOutline } from 'ionicons/icons';
 import { Router } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { ProfileService } from '../../Service/profile.service';  // Importa el ProfileService
+import { CloudinaryService } from "../../Service/Cloudinary.service";
 
 @Component({
     selector: 'app-mensajes',
@@ -21,14 +22,16 @@ export class MensajesComponent implements OnInit {
     grupos: any[] = [];
     perfilesSeguidos: any[] = [];
     perfilesSeleccionados: any[] = [];
-    nombreGrupo: string = ''; // Nombre del grupo que se creará
+    nombreGrupo: string = '';
+    imagenGrupo: File | null = null;
 
     constructor(
         private websocketService: WebsocketService,
         private loadingController: LoadingController,
         private toastController: ToastController,
         private router: Router,
-        private profileService: ProfileService // Inyecta el ProfileService
+        private profileService: ProfileService,
+        private cloudinaryService: CloudinaryService
     ) {
         addIcons({ arrowRedoOutline });
     }
@@ -54,7 +57,6 @@ export class MensajesComponent implements OnInit {
         }
     }
 
-
     async cargarGrupos(): Promise<void> {
         const loading = await this.loadingController.create({ message: 'Cargando grupos...' });
         await loading.present();
@@ -68,6 +70,7 @@ export class MensajesComponent implements OnInit {
                     next: (mensajesResponse) => {
                         console.log('Mensajes recibidos:', mensajesResponse);
                         this.grupos.forEach(grupo => {
+                            grupo.image = this.cloudinaryService.getImage(grupo.image)
                             const mensaje = mensajesResponse.find((m: any) => m.grupoId === grupo.id);
                             if (mensaje) {
                                 grupo.ultimoMensaje = mensaje.ultimoMensaje || 'Sin mensajes';
@@ -160,8 +163,19 @@ export class MensajesComponent implements OnInit {
 
         const grupoData = { name: this.nombreGrupo };
 
+        // Crear FormData para enviar el grupo y la imagen (si existe)
+        const formData = new FormData();
+        formData.append('group', JSON.stringify(grupoData)); // Agregar el nombre del grupo como JSON
+        if (this.imagenGrupo) { // Suponiendo que 'imagenGrupo' es el archivo de imagen seleccionado
+            formData.append('file', this.imagenGrupo);
+        }
+
         try {
-            const grupo = await this.websocketService.createGroup(grupoData).toPromise();
+            const groupName = { name: this.nombreGrupo };
+            const file = this.imagenGrupo || undefined;
+
+            const grupo = await this.websocketService.createGroup(groupName, file).toPromise();
+
             console.log('Grupo creado:', grupo);
 
             // Agregar usuarios al grupo
@@ -184,6 +198,13 @@ export class MensajesComponent implements OnInit {
 
             // Cerrar el modal de loading si ocurre un error
             await loading.dismiss();
+        }
+    }
+
+    onFileSelected(event: Event): void {
+        const input = event.target as HTMLInputElement;
+        if (input?.files?.length) {
+            this.imagenGrupo = input.files[0]; // Asigna el archivo seleccionado
         }
     }
 

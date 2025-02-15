@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
 import {IonicModule} from "@ionic/angular";
 import {addIcons} from "ionicons";
 import {arrowBackOutline, send} from "ionicons/icons";
+import {CloudinaryService} from "../../Service/Cloudinary.service";
 
 @Component({
     selector: 'app-chat',
@@ -26,20 +27,23 @@ import {arrowBackOutline, send} from "ionicons/icons";
     standalone: true
 })
 export class RafaparaelchatComponent implements OnInit, OnDestroy {
-    messages: ChatMessage[] = [];  // Lista de mensajes
-    newMessage: string = '';       // Mensaje nuevo
-    senderNickname: string = '';   // Nickname del usuario
-    groupId!: number;              // ID del grupo
+    messages: ChatMessage[] = [];
+    newMessage: string = '';
+    senderNickname: string = '';
+    groupId!: number;
     user?: ProfileMessenger;
+    groupName: string = '';  // Variable para almacenar el nombre del grupo
+    groupPhotoUrl: string = '';  // Variable para almacenar la URL de la foto del grupo
 
     constructor(
         private websocketService: WebsocketService,
         private route: ActivatedRoute,
         private authService: AuthService,
         private profileService: ProfileService,
-        private location: Location
+        private location: Location,
+        private cloudinaryService: CloudinaryService,
     ) {
-        addIcons({arrowBackOutline, send})
+        addIcons({ arrowBackOutline, send });
     }
 
     ngOnInit(): void {
@@ -54,10 +58,22 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
                 this.websocketService.getMessagesByGroup(this.groupId).subscribe({
                     next: (messages: ChatMessage[]) => {
                         console.log("Mensajes recibidos:", messages);
-                        this.messages = messages; // Cargar los mensajes en la variable
+                        this.messages = messages;  // Cargar los mensajes en la variable
                     },
                     error: (error) => {
                         console.error('Error obteniendo mensajes del grupo:', error);
+                    }
+                });
+
+                // Llamar al servicio para obtener la información del grupo
+                this.websocketService.getGroupDetails(this.groupId).subscribe({
+                    next: (groupInfo) => {
+                        console.log('Información del grupo:', groupInfo);
+                        this.groupName = groupInfo.name;  // Asignar el nombre del grupo
+                        this.groupPhotoUrl = this.cloudinaryService.getImage(groupInfo.image).toURL();
+                    },
+                    error: (error) => {
+                        console.error('Error obteniendo la información del grupo:', error);
                     }
                 });
             } else {
@@ -71,7 +87,7 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
             this.profileService.getProfile(token).subscribe({
                 next: (profile: ProfileMessenger) => {
                     this.user = profile;
-                    this.senderNickname = profile.nickName; // Asignar el nickname al usuario
+                    this.senderNickname = profile.nickName;
                 },
                 error: (error) => {
                     console.error('Error obteniendo el perfil del usuario:', error);
@@ -81,10 +97,10 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
             console.error('Token no encontrado en sessionStorage.');
         }
 
-        // Suscribirse a los mensajes entrantes (recibiendo un arreglo de mensajes)
+        // Suscribirse a los mensajes entrantes
         this.websocketService.getMessageObservable().subscribe({
             next: (messages: ChatMessage[]) => {
-                this.messages = [...this.messages, ...messages];  // Agregar los mensajes nuevos a la lista existente
+                this.messages = [...this.messages, ...messages];  // Agregar los nuevos mensajes
             },
             error: (error) => {
                 console.error('Error en la recepción de mensajes:', error);
@@ -92,12 +108,7 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
         });
     }
 
-    navigateBack() {
-        window.history.back();
-        setTimeout(() => location.reload(), 100);
-    }
-
-
+    // Enviar un mensaje
     sendMessage() {
         if (!this.newMessage.trim() || !this.user) {
             console.error('Mensaje vacío o usuario no encontrado.');
@@ -112,11 +123,17 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
             groupId: this.groupId,
         };
 
-        this.websocketService.sendMessage(chatMessage);  // Enviar el mensaje
+        this.websocketService.sendMessage(chatMessage);
         this.newMessage = '';  // Limpiar el campo de texto
     }
 
+    // Desconectar del WebSocket cuando se destruye el componente
     ngOnDestroy() {
         this.websocketService.disconnect();
+    }
+
+    navigateBack() {
+        window.history.back();
+        setTimeout(() => location.reload(), 100);
     }
 }
