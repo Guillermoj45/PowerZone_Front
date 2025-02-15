@@ -6,7 +6,16 @@ import { ProfileSetting } from '../../Models/ProfileSetting';
 import { PostService } from '../../Service/Post.service';
 import { PostDto } from '../../Models/PostDto';
 import { NgForOf, NgIf } from "@angular/common";
-import { bookmark, bookmarkOutline, chatbubble, heart, heartOutline, sendSharp, shareSocial } from 'ionicons/icons';
+import {
+  bookmark,
+  bookmarkOutline,
+  chatbubble,
+  heart,
+  heartOutline,
+  sendSharp,
+  settingsOutline,
+  shareSocial
+} from 'ionicons/icons';
 import { addIcons } from "ionicons";
 import { User } from '../../Models/User';
 
@@ -46,7 +55,7 @@ export class ProfileComponent implements OnInit {
         private profileSettings: ProfileSettingsService,
         private postService: PostService
     ) {
-        addIcons({ bookmark, sendSharp });
+        addIcons({ bookmark, sendSharp, settingsOutline });
     }
 
     ngOnInit() {

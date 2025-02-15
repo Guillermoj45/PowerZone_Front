@@ -58,4 +58,9 @@ export class MenuComponent implements OnInit {
     navigateToProfile(id: number) {
         this.router.navigate([`/profile/${id}`]); // Cambia la ruta si es necesario
     }
+
+  LogOut() {
+        sessionStorage.clear()
+        this.router.navigate(['/login']);
+    }
 }

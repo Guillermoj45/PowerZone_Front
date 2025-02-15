@@ -18,8 +18,17 @@ export class PostService {
 
         });
     }
+  getUserIdByPostId(token: string, postId: number): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/${postId}/userId`, {
+      headers: this.getHeaders(token)
+    });
+  }
 
-
+  getPostsByPattern(pattern: string): Observable<PostDto[]> {
+    const token = sessionStorage.getItem('token') || '';
+    const headers = this.getHeaders(token);
+    return this.http.get<PostDto[]>(`${this.apiUrl}/pattern`, { headers, params: { pattern } });
+  }
     getPostById(token: string, postId: number): Observable<PostDto> {
         return this.http.get<PostDto>(`/api/post/${postId}`, {
             headers: { Authorization: `Bearer ${token}` }
@@ -27,6 +36,13 @@ export class PostService {
     }
     getFollowedPosts(token: string): Observable<PostDto[]> {
         return this.http.get<PostDto[]>(`${this.apiUrl}/followed`, { headers: this.getHeaders(token) });
+    }
+    getPostsWithMostLikes(token: string): Observable<PostDto[]> {
+      return this.http.get<PostDto[]>(`${this.apiUrl}/most-liked`, { headers: this.getHeaders(token) });
+    }
+
+    getPostsWithMostComments(token: string): Observable<PostDto[]> {
+      return this.http.get<PostDto[]>(`${this.apiUrl}/most-commented`, { headers: this.getHeaders(token) });
     }
 
     reportPost(postId: number, reason: string): Observable<void> {
@@ -48,9 +64,7 @@ export class PostService {
     getAllPosts(token: string): Observable<PostDto[]> {
         return this.http.get<PostDto[]>(`${this.apiUrl}/all`, { headers: this.getHeaders(token) });
     }
-    getBestPosts(token: string): Observable<PostDto[]> {
-        return this.http.get<PostDto[]>(`${this.apiUrl}/best`, { headers: this.getHeaders(token) });
-    }
+
     getUserPostsById(token: string, userId: string): Observable<PostDto[]> {
         const headers = this.getHeaders(token);
         return this.http.get<PostDto[]>(`${this.apiUrl}/userposts/${userId}`, { headers });

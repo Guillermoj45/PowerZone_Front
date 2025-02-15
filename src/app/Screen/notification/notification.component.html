@@ -1,135 +1,132 @@
 <ion-content fullscreen>
-  <ion-grid>
-    <!-- Encabezado principal -->
-    <ion-row>
-      <ion-col>
-        <h1 class="movil" style="text-align: center">Notificaciones</h1>
-      </ion-col>
-    </ion-row>
 
-    <!-- Sección: Notificaciones de Hoy -->
-    <ng-container *ngIf="notificationsToday.length > 0">
-      <ion-row>
-        <ion-col>
-          <h1>Hoy</h1>
-        </ion-col>
-      </ion-row>
-      <ng-container *ngFor="let notification of notificationsToday">
-        <ion-row>
-          <ion-col>
-            <ion-item lines="none" (click)="goToNotification(notification)">
-              <ion-avatar slot="start">
-                <img alt="avatar" [src]="notification.emitter.avatar" />
-              </ion-avatar>
-              <ion-label>
-                <b>{{ notification.emitter.nickName }}</b>
-                <span [ngSwitch]="notification.type">
-                  <span *ngSwitchCase="'MESSAGE'">te ha enviado un mensaje</span>
-                  <span *ngSwitchCase="'NEW_POST'">ha publicado una nueva publicación</span>
-                  <span *ngSwitchCase="'NEW_LIKE'">le ha dado me gusta a tu publicación</span>
-                  <span *ngSwitchCase="'NEW_FOLLOWER'">te ha seguido</span>
-                  <span *ngSwitchCase="'NEW_COMMENT'">ha comentado tu publicación</span>
-                  <span *ngSwitchDefault>ha realizado una acción</span>
-                </span>
-              </ion-label>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ng-container>
-    </ng-container>
+    <ion-grid class="ion-no-padding">
+        <ion-toolbar class="movil">
+            <ion-title class="header">Notificaciones</ion-title>
+        </ion-toolbar>
+        <!-- Sección: Notificaciones de Hoy -->
+        <ng-container *ngIf="notificationsToday.length > 0">
+            <ion-row class="section-header">
+                <ion-col>
+                    <h2>Hoy</h2>
+                </ion-col>
+            </ion-row>
+            <ng-container *ngFor="let notification of notificationsToday">
+                <ion-row>
+                    <ion-col>
+                        <ion-item lines="none" (click)="goToNotification(notification)" class="notification-item">
+                            <ion-avatar slot="start">
+                                <img alt="avatar" [src]="notification.emitter.avatar"/>
+                            </ion-avatar>
+                            <ion-label class="notification-label">
+                                <b>{{ notification.emitter.nickName }}</b>
+                                <span [ngSwitch]="notification.type">
+                                    <span *ngSwitchCase="'MESSAGE'"> te ha enviado un mensaje</span>
+                                    <span *ngSwitchCase="'NEW_POST'"> ha publicado una nueva publicación</span>
+                                    <span *ngSwitchCase="'NEW_LIKE'"> le ha dado me gusta a tu publicación</span>
+                                    <span *ngSwitchCase="'NEW_FOLLOWER'"> te ha seguido</span>
+                                    <span *ngSwitchCase="'NEW_COMMENT'"> ha comentado tu publicación</span>
+                                    <span *ngSwitchDefault> ha realizado una acción</span>
+                                </span>
+                            </ion-label>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ng-container>
+        </ng-container>
 
-    <!-- Sección: Notificaciones de Ayer -->
-    <ng-container *ngIf="notificationsYesterday.length > 0">
-      <ion-row>
-        <ion-col>
-          <h1>Ayer</h1>
-        </ion-col>
-      </ion-row>
-      <ng-container *ngFor="let notification of notificationsYesterday">
-        <ion-row>
-          <ion-col>
-            <ion-item lines="none">
-              <ion-avatar slot="start">
-                <img alt="avatar" [src]="notification.emitter.avatar" />
-              </ion-avatar>
-              <ion-label>
-                <b>{{ notification.emitter.nickName }}</b>
-                <span [ngSwitch]="notification.type">
-                  <span *ngSwitchCase="'MESSAGE'">te ha enviado un mensaje</span>
-                  <span *ngSwitchCase="'NEW_POST'">ha publicado una nueva publicación</span>
-                  <span *ngSwitchCase="'NEW_LIKE'">le ha dado me gusta a tu publicación</span>
-                  <span *ngSwitchCase="'NEW_FOLLOWER'">te ha seguido</span>
-                  <span *ngSwitchCase="'NEW_COMMENT'">ha comentado tu publicación</span>
-                  <span *ngSwitchDefault>ha realizado una acción</span>
-                </span>
-              </ion-label>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ng-container>
-    </ng-container>
+        <!-- Sección: Notificaciones de Ayer -->
+        <ng-container *ngIf="notificationsYesterday.length > 0">
+            <ion-row class="section-header">
+                <ion-col>
+                    <h2>Ayer</h2>
+                </ion-col>
+            </ion-row>
+            <ng-container *ngFor="let notification of notificationsYesterday">
+                <ion-row>
+                    <ion-col>
+                        <ion-item lines="none" class="notification-item">
+                            <ion-avatar slot="start">
+                                <img alt="avatar" [src]="notification.emitter.avatar"/>
+                            </ion-avatar>
+                            <ion-label class="notification-label">
+                                <b>{{ notification.emitter.nickName }}</b>
+                                <span [ngSwitch]="notification.type">
+                                    <span *ngSwitchCase="'MESSAGE'"> te ha enviado un mensaje</span>
+                                    <span *ngSwitchCase="'NEW_POST'"> ha publicado una nueva publicación</span>
+                                    <span *ngSwitchCase="'NEW_LIKE'"> le ha dado me gusta a tu publicación</span>
+                                    <span *ngSwitchCase="'NEW_FOLLOWER'"> te ha seguido</span>
+                                    <span *ngSwitchCase="'NEW_COMMENT'"> ha comentado tu publicación</span>
+                                    <span *ngSwitchDefault> ha realizado una acción</span>
+                                </span>
+                            </ion-label>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ng-container>
+        </ng-container>
 
-    <!-- Sección: Notificaciones de los Últimos 7 días -->
-    <ng-container *ngIf="notificationsLast7Days.length > 0">
-      <ion-row>
-        <ion-col>
-          <h1>Últimos 7 días</h1>
-        </ion-col>
-      </ion-row>
-      <ng-container *ngFor="let notification of notificationsLast7Days">
-        <ion-row>
-          <ion-col>
-            <ion-item lines="none">
-              <ion-avatar slot="start">
-                <img alt="avatar" [src]="notification.emitter.avatar" />
-              </ion-avatar>
-              <ion-label>
-                <b>{{ notification.emitter.nickName }}</b>
-                <span [ngSwitch]="notification.type">
-                  <span *ngSwitchCase="'MESSAGE'">te ha enviado un mensaje</span>
-                  <span *ngSwitchCase="'NEW_POST'">ha publicado una nueva publicación</span>
-                  <span *ngSwitchCase="'NEW_LIKE'">le ha dado me gusta a tu publicación</span>
-                  <span *ngSwitchCase="'NEW_FOLLOWER'">te ha seguido</span>
-                  <span *ngSwitchCase="'NEW_COMMENT'">ha comentado tu publicación</span>
-                  <span *ngSwitchDefault>ha realizado una acción</span>
-                </span>
-              </ion-label>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ng-container>
-    </ng-container>
+        <!-- Sección: Notificaciones de los Últimos 7 días -->
+        <ng-container *ngIf="notificationsLast7Days.length > 0">
+            <ion-row class="section-header">
+                <ion-col>
+                    <h2>Últimos 7 días</h2>
+                </ion-col>
+            </ion-row>
+            <ng-container *ngFor="let notification of notificationsLast7Days">
+                <ion-row>
+                    <ion-col>
+                        <ion-item lines="none" class="notification-item">
+                            <ion-avatar slot="start">
+                                <img alt="avatar" [src]="notification.emitter.avatar"/>
+                            </ion-avatar>
+                            <ion-label class="notification-label">
+                                <b>{{ notification.emitter.nickName }}</b>
+                                <span [ngSwitch]="notification.type">
+                                    <span *ngSwitchCase="'MESSAGE'"> te ha enviado un mensaje</span>
+                                    <span *ngSwitchCase="'NEW_POST'"> ha publicado una nueva publicación</span>
+                                    <span *ngSwitchCase="'NEW_LIKE'"> le ha dado me gusta a tu publicación</span>
+                                    <span *ngSwitchCase="'NEW_FOLLOWER'"> te ha seguido</span>
+                                    <span *ngSwitchCase="'NEW_COMMENT'"> ha comentado tu publicación</span>
+                                    <span *ngSwitchDefault> ha realizado una acción</span>
+                                </span>
+                            </ion-label>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ng-container>
+        </ng-container>
 
-    <!-- Sección: Notificaciones de los Últimos 10 días -->
-    <ng-container *ngIf="notificationsLast10Days.length > 0">
-      <ion-row>
-        <ion-col>
-          <h1>Últimos 10 días</h1>
-        </ion-col>
-      </ion-row>
-      <ng-container *ngFor="let notification of notificationsLast10Days">
-        <ion-row>
-          <ion-col>
-            <ion-item lines="none">
-              <ion-avatar slot="start">
-                <img alt="avatar" [src]="notification.emitter.avatar" />
-              </ion-avatar>
-              <ion-label>
-                <b>{{ notification.emitter.nickName }}</b>
-                <span [ngSwitch]="notification.type">
-                  <span *ngSwitchCase="'MESSAGE'">te ha enviado un mensaje</span>
-                  <span *ngSwitchCase="'NEW_POST'">ha publicado una nueva publicación</span>
-                  <span *ngSwitchCase="'NEW_LIKE'">le ha dado me gusta a tu publicación</span>
-                  <span *ngSwitchCase="'NEW_FOLLOWER'">te ha seguido</span>
-                  <span *ngSwitchCase="'NEW_COMMENT'">ha comentado tu publicación</span>
-                  <span *ngSwitchDefault>ha realizado una acción</span>
-                </span>
-              </ion-label>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ng-container>
-    </ng-container>
+        <!-- Sección: Notificaciones de los Últimos 10 días -->
+        <ng-container *ngIf="notificationsLast10Days.length > 0">
+            <ion-row class="section-header">
+                <ion-col>
+                    <h2>Últimos 10 días</h2>
+                </ion-col>
+            </ion-row>
+            <ng-container *ngFor="let notification of notificationsLast10Days">
+                <ion-row>
+                    <ion-col>
+                        <ion-item lines="none" class="notification-item">
+                            <ion-avatar slot="start">
+                                <img alt="avatar" [src]="notification.emitter.avatar"/>
+                            </ion-avatar>
+                            <ion-label class="notification-label">
+                                <b>{{ notification.emitter.nickName }}</b>
+                                <span [ngSwitch]="notification.type">
+                                    <span *ngSwitchCase="'MESSAGE'"> te ha enviado un mensaje</span>
+                                    <span *ngSwitchCase="'NEW_POST'"> ha publicado una nueva publicación</span>
+                                    <span *ngSwitchCase="'NEW_LIKE'"> le ha dado me gusta a tu publicación</span>
+                                    <span *ngSwitchCase="'NEW_FOLLOWER'"> te ha seguido</span>
+                                    <span *ngSwitchCase="'NEW_COMMENT'"> ha comentado tu publicación</span>
+                                    <span *ngSwitchDefault> ha realizado una acción</span>
+                                </span>
+                            </ion-label>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ng-container>
+        </ng-container>
 
-  </ion-grid>
+    </ion-grid>
 </ion-content>

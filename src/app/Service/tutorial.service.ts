@@ -92,6 +92,6 @@ export class TutorialService {
       this.configureSteps();
       this.intro.start();
 
-    }, 1000); // Espera 1 segundo para asegurarse de que el DOM está cargado
+    }, 500); // Espera 1 segundo para asegurarse de que el DOM está cargado
   }
 }

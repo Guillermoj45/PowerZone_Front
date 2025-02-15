@@ -55,10 +55,10 @@
                 <ion-col size="5">
                     <ion-button *ngIf="isOwnProfile; else sendMessage" (click)="navigateTo('/settings')">
                         Ajustes del perfil
-                        <ion-icon style="margin-left: 5%" name="settings-outline"></ion-icon>
+                        <ion-icon style="margin-left: 5%; margin-right: 4.5%" name="settings-outline" slot="start"></ion-icon>
                     </ion-button>
                     <ng-template #sendMessage>
-                        <ion-button (click)="navigateTo('/chat')">
+                        <ion-button (click)="navigateTo('/mensajes')">
                             Enviar un mensaje
                             <ion-icon style="margin-left: 5%" name="send-sharp"></ion-icon>
                         </ion-button>
