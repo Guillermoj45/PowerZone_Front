@@ -43,7 +43,7 @@ export class PostsComponent implements OnInit {
 
   posts: PostDto[] = [];
   selectedFilter: string = 'recientes';
-
+  users: any[] = [];
   searchQuery: string = '';
   isOpen = false;
   reportReason:string= "";
@@ -598,5 +598,36 @@ export class PostsComponent implements OnInit {
         break;
     }
   }
+    onSearchChange() {
+        if (this.searchQuery.trim().length > 0) {
+            if (this.searchQuery.startsWith('#')) {
+                this.filterPostsByPattern();
+            } else {
+                this.profile.searchProfiles(this.searchQuery).subscribe((data) => {
+                    if (data.length > 0) {
+                        this.loadPostsByUser(data[0].id);
+                    } else {
+                        this.users = [];
+                        this.loadPosts();
+                    }
+                });
+            }
+        } else {
+            this.users = [];
+            this.loadPosts();
+        }
+    }
+
+    loadPostsByUser(userId: string): void {
+        const token = sessionStorage.getItem('token') || '';
+        this.postService.getUserPostsById(token, userId).subscribe(
+            (data: PostDto[]) => {
+                this.posts = data;
+            },
+            (error) => {
+                console.error('Error loading posts by user:', error);
+            }
+        );
+    }
 }
 

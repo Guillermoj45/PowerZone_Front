@@ -4,7 +4,7 @@
       <!-- Lista de Filtros -->
       <ion-row class="sticky-header">
         <ion-col size="10">
-          <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="filterPostsByPattern()"></ion-searchbar>
+            <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="onSearchChange()"></ion-searchbar>
         </ion-col>
         <ion-col size="2">
           <ion-list class="post-list">
