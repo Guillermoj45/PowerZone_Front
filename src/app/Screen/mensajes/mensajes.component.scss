@@ -70,7 +70,6 @@ ion-modal {
 
 /* Animación al aparecer la lista de grupos */
 ion-list {
-    --background: #f4f4f4; /* Fondo claro para la lista */
     padding: 0; /* Eliminar espacio adicional */
     border-radius: 8px; /* Bordes redondeados para la lista */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
@@ -87,4 +86,30 @@ ion-list {
         transform: translateX(0);
         opacity: 1;
     }
+}
+
+/* Estilos para el input de archivo */
+input[type="file"] {
+    display: none; /* Oculta el input de archivo */
+}
+
+input[type="file"] + label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #042f2e; /* Color de fondo personalizado */
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transición suave */
+}
+
+input[type="file"]:hover + label {
+    transform: scale(1.05); /* Aumentar ligeramente el tamaño al hacer hover */
+}
+
+/* Estilo cuando se selecciona un archivo */
+input[type="file"]:valid + label {
+    background-color: #077a48; /* Verde cuando un archivo ha sido seleccionado */
+    margin: 2%;
 }

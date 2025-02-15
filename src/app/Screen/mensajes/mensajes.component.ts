@@ -140,6 +140,12 @@ export class MensajesComponent implements OnInit {
             return;
         }
 
+        // Validar si se ha seleccionado una imagen
+        if (!this.imagenGrupo) {
+            this.mostrarToast('Debes elegir una foto para el grupo.', 'warning');
+            return;
+        }
+
         // Obtener el ID del usuario a través del ProfileService
         const token = sessionStorage.getItem('token'); // Asumiendo que el token está guardado en localStorage
         if (!token) {
