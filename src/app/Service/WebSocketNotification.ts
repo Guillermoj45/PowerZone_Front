@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Client} from '@stomp/stompjs';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {ChatMessage} from '../Models/ChatMessage';
 import {ProfileService} from "./profile.service";
 import {ProfileTotal} from "../Models/ProfileTotal";
@@ -11,7 +11,7 @@ import {MegaNotification} from "../Models/MegaNotification";
 })
 export class WebsocketServiceNotification {
     private stompClient!: Client;
-    private messageSubject: BehaviorSubject<MegaNotification[]> = new BehaviorSubject<MegaNotification[]>([]); // Lista de mensajes
+    private megaNotification: BehaviorSubject<MegaNotification[]> = new BehaviorSubject<MegaNotification[]>([]); // Lista de mensajes
 
     constructor(
       private profileService: ProfileService // Inyecta el ProfileService
@@ -45,8 +45,8 @@ export class WebsocketServiceNotification {
                     try {
                         const chatMessage: MegaNotification = JSON.parse(message.body);
                         console.log('ChatMessage: ', chatMessage);
-                        const currentMessages = this.messageSubject.getValue(); // Obtener los mensajes actuales
-                        this.messageSubject.next([chatMessage]); // Emitir nuevos mensajes
+                        const currentMessages = this.megaNotification.getValue(); // Obtener los mensajes actuales
+                        this.megaNotification.next([chatMessage]); // Emitir nuevos mensajes
                     } catch (error) {
                         console.error('Error al procesar el mensaje recibido:', error);
                     }
@@ -58,6 +58,11 @@ export class WebsocketServiceNotification {
         });
 
         this.stompClient.activate();
+    }
+
+        // Obtener mensajes de un grupo
+    getMessageObservable(): Observable<MegaNotification[]> {
+        return this.megaNotification.asObservable();
     }
 
     sendMessage(chatMessage: ChatMessage) {
