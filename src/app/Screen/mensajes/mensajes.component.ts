@@ -57,7 +57,6 @@ export class MensajesComponent implements OnInit {
         }
     }
 
-
     async cargarGrupos(): Promise<void> {
         const loading = await this.loadingController.create({ message: 'Cargando grupos...' });
         await loading.present();

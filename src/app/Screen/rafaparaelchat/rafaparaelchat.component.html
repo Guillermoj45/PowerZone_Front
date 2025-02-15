@@ -6,11 +6,11 @@
         </div>
         <div class="chat-avatar">
             <ion-avatar>
-                <img src="https://picsum.photos/200/300?random=1"/>
+                <img [src]="groupPhotoUrl" alt="Grupo Foto"/>
             </ion-avatar>
         </div>
         <div class="chat-user-info">
-            <h4>Id del grupo: {{ groupId }}</h4>
+            <h4>{{ groupName }}</h4>
             <p>En línea</p>
         </div>
     </div>
