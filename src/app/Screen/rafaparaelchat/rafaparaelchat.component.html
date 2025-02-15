@@ -13,7 +13,14 @@
             <h4>{{ groupName }}</h4>
             <p>En línea</p>
         </div>
-        <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="onSearchInput($event)" (keyup.enter)="searchMessages()"></ion-searchbar>
+        <div class="search-container">
+            <ion-icon *ngIf="!showSearchBar" name="search-outline" (click)="toggleSearchBar()"></ion-icon>
+
+            <div *ngIf="showSearchBar" class="search-bar-wrapper">
+                <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="onSearchInput($event)" (keyup.enter)="searchMessages()"></ion-searchbar>
+                <ion-icon name="close-outline" (click)="toggleSearchBar()"></ion-icon>
+            </div>
+        </div>
     </div>
 
     <!-- Mensajes -->

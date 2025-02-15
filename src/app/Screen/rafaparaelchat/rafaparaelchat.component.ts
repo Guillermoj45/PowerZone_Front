@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {WebsocketService} from '../../Service/websocket.service';
 import {ChatMessage} from '../../Models/ChatMessage';
-import {DatePipe, Location, NgClass, NgForOf} from "@angular/common";
+import {DatePipe, Location, NgClass, NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../Service/auth.service';
@@ -9,7 +9,7 @@ import {ProfileMessenger} from "../../Models/Profile";
 import {ProfileService} from "../../Service/profile.service";
 import {IonicModule} from "@ionic/angular";
 import {addIcons} from "ionicons";
-import {arrowBackOutline, send} from "ionicons/icons";
+import {arrowBackOutline, send, searchOutline, closeOutline} from "ionicons/icons";
 import {CloudinaryService} from "../../Service/Cloudinary.service";
 
 @Component({
@@ -21,7 +21,8 @@ import {CloudinaryService} from "../../Service/Cloudinary.service";
         FormsModule,
         NgForOf,
         IonicModule,
-        NgClass
+        NgClass,
+        NgIf
     ],
     standalone: true
 })
@@ -35,6 +36,7 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
     groupPhotoUrl: string = '';  // Variable para almacenar la URL de la foto del grupo
     searchTerm: string = '';  // Variable para almacenar el término de búsqueda
     searchIndex: number = 0;
+    showSearchBar: boolean = false;
     constructor(
         private websocketService: WebsocketService,
         private route: ActivatedRoute,
@@ -43,7 +45,7 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
         private location: Location,
         private cloudinaryService: CloudinaryService,
     ) {
-        addIcons({ arrowBackOutline, send });
+        addIcons({ arrowBackOutline, send, searchOutline, closeOutline });
     }
 
     ngOnInit(): void {
@@ -146,7 +148,9 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
         this.searchTerm = '';
         this.searchIndex = 0;
     }
-
+    toggleSearchBar() {
+        this.showSearchBar = !this.showSearchBar;
+    }
     searchMessages() {
         if (!this.searchTerm.trim()) {
             console.error('Término de búsqueda vacío.');
