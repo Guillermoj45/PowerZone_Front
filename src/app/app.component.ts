@@ -9,7 +9,7 @@ import {MenuoriginalComponent} from "./Screen/menuoriginal/menuoriginal.componen
 import {FooterComponent} from "./Screen/footer/footer.component";
 import {Menu} from "./Service/Menu.service";
 import {addIcons} from "ionicons";
-import {logoIonitron, settingsSharp} from "ionicons/icons";
+import {addCircle, chatbubbles, heart, logoIonitron, personAdd, settingsSharp} from "ionicons/icons";
 import {NewPostComponent} from "./Screen/new-post/new-post.component";
 import {WebsocketServiceNotification} from "./Service/WebSocketNotification";
 import {ToastController} from '@ionic/angular/standalone';
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
         private webSocketNotificationService: WebsocketServiceNotification,
         private toastController: ToastController
     ) {
-        addIcons({settingsSharp, logoIonitron});
+        addIcons({settingsSharp, logoIonitron, personAdd, addCircle, chatbubbles, heart});
     }
 
     @HostListener("window:resize", ["$event"])
@@ -89,7 +89,7 @@ export class AppComponent implements OnInit, OnDestroy {
                         }
                     }
                 ];
-                this.presentToast('bottom', mensaje, buttons).then(r => console.log("Toast presentado"));
+                this.presentToast('bottom', mensaje, buttons, 'chatbubbles').then(r => console.log("Toast presentado"));
                 break;
             case "NEW_POST":
                 const post = meganotification.emitter.nickName + ' ha publicado un nuevo post';
@@ -104,7 +104,7 @@ export class AppComponent implements OnInit, OnDestroy {
                         }
                     }
                 ];
-                this.presentToast('bottom', post, buttonsPost).then(r => console.log("Toast presentado"));
+                this.presentToast('bottom', post, buttonsPost, 'addCircle').then(r => console.log("Toast presentado"));
                 break;
             case "NEW_LIKE":
                 const like = meganotification.emitter.nickName + ' ha dado like a tu post';
@@ -119,14 +119,14 @@ export class AppComponent implements OnInit, OnDestroy {
                         }
                     },
                     {
-                        side: 'start',
+                        side: 'end',
                         text: 'Ver perfil',
                         handler: () => {
                             this.router.navigate([`/profile/${meganotification.emitter.id}`]);
                         }
                     }
                 ];
-                this.presentToast('bottom', like, buttonsLike).then(r => console.log("Toast presentado"));
+                this.presentToast('bottom', like, buttonsLike, 'heart').then(r => console.log("Toast presentado"));
                 break;
             case "NEW_FOLLOWER":
                 const follower = meganotification.emitter.nickName + ' te ha seguido';
@@ -139,7 +139,7 @@ export class AppComponent implements OnInit, OnDestroy {
                         }
                     }
                 ];
-                this.presentToast('bottom', follower, buttonsFollower).then(r => console.log("Toast presentado"));
+                this.presentToast('bottom', follower, buttonsFollower, 'personAdd').then(r => console.log("Toast presentado"));
                 break;
             case "NEW_COMMENT":
                 const comment = meganotification.emitter.nickName + ' ha comentado tu post';
@@ -154,25 +154,26 @@ export class AppComponent implements OnInit, OnDestroy {
                         }
                     },
                     {
-                        side: 'start',
+                        side: 'end',
                         text: 'Ver perfil',
                         handler: () => {
                             this.router.navigate([`/profile/${meganotification.emitter.id}`]);
                         }
                     }
                 ];
-                this.presentToast('bottom', comment, buttonsComment).then(r => console.log("Toast presentado"));
+                this.presentToast('bottom', comment, buttonsComment, 'chatbubbles').then(r => console.log("Toast presentado"));
                 break;
         }
         // this.presentToast('bottom', meganotification.emitter.nickName).then(r => console.log("Toast presentado"));
     }
 
-    async presentToast(position: 'top' | 'middle' | 'bottom', message: string = 'Hello World!', buttons: ToastButton[] = []) {
+    async presentToast(position: 'top' | 'middle' | 'bottom', message: string = 'Hello World!', buttons: ToastButton[] = [], Icon?: 'chatbubbles' | 'addCircle' | 'personAdd' | 'heart') {
         const toast = await this.toastController.create({
             message: message,
             duration: 1500,
             position: position,
-            buttons: buttons
+            buttons: buttons,
+            icon: Icon
         });
 
         await toast.present();
