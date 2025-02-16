@@ -183,10 +183,26 @@ ion-searchbar {
 }
 
 .sticky-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: #013534;
-  padding: 10px;
+    display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #013534;
+    padding: 10px;
+}
 
+@media (max-width: 600px) {
+    .post-list {
+        width: 100%;
+    }
+    .post-list-item {
+        font-size: 0.8rem; /* Adjust the font size for mobile */
+    }
+    ion-col#barra-busqueda {
+        flex: 1;
+        width: 100%; /* Ensure it takes full width */
+    }
+    ion-col#filtro {
+        flex: 0 0 auto;
+    }
 }

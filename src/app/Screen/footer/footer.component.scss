@@ -5,12 +5,11 @@
 .footer-images {
     display: flex;
     justify-content: center; /* Las imágenes estarán centradas */
-    gap: 5%; /* Controlamos el espacio entre las imágenes */
+    gap: 2%; /* Reducimos el espacio entre las imágenes */
     align-items: center; /* Alinea las imágenes verticalmente al centro */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan a la siguiente línea si es necesario */
 }
 
 ion-icon {
     color: black;
 }
-
-

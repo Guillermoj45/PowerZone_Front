@@ -12,11 +12,11 @@
                     <ion-icon aria-hidden="true" name="search" slot="start"></ion-icon>
                     <ion-label>Busqueda</ion-label>
                 </ion-item>
-                <ion-item lines="none">
-                    <ion-icon aria-hidden="true" name="add" slot="start"></ion-icon>
+                <ion-item lines="none" id="publicar2">
+                    <ion-icon aria-hidden="true" name="add" slot="start" ></ion-icon>
                     <ion-label (click)="openAddPostModal()" >Publicar</ion-label>
                 </ion-item>
-                <ion-item lines="none" (click)="navigateTo('/mensajes')">
+                <ion-item lines="none" (click)="navigateTo('/mensajes')" id="mensajes">
                     <ion-icon name="paper-plane-outline" aria-hidden="true" slot="start"></ion-icon>
                     <ion-label>Mensajes</ion-label>
                 </ion-item>
