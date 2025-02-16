@@ -3,13 +3,13 @@
     <div class="scroll-container" id="posts">
       <!-- Lista de Filtros -->
         <ion-row class="sticky-header">
-        <ion-col size="9">
-            <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="onSearchChange()"></ion-searchbar>
+        <ion-col size="9" id="barra-busqueda">
+            <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="onSearchChange()" ></ion-searchbar>
         </ion-col>
         <ion-col size="3">
           <ion-list class="post-list">
-            <ion-item class="post-list-item">
-              <ion-select aria-label="Post Filter" [(ngModel)]="selectedFilter" (ionChange)="onFilterChange()">
+            <ion-item class="post-list-item" id="filtro">
+              <ion-select aria-label="Post Filter" [(ngModel)]="selectedFilter" (ionChange)="onFilterChange()" >
                 <ion-select-option value="recientes">Recientes</ion-select-option>
                 <ion-select-option value="mas-gustados">Más Gustados</ion-select-option>
                 <ion-select-option value="mas-hablados">Más Comentados</ion-select-option>

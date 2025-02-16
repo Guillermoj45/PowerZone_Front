@@ -180,7 +180,7 @@ export class PostsComponent implements OnInit {
             console.log("Iniciando tutorial...");
             setTimeout(() => {
               this.tutorialService.startTour();
-            }, 1000);
+            }, 3500);
 
 
             this.postService.changeUserStatus(token).subscribe({
