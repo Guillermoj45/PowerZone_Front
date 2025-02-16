@@ -3,10 +3,10 @@
     <div class="scroll-container" id="posts">
       <!-- Lista de Filtros -->
         <ion-row class="sticky-header">
-            <ion-col size="12" id="barra-busqueda">
+            <ion-col size="9" id="barra-busqueda">
                 <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="onSearchChange()"></ion-searchbar>
             </ion-col>
-            <ion-col size-sm="1" size-md="3" id="filtro">
+            <ion-col size-sm="3" size-md="3" id="filtro">
                 <ion-list class="post-list">
                     <ion-item class="post-list-item">
                         <ion-select aria-label="Post Filter" [(ngModel)]="selectedFilter" (ionChange)="onFilterChange()">
