@@ -11,12 +11,11 @@ export class AuthService {
 
     constructor(
         private http: HttpClient,
-        private profileService: ProfileService
     ) {}
 
     // Iniciar sesión y manejar el almacenamiento
     login(loginData: { email: string, password: string }): Observable<any> {
-        return this.http.post<any>('http://localhost:8080/auth/login', loginData).pipe(
+        return this.http.post<any>('/auth/login', loginData).pipe(
             tap(response => {
                 console.log('Respuesta del servidor:', response); // Verifica la respuesta
 
