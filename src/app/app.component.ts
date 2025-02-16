@@ -9,7 +9,7 @@ import {MenuoriginalComponent} from "./Screen/menuoriginal/menuoriginal.componen
 import {FooterComponent} from "./Screen/footer/footer.component";
 import {Menu} from "./Service/Menu.service";
 import {addIcons} from "ionicons";
-import {addCircle, chatbubbles, heart, logoIonitron, personAdd, settingsSharp} from "ionicons/icons";
+import {addCircle, chatbubbles, heart, logoIonitron, paperPlaneOutline, personAdd, settingsSharp} from "ionicons/icons";
 import {NewPostComponent} from "./Screen/new-post/new-post.component";
 import {WebsocketServiceNotification} from "./Service/WebSocketNotification";
 import {ToastController} from '@ionic/angular/standalone';
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
         private webSocketNotificationService: WebsocketServiceNotification,
         private toastController: ToastController
     ) {
-        addIcons({settingsSharp, logoIonitron, personAdd, addCircle, chatbubbles, heart});
+        addIcons({settingsSharp, logoIonitron, personAdd, addCircle, chatbubbles, heart, paperPlaneOutline});
     }
 
     @HostListener("window:resize", ["$event"])
