@@ -99,7 +99,7 @@ export class NotificationComponent  implements OnInit {
         case 'NEW_COMMENT':
           // Redirige al detalle del post o a la sección de comentarios
           if (notification.comment.postId) {
-            this.router.navigate(['/post-details/', notification.postDto?.post?.id?.toString(), 'comments']);
+            this.router.navigate(['/post-details/', notification.postDto?.post?.id?.toString()]);
           }
           break;
         default:
