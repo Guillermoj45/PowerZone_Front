@@ -79,7 +79,7 @@ export class AppComponent implements OnInit, OnDestroy {
     notification(meganotification: MegaNotification) {
         switch (meganotification.type) {
             case "MESSAGE":
-                if (this.router.url === "/prueba/" + meganotification.groupMessenger.grupouser.group.id) {
+                if (this.router.url === "/chat/" + meganotification.groupMessenger.grupouser.group.id) {
                     break;
                 }
                 const mensaje = 'Has recibido un mensaje de ' + meganotification.emitter.nickName;
