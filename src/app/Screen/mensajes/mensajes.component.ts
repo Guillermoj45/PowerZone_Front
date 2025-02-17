@@ -220,7 +220,7 @@ export class MensajesComponent implements OnInit {
     }
 
     verGrupo(grupoId: string): void {
-        this.router.navigate([`/prueba/${grupoId}`]);
+        this.router.navigate([`/chat/${grupoId}`]);
     }
 
     private async mostrarToast(mensaje: string, color: 'success' | 'danger' | 'warning') {
