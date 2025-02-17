@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {WebsocketService} from '../../Service/websocket.service';
 import {ChatMessage} from '../../Models/ChatMessage';
 import {DatePipe, Location, NgClass, NgForOf, NgIf} from "@angular/common";
@@ -9,7 +9,7 @@ import {ProfileMessenger} from "../../Models/Profile";
 import {ProfileService} from "../../Service/profile.service";
 import {IonicModule} from "@ionic/angular";
 import {addIcons} from "ionicons";
-import {arrowBackOutline, send, searchOutline, closeOutline} from "ionicons/icons";
+import {arrowBackOutline, send, searchOutline, closeOutline, arrowDownOutline} from "ionicons/icons";
 import {CloudinaryService} from "../../Service/Cloudinary.service";
 
 @Component({
@@ -27,6 +27,7 @@ import {CloudinaryService} from "../../Service/Cloudinary.service";
     standalone: true
 })
 export class RafaparaelchatComponent implements OnInit, OnDestroy {
+    @ViewChild('chatMessages') private chatMessagesContainer!: ElementRef;
     messages: ChatMessage[] = [];
     newMessage: string = '';
     senderNickname: string = '';
@@ -37,6 +38,10 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
     searchTerm: string = '';  // Variable para almacenar el término de búsqueda
     searchIndex: number = 0;
     showSearchBar: boolean = false;
+    followConversation: boolean = true;
+    isIconBlue: boolean = false;
+
+
     constructor(
         private websocketService: WebsocketService,
         private route: ActivatedRoute,
@@ -45,7 +50,7 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
         private location: Location,
         private cloudinaryService: CloudinaryService,
     ) {
-        addIcons({ arrowBackOutline, send, searchOutline, closeOutline });
+        addIcons({ arrowBackOutline, send, searchOutline, closeOutline, arrowDownOutline });
     }
 
     ngOnInit(): void {
@@ -103,6 +108,9 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
         this.websocketService.getMessageObservable().subscribe({
             next: (messages: ChatMessage[]) => {
                 this.messages = [...this.messages, ...messages];  // Agregar los nuevos mensajes
+                if (this.followConversation) {
+                    this.scrollToBottom();
+                }
             },
             error: (error) => {
                 console.error('Error en la recepción de mensajes:', error);
@@ -127,6 +135,9 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
 
         this.websocketService.sendMessage(chatMessage);
         this.newMessage = '';  // Limpiar el campo de texto
+        if (this.followConversation) {
+            this.scrollToBottom();
+        }
     }
 
     // Desconectar del WebSocket cuando se destruye el componente
@@ -184,5 +195,14 @@ export class RafaparaelchatComponent implements OnInit, OnDestroy {
             console.error('No se encontraron mensajes con el término de búsqueda.');
         }
     }
+    toggleFollowConversation() {
+        this.followConversation = !this.followConversation;
+        this.isIconBlue = !this.isIconBlue;
+    }
 
+    scrollToBottom() {
+        if (this.chatMessagesContainer) {
+            this.chatMessagesContainer.nativeElement.scrollTop = this.chatMessagesContainer.nativeElement.scrollHeight;
+        }
+    }
 }
