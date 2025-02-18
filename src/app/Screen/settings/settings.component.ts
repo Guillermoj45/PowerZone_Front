@@ -1,11 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { IonicModule, ToastController } from '@ionic/angular';
-import { ProfileSettingsService } from "../../Service/profile-settings.service";
-import { ProfileSetting } from "../../Models/ProfileSetting";
-import { FormsModule } from "@angular/forms";
-import { CommonModule } from '@angular/common';
-import { addIcons } from 'ionicons';
-import { colorWandOutline } from 'ionicons/icons';
+import {IonicModule, ToastController} from '@ionic/angular';
+import {ProfileSettingsService} from "../../Service/profile-settings.service";
+import {ProfileSetting} from "../../Models/ProfileSetting";
+import {FormsModule} from "@angular/forms";
+import {CommonModule, formatDate} from '@angular/common';
+import {addIcons} from 'ionicons';
+import {colorWandOutline} from 'ionicons/icons';
+import {LoadingController} from "@ionic/angular/standalone";
 
 @Component({
     selector: 'app-settings',
@@ -29,19 +30,24 @@ export class SettingsComponent implements OnInit {
     originalProfile!: ProfileSetting; // Para comparar los valores iniciales con los actuales
     selectedAvatar: string | null = null; // Para almacenar la imagen seleccionada
 
-    constructor(private profileSettings: ProfileSettingsService, private toastController: ToastController) { addIcons({colorWandOutline})}
+    constructor(private profileSettings: ProfileSettingsService,private loadingController: LoadingController,private toastController: ToastController) { addIcons({colorWandOutline})}
 
     ngOnInit() {
         const token = sessionStorage.getItem('token');
         if (token) {
             this.profileSettings.getData(token).subscribe((data: ProfileSetting) => {
+                this.originalProfile = { ...data }; // Guardar original sin formatear
+                if (data.bornDate) {
+                    data.bornDate = formatDate(data.bornDate, 'dd/MM/yyyy', 'en'); // Formatear para mostrar
+                }
                 this.profile = data;
-                this.originalProfile = { ...data }; // Guardamos una copia del perfil original
             });
         } else {
             console.error('Token is null');
         }
     }
+
+
     @ViewChild('fileInput') fileInput!: ElementRef;
 
     triggerFileInput() {
@@ -49,41 +55,41 @@ export class SettingsComponent implements OnInit {
     }
 
     async updateProfile() {
-        const isModified =
-            this.profile.nickName !== this.originalProfile.nickName ||
-            this.profile.name !== this.originalProfile.name ||
-            this.profile.email !== this.originalProfile.email ||
-            this.profile.bornDate !== this.originalProfile.bornDate ||
-            this.profile.avatar !== this.originalProfile.avatar;
+        const token = sessionStorage.getItem('token');
+        if (token) {
+            if (this.profile.name && this.profile.email && this.profile.nickName && this.profile.bornDate) {
+                const isModified = JSON.stringify(this.profile) !== JSON.stringify(this.originalProfile);
 
-        if (isModified) {
-            const token = sessionStorage.getItem('token');
-            if (token) {
-                if (this.profile.name && this.profile.email && this.profile.nickName && this.profile.bornDate) {
-                    if (this.selectedAvatar) {
-                        this.profile.avatar = this.selectedAvatar; // Actualizar el avatar si se seleccionó uno nuevo
-                    }
-                    console.log('Sending profile data to backend:', this.profile);
-                    this.profileSettings.updateProfile(token, this.profile).subscribe(response => {
-                        console.log('Profile updated successfully', response);
+                if (isModified) {
+                    const loading = await this.loadingController.create({
+                        message: 'Guardando cambios...',
+                    });
+                    await loading.present();
+
+                    // Regresar al formato original antes de enviar al backend
+                    const dateParts = this.profile.bornDate.split('/');
+                    this.profile.bornDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+                    this.profileSettings.updateProfile(token, this.profile).subscribe(async response => {
                         this.presentToast('Cambios guardados');
-                        this.originalProfile = { ...this.profile }; // Actualizar la referencia del perfil original
-                    }, error => {
+                        await loading.dismiss();
+                        this.originalProfile = { ...this.profile };
+                        this.profile.bornDate = formatDate(this.profile.bornDate!, 'dd/MM/yyyy', 'en');
+                    }, async error => {
                         console.error('Error updating profile', error);
+                        await loading.dismiss();
                         this.presentToast('Error al guardar los cambios');
                     });
                 } else {
-                    console.error('All profile fields must be filled');
-                    this.presentToast('Todos los campos deben ser completados');
+                    this.presentToast('No se ha modificado ningún campo');
                 }
             } else {
-                console.error('Token is null');
-                this.presentToast('Error de autenticación');
+                this.presentToast('Todos los campos deben ser completados');
             }
         } else {
-            this.presentToast('No se ha modificado ningún campo');
+            this.presentToast('Error de autenticación');
         }
     }
+
 
     // Mostrar el mensaje de toast
     async presentToast(message: string) {

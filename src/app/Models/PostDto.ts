@@ -1,4 +1,4 @@
-import { Post } from './Post';
+import {Post} from './Post';
 
 export class PostDto {
     post?: Post;
@@ -12,4 +12,5 @@ export class PostDto {
     firstcomment?: string;
     liked?: boolean;
     saved?: boolean;
+    createdAt?: Date;
 }

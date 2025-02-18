@@ -76,7 +76,7 @@ export class NotificationComponent  implements OnInit {
         case 'MESSAGE':
           // Por ejemplo, redirige a la conversación o mensaje
           //TODO: Reemplazar 'notification.groupMessenger.grupouser.groupId' por la ruta correcta
-          this.router.navigate(['/messages', notification.groupMessenger.grupouser.groupId]);
+          this.router.navigate(['/chat', notification.groupMessenger.grupouser.groupId]);
           break;
         case 'NEW_POST':
           // Redirige a la página de detalle del post
@@ -99,7 +99,7 @@ export class NotificationComponent  implements OnInit {
         case 'NEW_COMMENT':
           // Redirige al detalle del post o a la sección de comentarios
           if (notification.comment.postId) {
-            this.router.navigate(['/post-details/', notification.postDto?.post?.id?.toString(), 'comments']);
+            this.router.navigate(['/post-details/', notification.postDto?.post?.id?.toString()]);
           }
           break;
         default:

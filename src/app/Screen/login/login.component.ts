@@ -1,11 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonButton, IonCol, IonContent, IonGrid, IonImg, IonInput, IonInputPasswordToggle, IonItem, IonRow, IonText } from '@ionic/angular/standalone';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {
+    IonButton,
+    IonCol,
+    IonContent,
+    IonGrid,
+    IonImg,
+    IonInput,
+    IonInputPasswordToggle,
+    IonItem,
+    IonRow,
+    IonText
+} from '@ionic/angular/standalone';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import { AlertController } from '@ionic/angular';
-import { Login } from '../../Models/Login';
-import { RegistroService } from '../../Service/profile.service';
-import { CarrouselComponent } from '../../Component/carrousel/carrousel.component';
+import {AlertController} from '@ionic/angular';
+import {Login} from '../../Models/Login';
+import {RegistroService} from '../../Service/profile.service';
+import {CarrouselComponent} from '../../Component/carrousel/carrousel.component';
 
 @Component({
     selector: 'app-login',

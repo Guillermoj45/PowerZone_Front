@@ -1,4 +1,3 @@
-import {Profile} from "./Profile";
 import {Post} from "./Post";
 
 export class PostDetails {
@@ -13,4 +12,5 @@ export class PostDetails {
     firstcomment?: string;
     liked?: boolean;
     saved?: boolean;
+    created_at?: Date;
 }

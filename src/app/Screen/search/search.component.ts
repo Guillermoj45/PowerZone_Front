@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicModule } from "@ionic/angular";
-import { FormsModule } from "@angular/forms";
-import { NgForOf } from "@angular/common";
-import { ProfileService } from '../../Service/profile.service'; // Importar el servicio
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {IonicModule} from "@ionic/angular";
+import {FormsModule} from "@angular/forms";
+import {NgForOf} from "@angular/common";
+import {ProfileService} from '../../Service/profile.service'; // Importar el servicio
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-search',
@@ -32,6 +32,7 @@ export class SearchComponent implements OnInit {
         if (this.searchText.trim().length > 0) {
             this.profileService.searchProfiles(this.searchText).subscribe((data) => {
                 this.users = data; // Actualizar la lista de usuarios
+                console.log(data)
             });
         } else {
             this.users = []; // Limpiar resultados si no hay texto

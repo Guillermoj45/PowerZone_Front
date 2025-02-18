@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { PostsUserComponent } from './posts-user.component';
+import {PostsUserComponent} from './posts-user.component';
 
 describe('PostsUserComponent', () => {
   let component: PostsUserComponent;

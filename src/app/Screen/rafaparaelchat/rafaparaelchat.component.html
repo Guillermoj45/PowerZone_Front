@@ -1,17 +1,70 @@
 <div class="chat-container">
-    <div class="user-info">
-        <p>Id del grupo: {{ groupId }}</p>
-    </div>
+    <!-- Encabezado del chat -->
+    <div class="chat-header movil">
+        <div class="icon-back" (click)="navigateBack()">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+        </div>
+        <div class="chat-avatar">
+            <ion-avatar>
+                <img [src]="groupPhotoUrl" alt="Grupo Foto"/>
+            </ion-avatar>
+        </div>
+        <div class="chat-user-info">
+            <h4>{{ groupName }}</h4>
+            <p>En línea</p>
 
-    <div class="messages">
-        <div *ngFor="let message of messages" class="message">
-            <strong>{{ message.sender }}:</strong> {{ message.content }}
-            <span class="timestamp">{{ message.timestamp | date: 'shortTime' }}</span>
+        </div>
+
+        <div class="search-container">
+            <ion-icon name="arrow-down-outline" [ngClass]="{'icon-blue': isIconBlue}" (click)="toggleFollowConversation()"></ion-icon>
+            <ion-icon *ngIf="!showSearchBar" name="search-outline" (click)="toggleSearchBar()"></ion-icon>
+            <div *ngIf="showSearchBar" class="search-bar-wrapper">
+                <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="onSearchInput($event)" (keyup.enter)="searchMessages()"></ion-searchbar>
+                <ion-icon name="close-outline" (click)="toggleSearchBar()"></ion-icon>
+            </div>
         </div>
     </div>
 
-    <div class="message-input">
-        <input [(ngModel)]="newMessage" placeholder="Escribe un mensaje..." (keyup.enter)="sendMessage()" />
-        <button (click)="sendMessage()">Enviar</button>
+    <!-- Mensajes -->
+    <div class="chat-messages" #chatMessages>
+        <div class="message-list">
+            <div *ngFor="let message of messages"
+                 [ngClass]="{'message-sent': message.sender === user?.nickName, 'message-received': message.sender !== user?.nickName}"
+                 class="message-container"
+                [attr.data-message-id]="message.timestamp">
+                <!-- Nombre del usuario encima del mensaje -->
+                <div class="message-sender">{{ message.sender }}</div>
+
+                <!-- Contenido del mensaje -->
+                <div class="message">
+                    {{ message.content }}
+                    <span class="timestamp">{{ message.timestamp | date: 'shortTime' }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Input de texto -->
+    <div class="chat-input-row">
+        <input [(ngModel)]="newMessage" placeholder="Escriba un mensaje..." (keyup.enter)="sendMessage()"/>
+        <button (click)="sendMessage()">
+            <div class="svg-wrapper-1">
+                <div class="svg-wrapper">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24"
+                    >
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path
+                            fill="currentColor"
+                            d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                        ></path>
+                    </svg>
+                </div>
+            </div>
+            <span>Send</span>
+        </button>
     </div>
 </div>

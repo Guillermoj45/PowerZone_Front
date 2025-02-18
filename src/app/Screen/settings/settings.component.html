@@ -4,7 +4,7 @@
             <ion-row class="movil" style="justify-content: center">
                 <div style="position: relative; display: inline-block; cursor: pointer;" (click)="triggerFileInput()">
                     <ion-avatar>
-                        <img alt="Imagen perfil" [src]="profile.avatar || 'https://picsum.photos/800/400?random=1'" />
+                        <img alt="Imagen perfil" [src]="profile.avatar || 'https://picsum.photos/800/400?random=1'"/>
                     </ion-avatar>
                     <ion-icon name="color-wand-outline"
                               style="position: absolute; top: 0; right: 0; background: black; border-radius: 50%; padding: 4px; font-size: 18px;">
@@ -25,7 +25,8 @@
                         <ion-input [(ngModel)]="profile.email" label="Email"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-input [(ngModel)]="profile.bornDate" label="Fecha de nacimiento"></ion-input>
+                        <ion-input [(ngModel)]="profile.bornDate"
+                                   label="Fecha de nacimiento"></ion-input>
                     </ion-item>
                     <div style="display: flex; justify-content: center">
                         <ion-button expand="block" (click)="updateProfile()">Actualizar</ion-button>

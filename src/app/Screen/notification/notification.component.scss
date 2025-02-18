@@ -1,30 +1,79 @@
-ion-grid{
+ion-grid {
     background-color: #007875;
     height: 100%;
 }
-h1{
-    color: black;
-    font-weight: bold;
-}
-ion-item {
-    --inner-padding-top: 0;
-    --inner-padding-bottom: 0;
-    --border-width: 0;
-    --background: transparent;
-    --ion-item-background: transparent;
-}
-ion-col{
-    margin: 2%;
-}
 
 ion-content {
-    height: 100%;
+    --background: #007875;
 }
 
+ion-toolbar {
+    --background: #042f2e;
+    --color: white;
+    padding: 12px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-bottom: 4px solid #ffffff;
+}
 
-/* Para pantallas pequeñas */
+/* Título del header */
+.header {
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+h1, h2 {
+    font-weight: bold;
+    color: #fff;
+}
+
+.section-header {
+    margin-left: 5%;
+}
+
+ion-item {
+    --inner-padding-top: 10px;
+    --inner-padding-bottom: 10px;
+    --border-radius: 10px;
+    --background: #fff;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 5%;
+}
+
+.notification-item {
+    background-color: #FFF;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.notification-item:hover {
+    background-color: #f8f8f8;
+}
+
+.notification-label {
+    color: #333;
+}
+
+ion-avatar img {
+    border-radius: 50%;
+    border: 2px solid #FF6F61;
+}
+
+ion-col {
+    margin: 10px 0;
+}
+
+movil{
+    margin: 0;
+}
+
+/* Estilo para pantallas pequeñas */
 @media (max-width: 1000px) {
-    .movil{
-        margin-top: 20%;
+    .movil {
+        margin-top: 15%;
     }
 }

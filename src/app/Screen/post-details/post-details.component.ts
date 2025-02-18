@@ -1,23 +1,25 @@
 // src/app/Screen/post-details/post-details.component.ts
 
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import { PostService } from '../../Service/Post.service';
-import { CommentService } from '../../Service/Comment.service';
-import { PostDto } from '../../Models/PostDto';
-import { CommentDetails } from '../../Models/CommentDetails';
+import {PostService} from '../../Service/Post.service';
+import {CommentService} from '../../Service/Comment.service';
+import {PostDto} from '../../Models/PostDto';
+import {CommentDetails} from '../../Models/CommentDetails';
 import {IonicModule, ModalController, ModalOptions, ToastController} from '@ionic/angular';
 import {NewCommentComponent} from "../new-comment/new-comment.component";
 import {NgForOf, NgIf} from "@angular/common";
 import {addIcons} from "ionicons";
 import {
-  bookmark,
-  bookmarkOutline,
-  chatbubble,
-  ellipsisHorizontal, exitOutline,
-  heart,
-  heartOutline,
-  shareSocial, trash
+    bookmark,
+    bookmarkOutline,
+    chatbubble,
+    ellipsisHorizontal,
+    exitOutline,
+    heart,
+    heartOutline,
+    shareSocial,
+    trash
 } from "ionicons/icons";
 import {AdminService} from "../../Service/Admin.service";
 import {ProfileService} from "../../Service/profile.service";

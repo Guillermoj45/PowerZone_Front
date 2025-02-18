@@ -21,9 +21,6 @@
             <a href="/profile" id="perfil">
               <ion-icon aria-hidden="true" name="person-circle-outline" slot="start"></ion-icon>
             </a><br>
-            <a href="/settings">
-              <ion-icon aria-hidden="true" name="settings-sharp" slot="start"></ion-icon>
-            </a>
             <a (click)="LogOut()" id="cerrar-sesion">
               <ion-icon aria-hidden="true" name="log-in-outline" slot="start"></ion-icon>
             </a><br>
@@ -46,10 +43,7 @@
                     <ion-avatar slot="start">
                         <img [src]="profile.avatar || 'https://picsum.photos/200/300?random=1'" />
                     </ion-avatar>
-                    <ion-label>{{ profile.name }}</ion-label>
-                    <ion-button slot="end" fill="clear">
-                        <ion-icon name="close-circle"></ion-icon>
-                    </ion-button>
+                    <ion-label>{{ profile.nickname }}</ion-label>
                 </ion-item>
             </ion-list>
         </ion-col>

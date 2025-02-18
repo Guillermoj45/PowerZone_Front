@@ -1,14 +1,14 @@
 /* --------- Layout General --------- */
 .page-container {
   height: 92%; /* reemplaza tu inline style="height: 92%" */
-  background-color: #002b36;
+  background-color: #042f2e;
 }
 
 /* Color de fondo general de tabs, toolbars, etc. */
 ion-tabs,
 ion-tab-bar,
 ion-toolbar {
-  --background: #002b36; /* FONDO SOLARIZED DARK */
+  --background: #042f2e; /* FONDO SOLARIZED DARK */
 }
 
 /* Ajusta la fuente y color de texto global */
@@ -46,12 +46,12 @@ ion-title h1 {
 
 /* Fondo de la lista */
 ion-list {
-  background-color: #002b36;
+  background-color: #042f2e;
 }
 
 /* Cada ítem en la lista */
 ion-item.item_list {
-  --background: #073642; /* Un tono ligeramente distinto para resaltar */
+  --background: #0a6c6a; /* Un tono ligeramente distinto para resaltar */
   margin: 0.5rem 0;
   border-radius: 8px;
   /* Pequeña sombra para destacar */

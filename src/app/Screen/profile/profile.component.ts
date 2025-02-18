@@ -1,23 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { InfiniteScrollCustomEvent, IonicModule } from "@ionic/angular";
-import { Router, ActivatedRoute, RouterModule } from "@angular/router";
-import { ProfileSettingsService } from '../../Service/profile-settings.service';
-import { ProfileSetting } from '../../Models/ProfileSetting';
-import { PostService } from '../../Service/Post.service';
-import { PostDto } from '../../Models/PostDto';
-import { NgForOf, NgIf } from "@angular/common";
-import {
-  bookmark,
-  bookmarkOutline,
-  chatbubble,
-  heart,
-  heartOutline,
-  sendSharp,
-  settingsOutline,
-  shareSocial
-} from 'ionicons/icons';
-import { addIcons } from "ionicons";
-import { User } from '../../Models/User';
+import {Component, OnInit} from '@angular/core';
+import {InfiniteScrollCustomEvent, IonicModule} from "@ionic/angular";
+import {ActivatedRoute, Router, RouterModule} from "@angular/router";
+import {ProfileSettingsService} from '../../Service/profile-settings.service';
+import {ProfileSetting} from '../../Models/ProfileSetting';
+import {PostService} from '../../Service/Post.service';
+import {PostDto} from '../../Models/PostDto';
+import {NgForOf, NgIf} from "@angular/common";
+import {bookmark, sendSharp, settingsOutline} from 'ionicons/icons';
+import {addIcons} from "ionicons";
 
 @Component({
     selector: 'app-profile',

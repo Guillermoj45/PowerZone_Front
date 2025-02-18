@@ -9,7 +9,7 @@
         <ion-icon name="logo-ionitron"></ion-icon>
       </ion-col>
       <ion-col size="10" class="chat-user-info">
-        <h4>POWERZONE IA</h4>
+        <h4 style="padding-left: 20px">POWERZONE IA</h4>
       </ion-col>
     </ion-row>
 
@@ -37,7 +37,7 @@
 
     <!-- Input de texto -->
     <ion-row class="chat-input-row">
-      <ion-col size="10">
+      <ion-col size="9" size-md="10">
         <ion-input
           style="color: white"
           placeholder=" Escriba un mensaje..."
@@ -45,8 +45,8 @@
           (keyup.enter)="sendMessage()"
         ></ion-input>
       </ion-col>
-      <ion-col size="2" class="send-icon">
-        <button>
+      <ion-col size-md="2" class="send-icon">
+        <button (click)="sendMessage()">
           <span>Enviar</span>
         </button>
 

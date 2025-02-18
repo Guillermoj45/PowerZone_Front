@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { SampleCloudinaryComponent } from './sample-cloudinary.component';
+import {SampleCloudinaryComponent} from './sample-cloudinary.component';
 
 describe('SampleCloudinaryComponent', () => {
   let component: SampleCloudinaryComponent;

@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { IonicModule, ModalController } from "@ionic/angular";
+import { IonicModule, ModalController, ToastController } from "@ionic/angular";
 import { FormsModule } from "@angular/forms";
 import { addIcons } from "ionicons";
 import { send, close, folderOutline } from "ionicons/icons";
@@ -22,10 +22,12 @@ export class NewPostComponent implements OnInit {
     postContent: string = '';
     selectedFile: File | null = null;
     fileName: string = ''; // Para guardar el nombre del archivo
+    imageSelected: boolean = false;
 
     constructor(
         private modalController: ModalController,
-        private postService: PostService
+        private postService: PostService,
+        private toastController: ToastController // Add ToastController
     ) {
         addIcons({ close, send, folderOutline });
     }
@@ -36,7 +38,19 @@ export class NewPostComponent implements OnInit {
         this.modalController.dismiss();
     }
 
-    submitPost() {
+    async submitPost() {
+        if (!this.imageSelected) {
+            const toast = await this.toastController.create({
+                message: 'Es obligatorio añadir una imagen.',
+                color: 'danger',
+                duration: 2000,
+                position: 'top',
+                cssClass: 'custom-toast'
+            });
+            await toast.present();
+            return;
+        }
+
         const token = sessionStorage.getItem('token');
         if (!token) {
             console.error('No token found in cookies');
@@ -84,6 +98,7 @@ export class NewPostComponent implements OnInit {
         if (input.files && input.files.length > 0) {
             this.selectedFile = input.files[0];
             this.fileName = this.selectedFile.name;
+            this.imageSelected = true; // Set flag to true when an image is selected
             console.log('Archivo seleccionado:', this.fileName);
         }
     }

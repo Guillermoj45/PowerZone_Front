@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import introJs from 'intro.js';
 import 'intro.js/introjs.css';
-import { MenuoriginalComponent } from '../Screen/menuoriginal/menuoriginal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +27,14 @@ export class TutorialService {
           element: '#posts',
           intro: 'Aquí podrás ver los posts de tus amigos y publicar tus propios posts.👀',
         },
+          {
+              element: '#barra-busqueda',
+              intro: 'Aquí podrás buscar🔎🔎 por # los posts de tus amigos.',
+          },
+          {
+            element: '#filtro',
+            intro: 'Aquí podrás filtrar los posts por mas gustados, comentados o solo por tus seguidores.',
+          },
         {
           element: '#like-button',
           intro: 'Puedes darle like❤️ a los posts de tus amigos.',
@@ -52,10 +59,18 @@ export class TutorialService {
           element: '#busqueda',
           intro: 'Aqui podrás buscar🔎🔎 usuarios registrados en la aplicación',
         },
+          {
+              element: '#publicar2',
+              intro: 'Aquí podrás publicar tus propios posts.',
+          },
         {
           element: '#publicar',
-          intro: 'Aquí podrás publicar tus propios posts.',
+          intro: 'Aquí tambien podrás publicar tus propios posts.',
         },
+          {
+              element: '#mensajes',
+              intro: 'Aquí podrás publicar tus propios posts.',
+          },
         {
           element: '#chatbot',
           intro: 'Podrás hablar con nuestra IA fitness, puede hacer rutinas y darte dietas. 🦾🤖🤜🤛👨',
@@ -67,10 +82,6 @@ export class TutorialService {
         {
           element: '#perfil',
           intro: 'Mira tu perfil, posts, seguidores y seguidos',
-        },
-        {
-          element: '#ajustes',
-          intro: 'Aquí podrás cambiar tu contraseña, nombre de usuario, foto de perfil y más. ⚙️',
         },
         {
           element: '#sugerencias',

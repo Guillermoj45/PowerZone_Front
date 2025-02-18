@@ -1,161 +1,208 @@
 :host {
   display: block;
-  background-color: #042F2E; /* Fondo oscuro */
+  background-color: #001f1f; /* Fondo más oscuro para contraste */
   color: white;
   padding: 10px;
+}
 
-}
 ion-content {
-    --background: #042F2E; /* Aplica el color de fondo a todo el contenido */
-    background-color: #042F2E !important;
+  --background: #001f1f;
+  background-color: #001f1f !important;
 }
-.post-image {
-    overflow: hidden;
-}
+
 .post-container {
   max-width: 100%;
   margin: 0 auto;
-
 }
-.custom-toast {
-    --background: red;
-    --color: white;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
 
 .post {
-  background-color: #6fb3a6; /* Fondo del post */
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 10px;
-
+  background-color: #0a4d4d; /* Verde oscuro para un look elegante */
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
-
+.post-image {
+  overflow: hidden;
+}
 .user-info {
   display: flex;
   align-items: center;
   gap: 10px;
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .username {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
-    color: #042F2E;
+  color: #d9f7f7; /* Color claro para mejor visibilidad */
 }
 
 .post-image ion-img {
-    border-radius: 5px;
-    width: 100%;
-    height: 300px; /* Ajusta la altura según lo que necesites */
-    object-fit: contain; /* Mantiene toda la imagen visible sin recortes */
-    border: 4px solid #042F2E;
-    background-color: #042F2E; /* Fondo para las imágenes que no llenan el espacio */
+  border-radius: 5px;
+  width: 100%;
+  height: 300px; /* Ajusta la altura según lo que necesites */
+  object-fit: contain; /* Mantiene toda la imagen visible sin recortes */
+  border: 4px solid #042F2E;
+  background-color: #042F2E; /* Fondo para las imágenes que no llenan el espacio */
 }
 
 .post-description {
   margin-top: 10px;
   font-size: 20px;
-    margin-left: 30px;
-    color: #042F2E;
-    font-weight: bold;
+  margin-left: 30px;
+  color: #d9f7f7;
+  font-weight: bold;
 }
 
 .post-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-top: 10px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
 }
 
 .action-button {
   display: flex;
   align-items: center;
   gap: 5px;
-  color: #042F2E;
-  font-size: 14px;
+  color: #d9f7f7;
+  font-size: 16px;
 }
-
-.comment {
-  font-size: 14px;
-}
-
 
 .highlighted-comment .comment-container {
-    display: flex;
-    align-items: center;
-    background-color: #042F2E;
-    border-radius: 10px;
-}
-
-.highlighted-comment ion-avatar {
-    margin-right: 25px;
-
-}
-.responsive-image {
-    max-width: 100%;
-    max-height: 100px; /* Adjust the max height as needed */
-    width: auto;
-    height: auto;
-    object-fit: cover; /* Ensures the image covers the area while maintaining aspect ratio */
-}
-ion-content::part(scroll){
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-ion-content::part(scroll)::-webkit-scrollbar{
-    display: none;
-}
-/* Para pantallas pequeñas */
-@media (max-width: 1000px) {
-    .movil{
-        margin-top: 20%;
-    }
-}
-.scroll-container {
-    overflow: auto;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-
-.scroll-container::-webkit-scrollbar {
-    display: none;  /* Chrome, Safari, and Opera */
-}
-.responsive-image {
-    max-width: 100%;
-    max-height: 1000px; /* Ajusta la altura máxima según sea necesario */
-    width: auto;
-    height: auto;
-    object-fit: contain; /* Asegura que la imagen se ajuste al área manteniendo la proporción */
-}
-/* Aplica estilos a la parte de scroll de ion-content */
-ion-content::part(scroll) {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE y Edge */
-}
-
-/* Oculta la barra en navegadores basados en WebKit */
-ion-content::part(scroll)::-webkit-scrollbar {
-    display: none;
+  display: flex;
+  align-items: center;
+  background-color: #013534;
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
 }
 
 .custom-fab-button {
-    --background: #013534;
-    --color: white;
+  --background: #00a896;
+  --color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .custom-fab-icon {
-    color: white;
+  color: white;
 }
 
 :host ::ng-deep .hashtag {
-  color: white;
+  color: #00f5d4;
   font-weight: bold;
   cursor: pointer;
 }
 
+.post-date {
+  font-size: 0.85rem;
+  color: #d9f7f7;
+  margin-left: auto;
+}
+.responsive-image {
+  max-width: 100%;
+  max-height: 1000px; /* Ajusta la altura máxima según sea necesario */
+  width: auto;
+  height: auto;
+  object-fit: contain; /* Asegura que la imagen se ajuste al área manteniendo la proporción */
+}
+/* Aplica estilos a la parte de scroll de ion-content */
+ion-content::part(scroll) {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE y Edge */
+}
 
+/* Oculta la barra en navegadores basados en WebKit */
+ion-content::part(scroll)::-webkit-scrollbar {
+  display: none;
+}
+
+.custom-fab-button {
+  --background: #013534;
+  --color: white;
+}
+
+.custom-fab-icon {
+  color: white;
+}
+@media (max-width: 1000px) {
+  .movil{
+    margin-top: 20%;
+  }
+}
+.post-date {
+  font-size: 1rem;
+  color: #fff; // or the color you prefer
+  margin-left: auto;
+  padding: 10px; // Add padding
+  text-align: right; // Align text to the right
+}
+ion-list {
+  background-color: #0a4d4d; /* Fondo oscuro */
+  color: white; /* Texto blanco */
+  border-radius: 10px; /* Bordes redondeados */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Sombra sutil */
+  width: 180px; /* Adjust the width as needed */
+  height: 48px; /* Adjust the height as needed */
+  margin-bottom: 5px;
+}
+
+ion-item {
+  --background: #0a4d4d; /* Fondo transparente */
+  color: white; /* Color del texto */
+  border-bottom: 1px solid white; /* Línea divisoria */
+}
+
+ion-select {
+  color: white; /* Color del texto en el select */
+}
+
+ion-select::part(icon) {
+  color: white; /* Color del icono del desplegable */
+}
+
+.comment {
+  b {
+    margin-right: 10px;
+    margin-left: 20px/* Adjust the margin as needed */
+  }
+}
+ion-searchbar {
+  --background: #0a4d4d;
+  --border-color: white;
+  --border-width: 0 0 2px 0;
+  --border-radius: 15px;
+  height: 50px;
+
+}
+
+.sticky-header {
+    display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #013534;
+    padding: 10px;
+}
+
+@media (max-width: 600px) {
+    .post-list {
+        width: 100%;
+    }
+    .post-list-item {
+        font-size: 0.8rem; /* Adjust the font size for mobile */
+    }
+    ion-col#barra-busqueda {
+        flex: 1;
+        width: 100%; /* Ensure it takes full width */
+    }
+    ion-col#filtro {
+        flex: 0 0 auto;
+    }
+}

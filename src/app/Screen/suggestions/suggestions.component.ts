@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IonicModule} from "@ionic/angular";
-import { addIcons } from "ionicons";
+import {addIcons} from "ionicons";
 import {closeCircle, personAddOutline, personRemoveOutline} from "ionicons/icons";
 import {ProfileTotal} from "../../Models/ProfileTotal";
 import {NgForOf, NgIf} from "@angular/common";
@@ -71,6 +71,16 @@ export class SuggestionsComponent  implements OnInit {
     protected readonly screen = screen;
 
   screenAdmin() {
+    this.adminService.verifyAdmin().subscribe({
+      next: (data: boolean) => {
+        if (data == true) {
+          this.router.navigate(['/admin']);
+        }
+      },
+      error: (err: any) => {
+        console.error(err);
+    }
+    });
   }
   unfollowUser(profile: ProfileTotal) {
     let token = sessionStorage.getItem('token') || '';

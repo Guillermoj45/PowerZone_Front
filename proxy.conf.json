@@ -1,11 +1,12 @@
 {
     "/api": {
-        "target": "http://guillemonas.synology.me:6767",
+        "target": "http://backEnd:8080",
         "secure": false,
         "changeOrigin": true,
         "pathRewrite": {
             "^/api": ""
         },
-        "logLevel": "debug"
+        "logLevel": "debug",
+        "ws": true
     }
 }

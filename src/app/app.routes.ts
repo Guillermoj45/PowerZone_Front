@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 import {SearchComponent} from "./Screen/search/search.component";
 import {ScreenSizeGuard} from "./Guards/screen-size.guard";
 import {AuthGuard} from "./Guards/auth.guard";
@@ -37,10 +37,6 @@ export const routes: Routes = [
     {
         path: 'profile',
         loadComponent: () => import('./Screen/profile/profile.component').then(m => m.ProfileComponent)
-    },
-    {
-        path: 'chat',
-        loadComponent: () => import('./Screen/chat/chat.component').then(m => m.ChatComponent)
     },
     {
         path: 'menuoriginal',
@@ -83,7 +79,7 @@ export const routes: Routes = [
         loadComponent: ()=> import('./Screen/posts-user/posts-user.component').then((m) => m.PostsUserComponent)
     },
     {
-        path: 'prueba/:groupId',
+        path: 'chat/:groupId',
         loadComponent: () => import('./Screen/rafaparaelchat/rafaparaelchat.component').then((m) => m.RafaparaelchatComponent),
     },
     {
@@ -95,8 +91,5 @@ export const routes: Routes = [
         loadComponent: () => import('./Screen/suggestions/suggestions.component').then((m) => m.SuggestionsComponent),
         canActivate: [AuthGuard],
     },
-    {
-        path: 'prueba/:groupId',
-        loadComponent: () => import('./Screen/rafaparaelchat/rafaparaelchat.component').then((m) => m.RafaparaelchatComponent),
-    }
+
 ];

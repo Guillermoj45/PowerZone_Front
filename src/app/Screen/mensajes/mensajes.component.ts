@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicModule, ToastController } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
-import { WebsocketService } from '../../Service/websocket.service';
-import { LoadingController } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { arrowRedoOutline } from 'ionicons/icons';
-import { Router } from '@angular/router';
-import { FormsModule } from "@angular/forms";
-import { ProfileService } from '../../Service/profile.service';  // Importa el ProfileService
+import {Component, OnInit} from '@angular/core';
+import {IonicModule, ToastController} from '@ionic/angular';
+import {CommonModule} from '@angular/common';
+import {WebsocketService} from '../../Service/websocket.service';
+import {LoadingController} from '@ionic/angular/standalone';
+import {addIcons} from 'ionicons';
+import {arrowRedoOutline} from 'ionicons/icons';
+import {Router} from '@angular/router';
+import {FormsModule} from "@angular/forms";
+import {ProfileService} from '../../Service/profile.service'; // Importa el ProfileService
+import {CloudinaryService} from "../../Service/Cloudinary.service";
 
 @Component({
     selector: 'app-mensajes',
@@ -21,14 +22,16 @@ export class MensajesComponent implements OnInit {
     grupos: any[] = [];
     perfilesSeguidos: any[] = [];
     perfilesSeleccionados: any[] = [];
-    nombreGrupo: string = ''; // Nombre del grupo que se creará
+    nombreGrupo: string = '';
+    imagenGrupo: File | null = null;
 
     constructor(
         private websocketService: WebsocketService,
         private loadingController: LoadingController,
         private toastController: ToastController,
         private router: Router,
-        private profileService: ProfileService // Inyecta el ProfileService
+        private profileService: ProfileService,
+        private cloudinaryService: CloudinaryService
     ) {
         addIcons({ arrowRedoOutline });
     }
@@ -38,6 +41,22 @@ export class MensajesComponent implements OnInit {
         this.cargarGrupos();
     }
 
+    formatearFecha(timestamp: string): string {
+        if (!timestamp) return '';
+
+        const fechaMensaje = new Date(timestamp);
+        const ahora = new Date();
+        const diferenciaHoras = (ahora.getTime() - fechaMensaje.getTime()) / (1000 * 60 * 60);
+
+        if (diferenciaHoras < 24) {
+            // Mostrar solo la hora y minutos si es reciente
+            return fechaMensaje.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        } else {
+            // Mostrar la fecha si ha pasado más de 24 horas
+            return fechaMensaje.toLocaleDateString();
+        }
+    }
+
     async cargarGrupos(): Promise<void> {
         const loading = await this.loadingController.create({ message: 'Cargando grupos...' });
         await loading.present();
@@ -45,6 +64,31 @@ export class MensajesComponent implements OnInit {
         this.websocketService.getUserGroups().subscribe({
             next: async (response) => {
                 this.grupos = response.grupos || [];
+
+                // Obtener los últimos mensajes de cada grupo
+                this.websocketService.getUltimosMensajesPorGrupo().subscribe({
+                    next: (mensajesResponse) => {
+                        console.log('Mensajes recibidos:', mensajesResponse);
+                        this.grupos.forEach(grupo => {
+                            grupo.image = this.cloudinaryService.getImage(grupo.image)
+                            const mensaje = mensajesResponse.find((m: any) => m.grupoId === grupo.id);
+                            if (mensaje) {
+                                grupo.ultimoMensaje = mensaje.ultimoMensaje || 'Sin mensajes';
+                                grupo.ultimoMensajeHora = this.formatearFecha(mensaje.ultimoMensajeTimestamp);
+                            } else {
+                                grupo.ultimoMensaje = 'Sin mensajes';
+                                grupo.ultimoMensajeHora = '';
+                            }
+                        });
+                    },
+                    error: () => {
+                        this.grupos.forEach(grupo => {
+                            grupo.ultimoMensaje = 'Sin mensajes';
+                            grupo.ultimoMensajeHora = '';
+                        });
+                    }
+                });
+
                 console.log('Grupos cargados:', this.grupos);
                 await loading.dismiss();
             },
@@ -55,6 +99,7 @@ export class MensajesComponent implements OnInit {
             },
         });
     }
+
 
     async mostrarPerfilesSeguidos(): Promise<void> {
         const loading = await this.loadingController.create({ message: 'Cargando perfiles...' });
@@ -90,8 +135,14 @@ export class MensajesComponent implements OnInit {
             return;
         }
 
-        if (this.perfilesSeleccionados.length < 2) {
-            this.mostrarToast('Debes seleccionar al menos 2 usuarios.', 'warning');
+        if (this.perfilesSeleccionados.length < 1) {
+            this.mostrarToast('Debes seleccionar al menos 1 usuarios.', 'warning');
+            return;
+        }
+
+        // Validar si se ha seleccionado una imagen
+        if (!this.imagenGrupo) {
+            this.mostrarToast('Debes elegir una foto para el grupo.', 'warning');
             return;
         }
 
@@ -118,8 +169,19 @@ export class MensajesComponent implements OnInit {
 
         const grupoData = { name: this.nombreGrupo };
 
+        // Crear FormData para enviar el grupo y la imagen (si existe)
+        const formData = new FormData();
+        formData.append('group', JSON.stringify(grupoData)); // Agregar el nombre del grupo como JSON
+        if (this.imagenGrupo) { // Suponiendo que 'imagenGrupo' es el archivo de imagen seleccionado
+            formData.append('file', this.imagenGrupo);
+        }
+
         try {
-            const grupo = await this.websocketService.createGroup(grupoData).toPromise();
+            const groupName = { name: this.nombreGrupo };
+            const file = this.imagenGrupo || undefined;
+
+            const grupo = await this.websocketService.createGroup(groupName, file).toPromise();
+
             console.log('Grupo creado:', grupo);
 
             // Agregar usuarios al grupo
@@ -142,6 +204,13 @@ export class MensajesComponent implements OnInit {
 
             // Cerrar el modal de loading si ocurre un error
             await loading.dismiss();
+        }
+    }
+
+    onFileSelected(event: Event): void {
+        const input = event.target as HTMLInputElement;
+        if (input?.files?.length) {
+            this.imagenGrupo = input.files[0]; // Asigna el archivo seleccionado
         }
     }
 

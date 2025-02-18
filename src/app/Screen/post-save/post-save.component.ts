@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import {ToastController, ModalController, IonicModule, ModalOptions} from '@ionic/angular';
-import { Router } from '@angular/router';
-import { NewCommentComponent } from '../new-comment/new-comment.component';
-import { CommonModule } from '@angular/common';
-import { PostDto } from '../../Models/PostDto';
-import { PostService } from '../../Service/Post.service';
-import { addIcons } from 'ionicons';
-import { bookmark, heart, chatbubble, shareSocial, heartOutline, bookmarkOutline } from 'ionicons/icons';
+import {Component, OnInit} from '@angular/core';
+import {IonicModule, ModalController, ModalOptions, ToastController} from '@ionic/angular';
+import {Router} from '@angular/router';
+import {NewCommentComponent} from '../new-comment/new-comment.component';
+import {CommonModule} from '@angular/common';
+import {PostDto} from '../../Models/PostDto';
+import {PostService} from '../../Service/Post.service';
+import {addIcons} from 'ionicons';
+import {bookmark, bookmarkOutline, chatbubble, heart, heartOutline, shareSocial} from 'ionicons/icons';
 
 @Component({
     selector: 'app-post-save',

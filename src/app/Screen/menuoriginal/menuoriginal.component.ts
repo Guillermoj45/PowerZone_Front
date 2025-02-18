@@ -2,15 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {IonicModule, ModalController, ModalOptions} from "@ionic/angular";
 import {addIcons} from "ionicons";
 import {
-  home,
-  search,
-  add,
-  restaurant,
-  notifications,
-  closeCircle,
-  personCircleOutline,
-  settingsSharp,
-  logIn, logInOutline, paperPlaneOutline, logoIonitron
+    add,
+    closeCircle,
+    home,
+    logInOutline,
+    logoIonitron,
+    notifications,
+    paperPlaneOutline,
+    personCircleOutline,
+    restaurant,
+    search,
+    settingsSharp
 } from "ionicons/icons";
 import {Router} from "@angular/router";
 import {NewPostComponent} from "../new-post/new-post.component";

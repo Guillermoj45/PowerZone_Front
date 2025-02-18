@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { RegistroComponent } from './registro.component';
+import {RegistroComponent} from './registro.component';
 
 describe('RegistroComponent', () => {
   let component: RegistroComponent;

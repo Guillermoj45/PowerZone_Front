@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Client } from '@stomp/stompjs';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { ChatMessage } from '../Models/ChatMessage';
-import {HttpClient} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {Client} from '@stomp/stompjs';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {ChatMessage} from '../Models/ChatMessage';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root',
@@ -11,10 +11,12 @@ export class WebsocketService {
     private stompClient!: Client;
     private messageSubject: BehaviorSubject<ChatMessage[]> = new BehaviorSubject<ChatMessage[]>([]); // Lista de mensajes
 
+
     constructor(private http: HttpClient) {}
 
+    // Método para conectarse al WebSocket
     connect(roomId: string) {
-        const webSocketUrl = `ws://guillemonas.synology.me:6767/ws-native`; // URL del servidor WebSocket nativo
+        const webSocketUrl = `/api/ws-native`; // URL del servidor WebSocket nativo
         this.stompClient = new Client({
             webSocketFactory: () => new WebSocket(webSocketUrl),
             reconnectDelay: 5000,
@@ -39,6 +41,11 @@ export class WebsocketService {
         this.stompClient.activate();
     }
 
+    newSubscription(roomId: string) {
+
+    }
+
+    // Método para enviar mensajes
     sendMessage(chatMessage: ChatMessage) {
         if (this.stompClient && this.stompClient.connected) {
             const message = JSON.stringify(chatMessage);
@@ -51,10 +58,20 @@ export class WebsocketService {
         }
     }
 
+    // Obtener mensajes de un grupo
     getMessageObservable(): Observable<ChatMessage[]> {
         return this.messageSubject.asObservable();
     }
 
+    // Obtener los detalles de un grupo
+    getGroupDetails(groupId: number): Observable<any> {
+        const url = `/api/messages/grupos/${groupId}`; // Llamamos al endpoint que devuelve la información del grupo
+        const token = sessionStorage.getItem('token'); // Obtén el token del almacenamiento de sesión
+        const headers = { Authorization: `Bearer ${token}` }; // Incluye el token en los headers
+        return this.http.get<any>(url, { headers }); // Llama al endpoint del backend
+    }
+
+    // Método para obtener los grupos del usuario
     getUserGroups(): Observable<any> {
         const url = `/api/messages/info`; // URL del endpoint en el backend
         const token = sessionStorage.getItem('token');
@@ -78,15 +95,22 @@ export class WebsocketService {
         return this.http.get<any>(url, { headers }); // Llama al endpoint del backend
     }
 
-    createGroup(groupName: { name: string }): Observable<any> {
-        const url = `/api/messages/create`; // Endpoint del backend
-        const token = sessionStorage.getItem('token'); // Obtiene el token si es necesario
-        const headers = { Authorization: `Bearer ${token}` };
-        const body = { name: groupName.name }; // Envía solo el nombre del grupo
+    // Crear un nuevo grupo
+    createGroup(groupName: { name: string }, file?: File | null): Observable<any> {
+        const url = '/api/messages/create';  // Endpoint del backend
+        const token = sessionStorage.getItem('token');
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-        return this.http.post<any>(url, body, { headers });
+        const formData = new FormData();
+        formData.append('group', JSON.stringify({ name: groupName.name }));
+        if (file) {
+            formData.append('file', file); // Solo agregar el archivo si está presente
+        }
+
+        return this.http.post<any>(url, formData, { headers });
     }
 
+    // Añadir usuarios a un grupo
     addUsersToGroup(groupId: number, userIds: number[]): Observable<any> {
         const url = `/api/messages/addUsersToGroup`; // Endpoint del backend
         const token = sessionStorage.getItem('token');
@@ -97,6 +121,7 @@ export class WebsocketService {
         return this.http.post<any>(url, body, { headers, params });
     }
 
+    // Obtener mensajes por grupo
     getMessagesByGroup(groupId: number): Observable<ChatMessage[]> {
         const url = `/api/messages/group/${groupId}`; // Endpoint del backend
         const token = sessionStorage.getItem('token'); // Obtiene el token de sesión
@@ -105,6 +130,15 @@ export class WebsocketService {
         return this.http.get<ChatMessage[]>(url, { headers });
     }
 
+    // Obtener los últimos mensajes de los grupos
+    getUltimosMensajesPorGrupo(): Observable<any> {
+        const url = `/api/messages/grupos/ultimos-mensajes`; // Endpoint del backend
+        const token = sessionStorage.getItem('token'); // Obtiene el token de sesión
+        const headers = { Authorization: `Bearer ${token}` }; // Incluye el token en los headers
+        return this.http.get<any>(url, { headers }); // Llama al endpoint del backend
+    }
+
+    // Desconectar el WebSocket
     disconnect() {
         if (this.stompClient && this.stompClient.active) {
             this.stompClient.deactivate();
