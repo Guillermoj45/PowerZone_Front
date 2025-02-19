@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, tap} from "rxjs";
 import {ProfileService} from "./profile.service";
+import {environment} from "../../environments/environment.prod";
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +16,7 @@ export class AuthService {
 
     // Iniciar sesión y manejar el almacenamiento
     login(loginData: { email: string, password: string }): Observable<any> {
-        return this.http.post<any>('/auth/login', loginData).pipe(
+        return this.http.post<any>(environment.apiUrl + '/auth/login', loginData).pipe(
             tap(response => {
                 console.log('Respuesta del servidor:', response); // Verifica la respuesta
 

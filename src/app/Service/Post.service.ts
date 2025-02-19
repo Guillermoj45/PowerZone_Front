@@ -3,12 +3,13 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Post} from '../Models/Post';
 import {PostDto} from '../Models/PostDto';
+import {environment} from "../../environments/environment.prod";
 
 @Injectable({
     providedIn: 'root'
 })
 export class PostService {
-    private apiUrl = '/api/post';
+    private apiUrl = environment.apiUrl + '/post';
 
     constructor(private http: HttpClient) {}
 
@@ -30,7 +31,7 @@ export class PostService {
     return this.http.get<PostDto[]>(`${this.apiUrl}/pattern`, { headers, params: { pattern } });
   }
     getPostById(token: string, postId: number): Observable<PostDto> {
-        return this.http.get<PostDto>(`/api/post/${postId}`, {
+        return this.http.get<PostDto>(environment.apiUrl + `/post/${postId}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
     }
@@ -108,12 +109,12 @@ export class PostService {
 
     isNewUser(token: string): Observable<boolean> {
         const headers = new HttpHeaders({ Authorization: token });
-        return this.http.post<boolean>('/api/auth/isTutorialComplete', {},{ headers });
+        return this.http.post<boolean>(environment.apiUrl + '/auth/isTutorialComplete', {},{ headers });
     }
 
     changeUserStatus(token: string): Observable<void> {
         const headers = new HttpHeaders({ Authorization: token });
-        return this.http.post<void>('/api/auth/tutorialComplete', {}, { headers });
+        return this.http.post<void>(environment.apiUrl + '/auth/tutorialComplete', {}, { headers });
     }
 
 }

@@ -3,13 +3,14 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Comment} from '../Models/Comment';
 import {CommentDetails} from "../Models/CommentDetails";
+import {environment} from "../../environments/environment.prod";
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class CommentService {
-    private apiUrl = '/api/comment';
+    private apiUrl = environment.apiUrl + '/comment';
 
     constructor(private http: HttpClient) {}
 
@@ -19,7 +20,7 @@ export class CommentService {
         });
     }
     getCommentsByPostId(token: string, postId: number): Observable<CommentDetails[]> {
-        return this.http.get<CommentDetails[]>(`/api/post/${postId}/comments`, {
+        return this.http.get<CommentDetails[]>(environment.apiUrl + `/post/${postId}/comments`, {
             headers: { Authorization: `Bearer ${token}` }
         });
     }
