@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/Screen/footer/footer.component.scss"],
+  "sourcesContent": [".custom-footer {\r\n    --background: #007875; /* Usamos la variable CSS de Ionic para cambiar el fondo */\r\n}\r\n\r\n.footer-images {\r\n    display: flex;\r\n    justify-content: center; /* Las imágenes estarán centradas */\r\n    gap: 2%; /* Reducimos el espacio entre las imágenes */\r\n    align-items: center; /* Alinea las imágenes verticalmente al centro */\r\n    flex-wrap: wrap; /* Permite que los elementos se envuelvan a la siguiente línea si es necesario */\r\n}\r\n\r\nion-icon {\r\n    color: black;\r\n}\r\n"],
+  "mappings": ";;;AAAA,CAAA;AACI,gBAAA;;AAGJ,CAAA;AACI,WAAA;AACA,mBAAA;AACA,OAAA;AACA,eAAA;AACA,aAAA;;AAGJ;AACI,SAAA;;",
+  "names": []
+}

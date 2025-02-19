@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/Screen/search/search.component.scss"],
+  "sourcesContent": ["ion-content {\r\n  background-color: #042F2E;\r\n  --background: #042F2E;\r\n  color: white;\r\n}\r\n\r\nion-input {\r\n  background-color: #042F2E;\r\n  color: white;\r\n  border-bottom: 1px solid white;\r\n  padding: 5px 0;\r\n}\r\n\r\nion-icon {\r\n  font-size: 1.5rem;\r\n  color: white;\r\n}\r\n\r\nion-list-header {\r\n  color: white;\r\n  padding-left: 10px;\r\n}\r\nion-list {\r\n  background-color: #042F2E;\r\n}\r\nion-item {\r\n  --background: transparent;\r\n}\r\n\r\nion-label {\r\n  color: white;\r\n}\r\n\r\nion-button ion-icon {\r\n  color: white;\r\n}\r\n.barra {\r\n  display: flex;\r\n  align-items: center;\r\n  padding: 10px;\r\n  background-color: #042F2E;\r\n  margin-top: 56px; /* Ajusta este valor según la altura de tu navbar */\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.barra ion-icon {\r\n  margin-right: 10px;\r\n}\r\n\r\n.barra ion-input {\r\n  flex: 1;\r\n  color: white;\r\n}\r\n\r\n\r\n\r\n"],
+  "mappings": ";;;AAAA;AACE,oBAAA;AACA,gBAAA;AACA,SAAA;;AAGF;AACE,oBAAA;AACA,SAAA;AACA,iBAAA,IAAA,MAAA;AACA,WAAA,IAAA;;AAGF;AACE,aAAA;AACA,SAAA;;AAGF;AACE,SAAA;AACA,gBAAA;;AAEF;AACE,oBAAA;;AAEF;AACE,gBAAA;;AAGF;AACE,SAAA;;AAGF,WAAA;AACE,SAAA;;AAEF,CAAA;AACE,WAAA;AACA,eAAA;AACA,WAAA;AACA,oBAAA;AACA,cAAA;AACA,iBAAA;;AAGF,CATA,MASA;AACE,gBAAA;;AAGF,CAbA,MAaA;AACE,QAAA;AACA,SAAA;;",
+  "names": []
+}

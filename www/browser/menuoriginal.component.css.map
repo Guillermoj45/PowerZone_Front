@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/Screen/menuoriginal/menuoriginal.component.scss"],
+  "sourcesContent": ["ion-list{\r\n    background-color: #042F2E;\r\n    height: 100%;\r\n    padding: 0px 30px;\r\n}\r\nion-item {\r\n    --inner-padding-top: 0;\r\n    --inner-padding-bottom: 0;\r\n    --border-width: 0;\r\n    --background: transparent;\r\n    --ion-item-background: transparent;\r\n    margin-top: 2%;\r\n}\r\nion-grid{\r\n    height: 100%;\r\n    background-color: #042F2E;\r\n}\r\n"],
+  "mappings": ";AAAA;AACI,oBAAA;AACA,UAAA;AACA,WAAA,IAAA;;AAEJ;AACI,uBAAA;AACA,0BAAA;AACA,kBAAA;AACA,gBAAA;AACA,yBAAA;AACA,cAAA;;AAEJ;AACI,UAAA;AACA,oBAAA;;",
+  "names": []
+}
