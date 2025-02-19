@@ -4,13 +4,13 @@ import {
 import {
   CommentService,
   NewCommentComponent
-} from "./chunk-Z57BS2VX.js";
+} from "./chunk-EHKKNGCG.js";
 import {
   AdminService
-} from "./chunk-IZ7ESTP6.js";
+} from "./chunk-IK76A6XB.js";
 import {
   PostService
-} from "./chunk-NLX6XDFB.js";
+} from "./chunk-77HXCZAV.js";
 import {
   addIcons,
   bookmark,
@@ -25,7 +25,7 @@ import {
 } from "./chunk-U7I4M26G.js";
 import {
   ProfileService
-} from "./chunk-OEJFTSIZ.js";
+} from "./chunk-FQYQIARY.js";
 import {
   IonAvatar,
   IonButton,
@@ -47,7 +47,7 @@ import {
   SelectValueAccessorDirective,
   TextValueAccessorDirective,
   ToastController
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import "./chunk-IRNVB6F3.js";
 import {
   ActivatedRoute,
@@ -642,4 +642,4 @@ var PostDetailsComponent = _PostDetailsComponent;
 export {
   PostDetailsComponent
 };
-//# sourceMappingURL=post-details.component-K2XOS523.js.map
+//# sourceMappingURL=post-details.component-TCBWK55M.js.map

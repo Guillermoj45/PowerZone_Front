@@ -15,7 +15,7 @@ import {
   IonicModule,
   TextValueAccessorDirective,
   environment
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import "./chunk-IRNVB6F3.js";
 import {
   CommonModule,
@@ -228,4 +228,4 @@ var HealthComponent = _HealthComponent;
 export {
   HealthComponent
 };
-//# sourceMappingURL=health.component-VWB2VV4P.js.map
+//# sourceMappingURL=health.component-XK54TBM7.js.map

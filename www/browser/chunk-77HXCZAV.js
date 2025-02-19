@@ -1,6 +1,6 @@
 import {
   environment
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import {
   HttpClient,
   HttpHeaders,
@@ -113,4 +113,4 @@ var PostService = _PostService;
 export {
   PostService
 };
-//# sourceMappingURL=chunk-NLX6XDFB.js.map
+//# sourceMappingURL=chunk-77HXCZAV.js.map

@@ -1,9 +1,9 @@
 import {
   ProfileSettingsService
-} from "./chunk-T2NDMSQR.js";
+} from "./chunk-IDV7EZ7D.js";
 import {
   NewPostComponent
-} from "./chunk-UOXOKTXA.js";
+} from "./chunk-WV2SIDCP.js";
 import {
   add,
   addIcons,
@@ -28,7 +28,7 @@ import {
   IonRow,
   IonicModule,
   ModalController
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import {
   BehaviorSubject,
   Router,
@@ -200,4 +200,4 @@ export {
   Menu,
   MenuoriginalComponent
 };
-//# sourceMappingURL=chunk-W3E6FJH6.js.map
+//# sourceMappingURL=chunk-5IJZEC7B.js.map

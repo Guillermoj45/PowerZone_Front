@@ -1,11 +1,12 @@
 import {
-  MenuoriginalComponent
-} from "./chunk-W3E6FJH6.js";
-import "./chunk-T2NDMSQR.js";
-import "./chunk-UOXOKTXA.js";
-import "./chunk-NLX6XDFB.js";
+  SuggestionsComponent
+} from "./chunk-XEFH7DCV.js";
+import "./chunk-Z233NFIF.js";
+import "./chunk-IDV7EZ7D.js";
+import "./chunk-IK76A6XB.js";
 import "./chunk-U7I4M26G.js";
-import "./chunk-ER2EYDF2.js";
+import "./chunk-FQYQIARY.js";
+import "./chunk-AZ27F32N.js";
 import "./chunk-IRNVB6F3.js";
 import "./chunk-A54Y6D4U.js";
 import "./chunk-ZTVCPE3I.js";
@@ -37,6 +38,6 @@ import "./chunk-6FFMTLXI.js";
 import "./chunk-K3HSXS64.js";
 import "./chunk-ZVATTXSA.js";
 export {
-  MenuoriginalComponent
+  SuggestionsComponent
 };
-//# sourceMappingURL=menuoriginal.component-G7BIKWPY.js.map
+//# sourceMappingURL=suggestions.component-5RLW3COH.js.map

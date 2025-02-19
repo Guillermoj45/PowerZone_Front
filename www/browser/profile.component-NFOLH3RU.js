@@ -1,9 +1,9 @@
 import {
   ProfileSettingsService
-} from "./chunk-T2NDMSQR.js";
+} from "./chunk-IDV7EZ7D.js";
 import {
   PostService
-} from "./chunk-NLX6XDFB.js";
+} from "./chunk-77HXCZAV.js";
 import {
   addIcons,
   bookmark,
@@ -22,7 +22,7 @@ import {
   IonRow,
   IonText,
   IonicModule
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import "./chunk-IRNVB6F3.js";
 import {
   ActivatedRoute,
@@ -414,4 +414,4 @@ var ProfileComponent = _ProfileComponent;
 export {
   ProfileComponent
 };
-//# sourceMappingURL=profile.component-FV3GAFNH.js.map
+//# sourceMappingURL=profile.component-NFOLH3RU.js.map

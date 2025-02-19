@@ -15,10 +15,10 @@ import {
 } from "./chunk-ED5SIT5L.js";
 import {
   RegistroService
-} from "./chunk-OEJFTSIZ.js";
+} from "./chunk-FQYQIARY.js";
 import {
   AlertController
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import "./chunk-IRNVB6F3.js";
 import {
   ActivatedRoute,
@@ -224,4 +224,4 @@ var LoginComponent = _LoginComponent;
 export {
   LoginComponent
 };
-//# sourceMappingURL=login.component-TE5ZOO2H.js.map
+//# sourceMappingURL=login.component-7IXRI73C.js.map

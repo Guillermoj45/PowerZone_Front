@@ -1,6 +1,6 @@
 import {
   PostService
-} from "./chunk-NLX6XDFB.js";
+} from "./chunk-77HXCZAV.js";
 import {
   addIcons,
   bookmark,
@@ -25,7 +25,7 @@ import {
   IonicModule,
   ModalController,
   ToastController
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import "./chunk-IRNVB6F3.js";
 import {
   ActivatedRoute,
@@ -422,4 +422,4 @@ var PostsUserComponent = _PostsUserComponent;
 export {
   PostsUserComponent
 };
-//# sourceMappingURL=posts-user.component-DT4IZVG2.js.map
+//# sourceMappingURL=posts-user.component-UZQQKTPS.js.map

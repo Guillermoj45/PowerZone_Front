@@ -1,6 +1,6 @@
 import {
   AdminService
-} from "./chunk-IZ7ESTP6.js";
+} from "./chunk-IK76A6XB.js";
 import {
   BooleanValueAccessorDirective,
   IonAvatar,
@@ -21,7 +21,7 @@ import {
   IonToolbar,
   IonicModule,
   RouterLinkDelegateDirective
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import "./chunk-IRNVB6F3.js";
 import {
   Router,
@@ -303,4 +303,4 @@ var AdminComponent = _AdminComponent;
 export {
   AdminComponent
 };
-//# sourceMappingURL=admin.component-RUIOGTQA.js.map
+//# sourceMappingURL=admin.component-2U67DNLY.js.map

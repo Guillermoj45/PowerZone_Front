@@ -3,7 +3,7 @@ import {
 } from "./chunk-2JTE6DJZ.js";
 import {
   environment
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import {
   BehaviorSubject,
   HttpClient,
@@ -1760,4 +1760,4 @@ export {
   WebsocketService,
   CloudinaryService
 };
-//# sourceMappingURL=chunk-6CCPDX4C.js.map
+//# sourceMappingURL=chunk-H5CLOZ4O.js.map

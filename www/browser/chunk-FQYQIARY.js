@@ -1,6 +1,6 @@
 import {
   environment
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import {
   HttpClient,
   HttpHeaders,
@@ -67,4 +67,4 @@ export {
   RegistroService,
   ProfileService
 };
-//# sourceMappingURL=chunk-OEJFTSIZ.js.map
+//# sourceMappingURL=chunk-FQYQIARY.js.map

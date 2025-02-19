@@ -3,22 +3,22 @@ import {
 } from "./chunk-2JTE6DJZ.js";
 import {
   SuggestionsComponent
-} from "./chunk-4LK5CG6C.js";
-import "./chunk-PG6YW7OZ.js";
+} from "./chunk-XEFH7DCV.js";
+import "./chunk-Z233NFIF.js";
 import {
   Menu,
   MenuoriginalComponent
-} from "./chunk-W3E6FJH6.js";
-import "./chunk-T2NDMSQR.js";
+} from "./chunk-5IJZEC7B.js";
+import "./chunk-IDV7EZ7D.js";
 import {
   ToastController,
   provideIonicAngular
 } from "./chunk-ED5SIT5L.js";
 import {
   NewPostComponent
-} from "./chunk-UOXOKTXA.js";
-import "./chunk-IZ7ESTP6.js";
-import "./chunk-NLX6XDFB.js";
+} from "./chunk-WV2SIDCP.js";
+import "./chunk-IK76A6XB.js";
+import "./chunk-77HXCZAV.js";
 import {
   add,
   addCircle,
@@ -38,7 +38,7 @@ import {
 } from "./chunk-U7I4M26G.js";
 import {
   ProfileService
-} from "./chunk-OEJFTSIZ.js";
+} from "./chunk-FQYQIARY.js";
 import {
   IonApp,
   IonAvatar,
@@ -65,7 +65,7 @@ import {
   ModalController,
   TextValueAccessorDirective,
   environment
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import "./chunk-IRNVB6F3.js";
 import {
   ActivatedRoute,
@@ -310,36 +310,36 @@ var routes = [
   },
   {
     path: "registro",
-    loadComponent: () => import("./registro.component-ZM6TPREI.js").then((m) => m.RegistroComponent)
+    loadComponent: () => import("./registro.component-VXOL7H24.js").then((m) => m.RegistroComponent)
   },
   {
     path: "login",
-    loadComponent: () => import("./login.component-TE5ZOO2H.js").then((m) => m.LoginComponent)
+    loadComponent: () => import("./login.component-7IXRI73C.js").then((m) => m.LoginComponent)
   },
   {
     path: "posts",
-    loadComponent: () => import("./posts.component-2XXN3VPM.js").then((m) => m.PostsComponent)
+    loadComponent: () => import("./posts.component-YUHO4NRJ.js").then((m) => m.PostsComponent)
   },
   {
     path: "notification",
-    loadComponent: () => import("./notification.component-NHU76Q5Z.js").then((m) => m.NotificationComponent)
+    loadComponent: () => import("./notification.component-HI7VUSA4.js").then((m) => m.NotificationComponent)
   },
   {
     path: "profile/:id",
-    loadComponent: () => import("./profile.component-FV3GAFNH.js").then((m) => m.ProfileComponent)
+    loadComponent: () => import("./profile.component-NFOLH3RU.js").then((m) => m.ProfileComponent)
   },
   {
     path: "profile",
-    loadComponent: () => import("./profile.component-FV3GAFNH.js").then((m) => m.ProfileComponent)
+    loadComponent: () => import("./profile.component-NFOLH3RU.js").then((m) => m.ProfileComponent)
   },
   {
     path: "menuoriginal",
-    loadComponent: () => import("./menuoriginal.component-G7BIKWPY.js").then((m) => m.MenuoriginalComponent),
+    loadComponent: () => import("./menuoriginal.component-Q2PW4FWQ.js").then((m) => m.MenuoriginalComponent),
     canActivate: [AuthGuard]
   },
   {
     path: "admin",
-    loadComponent: () => import("./admin.component-RUIOGTQA.js").then((m) => m.AdminComponent)
+    loadComponent: () => import("./admin.component-2U67DNLY.js").then((m) => m.AdminComponent)
   },
   {
     path: "search",
@@ -348,40 +348,40 @@ var routes = [
   },
   {
     path: "settings",
-    loadComponent: () => import("./settings.component-BWPJGTGM.js").then((m) => m.SettingsComponent)
+    loadComponent: () => import("./settings.component-Y52HUXXG.js").then((m) => m.SettingsComponent)
   },
   {
     path: "health",
-    loadComponent: () => import("./health.component-VWB2VV4P.js").then((m) => m.HealthComponent)
+    loadComponent: () => import("./health.component-XK54TBM7.js").then((m) => m.HealthComponent)
   },
   {
     path: "recu",
-    loadComponent: () => import("./recuperacion-previa.component-ZRT336BY.js").then((m) => m.RecuperacionPreviaComponent)
+    loadComponent: () => import("./recuperacion-previa.component-IV6V5NYO.js").then((m) => m.RecuperacionPreviaComponent)
   },
   {
     path: "post-save",
-    loadComponent: () => import("./post-save.component-K6Z6NOKU.js").then((m) => m.PostSaveComponent)
+    loadComponent: () => import("./post-save.component-NCVBJRZQ.js").then((m) => m.PostSaveComponent)
   },
   {
     path: "post-details/:id",
-    loadComponent: () => import("./post-details.component-K2XOS523.js").then((m) => m.PostDetailsComponent),
+    loadComponent: () => import("./post-details.component-TCBWK55M.js").then((m) => m.PostDetailsComponent),
     canActivate: [AuthGuard]
   },
   {
     path: "posts-user/:id",
-    loadComponent: () => import("./posts-user.component-DT4IZVG2.js").then((m) => m.PostsUserComponent)
+    loadComponent: () => import("./posts-user.component-UZQQKTPS.js").then((m) => m.PostsUserComponent)
   },
   {
     path: "chat/:groupId",
-    loadComponent: () => import("./rafaparaelchat.component-PULZT5X4.js").then((m) => m.RafaparaelchatComponent)
+    loadComponent: () => import("./rafaparaelchat.component-M6LQIIS6.js").then((m) => m.RafaparaelchatComponent)
   },
   {
     path: "mensajes",
-    loadComponent: () => import("./mensajes.component-7FVFTTQP.js").then((m) => m.MensajesComponent)
+    loadComponent: () => import("./mensajes.component-YRKCM7YW.js").then((m) => m.MensajesComponent)
   },
   {
     path: "suggestion",
-    loadComponent: () => import("./suggestions.component-TOPGE7FR.js").then((m) => m.SuggestionsComponent),
+    loadComponent: () => import("./suggestions.component-5RLW3COH.js").then((m) => m.SuggestionsComponent),
     canActivate: [AuthGuard]
   }
 ];

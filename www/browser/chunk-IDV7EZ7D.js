@@ -1,6 +1,6 @@
 import {
   environment
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import {
   HttpClient,
   HttpHeaders,
@@ -46,4 +46,4 @@ var ProfileSettingsService = _ProfileSettingsService;
 export {
   ProfileSettingsService
 };
-//# sourceMappingURL=chunk-T2NDMSQR.js.map
+//# sourceMappingURL=chunk-IDV7EZ7D.js.map

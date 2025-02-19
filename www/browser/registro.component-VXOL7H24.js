@@ -6,7 +6,7 @@ import {
 } from "./chunk-ED5SIT5L.js";
 import {
   RegistroService
-} from "./chunk-OEJFTSIZ.js";
+} from "./chunk-FQYQIARY.js";
 import {
   AlertController,
   IonButton,
@@ -23,7 +23,7 @@ import {
   IonicModule,
   RouterLinkDelegateDirective,
   TextValueAccessorDirective
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import "./chunk-IRNVB6F3.js";
 import {
   FormBuilder,
@@ -297,4 +297,4 @@ var RegistroComponent = _RegistroComponent;
 export {
   RegistroComponent
 };
-//# sourceMappingURL=registro.component-ZM6TPREI.js.map
+//# sourceMappingURL=registro.component-VXOL7H24.js.map

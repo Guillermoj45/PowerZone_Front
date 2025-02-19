@@ -6592,7 +6592,7 @@ var IonicModule = _IonicModule;
 // src/environments/environment.prod.ts
 var environment = {
   production: true,
-  apiUrl: "https://powerzone-back.onrender.com"
+  apiUrl: "/api"
 };
 
 export {
@@ -6668,4 +6668,4 @@ export {
    * (C) Ionic http://ionicframework.com - MIT License
    *)
 */
-//# sourceMappingURL=chunk-ER2EYDF2.js.map
+//# sourceMappingURL=chunk-AZ27F32N.js.map

@@ -1,12 +1,12 @@
 import {
   AuthService
-} from "./chunk-PG6YW7OZ.js";
+} from "./chunk-Z233NFIF.js";
 import {
   ProfileSettingsService
-} from "./chunk-T2NDMSQR.js";
+} from "./chunk-IDV7EZ7D.js";
 import {
   AdminService
-} from "./chunk-IZ7ESTP6.js";
+} from "./chunk-IK76A6XB.js";
 import {
   addIcons,
   closeCircle,
@@ -15,7 +15,7 @@ import {
 } from "./chunk-U7I4M26G.js";
 import {
   ProfileService
-} from "./chunk-OEJFTSIZ.js";
+} from "./chunk-FQYQIARY.js";
 import {
   IonAvatar,
   IonButton,
@@ -27,7 +27,7 @@ import {
   IonLabel,
   IonRow,
   IonicModule
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import {
   NgForOf,
   NgIf,
@@ -224,4 +224,4 @@ var SuggestionsComponent = _SuggestionsComponent;
 export {
   SuggestionsComponent
 };
-//# sourceMappingURL=chunk-4LK5CG6C.js.map
+//# sourceMappingURL=chunk-XEFH7DCV.js.map

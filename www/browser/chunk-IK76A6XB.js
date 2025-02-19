@@ -1,6 +1,6 @@
 import {
   environment
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import {
   HttpClient,
   HttpHeaders,
@@ -49,4 +49,4 @@ var AdminService = _AdminService;
 export {
   AdminService
 };
-//# sourceMappingURL=chunk-IZ7ESTP6.js.map
+//# sourceMappingURL=chunk-IK76A6XB.js.map

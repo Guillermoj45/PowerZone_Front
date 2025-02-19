@@ -10,7 +10,7 @@ import {
   IonToolbar,
   IonicModule,
   environment
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import "./chunk-IRNVB6F3.js";
 import {
   HttpClient,
@@ -601,4 +601,4 @@ var NotificationComponent = _NotificationComponent;
 export {
   NotificationComponent
 };
-//# sourceMappingURL=notification.component-NHU76Q5Z.js.map
+//# sourceMappingURL=notification.component-HI7VUSA4.js.map

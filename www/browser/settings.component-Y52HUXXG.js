@@ -1,6 +1,6 @@
 import {
   ProfileSettingsService
-} from "./chunk-T2NDMSQR.js";
+} from "./chunk-IDV7EZ7D.js";
 import {
   LoadingController
 } from "./chunk-ED5SIT5L.js";
@@ -21,7 +21,7 @@ import {
   IonicModule,
   TextValueAccessorDirective,
   ToastController
-} from "./chunk-ER2EYDF2.js";
+} from "./chunk-AZ27F32N.js";
 import "./chunk-IRNVB6F3.js";
 import {
   CommonModule,
@@ -264,4 +264,4 @@ var SettingsComponent = _SettingsComponent;
 export {
   SettingsComponent
 };
-//# sourceMappingURL=settings.component-BWPJGTGM.js.map
+//# sourceMappingURL=settings.component-Y52HUXXG.js.map
