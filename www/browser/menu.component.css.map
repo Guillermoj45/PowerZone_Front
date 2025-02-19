@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/Screen/menu/menu.component.scss"],
+  "sourcesContent": ["body{\r\n    background-color: #042F2E;\r\n    width: 25%;\r\n}\r\nion-list{\r\n    background-color: #042F2E;\r\n    height: 100%;\r\n}\r\n.menuizq{\r\n    padding-top: 120px;\r\n    padding-left: 20px;\r\n}\r\n.menuizq ion-icon {\r\n    display: block;\r\n    margin-bottom: 50%;\r\n    font-size: 24px;\r\n}\r\nion-item {\r\n    --inner-padding-top: 0;\r\n    --inner-padding-bottom: 0;\r\n    --border-width: 0;\r\n    --background: transparent;\r\n    --ion-item-background: transparent;\r\n    margin: 0;\r\n}\r\nion-button{\r\n    color: white;\r\n}\r\na{\r\n    color: white;\r\n}\r\n.menuizq a:hover ion-icon{\r\n    color: #00CED1; /* Cambiar a un color distinto al pasar el ratón */\r\n}\r\n\r\n\r\n\r\n"],
+  "mappings": ";;;AAAA;AACI,oBAAA;AACA,SAAA;;AAEJ;AACI,oBAAA;AACA,UAAA;;AAEJ,CAAA;AACI,eAAA;AACA,gBAAA;;AAEJ,CAJA,QAIA;AACI,WAAA;AACA,iBAAA;AACA,aAAA;;AAEJ;AACI,uBAAA;AACA,0BAAA;AACA,kBAAA;AACA,gBAAA;AACA,yBAAA;AACA,UAAA;;AAEJ;AACI,SAAA;;AAEJ;AACI,SAAA;;AAEJ,CAvBA,QAuBA,CAAA,OAAA;AACI,SAAA;;",
+  "names": []
+}

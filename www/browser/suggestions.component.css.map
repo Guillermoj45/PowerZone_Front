@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/Screen/suggestions/suggestions.component.scss"],
+  "sourcesContent": ["body{\r\n    width: 25%;\r\n}\r\nion-grid{\r\n    background-color: #042F2E;\r\n    height: 100%;\r\n}\r\nion-item {\r\n    --inner-padding-top: 0;\r\n    --inner-padding-bottom: 0;\r\n    --border-width: 0;\r\n    --background: transparent;\r\n    --ion-item-background: transparent;\r\n    margin-left: 5%;\r\n}\r\nion-button{\r\n    color: white;\r\n    font-size: 70%;\r\n    --background: #6fb3a6;\r\n}\r\n\r\nh6, h2{\r\n    margin-left: 8%;\r\n}\r\nion-button{\r\n    color: black;\r\n    font-size: 70%;\r\n}\r\nion-img{\r\n    width: 70%;\r\n    margin: auto;\r\n}\r\n\r\n\r\n\r\n"],
+  "mappings": ";AAAA;AACI,SAAA;;AAEJ;AACI,oBAAA;AACA,UAAA;;AAEJ;AACI,uBAAA;AACA,0BAAA;AACA,kBAAA;AACA,gBAAA;AACA,yBAAA;AACA,eAAA;;AAEJ;AACI,SAAA;AACA,aAAA;AACA,gBAAA;;AAGJ;AAAA;AACI,eAAA;;AAEJ;AACI,SAAA;AACA,aAAA;;AAEJ;AACI,SAAA;AACA,UAAA;;",
+  "names": []
+}

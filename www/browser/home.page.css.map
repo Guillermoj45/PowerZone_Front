@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/Screen/home/home.page.scss"],
+  "sourcesContent": ["#container {\r\n  text-align: center;\r\n\r\n  position: absolute;\r\n  left: 0;\r\n  right: 0;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n}\r\n\r\n#container strong {\r\n  font-size: 20px;\r\n  line-height: 26px;\r\n}\r\n\r\n#container p {\r\n  font-size: 16px;\r\n  line-height: 22px;\r\n\r\n  color: #8c8c8c;\r\n\r\n  margin: 0;\r\n}\r\n\r\n#container a {\r\n  text-decoration: none;\r\n}"],
+  "mappings": ";AAAA,CAAA;AACE,cAAA;AAEA,YAAA;AACA,QAAA;AACA,SAAA;AACA,OAAA;AACA,aAAA,WAAA;;AAGF,CAVA,UAUA;AACE,aAAA;AACA,eAAA;;AAGF,CAfA,UAeA;AACE,aAAA;AACA,eAAA;AAEA,SAAA;AAEA,UAAA;;AAGF,CAxBA,UAwBA;AACE,mBAAA;;",
+  "names": []
+}
