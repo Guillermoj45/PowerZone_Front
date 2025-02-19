@@ -45,7 +45,7 @@
             <ng-container *ngFor="let notification of notificationsYesterday">
                 <ion-row>
                     <ion-col>
-                        <ion-item lines="none" class="notification-item">
+                        <ion-item lines="none" (click)="goToNotification(notification)" class="notification-item">
                             <ion-avatar slot="start">
                                 <img alt="avatar" [src]="notification.emitter.avatar"/>
                             </ion-avatar>
@@ -76,7 +76,7 @@
             <ng-container *ngFor="let notification of notificationsLast7Days">
                 <ion-row>
                     <ion-col>
-                        <ion-item lines="none" class="notification-item">
+                        <ion-item lines="none" (click)="goToNotification(notification)"  class="notification-item">
                             <ion-avatar slot="start">
                                 <img alt="avatar" [src]="notification.emitter.avatar"/>
                             </ion-avatar>
@@ -107,7 +107,7 @@
             <ng-container *ngFor="let notification of notificationsLast10Days">
                 <ion-row>
                     <ion-col>
-                        <ion-item lines="none" class="notification-item">
+                        <ion-item lines="none" (click)="goToNotification(notification)" class="notification-item">
                             <ion-avatar slot="start">
                                 <img alt="avatar" [src]="notification.emitter.avatar"/>
                             </ion-avatar>
