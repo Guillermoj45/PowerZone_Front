@@ -10,10 +10,10 @@ export class RecuperacionServiceService {
   constructor(private http: HttpClient) { }
 
     sendEmail(email: string): Observable<any> {
-        return this.http.post<any>(`api/api/auth/forgot-password?email=${email}`, null);
+        return this.http.post<any>(`https://powerzone-back-elk6.onrender.com/api/auth/forgot-password?email=${email}`, null);
     }
 
     sendNewPassword(code: string, newPassword:string): Observable<any> {
-        return this.http.post<any>(`api/api/auth/reset-password?code=${code}&newPassword=${newPassword}`, null);
+        return this.http.post<any>(`https://powerzone-back-elk6.onrender.com/api/auth/reset-password?code=${code}&newPassword=${newPassword}`, null);
     }
 }

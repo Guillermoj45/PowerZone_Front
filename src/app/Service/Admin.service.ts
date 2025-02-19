@@ -14,17 +14,17 @@ export class AdminService {
 
   getReports(offset: number) {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-      return this.http.get<Report[]>(`/api/admin?offset=${offset}`, {headers});
+      return this.http.get<Report[]>(`https://powerzone-back-elk6.onrender.com/admin?offset=${offset}`, {headers});
   }
 
   getUserWarnings(offset: number) {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-      return this.http.get<ProfileWarningBan[]>(`/api/admin/userWarning?offser=${offset}`, {headers});
+      return this.http.get<ProfileWarningBan[]>(`https://powerzone-back-elk6.onrender.com/admin/userWarning?offser=${offset}`, {headers});
   }
 
   getUserBanned(offset: number) {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-      return this.http.get<ProfileWarningBan[]>(`/api/admin/userBanned?offset=${offset}`, {headers});
+      return this.http.get<ProfileWarningBan[]>(`https://powerzone-back-elk6.onrender.com/admin/userBanned?offset=${offset}`, {headers});
   }
 
   putWarning(id: number, state: string) {
@@ -34,11 +34,11 @@ export class AdminService {
       state: state
     }
     console.log(message);
-    return this.http.put(`/api/admin/report`, message, {headers});
+    return this.http.put(`https://powerzone-back-elk6.onrender.com/admin/report`, message, {headers});
   }
 
   verifyAdmin(): Observable<boolean> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-    return this.http.get<boolean>(`/api/admin/isAdmin`, { headers });
+    return this.http.get<boolean>(`https://powerzone-back-elk6.onrender.com/admin/isAdmin`, { headers });
   }
 }

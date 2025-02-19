@@ -9,7 +9,7 @@ import {CommentDetails} from "../Models/CommentDetails";
     providedIn: 'root'
 })
 export class CommentService {
-    private apiUrl = '/api/comment';
+    private apiUrl = 'https://powerzone-back-elk6.onrender.com/comment';
 
     constructor(private http: HttpClient) {}
 

@@ -8,7 +8,7 @@ import {MegaNotification} from "../Models/MegaNotification";
     providedIn: 'root'
 })
 export class NotificationService {
-    private apiUrl = '/api/notification';
+    private apiUrl = 'https://powerzone-back-elk6.onrender.com/notification';
     private token = sessionStorage.getItem('token');
 
     constructor(private http: HttpClient) {

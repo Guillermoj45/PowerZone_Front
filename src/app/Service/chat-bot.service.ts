@@ -10,6 +10,6 @@ export class ChatBotService {
 
   sendMessage(message: string, token: string | null): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.httpClient.post<any>('/api/chatBot/chat', { text: message }, { headers });
+    return this.httpClient.post<any>('https://powerzone-back-elk6.onrender.com/chatBot/chat', { text: message }, { headers });
   }
 }

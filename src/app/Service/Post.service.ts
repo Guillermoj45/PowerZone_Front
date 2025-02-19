@@ -8,7 +8,7 @@ import {PostDto} from '../Models/PostDto';
     providedIn: 'root'
 })
 export class PostService {
-    private apiUrl = '/api/post';
+    private apiUrl = 'https://powerzone-back-elk6.onrender.com/post';
 
     constructor(private http: HttpClient) {}
 
@@ -30,7 +30,7 @@ export class PostService {
     return this.http.get<PostDto[]>(`${this.apiUrl}/pattern`, { headers, params: { pattern } });
   }
     getPostById(token: string, postId: number): Observable<PostDto> {
-        return this.http.get<PostDto>(`/api/post/${postId}`, {
+        return this.http.get<PostDto>(`https://powerzone-back-elk6.onrender.com/post/${postId}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
     }
@@ -108,12 +108,12 @@ export class PostService {
 
     isNewUser(token: string): Observable<boolean> {
         const headers = new HttpHeaders({ Authorization: token });
-        return this.http.post<boolean>('/api/auth/isTutorialComplete', {},{ headers });
+        return this.http.post<boolean>('https://powerzone-back-elk6.onrender.com/auth/isTutorialComplete', {},{ headers });
     }
 
     changeUserStatus(token: string): Observable<void> {
         const headers = new HttpHeaders({ Authorization: token });
-        return this.http.post<void>('/api/auth/tutorialComplete', {}, { headers });
+        return this.http.post<void>('https://powerzone-back-elk6.onrender.com/auth/tutorialComplete', {}, { headers });
     }
 
 }

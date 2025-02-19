@@ -12,16 +12,16 @@ export class RegistroService {
     constructor(private http: HttpClient) { }
 
     registerUser(user: Register): Observable<any> {
-        return this.http.post<any>('/api/auth/create', user);
+        return this.http.post<any>('https://powerzone-back-elk6.onrender.com/auth/create', user);
     }
 
     login(login: Login): Observable<any> {
-        return this.http.post<any>('/api/auth/login', login);
+        return this.http.post<any>('https://powerzone-back-elk6.onrender.com/auth/login', login);
     }
 
     isBanned(token: string): Observable<any> {
         const headers = new HttpHeaders({ Authorization: token });
-        return this.http.get<any>('/api/auth/isBanned', { headers });
+        return this.http.get<any>('https://powerzone-back-elk6.onrender.com/auth/isBanned', { headers });
     }
 
 
@@ -31,7 +31,7 @@ export class RegistroService {
     providedIn: 'root'
 })
 export class ProfileService {
-    private baseUrl = '/api/profile'; // Proxy configurado
+    private baseUrl = 'https://powerzone-back-elk6.onrender.com/profile'; // Proxy configurado
 
     constructor(private http: HttpClient) {}
 
@@ -55,12 +55,12 @@ export class ProfileService {
 
     isAdmin() {
       const headers = new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
-      return this.http.get<boolean>('/api/auth/ImAdmin', {headers})
+      return this.http.get<boolean>('https://powerzone-back-elk6.onrender.com/auth/ImAdmin', {headers})
     }
 
     getRecomendations() {
       const headers = new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
-      return this.http.get<ProfileTotal[]>('/api/profile/recommended', {headers})
+      return this.http.get<ProfileTotal[]>('https://powerzone-back-elk6.onrender.com/profile/recommended', {headers})
     }
 }
 
