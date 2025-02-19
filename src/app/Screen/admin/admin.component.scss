@@ -1,14 +1,16 @@
 /* --------- Layout General --------- */
 .page-container {
-  height: 92%; /* reemplaza tu inline style="height: 92%" */
-  background-color: #042f2e;
+    height: 92%; /* reemplaza tu inline style="height: 92%" */
+    background-color: #042f2e;
+    /* Añadimos un padding general para que no quede tan pegado a los bordes */
+    padding: 0.5rem;
 }
 
 /* Color de fondo general de tabs, toolbars, etc. */
 ion-tabs,
 ion-tab-bar,
 ion-toolbar {
-  --background: #042f2e; /* FONDO SOLARIZED DARK */
+    --background: #042f2e; /* FONDO SOLARIZED DARK */
 }
 
 /* Ajusta la fuente y color de texto global */
@@ -19,120 +21,130 @@ ion-label,
 h1,
 span,
 .ion-text-size {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #eaeaea; /* Texto claro */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #eaeaea; /* Texto claro */
 }
 
 /* Títulos */
 ion-title h1 {
-  margin: 0;
-  font-size: 1.2rem;
-  color: #eaeaea;
+    margin: 0;
+    font-size: 1.2rem;
+    color: #eaeaea;
+    text-transform: uppercase; /* Ejemplo para destacar más */
+    letter-spacing: 0.5px;
 }
 
 /* Ajuste del tamaño de letra en tabs (si deseas) */
 .ion-text-size {
-  font-size: 1.1rem;
-  font-weight: 500;
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 
 /* ---------- Estilos de Items y Listas ---------- */
 
 /* Quita márgenes/padding extra */
 .ion-no-padding {
-  padding: 0 !important;
-  margin: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 /* Fondo de la lista */
 ion-list {
-  background-color: #042f2e;
+    background-color: transparent; /* Para que tome el color del contenedor */
 }
 
 /* Cada ítem en la lista */
 ion-item.item_list {
-  --background: #0a6c6a; /* Un tono ligeramente distinto para resaltar */
-  margin: 0.5rem 0;
-  border-radius: 8px;
-  /* Pequeña sombra para destacar */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  /* Animación sutil al hacer clic */
-  transition: transform 0.1s ease;
+    --background: #0a6c6a; /* Un tono ligeramente distinto para resaltar */
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    /* Pequeña sombra para destacar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    /* Animación sutil al hacer clic */
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
 ion-item.item_list:hover {
-  transform: scale(1.01);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-/* Avatar */
+/* Avatar: imagen totalmente circular */
+ion-avatar {
+    min-width: 50px; /* Para asegurar un tamaño mínimo */
+    min-height: 50px;
+    margin-right: 0.5rem;
+}
+
 ion-avatar img {
-  border-radius: 50%;
-  width: 100%;
-  height: auto;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen ocupe el contenedor sin deformarse */
+    border: 2px solid #fff; /* Pequeño borde blanco para destacar la foto */
 }
 
 /* ---------- Información de cada reporte ---------- */
 .report-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
 }
 
 .report-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 .report-reason {
-  font-size: 0.9rem;
-  color: #b3b3b3;
+    font-size: 0.9rem;
+    color: #b3b3b3;
 }
 
 /* Checkbox deshabilitado con color personalizado */
 ion-checkbox[disabled] {
-  --background: #b3b3b3;
-  --checkmark-color: #b3b3b3;
+    --background: #b3b3b3;
+    --checkmark-color: #b3b3b3;
 }
 
 /* ---------- Icono extra (check o advertencia) ---------- */
 .icon-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
 }
 
 .icon-container svg {
-  width: 24px;
-  height: 24px;
-  fill: #fff; /* o un color de acento si lo prefieres */
+    width: 24px;
+    height: 24px;
+    fill: #fff; /* o un color de acento si lo prefieres */
 }
 
 /* ---------- Tab Bar ---------- */
 ion-tab-bar {
-  --border: none; /* Quita la línea superior si quieres */
+    --border: none; /* Quita la línea superior si quieres */
+    /* Pequeña sombra para separar visualmente */
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Botones de tab */
 ion-tab-button {
-  --color: #eaeaea;         /* color texto sin activar */
-  --color-selected: #2aa198; /* color texto al estar activo */
-  --ripple-color: #2aa198;   /* efecto de clic */
+    --color: #eaeaea;        /* color texto sin activar */
+    --color-selected: #2aa198; /* color texto al estar activo */
+    --ripple-color: #2aa198;   /* efecto de clic */
+    text-transform: uppercase;
 }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
-  .ion-text-size {
-    font-size: 1rem;
-  }
-  ion-title h1 {
-    font-size: 1rem;
-  }
-}
-
-#uwu {
-  background: #d54d4d;
+    .ion-text-size {
+        font-size: 1rem;
+    }
+    ion-title h1 {
+        font-size: 1rem;
+    }
 }
