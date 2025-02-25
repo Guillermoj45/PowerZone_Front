@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
     // URL del servidor de producción
-    apiUrl: 'https://powerzone-back-a4jh.onrender.com',
+    apiUrl: 'https://powerzone-front-rcastanoblanca.onrender.com',
 };
 
 /*
