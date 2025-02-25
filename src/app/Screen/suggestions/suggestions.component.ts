@@ -66,7 +66,7 @@ export class SuggestionsComponent  implements OnInit {
   }
   navigateToProfile(profileId: number) {
     this.router.navigate(['/profile/', profileId]);
-}
+  }
 
     protected readonly screen = screen;
 
@@ -82,6 +82,7 @@ export class SuggestionsComponent  implements OnInit {
     }
     });
   }
+
   unfollowUser(profile: ProfileTotal) {
     let token = sessionStorage.getItem('token') || '';
     console.log("token", token);
