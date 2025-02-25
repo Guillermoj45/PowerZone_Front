@@ -84,6 +84,7 @@ export class LoginComponent implements OnInit {
         this.login = { ...this.login, ...this.loginForm.value };
         this.authService.login(this.login).subscribe(
             (response: any) => {
+                console.log('Login exitoso', response);
                 const token = response.token;
                 if (token) {
                     this.authService.isBanned(token).subscribe({
